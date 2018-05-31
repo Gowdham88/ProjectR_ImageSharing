@@ -237,8 +237,8 @@ func imagePickerControllerDidCancel(picker: UIImagePickerController){
                     DispatchQueue.main.asyncAfter(deadline: when) {
                         
                       
-                        let storyboard = UIStoryboard(name: "Start", bundle: nil)
-                        let initialViewController = storyboard.instantiateViewController(withIdentifier: "onboardvc")
+                        let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
+                        let initialViewController = storyboard.instantiateViewController(withIdentifier: "TabBarID")
                         self.present(initialViewController, animated: true, completion: nil)
                         
                     }
