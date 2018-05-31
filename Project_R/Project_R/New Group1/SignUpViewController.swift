@@ -29,7 +29,9 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
     var sendOTP:Bool = false
     
     @IBAction func dismissOnTap(_ sender: Any) {
-        dismiss(animated: true)
+        
+        sendOTPCode()
+        
     }
     
     

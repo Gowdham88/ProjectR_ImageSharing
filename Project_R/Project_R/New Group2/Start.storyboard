@@ -169,7 +169,7 @@
                                     <constraint firstAttribute="height" constant="44" id="kV7-vu-l08"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="20"/>
-                                <state key="normal" title="Already have an account?">
+                                <state key="normal" title="Resend OTP">
                                     <color key="titleColor" red="0.92549019610000005" green="0.94117647059999998" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
