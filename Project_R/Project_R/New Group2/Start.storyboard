@@ -1,27 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="xrV-8g-f3u">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="LMg-wW-noF">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="Avenir.ttc">
-            <string>Avenir-Black</string>
-            <string>Avenir-Book</string>
-            <string>Avenir-Heavy</string>
-            <string>Avenir-Medium</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Sign In View Controller-->
         <scene sceneID="cJm-nQ-4sk">
             <objects>
-                <viewController storyboardIdentifier="SignInViewController" id="xrV-8g-f3u" customClass="SignInViewController" customModule="SarvodayaHB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignInViewController" id="xrV-8g-f3u" customClass="SignInViewController" customModule="Project_R" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="M0Z-xJ-duR"/>
                         <viewControllerLayoutGuide type="bottom" id="ntq-0m-HCA"/>
@@ -33,19 +25,19 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="EQu-o7-iHB">
                                 <rect key="frame" x="16" y="194" width="288" height="144"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SAV-Nt-TEP">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone Number" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SAV-Nt-TEP">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="Bpj-Yv-BDp"/>
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                         <connections>
                                             <outlet property="delegate" destination="xrV-8g-f3u" id="uyP-6S-OF3"/>
                                         </connections>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kd2-66-Tj3">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="OTP" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kd2-66-Tj3">
                                         <rect key="frame" x="0.0" y="50" width="288" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="g2Q-N8-ncS"/>
@@ -54,7 +46,7 @@
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="20"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                         <connections>
-                                            <outlet property="delegate" destination="xrV-8g-f3u" id="iiB-kh-K7c"/>
+                                            <outlet property="delegate" destination="xrV-8g-f3u" id="9Pm-CA-5AA"/>
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IlT-dE-ljp">
@@ -162,7 +154,7 @@
         <!--Sign Up View Controller-->
         <scene sceneID="ESb-i4-ah6">
             <objects>
-                <viewController id="LMg-wW-noF" customClass="SignUpViewController" customModule="SarvodayaHB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignUpViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="LMg-wW-noF" customClass="SignUpViewController" customModule="Project_R" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3yk-Ls-uTD"/>
                         <viewControllerLayoutGuide type="bottom" id="cJn-V3-j5t"/>
@@ -171,13 +163,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="dkY-qo-6mL">
-                                <rect key="frame" x="96" y="33" width="128" height="128"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="128" id="1Sl-ir-MwY"/>
-                                    <constraint firstAttribute="height" constant="128" id="SwO-od-NnO"/>
-                                </constraints>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zuR-6e-gNT">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <constraints>
@@ -192,52 +177,40 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="5Sd-sb-Ggu">
-                                <rect key="frame" x="16" y="194" width="288" height="194"/>
+                                <rect key="frame" x="16" y="194" width="288" height="144"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="puA-88-zD6">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone Number" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tGY-Zt-ndy">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="EcR-GF-Lh5"/>
-                                        </constraints>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
-                                        <connections>
-                                            <outlet property="delegate" destination="LMg-wW-noF" id="JYK-Pg-UM2"/>
-                                        </connections>
-                                    </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tGY-Zt-ndy">
-                                        <rect key="frame" x="0.0" y="50" width="288" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="Xlw-TE-NLO"/>
                                         </constraints>
                                         <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                         <connections>
                                             <outlet property="delegate" destination="LMg-wW-noF" id="EC3-Sj-o6p"/>
                                         </connections>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WFg-L4-0jz">
-                                        <rect key="frame" x="0.0" y="100" width="288" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter OTP" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WFg-L4-0jz">
+                                        <rect key="frame" x="0.0" y="50" width="288" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="syW-2w-d7B"/>
                                         </constraints>
                                         <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="20"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                         <connections>
                                             <outlet property="delegate" destination="LMg-wW-noF" id="sTV-km-lcG"/>
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qr2-Cc-SuH">
-                                        <rect key="frame" x="0.0" y="150" width="288" height="44"/>
+                                        <rect key="frame" x="0.0" y="100" width="288" height="44"/>
                                         <color key="backgroundColor" red="0.92549019610000005" green="0.94117647059999998" blue="0.94509803920000002" alpha="0.1954730308" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="yeC-td-9Ym"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="20"/>
-                                        <state key="normal" title="Sign Up">
+                                        <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="20"/>
+                                        <state key="normal" title="Login ">
                                             <color key="titleColor" red="0.92549019610000005" green="0.94117647059999998" blue="0.94509803920000002" alpha="0.5" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -246,34 +219,21 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pencil_white" translatesAutoresizingMaskIntoConstraints="NO" id="Rtk-u0-3XK">
-                                <rect key="frame" x="202.5" y="130" width="25" height="25"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="AoL-eL-ufg"/>
-                                    <constraint firstAttribute="width" constant="25" id="L5d-nZ-nFG"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.20392156859999999" green="0.28627450980000002" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="5Sd-sb-Ggu" firstAttribute="leading" secondItem="aCe-ft-u6S" secondAttribute="leading" constant="16" id="9fy-2Z-aag"/>
                             <constraint firstItem="zuR-6e-gNT" firstAttribute="leading" secondItem="aCe-ft-u6S" secondAttribute="leading" id="GOB-ms-oPl"/>
-                            <constraint firstItem="Rtk-u0-3XK" firstAttribute="top" secondItem="3yk-Ls-uTD" secondAttribute="bottom" constant="110" id="Grm-qe-OXn"/>
-                            <constraint firstItem="dkY-qo-6mL" firstAttribute="centerX" secondItem="aCe-ft-u6S" secondAttribute="centerX" id="HwO-Rt-iNz"/>
-                            <constraint firstItem="dkY-qo-6mL" firstAttribute="top" secondItem="3yk-Ls-uTD" secondAttribute="bottom" constant="13" id="Ul6-RQ-8cU"/>
                             <constraint firstItem="cJn-V3-j5t" firstAttribute="top" secondItem="zuR-6e-gNT" secondAttribute="bottom" id="bSk-Nq-qev"/>
-                            <constraint firstItem="5Sd-sb-Ggu" firstAttribute="top" secondItem="dkY-qo-6mL" secondAttribute="bottom" constant="33" id="fnx-jr-rZQ"/>
+                            <constraint firstItem="5Sd-sb-Ggu" firstAttribute="top" secondItem="3yk-Ls-uTD" secondAttribute="bottom" constant="174" id="iZa-NY-6ib"/>
                             <constraint firstAttribute="trailing" secondItem="5Sd-sb-Ggu" secondAttribute="trailing" constant="16" id="jG9-X5-Ovr"/>
-                            <constraint firstItem="Rtk-u0-3XK" firstAttribute="centerX" secondItem="aCe-ft-u6S" secondAttribute="centerX" constant="55" id="qz2-MC-ENL"/>
                             <constraint firstAttribute="trailing" secondItem="zuR-6e-gNT" secondAttribute="trailing" id="v1o-AY-qTC"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="emailTextField" destination="tGY-Zt-ndy" id="SZI-wo-uS3"/>
                         <outlet property="passwordTextField" destination="WFg-L4-0jz" id="cNy-jN-mxP"/>
-                        <outlet property="profileImageView" destination="dkY-qo-6mL" id="gwV-zI-GK2"/>
                         <outlet property="signupButton" destination="Qr2-Cc-SuH" id="dkX-p4-pDz"/>
-                        <outlet property="usernameTextField" destination="puA-88-zD6" id="ceZ-Kf-Baw"/>
                         <segue destination="mWa-AF-EN0" kind="presentation" identifier="signUpToTabBar" id="0O9-zG-N6n"/>
                     </connections>
                 </viewController>
@@ -284,7 +244,7 @@
         <!--Forget Password-->
         <scene sceneID="g1S-bI-TNN">
             <objects>
-                <viewController storyboardIdentifier="forget" id="3jz-Gf-FWA" customClass="ForgetPassword" customModule="SarvodayaHB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="forget" id="3jz-Gf-FWA" customClass="ForgetPassword" customModule="Project_R" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ykN-3z-sRN"/>
                         <viewControllerLayoutGuide type="bottom" id="DC8-6H-5d9"/>
@@ -383,27 +343,67 @@ Hanball</string>
         <!--Onboard Vc-->
         <scene sceneID="Xbw-LO-Gvd">
             <objects>
-                <viewController storyboardIdentifier="onboardvc" id="K2D-UE-3pa" customClass="OnboardVc" customModule="SarvodayaHB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="onboardvc" useStoryboardIdentifierAsRestorationIdentifier="YES" id="K2D-UE-3pa" customClass="OnboardVc" customModule="Project_R" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mqN-q8-wzH">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="onboard" translatesAutoresizingMaskIntoConstraints="NO" id="2c9-3x-vun">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                            </imageView>
                             <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="se0-MH-ln0">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.56466716610000001" colorSpace="calibratedRGB"/>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share your handball training, trophy &amp; matches pictures' here !!" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="zQ0-S1-EkB">
-                                <rect key="frame" x="16" y="427" width="288" height="77"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="bMD-jv-wyg">
+                                        <rect key="frame" x="96" y="94" width="128" height="128"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="128" id="ce4-k4-Zhj"/>
+                                            <constraint firstAttribute="width" constant="128" id="hVG-WC-NNm"/>
+                                        </constraints>
+                                    </imageView>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dZ8-lo-d2s">
+                                        <rect key="frame" x="48" y="255" width="224" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="ZGe-aE-vC8"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="LMg-wW-noF" id="pNQ-Sg-XOE"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZzG-VI-QAd">
+                                        <rect key="frame" x="48" y="306" width="224" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="cKj-Vz-dEG"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="LMg-wW-noF" id="zlm-Jd-CEw"/>
+                                        </connections>
+                                    </textField>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pencil_white" translatesAutoresizingMaskIntoConstraints="NO" id="yMZ-hC-noE">
+                                        <rect key="frame" x="199" y="191" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="25" id="AQn-tA-LaD"/>
+                                            <constraint firstAttribute="height" constant="25" id="z2v-TT-w3i"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="77" id="kmF-ct-Z7p"/>
+                                    <constraint firstItem="bMD-jv-wyg" firstAttribute="top" secondItem="se0-MH-ln0" secondAttribute="top" constant="94" id="1u3-I7-hwc"/>
+                                    <constraint firstItem="bMD-jv-wyg" firstAttribute="trailing" secondItem="yMZ-hC-noE" secondAttribute="trailing" id="9fi-u0-1Km"/>
+                                    <constraint firstItem="dZ8-lo-d2s" firstAttribute="top" secondItem="bMD-jv-wyg" secondAttribute="bottom" constant="33" id="BEE-eH-fpf"/>
+                                    <constraint firstItem="bMD-jv-wyg" firstAttribute="centerX" secondItem="se0-MH-ln0" secondAttribute="centerX" id="BtE-MU-3hg"/>
+                                    <constraint firstItem="dZ8-lo-d2s" firstAttribute="leading" secondItem="se0-MH-ln0" secondAttribute="leading" constant="48" id="MXW-5Z-iHz"/>
+                                    <constraint firstItem="dZ8-lo-d2s" firstAttribute="trailing" secondItem="ZzG-VI-QAd" secondAttribute="trailing" id="TKP-OT-FcT"/>
+                                    <constraint firstItem="dZ8-lo-d2s" firstAttribute="leading" secondItem="ZzG-VI-QAd" secondAttribute="leading" id="UjF-dR-YTW"/>
+                                    <constraint firstItem="bMD-jv-wyg" firstAttribute="centerX" secondItem="dZ8-lo-d2s" secondAttribute="centerX" id="bXJ-Cf-3qj"/>
+                                    <constraint firstItem="ZzG-VI-QAd" firstAttribute="top" secondItem="dZ8-lo-d2s" secondAttribute="bottom" constant="21" id="e7g-Ol-ma2"/>
+                                    <constraint firstItem="dZ8-lo-d2s" firstAttribute="top" secondItem="yMZ-hC-noE" secondAttribute="bottom" constant="39" id="vxC-eu-hpl"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="22"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S0n-Nf-URQ">
                                 <rect key="frame" x="0.0" y="518" width="320" height="50"/>
                                 <color key="backgroundColor" red="0.20392156862745098" green="0.28627450980392155" blue="0.36862745098039218" alpha="1" colorSpace="calibratedRGB"/>
@@ -416,39 +416,38 @@ Hanball</string>
                                     <color key="titleShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="mWa-AF-EN0" kind="presentation" id="Jz3-If-Msl"/>
+                                    <action selector="letStarted:" destination="K2D-UE-3pa" eventType="touchUpInside" id="QmB-t6-bdY"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="S0n-Nf-URQ" firstAttribute="bottom" secondItem="d75-5V-PZ5" secondAttribute="bottom" id="5kf-NQ-Nw5"/>
-                            <constraint firstItem="2c9-3x-vun" firstAttribute="trailing" secondItem="d75-5V-PZ5" secondAttribute="trailing" id="6ME-xg-JIq"/>
                             <constraint firstItem="se0-MH-ln0" firstAttribute="leading" secondItem="d75-5V-PZ5" secondAttribute="leading" id="BqN-6R-YQ2"/>
                             <constraint firstItem="S0n-Nf-URQ" firstAttribute="trailing" secondItem="d75-5V-PZ5" secondAttribute="trailing" id="Ie0-BH-8dS"/>
-                            <constraint firstItem="2c9-3x-vun" firstAttribute="bottom" secondItem="d75-5V-PZ5" secondAttribute="bottom" id="N6p-1f-mnI"/>
                             <constraint firstItem="se0-MH-ln0" firstAttribute="top" secondItem="mqN-q8-wzH" secondAttribute="top" id="eJB-Qe-jYh"/>
-                            <constraint firstItem="d75-5V-PZ5" firstAttribute="trailing" secondItem="zQ0-S1-EkB" secondAttribute="trailing" constant="16" id="eSt-cF-GEY"/>
-                            <constraint firstItem="2c9-3x-vun" firstAttribute="top" secondItem="mqN-q8-wzH" secondAttribute="top" id="l7u-fA-JJN"/>
-                            <constraint firstItem="S0n-Nf-URQ" firstAttribute="top" secondItem="zQ0-S1-EkB" secondAttribute="bottom" constant="14" id="mf3-Nq-bie"/>
                             <constraint firstItem="se0-MH-ln0" firstAttribute="bottom" secondItem="d75-5V-PZ5" secondAttribute="bottom" id="odK-WN-8z8"/>
-                            <constraint firstItem="2c9-3x-vun" firstAttribute="leading" secondItem="d75-5V-PZ5" secondAttribute="leading" id="sbg-Zm-Ssk"/>
                             <constraint firstItem="se0-MH-ln0" firstAttribute="trailing" secondItem="d75-5V-PZ5" secondAttribute="trailing" id="udS-4P-00n"/>
-                            <constraint firstItem="zQ0-S1-EkB" firstAttribute="leading" secondItem="d75-5V-PZ5" secondAttribute="leading" constant="16" id="ulN-5t-dQY"/>
                             <constraint firstItem="S0n-Nf-URQ" firstAttribute="leading" secondItem="d75-5V-PZ5" secondAttribute="leading" id="zVy-DJ-Aqe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="d75-5V-PZ5"/>
                     </view>
                     <navigationItem key="navigationItem" id="3El-Eg-yr4"/>
+                    <connections>
+                        <outlet property="emailTextField" destination="ZzG-VI-QAd" id="375-XZ-n1R"/>
+                        <outlet property="profileImageView" destination="bMD-jv-wyg" id="gE6-wI-Ts5"/>
+                        <outlet property="signupButton" destination="S0n-Nf-URQ" id="Qpd-Ia-xQz"/>
+                        <outlet property="usernameTextField" destination="dZ8-lo-d2s" id="3LA-Q2-bpH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kNH-VM-695" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="853" y="956"/>
+            <point key="canvasLocation" x="851.25" y="955.9859154929577"/>
         </scene>
         <!--Terms Service Controller-->
         <scene sceneID="R5Z-k8-QtP">
             <objects>
-                <viewController storyboardIdentifier="terms" id="gsQ-Y5-Zjy" customClass="TermsServiceController" customModule="SarvodayaHB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="terms" id="gsQ-Y5-Zjy" customClass="TermsServiceController" customModule="Project_R" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="x7A-Wn-nsF"/>
                         <viewControllerLayoutGuide type="bottom" id="VzQ-22-6Uw"/>
@@ -460,7 +459,7 @@ Hanball</string>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HKW-Jh-RhY">
                                 <rect key="frame" x="8" y="133" width="304" height="435"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <mutableString key="text">Sarvodaya Handball App End User License Agreement 
+                                <string key="text">Sarvodaya Handball App End User License Agreement 
 This End User License Agreement (“Agreement”) is between you and Sarvodaya Handball App and governs use of this app made available through the Apple App Store. By installing Sarvodaya Handball App, you agree to be bound by this Agreement and understand that there is no tolerance for objectionable content. If you do not agree with the terms and conditions of this Agreement, you are not entitled to use the Sarvodaya Handball App.
 In order to ensure Sarvodaya Handball App provides the best experience possible for everyone, we strongly enforce a no tolerance policy for objectionable content. If you see inappropriate content, please use the “Report as offensive” feature found under each post.   
 1. Parties
@@ -483,7 +482,7 @@ Sarvodaya Handball App does provide minimal maintenance or support for it but no
 Sarvodaya Handball App, not Apple, is responsible for addressing any claims by you relating to the Sarvodaya Handball App or use of it, including, but not limited to: (i) any product liability claim; (ii) any claim that the Sarvodaya Handball App App fails to conform to any applicable legal or regulatory requirement; and (iii) any claim arising under consumer protection or similar legislation. Nothing in this Agreement shall be deemed an admission that you may have such claims.  
 9. Third Party Intellectual Property Claims
 Sarvodaya Handball App shall not be obligated to indemnify or defend you with respect to any third party claim arising out or relating to the Sarvodaya Handball App. To the extent Sarvodaya Handball App is required to provide indemnification by applicable law, Sarvodaya Handball App, not Apple, shall be solely responsible for the investigation, defense, settlement and discharge of any claim that the Sarvodaya Handball App or your use of it infringes any third party intellectual property right.
-</mutableString>
+</string>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -535,11 +534,10 @@ Sarvodaya Handball App shall not be obligated to indemnify or defend you with re
         <image name="cancel" width="64" height="64"/>
         <image name="closebtn" width="24" height="24"/>
         <image name="logo" width="843" height="64"/>
-        <image name="onboard" width="620" height="800"/>
         <image name="pencil_white" width="32" height="32"/>
         <image name="profile" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2ch-lk-QE7"/>
+        <segue reference="0O9-zG-N6n"/>
     </inferredMetricsTieBreakers>
 </document>

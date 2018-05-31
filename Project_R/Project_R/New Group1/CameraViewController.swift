@@ -213,6 +213,10 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
                     
                     ProgressHUD.showSuccess("Photo shared")
                     
+                    let storyboard = UIStoryboard(name: "Home", bundle: nil)
+                    let vc         =  storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+                    self.navigationController?.pushViewController(vc, animated: true)
+                    
                     self.clearInputs()
                     // and jump to the Home tab
                     

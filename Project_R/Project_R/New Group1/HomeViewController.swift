@@ -153,6 +153,14 @@ class HomeViewController : UIViewController {
         
     }
     
+    @IBAction func createNewpost(_ sender: Any) {
+        
+        
+        let storyboard = UIStoryboard(name: "Camera", bundle: nil)
+        let vc         =  storyboard.instantiateViewController(withIdentifier: "CameraViewController") as! CameraViewController
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
     
     
 }
@@ -379,8 +387,8 @@ extension HomeViewController : UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
        
             let viewController  = tabBarController.viewControllers?[1] as! UINavigationController
-            let svc = viewController.topViewController as! CameraViewController
-            svc.delegate = self;
+            let svc = viewController.topViewController as! NotificationViewController
+//            svc.delegate = self as! NotificationViewControllerDelegate;
         
             let viewController2  = tabBarController.viewControllers?[2] as! UINavigationController
             let svc2 = viewController2.topViewController as! ProfileViewController

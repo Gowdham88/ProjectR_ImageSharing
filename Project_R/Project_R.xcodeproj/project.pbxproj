@@ -50,6 +50,7 @@
 		AE3CF2AC20BFAF890074D5F7 /* SortPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3CF2A120BFAF880074D5F7 /* SortPost.swift */; };
 		AE3CF2AD20BFAF890074D5F7 /* SortComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3CF2A220BFAF890074D5F7 /* SortComment.swift */; };
 		AE3CF2AE20BFAF890074D5F7 /* CommentAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3CF2A320BFAF890074D5F7 /* CommentAPI.swift */; };
+		AE3CF2B320C03C0B0074D5F7 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3CF2B220C03C0B0074D5F7 /* NotificationViewController.swift */; };
 		AE6444E620BD798500216484 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE6444E520BD798500216484 /* Assets.xcassets */; };
 		AE6444E920BD798500216484 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE6444E720BD798500216484 /* LaunchScreen.storyboard */; };
 		AE6444F420BD798500216484 /* Project_RTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6444F320BD798500216484 /* Project_RTests.swift */; };
@@ -126,6 +127,8 @@
 		AE3CF2A120BFAF880074D5F7 /* SortPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortPost.swift; sourceTree = "<group>"; };
 		AE3CF2A220BFAF890074D5F7 /* SortComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortComment.swift; sourceTree = "<group>"; };
 		AE3CF2A320BFAF890074D5F7 /* CommentAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentAPI.swift; sourceTree = "<group>"; };
+		AE3CF2AF20BFD76F0074D5F7 /* Project_R.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Project_R.entitlements; sourceTree = "<group>"; };
+		AE3CF2B220C03C0B0074D5F7 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		AE6444DB20BD797E00216484 /* Project_R.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project_R.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE6444E520BD798500216484 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AE6444E820BD798500216484 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -230,6 +233,7 @@
 				AE3CF26320BFAF4B0074D5F7 /* TextScroll.swift */,
 				AE3CF26420BFAF4C0074D5F7 /* OnboardVc.swift */,
 				AE3CF26C20BFAF500074D5F7 /* TermsServiceController.swift */,
+				AE3CF2B220C03C0B0074D5F7 /* NotificationViewController.swift */,
 			);
 			name = Controllers;
 			path = "New Group1";
@@ -295,6 +299,7 @@
 		AE6444DD20BD797E00216484 /* Project_R */ = {
 			isa = PBXGroup;
 			children = (
+				AE3CF2AF20BFD76F0074D5F7 /* Project_R.entitlements */,
 				AE3CF25920BFAEC00074D5F7 /* Constants.swift */,
 				AE3CF25B20BFAF100074D5F7 /* Services */,
 				AE64451020BD79D200216484 /* ProgressHUD */,
@@ -351,6 +356,7 @@
 				AE6444D820BD797E00216484 /* Frameworks */,
 				AE6444D920BD797E00216484 /* Resources */,
 				EF3530E93E88339A58973BFD /* [CP] Embed Pods Frameworks */,
+				BCB67AFE00268DF38FA1AE5A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -412,6 +418,14 @@
 					AE6444DA20BD797E00216484 = {
 						CreatedOnToolsVersion = 9.3;
 						LastSwiftMigration = 0930;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					AE6444EE20BD798500216484 = {
 						CreatedOnToolsVersion = 9.3;
@@ -534,6 +548,26 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		BCB67AFE00268DF38FA1AE5A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Project_R/Pods-Project_R-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebasePhoneAuthUI.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebasePhoneAuthUI.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Project_R/Pods-Project_R-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		EF3530E93E88339A58973BFD /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -597,6 +631,7 @@
 				AE3CF2A620BFAF890074D5F7 /* UserAPI.swift in Sources */,
 				AE3CF28020BFAF530074D5F7 /* HomeTableViewCell.swift in Sources */,
 				AE3CF2AD20BFAF890074D5F7 /* SortComment.swift in Sources */,
+				AE3CF2B320C03C0B0074D5F7 /* NotificationViewController.swift in Sources */,
 				AE64456B20BD7A6A00216484 /* AppDelegate.swift in Sources */,
 				AE3CF2AC20BFAF890074D5F7 /* SortPost.swift in Sources */,
 				AE3CF2A420BFAF890074D5F7 /* Comment.swift in Sources */,
@@ -784,6 +819,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Project_R/Project_R.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XSJRRDKMW9;
 				INFOPLIST_FILE = Project_R/Info.plist;
@@ -807,6 +843,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Project_R/Project_R.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XSJRRDKMW9;
 				INFOPLIST_FILE = Project_R/Info.plist;

@@ -140,11 +140,17 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         
         if currentUser.uid == post?.uid {
             
-            
+//            if let Driver_name = document.data()["Driver_name"] as? String {
+//                print("Driver_name:::::\(String(describing: Driver_name))")
+//                self.Driver_name = Driver_name
+//
+//            }
             nameLabel.text = PrefsManager.sharedinstance.username
-            profileImageView.image = nil
-            Manager.shared.loadImage(with: URL(string : PrefsManager.sharedinstance.imageURL)!, into: self.profileImageView)
             
+            if profileImageView.image != nil {
+//            profileImageView.image = nil
+            Manager.shared.loadImage(with: URL(string : PrefsManager.sharedinstance.imageURL)!, into: self.profileImageView)
+            }
         } else {
             
            

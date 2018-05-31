@@ -28,7 +28,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-   
+    // Called when APNs has assigned the device a unique token
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data)
+    {
+        // Convert token to string
+        _ = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
+        Auth.auth().setAPNSToken((deviceToken as NSData) as Data, type: AuthAPNSTokenType.sandbox)
+    }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

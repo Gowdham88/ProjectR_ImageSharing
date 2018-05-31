@@ -1,18 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Notification-->
+        <scene sceneID="QK5-Be-GrF">
+            <objects>
+                <viewController id="ZCO-a4-Vo5" customClass="NotificationViewController" customModule="Project_R" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wED-rd-DY0"/>
+                        <viewControllerLayoutGuide type="bottom" id="GP0-VI-blj"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Wzs-JH-j6T">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Notification" id="a7G-44-N1T"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XO5-XM-nIR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3995" y="-341"/>
+        </scene>
         <!--Post-->
         <scene sceneID="F3Z-GO-PdD">
             <objects>
-                <viewController id="gwx-UJ-d6d" customClass="CameraViewController" customModule="SarvodayaHB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CameraViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gwx-UJ-d6d" customClass="CameraViewController" customModule="Project_R" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZUF-YH-tYi"/>
                         <viewControllerLayoutGuide type="bottom" id="Twn-gf-DJ1"/>
@@ -95,13 +114,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OBi-iY-ec0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3535" y="-331"/>
+            <point key="canvasLocation" x="-2948.5" y="-331.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="djO-IF-OMp">
             <objects>
                 <navigationController storyboardIdentifier="NavigationCamera" automaticallyAdjustsScrollViewInsets="NO" id="wsi-6r-hne" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="hdball" id="sk6-4R-ZXE">
+                    <tabBarItem key="tabBarItem" title="" image="notifi1" selectedImage="notifi" id="sk6-4R-ZXE">
                         <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -117,16 +136,35 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="gwx-UJ-d6d" kind="relationship" relationship="rootViewController" id="q83-1v-xTH"/>
+                        <segue destination="ZCO-a4-Vo5" kind="relationship" relationship="rootViewController" id="yfV-jk-7j4"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mxA-3p-g3R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-4441" y="-330"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="a6Q-nL-sqZ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qpU-Jq-1VL" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="QIx-AT-1HY">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="gwx-UJ-d6d" kind="relationship" relationship="rootViewController" id="ohz-Wk-o7P"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L5V-j6-l2G" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3535.5" y="-331.5"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="hdball" width="24" height="24"/>
+        <image name="notifi" width="20" height="24"/>
+        <image name="notifi1" width="20" height="24"/>
         <image name="placeholder-photo" width="512" height="512"/>
     </resources>
 </document>

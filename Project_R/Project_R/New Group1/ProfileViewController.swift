@@ -108,7 +108,7 @@ class ProfileViewController: UIViewController {
         AuthService.signOut(onSuccess: {
             // Present the Sign In VC
             let storyboard = UIStoryboard(name: "Start", bundle: nil)
-            let signInVC = storyboard.instantiateViewController(withIdentifier: "SignInViewController")
+            let signInVC = storyboard.instantiateViewController(withIdentifier: "SignUpViewController")
             self.present(signInVC, animated: true)
         }) { (errorMessage) in
             ProgressHUD.showError(errorMessage)
