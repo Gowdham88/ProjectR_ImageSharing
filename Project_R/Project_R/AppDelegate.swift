@@ -23,6 +23,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Connect to Firebase
         FirebaseApp.configure()
+//        try! Auth.auth().signOut()
+        
+//        if Auth.auth().currentUser != nil {
+//
+//            let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
+//            let controller = storyboard.instantiateViewController(withIdentifier: "TabBarID")
+//            self.window = UIWindow(frame: UIScreen.main.bounds)
+//            self.window?.rootViewController = controller
+//            self.window?.makeKeyAndVisible()
+//
+//        }
+
         Thread.sleep(forTimeInterval: 3.0)
         
         return true

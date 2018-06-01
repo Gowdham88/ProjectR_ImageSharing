@@ -16,6 +16,7 @@ class HomeViewController : UIViewController {
     @IBOutlet var navigationItemList: UINavigationItem!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
+   
     
     var refreshControl: UIRefreshControl!
     var posts = [Post]()
@@ -52,6 +53,8 @@ class HomeViewController : UIViewController {
         super.viewWillAppear(true)
         
     }
+    
+    
     
     @objc func refresh(sender:AnyObject) {
        
@@ -145,13 +148,13 @@ class HomeViewController : UIViewController {
         }
     }
     
-    @IBAction func BtnInfo(_ sender: UIBarButtonItem) {
-        
-        let storyboard = UIStoryboard(name: "Profile", bundle: nil)
-        let vc         =  storyboard.instantiateViewController(withIdentifier: "textscroll") as! TextScroll
-        self.navigationController?.pushViewController(vc, animated: true)
-        
-    }
+//    @IBAction func BtnInfo(_ sender: UIBarButtonItem) {
+//        
+////        let storyboard = UIStoryboard(name: "Profile", bundle: nil)
+////        let vc         =  storyboard.instantiateViewController(withIdentifier: "textscroll") as! TextScroll
+////        self.navigationController?.pushViewController(vc, animated: true)
+//        
+//    }
     
     @IBAction func createNewpost(_ sender: Any) {
         
@@ -188,6 +191,8 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
             label.font = UIFont(name: "AvenirNext-Regular", size: 16.0)
             tableView.backgroundView  = label
             tableView.separatorStyle  = .none
+            
+            
         }
         return numOfSections
     }
@@ -211,6 +216,8 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
         cell.postImageView.tag    = indexPath.row
         cell.shareImageView.tag   = indexPath.row
         cell.nameLabel.tag        = indexPath.row
+        cell.productRatingLabel.tag = indexPath.row
+        
         
         return cell
     }
@@ -303,19 +310,27 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
             
         }
         
-        let reportAction = UIAlertAction(title: "Report post", style: UIAlertActionStyle.default)
+//        let reportAction = UIAlertAction(title: "Report post", style: UIAlertActionStyle.default)
+//        {
+//            UIAlertAction in
+//
+//            self.reportPostDb(post: self.posts[position])
+//        }
+//
+//        let blockAction = UIAlertAction(title: "Block user", style: UIAlertActionStyle.default)
+//        {
+//            UIAlertAction in
+//
+//            self.blockUserDb(post: self.posts[position])
+//        }
+        
+        let saveAction = UIAlertAction(title: "Save", style: UIAlertActionStyle.default)
         {
             UIAlertAction in
             
-            self.reportPostDb(post: self.posts[position])
+            self.saveUserPost(post: self.posts[position])
         }
         
-        let blockAction = UIAlertAction(title: "Block user", style: UIAlertActionStyle.default)
-        {
-            UIAlertAction in
-            
-            self.blockUserDb(post: self.posts[position])
-        }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel)
         {
@@ -330,14 +345,16 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
         if currentUser.uid == self.posts[position].uid {
             
             alert.addAction(cameraAction)
-            alert.addAction(blockAction)
-            alert.addAction(reportAction)
+//            alert.addAction(blockAction)
+//            alert.addAction(reportAction)
+            alert.addAction(saveAction)
             
             
         } else {
             
-            alert.addAction(reportAction)
-            alert.addAction(blockAction)
+//            alert.addAction(reportAction)
+//            alert.addAction(blockAction)
+            alert.addAction(saveAction)
             
             
         }
@@ -445,6 +462,31 @@ extension HomeViewController {
             }
         }
         
+        
+    }
+    
+    
+    func saveUserPost(post: Post){
+        
+        let db = Firestore.firestore()
+        db.collection("save").document(post.documentID ?? "0000").setData([
+            "uid" : post.uid ??  "empty" ,
+//            "caption": post.caption ?? "empty",
+            "userName"  : post.userName ?? "empty",
+            "profileImageURL" : post.profileImageURL ?? "empty",
+            "postTime": post.postTime ?? "empty",
+            "photoURL": post.photoURL ?? "empty",
+            
+        ]) { err in
+            if let err = err {
+                print("Error writing document: \(err)")
+                ProgressHUD.showError("Server error: \(err.localizedDescription)")
+            } else {
+                print("Document successfully written!")
+//                self.showErrorAlert(message: "Your report is under processing stage.It will take one day.")
+                
+            }
+        }
         
     }
     

@@ -12,22 +12,30 @@ import FirebaseAuth
 import FirebasePhoneAuthUI
 import FirebaseAuthUI
 import FirebaseFirestore
+
+
 class OnboardVc: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate {
 
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var signupButton: UIButton!
+    @IBOutlet weak var addProfileImageView: UIView!
     
     var selectedProfilePhoto: UIImage?
     var imagePicker = UIImagePickerController()
     var imageURL: String = ""
+    var phoneNumber: String = ""
+    var uid: String = ""
 //    var Users = [Users]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let clouds = UIColor(red: 236/255, green: 240/255, blue: 241/255, alpha: 1)
 
+        
+        PrefsManager.sharedinstance.isFirstTime = true
+        
                 self.imagePicker.delegate = self
         
                 self.imagePicker.allowsEditing = false
@@ -35,35 +43,35 @@ class OnboardVc: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
                 self.usernameTextField.delegate = self
                 self.emailTextField.delegate = self
         
-                usernameTextField.backgroundColor = .clear
-                usernameTextField.tintColor = .white
-                usernameTextField.textColor = .white
-                usernameTextField.borderStyle = .none
+//                usernameTextField.backgroundColor = .clear
+//                usernameTextField.tintColor = .white
+//                usernameTextField.textColor = .white
+//                usernameTextField.borderStyle = .none
+//
+//                usernameTextField.attributedPlaceholder = NSAttributedString(string: usernameTextField.placeholder!, attributes: [kCTForegroundColorAttributeName as NSAttributedStringKey: clouds])
+//                usernameTextField.autocorrectionType = .no
         
-                usernameTextField.attributedPlaceholder = NSAttributedString(string: usernameTextField.placeholder!, attributes: [kCTForegroundColorAttributeName as NSAttributedStringKey: clouds])
-                usernameTextField.autocorrectionType = .no
-        
-        let bottomLayerEmail = CALayer()
-        bottomLayerEmail.frame = CGRect(x: 0, y: 29, width: 1000, height: 0.6)
-        bottomLayerEmail.backgroundColor = UIColor(red: 50/255, green: 50/255, blue: 25/255, alpha: 1).cgColor
-        usernameTextField.layer.addSublayer(bottomLayerEmail)
-        usernameTextField.clipsToBounds = true
-        
-        
-        emailTextField.backgroundColor = .clear
-        emailTextField.tintColor = .white
-        emailTextField.textColor = .white
-        emailTextField.borderStyle = .none
-        emailTextField.attributedPlaceholder = NSAttributedString(string: emailTextField.placeholder!, attributes: [kCTForegroundColorAttributeName as NSAttributedStringKey: clouds])
-        emailTextField.autocorrectionType = .no
+//        let bottomLayerEmail = CALayer()
+//        bottomLayerEmail.frame = CGRect(x: 0, y: 29, width: 1000, height: 0.6)
+//        bottomLayerEmail.backgroundColor = UIColor(red: 50/255, green: 50/255, blue: 25/255, alpha: 1).cgColor
+//        usernameTextField.layer.addSublayer(bottomLayerEmail)
+//        usernameTextField.clipsToBounds = true
         
         
-        let bottomLayerPassword = CALayer()
-        bottomLayerPassword.frame = CGRect(x: 0, y: 29, width: 1000, height: 0.6)
-        bottomLayerPassword.backgroundColor = UIColor(red: 50/255, green: 50/255, blue: 25/255, alpha: 1).cgColor
-        usernameTextField.layer.addSublayer(bottomLayerPassword)
-        emailTextField.layer.addSublayer(bottomLayerPassword)
-        emailTextField.clipsToBounds = true
+//        emailTextField.backgroundColor = .clear
+//        emailTextField.tintColor = .white
+//        emailTextField.textColor = .white
+//        emailTextField.borderStyle = .none
+//        emailTextField.attributedPlaceholder = NSAttributedString(string: emailTextField.placeholder!, attributes: [kCTForegroundColorAttributeName as NSAttributedStringKey: clouds])
+//        emailTextField.autocorrectionType = .no
+        
+//        
+//        let bottomLayerPassword = CALayer()
+//        bottomLayerPassword.frame = CGRect(x: 0, y: 29, width: 1000, height: 0.6)
+//        bottomLayerPassword.backgroundColor = UIColor(red: 50/255, green: 50/255, blue: 25/255, alpha: 1).cgColor
+//        usernameTextField.layer.addSublayer(bottomLayerPassword)
+//        emailTextField.layer.addSublayer(bottomLayerPassword)
+//        emailTextField.clipsToBounds = true
         
         // add a tap gesture to the profile image for users to pick their avatar
                 let tapGesture = UITapGestureRecognizer(target: self, action: #selector(popAlert))
@@ -72,6 +80,15 @@ class OnboardVc: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
         
                 profileImageView.layer.cornerRadius = profileImageView.frame.size.width/2
                 profileImageView.clipsToBounds      = true
+        
+                self.addProfileImageView.layer.cornerRadius = addProfileImageView.frame.size.width/2
+//                self.addProfileImageView.clipsToBounds = true
+        
+        addProfileImageView.layer.shadowColor = UIColor.black.cgColor
+        addProfileImageView.layer.shadowOpacity = 0.2
+        addProfileImageView.layer.shadowOffset = CGSize.zero
+        addProfileImageView.layer.shadowRadius = 5
+        self.view.addSubview(addProfileImageView)
         
         // set handlers to text field objects
         handleTextField()
@@ -194,14 +211,17 @@ class OnboardVc: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
     
     @IBAction func letStarted(_ sender: Any) {
         
-        PrefsManager.sharedinstance.isFirstTime = true
+//        PrefsManager.sharedinstance.isFirstTime = true
         view.endEditing(true)
         
         UIView.animate(withDuration: 0.1, animations: {
+            
+            
             self.saveData(profileImageURL: self.imageURL, username: self.usernameTextField.text!, email: self.emailTextField.text!, uid: currentUser!);
+            ProgressHUD.show("Please wait...", interaction: false)
 
         }) { (success) in
-            
+                    ProgressHUD.dismiss()
                     let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
                     let initialViewController = storyboard.instantiateViewController(withIdentifier: "TabBarID")
                     self.present(initialViewController, animated: true, completion: nil)
@@ -213,21 +233,25 @@ class OnboardVc: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
     }
 
      func saveData(profileImageURL: String, username: String, email: String, uid: String){
-        
+        ProgressHUD.show("Please wait...", interaction: false)
         let db = Firestore.firestore()
-                db.collection("users").document(uid).updateData([
+        db.collection("users").document(currentUser!).setData([
                     "username": username,
+                    "User_Phone_number": phoneNumber,
+                    "uid": uid,
                     "email":email,
                     "profileImageURL": profileImageURL
                 ]) { err in
                     if let err = err {
                         print("Error writing document: \(err)")
                     } else {
+                        
                         print("Document successfully written!")
                         PrefsManager.sharedinstance.UIDfirebase = uid
                         PrefsManager.sharedinstance.username  = username
                         PrefsManager.sharedinstance.userEmail = email
                         PrefsManager.sharedinstance.imageURL  = profileImageURL
+                        ProgressHUD.dismiss()
                     }
                 }
         

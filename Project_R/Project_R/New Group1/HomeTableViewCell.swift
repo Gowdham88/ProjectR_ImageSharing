@@ -21,6 +21,7 @@ protocol HomeTableViewCellDelegate {
 }
 class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
 
+    @IBOutlet weak var productRatingLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var postImageView: UIImageView!
@@ -133,7 +134,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         }
         
         self.updateLike(post: post!)
-       
+        self.ratingPost(post: post!)
         guard let currentUser = Auth.auth().currentUser else {
             return
         }
@@ -157,8 +158,10 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
             nameLabel.text = post?.userName
             profileImageView.image = nil
             if let photoURL = post?.profileImageURL {
-               
+                print("photourl:::\(photoURL)")
                 Manager.shared.loadImage(with: URL(string : photoURL)!, into: self.profileImageView)
+                
+                return
             }
         }
         
@@ -400,13 +403,21 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
             }
             
             if count != 0 {
-                self.likeCountButton.setTitle("\(count) Likes", for: .normal)
+                self.likeCountButton.setTitle("\(count) ", for: .normal)
             } else if post.likeCount == 0 {
-                self.likeCountButton.setTitle("Be the first to Like this", for: .normal)
+                self.likeCountButton.setTitle("", for: .normal)
             }
         }
          
         
     }
+    
+    func ratingPost(post: Post) {
+        guard let count = post.rating else {
+            return
+        }
+        self.productRatingLabel.text = "- has rated \(count)/10 for this product."
+    }
+    
 
 }

@@ -103,6 +103,7 @@ PODS:
   - SDWebImage (4.3.3):
     - SDWebImage/Core (= 4.3.3)
   - SDWebImage/Core (4.3.3)
+  - SwiftyUserDefaults (3.0.1)
   - Toucan (1.0.0)
 
 DEPENDENCIES:
@@ -116,6 +117,7 @@ DEPENDENCIES:
   - FirebaseUI/Phone
   - Nuke
   - SDWebImage
+  - SwiftyUserDefaults
   - Toucan
 
 SPEC REPOS:
@@ -142,6 +144,7 @@ SPEC REPOS:
     - Nuke
     - Protobuf
     - SDWebImage
+    - SwiftyUserDefaults
     - Toucan
 
 SPEC CHECKSUMS:
@@ -167,8 +170,9 @@ SPEC CHECKSUMS:
   Nuke: bf5d58b2d95ff15cb170c231fe6002d706be77e1
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
   SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
+  SwiftyUserDefaults: 3d273b1739b68ada3145dc754a70ec775bc5c8be
   Toucan: 61867fb10948c02e9804280a95eb183e98eac97a
 
-PODFILE CHECKSUM: 65ae0618dd511cf444ddc8e41d5f12fd92ce6a77
+PODFILE CHECKSUM: 6a4bb4797368b07e1e9b1e8c6efdba5787581f74
 
 COCOAPODS: 1.5.0

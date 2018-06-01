@@ -50,6 +50,7 @@ class UserAPI {
                 
                 let user = Users.transformUser(postDictionary: document.data()!)
                 completion(user)
+                return
             } else {
                 print("Document does not exist")
             }

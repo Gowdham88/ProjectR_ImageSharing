@@ -12,6 +12,8 @@ import FirebaseAuth
 import FirebasePhoneAuthUI
 import FirebaseAuthUI
 import FirebaseFirestore
+import SwiftyUserDefaults
+
 public let currentUser = Auth.auth().currentUser?.uid
 
 class SignUpViewController: UIViewController,UITextFieldDelegate {
@@ -32,6 +34,9 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
         
         sendOTPCode()
         
+//        self.emailTextField.text = ""
+        self.passwordTextField.text = ""
+        
     }
     
     
@@ -39,7 +44,7 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         signupButton.titleLabel?.text = "Send OTP"
-        let clouds = UIColor(red: 236/255, green: 240/255, blue: 241/255, alpha: 1)
+//        let clouds = UIColor(red: 236/255, green: 240/255, blue: 241/255, alpha: 1)
 //        self.imagePicker.delegate = self
         
 //        self.imagePicker.allowsEditing = false
@@ -57,41 +62,41 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
 //        usernameTextField.attributedPlaceholder = NSAttributedString(string: usernameTextField.placeholder!, attributes: [kCTForegroundColorAttributeName as NSAttributedStringKey: clouds])
 //        usernameTextField.autocorrectionType = .no
         
-        let bottomLayerUsername = CALayer()
-        bottomLayerUsername.frame = CGRect(x: 0, y: 29, width: 1000, height: 0.6)
-        bottomLayerUsername.backgroundColor = UIColor(red: 50/255, green: 50/255, blue: 25/255, alpha: 1).cgColor
+//        let bottomLayerUsername = CALayer()
+//        bottomLayerUsername.frame = CGRect(x: 0, y: 29, width: 1000, height: 0.6)
+//        bottomLayerUsername.backgroundColor = UIColor(red: 50/255, green: 50/255, blue: 25/255, alpha: 1).cgColor
 //        usernameTextField.layer.addSublayer(bottomLayerUsername)
 //        usernameTextField.clipsToBounds = true
         
-        emailTextField.backgroundColor = .clear
-        emailTextField.tintColor = .white
-        emailTextField.textColor = .white
-        emailTextField.borderStyle = .none
-        emailTextField.autocorrectionType = .no
-        emailTextField.attributedPlaceholder = NSAttributedString(string: emailTextField.placeholder!, attributes: [kCTForegroundColorAttributeName as NSAttributedStringKey: clouds])
+//        emailTextField.backgroundColor = .clear
+//        emailTextField.tintColor = .white
+//        emailTextField.textColor = .white
+//        emailTextField.borderStyle = .none
+//        emailTextField.autocorrectionType = .no
+//        emailTextField.attributedPlaceholder = NSAttributedString(string: emailTextField.placeholder!, attributes: [kCTForegroundColorAttributeName as NSAttributedStringKey: clouds])
         
-        let bottomLayerEmail = CALayer()
-        bottomLayerEmail.frame = CGRect(x: 0, y: 29, width: 1000, height: 0.6)
-        bottomLayerEmail.backgroundColor = UIColor(red: 50/255, green: 50/255, blue: 25/255, alpha: 1).cgColor
-        emailTextField.layer.addSublayer(bottomLayerEmail)
-        emailTextField.clipsToBounds = true
+//        let bottomLayerEmail = CALayer()
+//        bottomLayerEmail.frame = CGRect(x: 0, y: 29, width: 1000, height: 0.6)
+//        bottomLayerEmail.backgroundColor = UIColor(red: 50/255, green: 50/255, blue: 25/255, alpha: 1).cgColor
+//        emailTextField.layer.addSublayer(bottomLayerEmail)
+//        emailTextField.clipsToBounds = true
+//
+//        passwordTextField.backgroundColor = .clear
+//        passwordTextField.tintColor = .white
+//        passwordTextField.textColor = .white
+//        passwordTextField.borderStyle = .none
+//        passwordTextField.attributedPlaceholder = NSAttributedString(string: passwordTextField.placeholder!, attributes: [kCTForegroundColorAttributeName as NSAttributedStringKey: clouds])
+//        passwordTextField.autocorrectionType = .no
+//
+//
+//        let bottomLayerPassword = CALayer()
+//        bottomLayerPassword.frame = CGRect(x: 0, y: 29, width: 1000, height: 0.6)
+//        bottomLayerPassword.backgroundColor = UIColor(red: 50/255, green: 50/255, blue: 25/255, alpha: 1).cgColor
+//        emailTextField.layer.addSublayer(bottomLayerPassword)
+//        passwordTextField.layer.addSublayer(bottomLayerPassword)
+//        passwordTextField.clipsToBounds = true
         
-        passwordTextField.backgroundColor = .clear
-        passwordTextField.tintColor = .white
-        passwordTextField.textColor = .white
-        passwordTextField.borderStyle = .none
-        passwordTextField.attributedPlaceholder = NSAttributedString(string: passwordTextField.placeholder!, attributes: [kCTForegroundColorAttributeName as NSAttributedStringKey: clouds])
-        passwordTextField.autocorrectionType = .no
-        
-        
-        let bottomLayerPassword = CALayer()
-        bottomLayerPassword.frame = CGRect(x: 0, y: 29, width: 1000, height: 0.6)
-        bottomLayerPassword.backgroundColor = UIColor(red: 50/255, green: 50/255, blue: 25/255, alpha: 1).cgColor
-        emailTextField.layer.addSublayer(bottomLayerPassword)
-        passwordTextField.layer.addSublayer(bottomLayerPassword)
-        passwordTextField.clipsToBounds = true
-        
-        signupButton.layer.cornerRadius = 5
+        signupButton.layer.cornerRadius = 15
         
         // add a tap gesture to the profile image for users to pick their avatar
 //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(popAlert))
@@ -106,6 +111,14 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
         
         // initially disable button
         disableButton()
+        
+        if Defaults[.islogin] == true {
+            //Go to Home with animation false
+//             self.performSegue(withIdentifier: "signUpToTabBar", sender: nil)
+            let storyboard = UIStoryboard(name: "Home", bundle: nil)
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
+            self.present(initialViewController, animated: true, completion: nil)
+        }
     }
    
     
@@ -368,26 +381,32 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
                 let userInfo = user?.providerData[0]
                 print("Provider ID: \(String(describing: userInfo?.providerID))")
                 
-                var _: DocumentReference? = nil
+//                var _: DocumentReference? = nil
                 
                 print("currentUser:::\(String(describing: currentUser))")
+//                db.collection("users").document(currentUser!).setData([
+//                    "User_Phone_number": user?.phoneNumber as Any,
+//                    "uid": currentUser as Any
                 
-                db.collection("users").document(currentUser!).setData([
-                    "User_Phone_number": user?.phoneNumber as Any,
-                    "uid": currentUser as Any
-                    
-                ]) { err in
-                    if let err = err {
-                        print("Error writing document: \(err)")
-                    } else {
-                        print("Document successfully written!")
-                        if PrefsManager.sharedinstance.isFirstTime == false{
+//                ]) { err in
+//                    if let err = err {
+//                        print("Error writing document: \(err)")
+//                    } else {
+//                        print("Document successfully written!")
+                        if PrefsManager.sharedinstance.isFirstTime == true{
                             
                             
                             let when = DispatchTime.now() + 0
                             DispatchQueue.main.asyncAfter(deadline: when) {
                                 
-                                self.performSegue(withIdentifier: "signUpToTabBar", sender: nil)
+//                                self.performSegue(withIdentifier: "signUpToTabBar", sender: nil)
+                                let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
+                                let initialViewController = storyboard.instantiateViewController(withIdentifier: "TabBarID")
+                                self.present(initialViewController, animated: true, completion: nil)
+                                
+//                                Defaults[.username] = Your_User_Name
+                                Defaults[.phoneNo] = user?.phoneNumber
+                                Defaults[.islogin] = true
                                 
                             }
                             
@@ -395,11 +414,13 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
                         }else{
                             let when = DispatchTime.now() + 0
                             DispatchQueue.main.asyncAfter(deadline: when) {
-                                
-                                
                                 let storyboard = UIStoryboard(name: "Start", bundle: nil)
-                                let initialViewController = storyboard.instantiateViewController(withIdentifier: "onboardvc")
-                                self.present(initialViewController, animated: true, completion: nil)
+                                let vc = storyboard.instantiateViewController(withIdentifier: "onboardvc") as! OnboardVc
+                                vc.phoneNumber = (user?.phoneNumber)!
+                                vc.uid = currentUser!
+                                self.present(vc, animated: true, completion: nil)
+                                
+                               
                                 
                             }
                         }
@@ -414,16 +435,10 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
                         
                     }
                 }
-                
-            } else {
-                
                 print("error::::::")
-                
             }
-            
-        }
         
-    }
+    
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         
@@ -559,4 +574,8 @@ extension SignUpViewController {
     
 }
 
-
+extension DefaultsKeys {
+//    static let username = DefaultsKey<String?>("username")
+    static let phoneNo = DefaultsKey<String?>("phoneNo")
+    static let islogin = DefaultsKey<Bool?>("islogin")
+}

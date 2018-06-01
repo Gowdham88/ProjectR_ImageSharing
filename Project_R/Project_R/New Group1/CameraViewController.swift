@@ -19,10 +19,16 @@ protocol CameraViewControllerDelegate {
 }
 
 
-class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerControllerDelegate {
+class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerControllerDelegate, UISearchBarDelegate {
     
     let imagePicker = UIImagePickerController()
     
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var addCaptionLabel: UILabel!
+    @IBOutlet weak var sliderValue: UILabel!
+    @IBOutlet weak var ratingSlider: UISlider!
+    @IBOutlet weak var rateproduct: UILabel!
+    @IBOutlet weak var addProductLabe: UILabel!
     @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var captionTextView: UITextView!
     @IBOutlet weak var shareButton: UIButton!
@@ -30,14 +36,41 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     
     var selectedImage: UIImage?
     var delegate  : CameraViewControllerDelegate?
-    
+    var ratingValue: String?
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.captionTextView.delegate = self
+        self.searchBar.delegate = self
+        
+
+        self.photoImageView.layer.cornerRadius = 10
+        //                self.addProfileImageView.clipsToBounds = true
+        
+        photoImageView.layer.shadowColor = UIColor.black.cgColor
+        photoImageView.layer.shadowOpacity = 0.2
+        photoImageView.layer.shadowOffset = CGSize.zero
+        photoImageView.layer.shadowRadius = 5
+        photoImageView.layer.masksToBounds = false
+//        self.view.addSubview(photoImageView)
+        
+        
+        self.captionTextView.layer.cornerRadius = 5
+        //                self.addProfileImageView.clipsToBounds = true
+        
+        captionTextView.layer.shadowColor = UIColor.black.cgColor
+        captionTextView.layer.shadowOpacity = 0.2
+        captionTextView.layer.shadowOffset = CGSize.zero
+        captionTextView.layer.shadowRadius = 4
+        captionTextView.layer.masksToBounds = false
+
+//        self.view.addSubview(captionTextView)
+        
+        
         // Make the button a Rounded Rect
-        shareButton.layer.cornerRadius = 5
+        shareButton.layer.cornerRadius = 10
         
         // add a tap gesture to the placeholder image for users to pick
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showPop))
@@ -45,16 +78,91 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         photoImageView.isUserInteractionEnabled = true
         photoImageView.layer.cornerRadius = 2
         API.Post.Recuringpoststop()
+        
+        tabBarController?.tabBar.isHidden = true
+  
+    }
+    @IBAction func CancelPost(_ sender: UIBarButtonItem) {
+        
+        self.navigationController?.popViewController(animated: true)
+        
+        
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: Notification.Name.UIKeyboardWillShow, object: nil)
         setButtons()
        
     }
     
+    @IBAction func ratingSlider(_ sender: UISlider) {
+        
+        
+        let rating = Int(sender.value)
+        
+        sliderValue.text = "\(rating)"
+        
+        ratingValue = sliderValue.text
+        print("ratingValue::::\(String(describing: ratingValue))")
+        
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+         tabBarController?.tabBar.isHidden = false
+    }
+    
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        captionTextView.resignFirstResponder()
+////        searchBar.resignFirstResponder()
+//        return true
+//    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        view.endEditing(true)
+//        captionTextView.resignFirstResponder()
+//        searchBar.resignFirstResponder()
+//
+//    }
+//    func dismiss(_ sender:UITapGestureRecognizer) {
+//        self.view.endEditing(true)
+//    }
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        view.endEditing(true)
+//    }
+    
+ 
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    
+    @objc func keyboardWillAppear(_ notification: NSNotification) {
+        
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0{
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+    
+    @objc func keyboardWillDisappear(_ notification: NSNotification) {
+        
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0{
+                self.view.frame.origin.y += keyboardSize.height
+            }
+        }
+    }
     
     // MARK: - Handle the Image Selection and Button UI
     @objc func showPop(){
@@ -154,9 +262,9 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     
     // MARK: - Dismiss Keyboard
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
-    }
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        view.endEditing(true)
+//    }
     
     
     @IBAction func clearInputs() {
@@ -192,7 +300,9 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
                 "userName"  : users.username ?? "empty",
                 "profileImageURL" : users.profileImageURL ?? "empty",
                 "postTime"        : Date().timeIntervalSince1970,
-                "likes"           : likes
+                "likes"           : likes,
+                "documentID": newPostID,
+                "rating": self.ratingValue ?? "empty"
             ]) { err in
                 if let err = err {
                     print("Error writing document: \(err)")

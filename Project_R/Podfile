@@ -17,6 +17,7 @@ pod 'Nuke'
 pod 'Toucan'
 pod 'SDWebImage'
 pod 'FirebaseUI/Phone'
+pod 'SwiftyUserDefaults'
 
   target 'Project_RTests' do
     inherit! :search_paths
