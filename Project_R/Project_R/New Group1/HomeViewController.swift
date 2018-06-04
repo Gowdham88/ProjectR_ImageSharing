@@ -217,6 +217,9 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
         cell.shareImageView.tag   = indexPath.row
         cell.nameLabel.tag        = indexPath.row
         cell.productRatingLabel.tag = indexPath.row
+//        cell.postTime.tag =
+//        cell.postTime.tag =
+        cell.postTime.tag = indexPath.row
         
         
         return cell

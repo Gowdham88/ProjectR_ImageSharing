@@ -21,6 +21,7 @@ protocol HomeTableViewCellDelegate {
 }
 class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
 
+    @IBOutlet weak var postTime: UILabel!
     @IBOutlet weak var productRatingLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -135,6 +136,8 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         
         self.updateLike(post: post!)
         self.ratingPost(post: post!)
+        self.timePost(post: post!)
+//        self.elapsedTime(post: post!, datetime: postTime)
         guard let currentUser = Auth.auth().currentUser else {
             return
         }
@@ -419,5 +422,74 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         self.productRatingLabel.text = "- has rated \(count)/10 for this product."
     }
     
+    func timePost(post: Post) {
+      
 
+//        guard let count = post.postTime else {
+//            return
+//        }
+        
+     
+        //just to create a date that is before the current time
+        
+        let before = Date(timeIntervalSince1970: Double(post.postTime!))
+        
+                //getting the current time
+                let now = Date()
+        
+                let formatter = DateComponentsFormatter()
+                formatter.unitsStyle = .full
+                formatter.zeroFormattingBehavior = .dropAll
+                formatter.maximumUnitCount = 1 //increase it if you want more precision
+                formatter.allowedUnits = [.year, .month, .weekOfMonth, .day, .hour, .minute]
+                formatter.includesApproximationPhrase = false //to write "About" at the beginning
+        
+        
+                let formatString = NSLocalizedString("%@", comment: "Used to say how much time has passed. e.g. '2 hours ago'")
+                let timeString = formatter.string(from: before, to: now)
+        
+        
+        
+        
+        self.postTime.text = timeString
+    }
+    
+    
+    
+}
+extension Date {
+    func yearsFromNow(from date: Date) -> Int {
+        return Calendar.current.dateComponents([.year], from: date, to: self).year ?? 0
+    }
+    func monthsFromNow(from date: Date) -> Int {
+        return Calendar.current.dateComponents([.month], from: date, to: self).month ?? 0
+    }
+    func weeksFromNow(from date: Date) -> Int {
+        return Calendar.current.dateComponents([.weekOfYear], from: date, to: self).weekOfYear ?? 0
+    }
+    func daysFromNow(from date: Date) -> Int {
+        return Calendar.current.dateComponents([.day], from: date, to: self).day ?? 0
+    }
+    func hoursFromNow(from date: Date) -> Int {
+        return Calendar.current.dateComponents([.hour], from: date, to: self).hour ?? 0
+    }
+    func minutesFromNow(from date: Date) -> Int {
+        return Calendar.current.dateComponents([.minute], from: date, to: self).minute ?? 0
+    }
+    func secondsFromNow(from date: Date) -> Int {
+        return Calendar.current.dateComponents([.second], from: date, to: self).second ?? 0
+    }
+    
+    
+    func relativeTime(from date: Date) -> String {
+        if yearsFromNow(from: date)   > 0 { return "\(yearsFromNow) year"    + (yearsFromNow(from: date)    > 1 ? "s" : "") + " ago" }
+        if monthsFromNow(from: date)  > 0 { return "\(monthsFromNow) month"  + (monthsFromNow(from: date)   > 1 ? "s" : "") + " ago" }
+        if weeksFromNow(from: date)   > 0 { return "\(weeksFromNow) week"    + (weeksFromNow(from: date)    > 1 ? "s" : "") + " ago" }
+        if daysFromNow(from: date)    > 0 { return daysFromNow(from: date) == 1 ? "Yesterday" : "\(daysFromNow) days ago" }
+        if hoursFromNow(from: date)   > 0 { return "\(hoursFromNow) hour"     + (hoursFromNow(from: date)   > 1 ? "s" : "") + " ago" }
+        if minutesFromNow(from: date) > 0 { return "\(minutesFromNow) minute" + (minutesFromNow(from: date) > 1 ? "s" : "") + " ago" }
+        if secondsFromNow(from: date) > 0 { return secondsFromNow(from: date) < 15 ? "Just now"
+            : "\(secondsFromNow) second" + (secondsFromNow(from: date) > 1 ? "s" : "") + " ago" }
+        return ""
+    }
 }

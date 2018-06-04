@@ -37,6 +37,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     var selectedImage: UIImage?
     var delegate  : CameraViewControllerDelegate?
     var ratingValue: String?
+    var dateTime: Double!
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
@@ -44,8 +45,8 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         
         self.captionTextView.delegate = self
         self.searchBar.delegate = self
+    
         
-
         self.photoImageView.layer.cornerRadius = 10
         //                self.addProfileImageView.clipsToBounds = true
         
@@ -55,7 +56,6 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         photoImageView.layer.shadowRadius = 5
         photoImageView.layer.masksToBounds = false
 //        self.view.addSubview(photoImageView)
-        
         
         self.captionTextView.layer.cornerRadius = 5
         //                self.addProfileImageView.clipsToBounds = true
@@ -223,7 +223,13 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         }
     }
     
-    
+    func CurrentDate(){
+        
+        
+       
+        
+        
+    }
     // MARK: - The Share Action
     
     @IBAction func share(_ sender: Any) {
@@ -252,6 +258,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
                 
                 // and put the photoURL into the database
                 self.saveToDatabase(photoURL: photoURL!)
+//                elapsedTime(datetime: <#T##String#>)
             
             })
         } else {
@@ -276,7 +283,28 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         setButtons()
     }
     
-    
+//    func elapsedTime (datetime : String) -> String
+//    {
+//        //just to create a date that is before the current time
+//
+//        let before = Date(timeIntervalSince1970: Double(datetime)!)
+//
+//        //getting the current time
+//        let now = Date()
+//
+//        let formatter = DateComponentsFormatter()
+//        formatter.unitsStyle = .full
+//        formatter.zeroFormattingBehavior = .dropAll
+//        formatter.maximumUnitCount = 1 //increase it if you want more precision
+//        formatter.allowedUnits = [.year, .month, .weekOfMonth, .day, .hour, .minute]
+//        formatter.includesApproximationPhrase = false //to write "About" at the beginning
+//
+//
+//        let formatString = NSLocalizedString("%@", comment: "Used to say how much time has passed. e.g. '2 hours ago'")
+//        let timeString = formatter.string(from: before, to: now)
+//        return String(format: formatString, timeString!)
+//    }
+
     // MARK: - Save to Firebase Method
     
     func saveToDatabase(photoURL: String) {
@@ -289,6 +317,10 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         let likes   = [currentUserID : false]
        
         var users : Users!
+        
+    
+        
+
         API.User.observeCurrentUser { user in
             users = user
             let db = Firestore.firestore()
@@ -300,6 +332,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
                 "userName"  : users.username ?? "empty",
                 "profileImageURL" : users.profileImageURL ?? "empty",
                 "postTime"        : Date().timeIntervalSince1970,
+//                "postTime"          : timeOffset1,
                 "likes"           : likes,
                 "documentID": newPostID,
                 "rating": self.ratingValue ?? "empty"
@@ -426,3 +459,6 @@ extension CameraViewController: UINavigationControllerDelegate {
     
     
 }
+
+
+

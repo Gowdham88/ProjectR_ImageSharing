@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -40,9 +40,9 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QDK-Ad-ZKL">
-                                                    <rect key="frame" x="0.0" y="71" width="320" height="300"/>
+                                                    <rect key="frame" x="0.0" y="83" width="320" height="288"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="300" id="Bhc-w8-TGu"/>
+                                                        <constraint firstAttribute="height" constant="288" id="Bhc-w8-TGu"/>
                                                     </constraints>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="like" translatesAutoresizingMaskIntoConstraints="NO" id="h3n-Fn-OeS">
@@ -115,10 +115,17 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="- has rated 9/10 for this product. " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kGk-fD-RNW">
-                                                    <rect key="frame" x="63" y="40" width="209" height="21"/>
+                                                    <rect key="frame" x="60" y="60" width="209" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="12"/>
                                                     <color key="textColor" red="0.1647058824" green="0.1647058824" blue="0.1647058824" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hR8-Qu-V1f">
+                                                    <rect key="frame" x="63" y="40" width="138" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="12"/>
+                                                    <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -147,7 +154,7 @@
                                                 <constraint firstItem="Kyn-Vn-iWb" firstAttribute="width" secondItem="h3n-Fn-OeS" secondAttribute="width" id="lYZ-x7-bs5"/>
                                                 <constraint firstItem="h3n-Fn-OeS" firstAttribute="top" secondItem="QDK-Ad-ZKL" secondAttribute="bottom" constant="15" id="oev-1T-bdb"/>
                                                 <constraint firstAttribute="trailing" secondItem="QDK-Ad-ZKL" secondAttribute="trailing" id="pi6-ci-EYx"/>
-                                                <constraint firstItem="QDK-Ad-ZKL" firstAttribute="top" secondItem="88l-ap-4T1" secondAttribute="bottom" constant="10" id="qOZ-B7-cQT"/>
+                                                <constraint firstItem="QDK-Ad-ZKL" firstAttribute="top" secondItem="88l-ap-4T1" secondAttribute="bottom" constant="22" id="qOZ-B7-cQT"/>
                                                 <constraint firstItem="Ceh-RK-QtZ" firstAttribute="centerY" secondItem="88l-ap-4T1" secondAttribute="centerY" constant="-10.5" id="slm-pK-Ncj"/>
                                                 <constraint firstAttribute="bottom" secondItem="wsG-cv-Ii3" secondAttribute="bottom" constant="2" id="trj-Pr-moR"/>
                                                 <constraint firstItem="oaj-xI-QJq" firstAttribute="top" secondItem="QDK-Ad-ZKL" secondAttribute="bottom" constant="9" id="usb-Z9-dn9"/>
@@ -162,6 +169,7 @@
                                             <outlet property="likeImageView" destination="h3n-Fn-OeS" id="HWX-oG-RzC"/>
                                             <outlet property="nameLabel" destination="Ceh-RK-QtZ" id="Yak-JX-oqs"/>
                                             <outlet property="postImageView" destination="QDK-Ad-ZKL" id="zxl-Pj-q6t"/>
+                                            <outlet property="postTime" destination="hR8-Qu-V1f" id="RuX-Ow-OCD"/>
                                             <outlet property="productRatingLabel" destination="kGk-fD-RNW" id="MU6-IE-WEY"/>
                                             <outlet property="profileImageView" destination="88l-ap-4T1" id="1Rj-WV-jAP"/>
                                             <outlet property="shareImageView" destination="S51-gF-Igo" id="Wws-8e-wdX"/>
