@@ -21,6 +21,7 @@ protocol HomeTableViewCellDelegate {
 }
 class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
 
+    @IBOutlet weak var locationName: UILabel!
     @IBOutlet weak var postTime: UILabel!
     @IBOutlet weak var productRatingLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
@@ -127,16 +128,24 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     
     func updateView() {
         captionLabel.text = post?.caption
-        
-        if let photoURL = post?.photoURL {
-            postImageView.image = nil
-            Manager.shared.loadImage(with: URL(string : photoURL)!, into: self.postImageView)
+        let photoURL = post?.photoURL
+//        if let photoURL = post?.photoURL {
+//            postImageView.image = nil
+            if photoURL != "" {
+
+                Manager.shared.loadImage(with: URL(string : photoURL!)!, into: self.postImageView)
+                locationName.isHidden = true
             
-        }
+            } else {
+                postImageView.isHidden = true
+                locationName.isHidden = false
+            }
+//        }
         
         self.updateLike(post: post!)
         self.ratingPost(post: post!)
         self.timePost(post: post!)
+        self.locationName(post: post!)
 //        self.elapsedTime(post: post!, datetime: postTime)
         guard let currentUser = Auth.auth().currentUser else {
             return
@@ -420,6 +429,13 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
             return
         }
         self.productRatingLabel.text = "- has rated \(count)/10 for this product."
+    }
+    
+    func locationName(post: Post) {
+        guard let count = post.location else {
+            return
+        }
+        self.locationName.text = "\(count) "
     }
     
     func timePost(post: Post) {

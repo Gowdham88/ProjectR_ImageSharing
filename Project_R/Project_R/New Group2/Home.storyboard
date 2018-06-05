@@ -128,6 +128,13 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ERj-jW-4Za">
+                                                    <rect key="frame" x="9" y="93" width="296" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="h3n-Fn-OeS" firstAttribute="leading" secondItem="OQa-iC-ZzF" secondAttribute="leading" constant="20" id="1RB-t5-51M"/>
@@ -167,6 +174,7 @@
                                             <outlet property="commentImageView" destination="Kyn-Vn-iWb" id="YXO-qv-cO1"/>
                                             <outlet property="likeCountButton" destination="oaj-xI-QJq" id="il0-07-X3A"/>
                                             <outlet property="likeImageView" destination="h3n-Fn-OeS" id="HWX-oG-RzC"/>
+                                            <outlet property="locationName" destination="ERj-jW-4Za" id="fMt-6T-5ER"/>
                                             <outlet property="nameLabel" destination="Ceh-RK-QtZ" id="Yak-JX-oqs"/>
                                             <outlet property="postImageView" destination="QDK-Ad-ZKL" id="zxl-Pj-q6t"/>
                                             <outlet property="postTime" destination="hR8-Qu-V1f" id="RuX-Ow-OCD"/>

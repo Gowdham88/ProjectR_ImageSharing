@@ -23,17 +23,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Connect to Firebase
         FirebaseApp.configure()
-//        try! Auth.auth().signOut()
+        //        try! Auth.auth().signOut()
         
-//        if Auth.auth().currentUser != nil {
+        //        if Auth.auth().currentUser != nil {
+        //
+        //            let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
+        //            let controller = storyboard.instantiateViewController(withIdentifier: "TabBarID")
+        //            self.window = UIWindow(frame: UIScreen.main.bounds)
+        //            self.window?.rootViewController = controller
+        //            self.window?.makeKeyAndVisible()
+        //
+        //        }
+
+        
+        
+//        var initialViewController: UIViewController?
+//        if let username = UserDefaults.standard.value(forKey: "emailTextField") {
+//            let mainStoryboard : UIStoryboard = UIStoryboard(name: "TabBar", bundle: nil)
 //
-//            let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
-//            let controller = storyboard.instantiateViewController(withIdentifier: "TabBarID")
-//            self.window = UIWindow(frame: UIScreen.main.bounds)
-//            self.window?.rootViewController = controller
-//            self.window?.makeKeyAndVisible()
+//            initialViewController = mainStoryboard.instantiateViewController(withIdentifier: "TabBarID")
+//        } else {
+//            let mainStoryboard : UIStoryboard = UIStoryboard(name: "Start", bundle: nil)
 //
+//            initialViewController = mainStoryboard.instantiateViewController(withIdentifier: "SignUpViewController")
 //        }
+//        self.window = UIWindow(frame: UIScreen.main.bounds)
+//        self.window?.rootViewController = initialViewController
+//        self.window?.makeKeyAndVisible()
 
         Thread.sleep(forTimeInterval: 3.0)
         

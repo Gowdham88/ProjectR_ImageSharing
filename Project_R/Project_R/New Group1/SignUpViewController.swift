@@ -12,7 +12,6 @@ import FirebaseAuth
 import FirebasePhoneAuthUI
 import FirebaseAuthUI
 import FirebaseFirestore
-import SwiftyUserDefaults
 
 public let currentUser = Auth.auth().currentUser?.uid
 
@@ -112,13 +111,13 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
         // initially disable button
         disableButton()
         
-        if Defaults[.islogin] == true {
-            //Go to Home with animation false
-//             self.performSegue(withIdentifier: "signUpToTabBar", sender: nil)
-            let storyboard = UIStoryboard(name: "Home", bundle: nil)
-            let initialViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
-            self.present(initialViewController, animated: true, completion: nil)
-        }
+//        if Defaults[.islogin] == true {
+//            //Go to Home with animation false
+////             self.performSegue(withIdentifier: "signUpToTabBar", sender: nil)
+//            let storyboard = UIStoryboard(name: "Home", bundle: nil)
+//            let initialViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
+//            self.present(initialViewController, animated: true, completion: nil)
+//        }
     }
    
     
@@ -265,6 +264,9 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
         self.Userdefaults.set(mobileNumber, forKey: "mobileNumber")
         
         print("mobileNumber::::\(mobileNumber)")
+//        UserDefaults.standard.set("value", forKey: "emailTextField")
+        Userdefaults.synchronize()
+//        UserDefaults.standard.set("value", forKey: "password")
         
         sendOTPCode()
         sendOTP = true
@@ -405,8 +407,8 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
                                 self.present(initialViewController, animated: true, completion: nil)
                                 
 //                                Defaults[.username] = Your_User_Name
-                                Defaults[.phoneNo] = user?.phoneNumber
-                                Defaults[.islogin] = true
+//                                Defaults[.phoneNo] = user?.phoneNumber
+//                                Defaults[.islogin] = true
                                 
                             }
                             
@@ -574,8 +576,8 @@ extension SignUpViewController {
     
 }
 
-extension DefaultsKeys {
-//    static let username = DefaultsKey<String?>("username")
-    static let phoneNo = DefaultsKey<String?>("phoneNo")
-    static let islogin = DefaultsKey<Bool?>("islogin")
-}
+//extension DefaultsKeys {
+////    static let username = DefaultsKey<String?>("username")
+//    static let phoneNo = DefaultsKey<String?>("phoneNo")
+//    static let islogin = DefaultsKey<Bool?>("islogin")
+//}

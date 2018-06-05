@@ -18,6 +18,11 @@ pod 'Toucan'
 pod 'SDWebImage'
 pod 'FirebaseUI/Phone'
 pod 'SwiftyUserDefaults'
+pod 'GooglePlaces'
+pod 'Alamofire', '~> 4.5'
+pod 'SwiftyJSON'
+
+
 
   target 'Project_RTests' do
     inherit! :search_paths

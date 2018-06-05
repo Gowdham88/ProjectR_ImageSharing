@@ -45,7 +45,8 @@ class HomeViewController : UIViewController {
         
         loadPosts()
         
-       
+//        tableView.rowHeight = UITableViewAutomaticDimension
+//        tableView.estimatedRowHeight = 44
       
     }
 
@@ -157,15 +158,46 @@ class HomeViewController : UIViewController {
 //    }
     
     @IBAction func createNewpost(_ sender: Any) {
+   
+        let Alert: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        
+        let CamAction: UIAlertAction = UIAlertAction(title: "Create Post", style: .default) { ACTION in
+            self.openCreatePost()
+        }
+        
+        let GallAction: UIAlertAction = UIAlertAction(title: "Check In", style: .default){ ACTION in
+            self.opencheckIn()
+        }
+        let CancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel)
+        CancelAction.setValue(UIColor.red, forKey: "titleTextColor")
+        
+        Alert.addAction(CamAction)
+        Alert.addAction(GallAction)
+        Alert.addAction(CancelAction)
+        
+        Alert.popoverPresentationController?.sourceView = self.view
+        Alert.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.size.width / 2.0, y: self.view.bounds.size.height / 2.0, width: 1.0, height: 1.0)
+        present(Alert, animated: true, completion: nil)
         
         
+        
+    }
+    func openCreatePost(){
+      
         let storyboard = UIStoryboard(name: "Camera", bundle: nil)
         let vc         =  storyboard.instantiateViewController(withIdentifier: "CameraViewController") as! CameraViewController
         self.navigationController?.pushViewController(vc, animated: true)
         
     }
     
-    
+    func opencheckIn(){
+        
+        let storyboard = UIStoryboard(name: "Camera", bundle: nil)
+        let vc         =  storyboard.instantiateViewController(withIdentifier: "CheckInViewController") as! CheckInViewController
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+        
+    }
 }
 
 
@@ -220,10 +252,38 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
 //        cell.postTime.tag =
 //        cell.postTime.tag =
         cell.postTime.tag = indexPath.row
+        cell.locationName.tag = indexPath.row
         
+    
         
         return cell
     }
+//
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//
+////        let cell = tableView.dequeueReusableCell(withIdentifier: "HomeCell", for: indexPath) as! HomeTableViewCell
+//
+//
+//
+//
+//        if cell.postImageView == nil {
+//
+//            cell.postImageView.isHidden = true
+//
+//
+//            cell.locationName.isHidden = false
+//
+//            return 100
+//        } else {
+//
+//            cell.postImageView.isHidden = false
+//
+//
+//            cell.locationName.isHidden = true
+//
+//            return 498
+//        }
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
       
@@ -264,8 +324,12 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
         
         let storyboard = UIStoryboard(name: "Home", bundle: nil)
         let vc         =  storyboard.instantiateViewController(withIdentifier: "imagezoom") as! ImageZoom
-        vc.imageUrl    =   posts[position].photoURL!
-        present(vc, animated: true, completion: nil)
+        
+        if let images = posts[position].photoURL{
+            vc.imageUrl    =   images
+            present(vc, animated: true, completion: nil)
+        }
+        
     }
     
    

@@ -23,6 +23,7 @@ class Post {
     var postTime : Double?
     var documentID: String?
     var rating: String?
+    var location: String?
 }
 
 extension Post {
@@ -43,6 +44,8 @@ extension Post {
         post.postTime        = postDictionary["postTime"] as? Double
         post.documentID = postDictionary["documentID"] as? String
         post.rating = postDictionary["rating"] as? String
+        post.location = postDictionary["location"] as? String
+
         
         if let currentUserID = Auth.auth().currentUser?.uid {
             if post.likes != nil {

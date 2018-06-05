@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (4.7.2)
   - BoringSSL (10.0.2):
     - BoringSSL/Implementation (= 10.0.2)
     - BoringSSL/Interface (= 10.0.2)
@@ -60,6 +61,9 @@ PODS:
     - Firebase/Auth (~> 4.2)
   - FirebaseUI/Phone (4.5.5):
     - FirebaseUI/Auth
+  - GoogleMaps/Base (2.7.0)
+  - GooglePlaces (2.7.0):
+    - GoogleMaps/Base (= 2.7.0)
   - GoogleToolboxForMac/DebugUtils (2.1.4):
     - GoogleToolboxForMac/Defines (= 2.1.4)
   - GoogleToolboxForMac/Defines (2.1.4)
@@ -103,10 +107,12 @@ PODS:
   - SDWebImage (4.3.3):
     - SDWebImage/Core (= 4.3.3)
   - SDWebImage/Core (4.3.3)
+  - SwiftyJSON (4.1.0)
   - SwiftyUserDefaults (3.0.1)
   - Toucan (1.0.0)
 
 DEPENDENCIES:
+  - Alamofire (~> 4.5)
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
@@ -115,13 +121,16 @@ DEPENDENCIES:
   - Firebase/Storage
   - FirebaseUI/Auth
   - FirebaseUI/Phone
+  - GooglePlaces
   - Nuke
   - SDWebImage
+  - SwiftyJSON
   - SwiftyUserDefaults
   - Toucan
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
+    - Alamofire
     - BoringSSL
     - Firebase
     - FirebaseAnalytics
@@ -133,6 +142,8 @@ SPEC REPOS:
     - FirebaseMessaging
     - FirebaseStorage
     - FirebaseUI
+    - GoogleMaps
+    - GooglePlaces
     - GoogleToolboxForMac
     - gRPC
     - gRPC-Core
@@ -144,10 +155,12 @@ SPEC REPOS:
     - Nuke
     - Protobuf
     - SDWebImage
+    - SwiftyJSON
     - SwiftyUserDefaults
     - Toucan
 
 SPEC CHECKSUMS:
+  Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
   BoringSSL: 60dd24df4af296bf41d78e5841dbb95d75f88c0d
   Firebase: 5ec5e863d269d82d66b4bf56856726f8fb8f0fb3
   FirebaseAnalytics: 7ef69e76a5142f643aeb47c780e1cdce4e23632e
@@ -159,6 +172,8 @@ SPEC CHECKSUMS:
   FirebaseMessaging: 75cdb862e86c30e0913a2ff307e48d49357c5b73
   FirebaseStorage: 0c223481c8f89ed300cf1239ddd2d9833622c65f
   FirebaseUI: 7f149d40db1a67c459df16540256b66d8f8e8c70
+  GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
+  GooglePlaces: 3d06e6c99654545b4738ce49648745779c25f2ef
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
   gRPC: 70703dc9ba31c72341fc7f37745cc1c379edee96
   gRPC-Core: 164639cd8ae18ca8b65477fafb2efbaecf4f181a
@@ -170,9 +185,10 @@ SPEC CHECKSUMS:
   Nuke: bf5d58b2d95ff15cb170c231fe6002d706be77e1
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
   SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
+  SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
   SwiftyUserDefaults: 3d273b1739b68ada3145dc754a70ec775bc5c8be
   Toucan: 61867fb10948c02e9804280a95eb183e98eac97a
 
-PODFILE CHECKSUM: 6a4bb4797368b07e1e9b1e8c6efdba5787581f74
+PODFILE CHECKSUM: d874ba5ae0bc67488d0caea986d34abcbeb3d9ba
 
 COCOAPODS: 1.5.0

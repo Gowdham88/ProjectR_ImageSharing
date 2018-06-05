@@ -70,7 +70,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         
         
         // Make the button a Rounded Rect
-        shareButton.layer.cornerRadius = 10
+        shareButton.layer.cornerRadius = 15
         
         // add a tap gesture to the placeholder image for users to pick
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showPop))
@@ -258,7 +258,6 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
                 
                 // and put the photoURL into the database
                 self.saveToDatabase(photoURL: photoURL!)
-//                elapsedTime(datetime: <#T##String#>)
             
             })
         } else {
@@ -335,7 +334,8 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
 //                "postTime"          : timeOffset1,
                 "likes"           : likes,
                 "documentID": newPostID,
-                "rating": self.ratingValue ?? "empty"
+                "rating": self.ratingValue ?? "empty",
+                "location": "" ?? "empty"
             ]) { err in
                 if let err = err {
                     print("Error writing document: \(err)")

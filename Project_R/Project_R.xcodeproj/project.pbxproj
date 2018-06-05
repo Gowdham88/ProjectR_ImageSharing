@@ -59,6 +59,9 @@
 		AE64451B20BD79F500216484 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = AE64451920BD79F500216484 /* ProgressHUD.m */; };
 		AE64456B20BD7A6A00216484 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE64456A20BD7A6A00216484 /* AppDelegate.swift */; };
 		AE64456D20BD7B4E00216484 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AE64456C20BD7B4B00216484 /* GoogleService-Info.plist */; };
+		AE7AA98120C684FA00E9F805 /* CheckInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7AA98020C684FA00E9F805 /* CheckInViewController.swift */; };
+		AE7AA98320C6892500E9F805 /* checkInPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7AA98220C6892500E9F805 /* checkInPost.swift */; };
+		AE7AA98B20C695A800E9F805 /* locationNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7AA98A20C695A800E9F805 /* locationNameTableViewCell.swift */; };
 		C6C5A3A5B7E6C1FBBA4846A0 /* Pods_Project_R.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B79CB268E129286815C907D1 /* Pods_Project_R.framework */; };
 /* End PBXBuildFile section */
 
@@ -145,6 +148,9 @@
 		AE64451920BD79F500216484 /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
 		AE64456A20BD7A6A00216484 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AE64456C20BD7B4B00216484 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AE7AA98020C684FA00E9F805 /* CheckInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInViewController.swift; sourceTree = "<group>"; };
+		AE7AA98220C6892500E9F805 /* checkInPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = checkInPost.swift; sourceTree = "<group>"; };
+		AE7AA98A20C695A800E9F805 /* locationNameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = locationNameTableViewCell.swift; sourceTree = "<group>"; };
 		B79CB268E129286815C907D1 /* Pods_Project_R.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Project_R.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D750F312C92204BB9E00B3D1 /* Pods-Project_R.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project_R.release.xcconfig"; path = "Pods/Target Support Files/Pods-Project_R/Pods-Project_R.release.xcconfig"; sourceTree = "<group>"; };
 		FCE183EFE0E23253BBEF7754 /* Pods-Project_RTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project_RTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Project_RTests/Pods-Project_RTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -234,6 +240,8 @@
 				AE3CF26420BFAF4C0074D5F7 /* OnboardVc.swift */,
 				AE3CF26C20BFAF500074D5F7 /* TermsServiceController.swift */,
 				AE3CF2B220C03C0B0074D5F7 /* NotificationViewController.swift */,
+				AE7AA98020C684FA00E9F805 /* CheckInViewController.swift */,
+				AE7AA98A20C695A800E9F805 /* locationNameTableViewCell.swift */,
 			);
 			name = Controllers;
 			path = "New Group1";
@@ -269,6 +277,7 @@
 				AE3CF29B20BFAF850074D5F7 /* UserAPI.swift */,
 				AE3CF29A20BFAF850074D5F7 /* UserPostAPI.swift */,
 				AE3CF29F20BFAF870074D5F7 /* Users.swift */,
+				AE7AA98220C6892500E9F805 /* checkInPost.swift */,
 			);
 			name = Model;
 			path = "New Group3";
@@ -557,11 +566,13 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Project_R/Pods-Project_R-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAuthUI.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebasePhoneAuthUI.bundle",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAuthUI.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebasePhoneAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -575,12 +586,14 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Project_R/Pods-Project_R-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Nuke/Nuke.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults/SwiftyUserDefaults.framework",
 				"${BUILT_PRODUCTS_DIR}/Toucan/Toucan.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
@@ -592,12 +605,14 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nuke.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyUserDefaults.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toucan.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
@@ -624,7 +639,9 @@
 				AE3CF2AB20BFAF890074D5F7 /* PostCommentAPI.swift in Sources */,
 				AE3CF28620BFAF530074D5F7 /* ImageZoom.swift in Sources */,
 				AE64451B20BD79F500216484 /* ProgressHUD.m in Sources */,
+				AE7AA98120C684FA00E9F805 /* CheckInViewController.swift in Sources */,
 				AE3CF28520BFAF530074D5F7 /* ActivityViewController.swift in Sources */,
+				AE7AA98B20C695A800E9F805 /* locationNameTableViewCell.swift in Sources */,
 				AE3CF27720BFAF530074D5F7 /* OnboardVc.swift in Sources */,
 				AE3CF25F20BFAF2A0074D5F7 /* PrefsManager.swift in Sources */,
 				AE3CF27D20BFAF530074D5F7 /* CommentViewController.swift in Sources */,
@@ -633,6 +650,7 @@
 				AE3CF2A620BFAF890074D5F7 /* UserAPI.swift in Sources */,
 				AE3CF28020BFAF530074D5F7 /* HomeTableViewCell.swift in Sources */,
 				AE3CF2AD20BFAF890074D5F7 /* SortComment.swift in Sources */,
+				AE7AA98320C6892500E9F805 /* checkInPost.swift in Sources */,
 				AE3CF2B320C03C0B0074D5F7 /* NotificationViewController.swift in Sources */,
 				AE64456B20BD7A6A00216484 /* AppDelegate.swift in Sources */,
 				AE3CF2AC20BFAF890074D5F7 /* SortPost.swift in Sources */,
