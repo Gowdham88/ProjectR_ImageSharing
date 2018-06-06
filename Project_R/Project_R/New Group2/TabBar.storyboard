@@ -38,6 +38,16 @@
             </objects>
             <point key="canvasLocation" x="1978" y="-136"/>
         </scene>
+        <!--navigationpeople-->
+        <scene sceneID="sUd-dp-oEx">
+            <objects>
+                <viewControllerPlaceholder storyboardName="people" referencedIdentifier="navigationpeople" id="1NV-B3-kQ0" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="UOg-tO-AVr"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hw1-0C-G20" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1986" y="-33"/>
+        </scene>
         <!--NavigationCamera-->
         <scene sceneID="nuu-Ym-8UC">
             <objects>

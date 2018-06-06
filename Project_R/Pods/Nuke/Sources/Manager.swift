@@ -148,8 +148,11 @@ public final class Manager: Loading {
 public extension Manager {
     /// Loads an image into the given target. See the corresponding
     /// `loadImage(with:into)` method that takes `Request` for more info.
+    
     public func loadImage(with url: URL, into target: Target) {
+        if url != nil {
         loadImage(with: Request(url: url), into: target)
+        }
     }
 
     /// Loads an image and calls the given `handler`. The method itself

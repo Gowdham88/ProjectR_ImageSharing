@@ -139,6 +139,30 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
             } else {
                 postImageView.isHidden = true
                 locationName.isHidden = false
+                let bounds = UIScreen.main.bounds
+                let height = bounds.size.height
+                
+                switch height {
+                case 480.0:
+                    print("iPhone 3,4")
+                    locationName.frame = CGRect(x: 10, y: 98, width: 296, height: 21)
+
+                case 568.0:
+                    print("iPhone 5")
+                    locationName.frame = CGRect(x: 10, y: 98, width: 296, height: 21)
+
+                case 667.0:
+                    print("iPhone 6")
+                    locationName.frame = CGRect(x: 10, y: 110, width: 296, height: 21)
+                case 736.0:
+                    print("iPhone 6+")
+                    locationName.frame = CGRect(x: 10, y: 150, width: 296, height: 21)
+
+                default:
+                    print("not an iPhone")
+                    
+                }
+                
             }
 //        }
         
@@ -171,9 +195,12 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
             profileImageView.image = nil
             if let photoURL = post?.profileImageURL {
                 print("photourl:::\(photoURL)")
+                
+                if photoURL != "" {
                 Manager.shared.loadImage(with: URL(string : photoURL)!, into: self.profileImageView)
                 
                 return
+                }
             }
         }
         
@@ -435,7 +462,10 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         guard let count = post.location else {
             return
         }
+        if locationName.text != "null" || locationName.text != ""   {
         self.locationName.text = "\(count) "
+        
+        }
     }
     
     func timePost(post: Post) {

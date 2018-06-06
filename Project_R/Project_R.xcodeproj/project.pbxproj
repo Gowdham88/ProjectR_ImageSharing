@@ -35,7 +35,6 @@
 		AE3CF29120BFAF730074D5F7 /* sample.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AE3CF28920BFAF6F0074D5F7 /* sample.jpg */; };
 		AE3CF29220BFAF730074D5F7 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE3CF28A20BFAF700074D5F7 /* Camera.storyboard */; };
 		AE3CF29320BFAF730074D5F7 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE3CF28B20BFAF710074D5F7 /* Profile.storyboard */; };
-		AE3CF29420BFAF730074D5F7 /* Discover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE3CF28C20BFAF710074D5F7 /* Discover.storyboard */; };
 		AE3CF29520BFAF730074D5F7 /* Start.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE3CF28D20BFAF720074D5F7 /* Start.storyboard */; };
 		AE3CF29620BFAF730074D5F7 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE3CF28E20BFAF720074D5F7 /* TabBar.storyboard */; };
 		AE3CF29720BFAF730074D5F7 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE3CF28F20BFAF730074D5F7 /* Home.storyboard */; };
@@ -51,6 +50,9 @@
 		AE3CF2AD20BFAF890074D5F7 /* SortComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3CF2A220BFAF890074D5F7 /* SortComment.swift */; };
 		AE3CF2AE20BFAF890074D5F7 /* CommentAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3CF2A320BFAF890074D5F7 /* CommentAPI.swift */; };
 		AE3CF2B320C03C0B0074D5F7 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3CF2B220C03C0B0074D5F7 /* NotificationViewController.swift */; };
+		AE4F075020C8300F00B6D230 /* FeedApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4F074E20C8300E00B6D230 /* FeedApi.swift */; };
+		AE4F075120C8300F00B6D230 /* FollowApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4F074F20C8300F00B6D230 /* FollowApi.swift */; };
+		AE4F075320C8365100B6D230 /* MyPostsApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4F075220C8365000B6D230 /* MyPostsApi.swift */; };
 		AE6444E620BD798500216484 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE6444E520BD798500216484 /* Assets.xcassets */; };
 		AE6444E920BD798500216484 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE6444E720BD798500216484 /* LaunchScreen.storyboard */; };
 		AE6444F420BD798500216484 /* Project_RTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6444F320BD798500216484 /* Project_RTests.swift */; };
@@ -62,6 +64,9 @@
 		AE7AA98120C684FA00E9F805 /* CheckInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7AA98020C684FA00E9F805 /* CheckInViewController.swift */; };
 		AE7AA98320C6892500E9F805 /* checkInPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7AA98220C6892500E9F805 /* checkInPost.swift */; };
 		AE7AA98B20C695A800E9F805 /* locationNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7AA98A20C695A800E9F805 /* locationNameTableViewCell.swift */; };
+		AEE4F4F320C7ABB90047A2B6 /* people.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEE4F4F220C7ABB90047A2B6 /* people.storyboard */; };
+		AEE4F4F520C7ADF10047A2B6 /* peopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE4F4F420C7ADF10047A2B6 /* peopleViewController.swift */; };
+		AEE4F4F720C7B00B0047A2B6 /* peopleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE4F4F620C7B00B0047A2B6 /* peopleTableViewCell.swift */; };
 		C6C5A3A5B7E6C1FBBA4846A0 /* Pods_Project_R.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B79CB268E129286815C907D1 /* Pods_Project_R.framework */; };
 /* End PBXBuildFile section */
 
@@ -115,7 +120,6 @@
 		AE3CF28920BFAF6F0074D5F7 /* sample.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sample.jpg; sourceTree = "<group>"; };
 		AE3CF28A20BFAF700074D5F7 /* Camera.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
 		AE3CF28B20BFAF710074D5F7 /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
-		AE3CF28C20BFAF710074D5F7 /* Discover.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Discover.storyboard; sourceTree = "<group>"; };
 		AE3CF28D20BFAF720074D5F7 /* Start.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Start.storyboard; sourceTree = "<group>"; };
 		AE3CF28E20BFAF720074D5F7 /* TabBar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
 		AE3CF28F20BFAF730074D5F7 /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
@@ -132,6 +136,9 @@
 		AE3CF2A320BFAF890074D5F7 /* CommentAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentAPI.swift; sourceTree = "<group>"; };
 		AE3CF2AF20BFD76F0074D5F7 /* Project_R.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Project_R.entitlements; sourceTree = "<group>"; };
 		AE3CF2B220C03C0B0074D5F7 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		AE4F074E20C8300E00B6D230 /* FeedApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedApi.swift; sourceTree = "<group>"; };
+		AE4F074F20C8300F00B6D230 /* FollowApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowApi.swift; sourceTree = "<group>"; };
+		AE4F075220C8365000B6D230 /* MyPostsApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPostsApi.swift; sourceTree = "<group>"; };
 		AE6444DB20BD797E00216484 /* Project_R.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project_R.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE6444E520BD798500216484 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AE6444E820BD798500216484 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -151,6 +158,9 @@
 		AE7AA98020C684FA00E9F805 /* CheckInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInViewController.swift; sourceTree = "<group>"; };
 		AE7AA98220C6892500E9F805 /* checkInPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = checkInPost.swift; sourceTree = "<group>"; };
 		AE7AA98A20C695A800E9F805 /* locationNameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = locationNameTableViewCell.swift; sourceTree = "<group>"; };
+		AEE4F4F220C7ABB90047A2B6 /* people.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = people.storyboard; sourceTree = "<group>"; };
+		AEE4F4F420C7ADF10047A2B6 /* peopleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = peopleViewController.swift; sourceTree = "<group>"; };
+		AEE4F4F620C7B00B0047A2B6 /* peopleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = peopleTableViewCell.swift; sourceTree = "<group>"; };
 		B79CB268E129286815C907D1 /* Pods_Project_R.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Project_R.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D750F312C92204BB9E00B3D1 /* Pods-Project_R.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project_R.release.xcconfig"; path = "Pods/Target Support Files/Pods-Project_R/Pods-Project_R.release.xcconfig"; sourceTree = "<group>"; };
 		FCE183EFE0E23253BBEF7754 /* Pods-Project_RTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project_RTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Project_RTests/Pods-Project_RTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -242,6 +252,8 @@
 				AE3CF2B220C03C0B0074D5F7 /* NotificationViewController.swift */,
 				AE7AA98020C684FA00E9F805 /* CheckInViewController.swift */,
 				AE7AA98A20C695A800E9F805 /* locationNameTableViewCell.swift */,
+				AEE4F4F420C7ADF10047A2B6 /* peopleViewController.swift */,
+				AEE4F4F620C7B00B0047A2B6 /* peopleTableViewCell.swift */,
 			);
 			name = Controllers;
 			path = "New Group1";
@@ -252,12 +264,12 @@
 			children = (
 				AE3CF28820BFAF6F0074D5F7 /* Activity.storyboard */,
 				AE3CF28A20BFAF700074D5F7 /* Camera.storyboard */,
-				AE3CF28C20BFAF710074D5F7 /* Discover.storyboard */,
 				AE3CF28F20BFAF730074D5F7 /* Home.storyboard */,
 				AE3CF28B20BFAF710074D5F7 /* Profile.storyboard */,
 				AE3CF28920BFAF6F0074D5F7 /* sample.jpg */,
 				AE3CF28D20BFAF720074D5F7 /* Start.storyboard */,
 				AE3CF28E20BFAF720074D5F7 /* TabBar.storyboard */,
+				AEE4F4F220C7ABB90047A2B6 /* people.storyboard */,
 			);
 			name = Views;
 			path = "New Group2";
@@ -271,6 +283,9 @@
 				AE3CF2A320BFAF890074D5F7 /* CommentAPI.swift */,
 				AE3CF29E20BFAF870074D5F7 /* Post.swift */,
 				AE3CF29C20BFAF860074D5F7 /* PostAPI.swift */,
+				AE4F075220C8365000B6D230 /* MyPostsApi.swift */,
+				AE4F074E20C8300E00B6D230 /* FeedApi.swift */,
+				AE4F074F20C8300F00B6D230 /* FollowApi.swift */,
 				AE3CF2A020BFAF880074D5F7 /* PostCommentAPI.swift */,
 				AE3CF2A220BFAF890074D5F7 /* SortComment.swift */,
 				AE3CF2A120BFAF880074D5F7 /* SortPost.swift */,
@@ -472,6 +487,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE64451A20BD79F500216484 /* ProgressHUD.bundle in Resources */,
+				AEE4F4F320C7ABB90047A2B6 /* people.storyboard in Resources */,
 				AE3CF29620BFAF730074D5F7 /* TabBar.storyboard in Resources */,
 				AE3CF29220BFAF730074D5F7 /* Camera.storyboard in Resources */,
 				AE3CF29720BFAF730074D5F7 /* Home.storyboard in Resources */,
@@ -482,7 +498,6 @@
 				AE64456D20BD7B4E00216484 /* GoogleService-Info.plist in Resources */,
 				AE3CF29520BFAF730074D5F7 /* Start.storyboard in Resources */,
 				AE6444E620BD798500216484 /* Assets.xcassets in Resources */,
-				AE3CF29420BFAF730074D5F7 /* Discover.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -634,9 +649,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE4F075320C8365100B6D230 /* MyPostsApi.swift in Sources */,
 				AE3CF27920BFAF530074D5F7 /* CameraViewController.swift in Sources */,
+				AEE4F4F520C7ADF10047A2B6 /* peopleViewController.swift in Sources */,
 				AE3CF27420BFAF530074D5F7 /* SignUpViewController.swift in Sources */,
 				AE3CF2AB20BFAF890074D5F7 /* PostCommentAPI.swift in Sources */,
+				AE4F075120C8300F00B6D230 /* FollowApi.swift in Sources */,
 				AE3CF28620BFAF530074D5F7 /* ImageZoom.swift in Sources */,
 				AE64451B20BD79F500216484 /* ProgressHUD.m in Sources */,
 				AE7AA98120C684FA00E9F805 /* CheckInViewController.swift in Sources */,
@@ -654,10 +672,12 @@
 				AE3CF2B320C03C0B0074D5F7 /* NotificationViewController.swift in Sources */,
 				AE64456B20BD7A6A00216484 /* AppDelegate.swift in Sources */,
 				AE3CF2AC20BFAF890074D5F7 /* SortPost.swift in Sources */,
+				AEE4F4F720C7B00B0047A2B6 /* peopleTableViewCell.swift in Sources */,
 				AE3CF2A420BFAF890074D5F7 /* Comment.swift in Sources */,
 				AE3CF27520BFAF530074D5F7 /* PhotoCollectionViewCell.swift in Sources */,
 				AE3CF2AE20BFAF890074D5F7 /* CommentAPI.swift in Sources */,
 				AE3CF2A820BFAF890074D5F7 /* API.swift in Sources */,
+				AE4F075020C8300F00B6D230 /* FeedApi.swift in Sources */,
 				AE3CF27E20BFAF530074D5F7 /* ProfileLinkViewController.swift in Sources */,
 				AE3CF25A20BFAEC10074D5F7 /* Constants.swift in Sources */,
 				AE3CF25E20BFAF2A0074D5F7 /* AuthService.swift in Sources */,
@@ -844,7 +864,10 @@
 				DEVELOPMENT_TEAM = XSJRRDKMW9;
 				INFOPLIST_FILE = Project_R/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.czsm.Project-R";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Project_R/ProgressHUD/Project_R-Bridging-Header.h";
@@ -865,7 +888,10 @@
 				DEVELOPMENT_TEAM = XSJRRDKMW9;
 				INFOPLIST_FILE = Project_R/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.czsm.Project-R";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Project_R/ProgressHUD/Project_R-Bridging-Header.h";
@@ -883,7 +909,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XSJRRDKMW9;
 				INFOPLIST_FILE = Project_RTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.czsm.Project-RTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -901,7 +931,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XSJRRDKMW9;
 				INFOPLIST_FILE = Project_RTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.czsm.Project-RTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -918,7 +952,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XSJRRDKMW9;
 				INFOPLIST_FILE = Project_RUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.czsm.Project-RUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -935,7 +973,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XSJRRDKMW9;
 				INFOPLIST_FILE = Project_RUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.czsm.Project-RUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

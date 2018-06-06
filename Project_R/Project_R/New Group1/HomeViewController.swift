@@ -253,37 +253,23 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
 //        cell.postTime.tag =
         cell.postTime.tag = indexPath.row
         cell.locationName.tag = indexPath.row
-        
-    
-        
+       
         return cell
+   
+        
     }
-//
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//
-////        let cell = tableView.dequeueReusableCell(withIdentifier: "HomeCell", for: indexPath) as! HomeTableViewCell
-//
-//
-//
-//
-//        if cell.postImageView == nil {
-//
-//            cell.postImageView.isHidden = true
-//
-//
-//            cell.locationName.isHidden = false
-//
-//            return 100
-//        } else {
-//
-//            cell.postImageView.isHidden = false
-//
-//
-//            cell.locationName.isHidden = true
-//
-//            return 498
-//        }
-//    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+       
+        let post = posts[indexPath.row]
+       
+        if post.photoURL != "" {
+            return 498
+        } else {
+            return 220
+        }
+    }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
       
@@ -470,12 +456,15 @@ extension HomeViewController : UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
        
-            let viewController  = tabBarController.viewControllers?[1] as! UINavigationController
-            let svc = viewController.topViewController as! NotificationViewController
+//            let viewController  = tabBarController.viewControllers?[1] as! UINavigationController
+//            let svc = viewController.topViewController as! peopleViewController
 //            svc.delegate = self as! NotificationViewControllerDelegate;
         
-            let viewController2  = tabBarController.viewControllers?[2] as! UINavigationController
-            let svc2 = viewController2.topViewController as! ProfileViewController
+            let viewController2  = tabBarController.viewControllers?[1] as! UINavigationController
+            let svc1 = viewController2.topViewController as! NotificationViewController
+        
+            let viewController3  = tabBarController.viewControllers?[2] as! UINavigationController
+            let svc2 = viewController3.topViewController as! ProfileViewController
             svc2.delegate = self;
         
         return true

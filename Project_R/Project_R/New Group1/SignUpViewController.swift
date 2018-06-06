@@ -254,9 +254,7 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
         
         // show the progress to the user
 //        ProgressHUD.show("Starting sign-up...", interaction: false)
-        
-        
-//        view.endEditing(true)
+
         
         if sendOTP == false {
         let mobileNumber = "+91" + emailTextField.text!
@@ -266,7 +264,6 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
         print("mobileNumber::::\(mobileNumber)")
 //        UserDefaults.standard.set("value", forKey: "emailTextField")
         Userdefaults.synchronize()
-//        UserDefaults.standard.set("value", forKey: "password")
         
         sendOTPCode()
         sendOTP = true
@@ -331,9 +328,11 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
     func sendOTPCode() {
         
         let mymobilenumber = Userdefaults.string(forKey: "mobileNumber")
-        PhoneAuthProvider.provider().verifyPhoneNumber(mymobilenumber!) { (verificationID, error) in
-           
+//        PhoneAuthProvider.provider().verifyPhoneNumber(mymobilenumber!) { (verificationID, error) in
         
+        PhoneAuthProvider.provider().verifyPhoneNumber(mymobilenumber!, uiDelegate: nil
+            , completion: { (verificationID, error) in
+           
 //        PhoneAuthProvider.provider().verifyPhoneNumber(mymobilenumber!, uiDelegate: nil, completion:
 //            {
 //                (verificationID, error) in
@@ -359,7 +358,7 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
                     
                     
                 }
-        }
+        })
         
     }
     
