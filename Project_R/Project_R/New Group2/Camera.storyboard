@@ -188,7 +188,7 @@
         <scene sceneID="djO-IF-OMp">
             <objects>
                 <navigationController storyboardIdentifier="NavigationCamera" automaticallyAdjustsScrollViewInsets="NO" id="wsi-6r-hne" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="notifi1" selectedImage="notifi" id="sk6-4R-ZXE">
+                    <tabBarItem key="tabBarItem" title="" image="TabBarNotification" selectedImage="TabBarNotificationselected" id="sk6-4R-ZXE">
                         <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -452,8 +452,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="notifi" width="20" height="24"/>
-        <image name="notifi1" width="20" height="24"/>
+        <image name="TabBarNotification" width="23" height="23"/>
+        <image name="TabBarNotificationselected" width="23" height="23"/>
         <image name="placeholder-photo" width="512" height="512"/>
     </resources>
 </document>

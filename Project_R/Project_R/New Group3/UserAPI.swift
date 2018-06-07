@@ -59,12 +59,15 @@ class UserAPI {
     
     func observeUser(withID uid:String, completion: @escaping (Users) -> Void) {
         let docRef = db.collection("users").document(uid)
-        
+        print("docRef:::\(docRef)")
         docRef.getDocument { (document, error) in
             if let document = document {
                 
+                print("documentdata:::\(document.data())")
+                
                 let user = Users.transformUser(postDictionary: document.data()!)
                 completion(user)
+                
             } else {
                 print("Document does not exist")
             }

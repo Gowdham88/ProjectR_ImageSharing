@@ -22,8 +22,9 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     func updateView() {
         if let photoURL = post?.photoURL {
            photoView.image = nil
+            if  photoURL != "" {
            Manager.shared.loadImage(with: URL(string : photoURL)!, into: self.photoView)
-            
+            }
         }
     }
     

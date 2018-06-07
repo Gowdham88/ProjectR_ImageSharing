@@ -22,6 +22,7 @@ class HomeViewController : UIViewController {
     var posts = [Post]()
     var users = [Users]()
     var snapshot :DocumentSnapshot?
+    var commentCountte: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +48,7 @@ class HomeViewController : UIViewController {
         
 //        tableView.rowHeight = UITableViewAutomaticDimension
 //        tableView.estimatedRowHeight = 44
+        
       
     }
 
@@ -55,7 +57,11 @@ class HomeViewController : UIViewController {
         
     }
     
-    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        
+        print("commentCount:::\(commentCountte)")
+    }
     
     @objc func refresh(sender:AnyObject) {
        
@@ -236,6 +242,15 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HomeCell", for: indexPath) as! HomeTableViewCell
         
+        
+//        cell.layer.cornerRadius = 10
+//        let shadowPath2 = UIBezierPath(rect: cell.bounds)
+        cell.layer.masksToBounds = false
+        cell.layer.shadowColor = UIColor.black.cgColor
+        cell.layer.shadowOffset = CGSize(width: CGFloat(0.5), height: CGFloat(0.5))
+        cell.layer.shadowOpacity = 0.25
+//        cell.layer.shadowPath = shadowPath2.cgPath
+        
         guard posts.count > 0 else {
             
             return cell
@@ -266,7 +281,7 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
         if post.photoURL != "" {
             return 498
         } else {
-            return 220
+            return 260
         }
     }
     
@@ -553,5 +568,16 @@ extension HomeViewController {
         self.present(alert, animated: true, completion: nil)
         
     }
+  
+}
+extension HomeViewController: commentCountDelegate {
+    func usercommentcount(count: Int!) {
+        
+        
+       
+            print("count:::\(count)")
+        
+    }
+    
   
 }

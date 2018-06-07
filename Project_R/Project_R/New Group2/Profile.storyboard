@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -238,7 +238,6 @@
         <!--Info-->
         <scene sceneID="yWs-9x-gH7">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="q9w-bM-VAP" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="textscroll" id="v3z-VG-S0Z" customClass="TextScroll" customModule="Project_R" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tua-wO-xqO"/>
@@ -319,6 +318,7 @@
                         <outlet property="textView" destination="Uf1-4T-S3b" id="2TB-Xk-rta"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q9w-bM-VAP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3939.375" y="2087.323943661972"/>
         </scene>
@@ -326,7 +326,7 @@
         <scene sceneID="CcV-d0-fS2">
             <objects>
                 <navigationController storyboardIdentifier="NavigationProfile" automaticallyAdjustsScrollViewInsets="NO" id="He6-28-qCK" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="Profile" selectedImage="Profile_Selected" id="GGL-Kz-BB1">
+                    <tabBarItem key="tabBarItem" title="" image="TabBarUser" selectedImage="TabBarUserselected" id="GGL-Kz-BB1">
                         <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -352,8 +352,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Profile" width="20" height="21"/>
-        <image name="Profile_Selected" width="20" height="21"/>
+        <image name="TabBarUser" width="20" height="20"/>
+        <image name="TabBarUserselected" width="20" height="20"/>
         <image name="barButtonItem:jaW-VS-ukb:image" width="24" height="18">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGVVZYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEgcI

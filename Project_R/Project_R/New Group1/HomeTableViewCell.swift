@@ -32,10 +32,12 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     @IBOutlet weak var shareImageView: UIImageView!
     @IBOutlet weak var likeCountButton: UIButton!
     @IBOutlet weak var captionLabel: UILabel!
+    @IBOutlet weak var commentCountLabel: UILabel!
     var delegate : HomeTableViewCellDelegate?
     var homeVC: HomeViewController?
     var userVC: UserViewController?
     var postReference: DatabaseReference!
+    var commentCount = [Comment]()
     
     var post: Post? {
         didSet {
@@ -49,11 +51,20 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         }
     }
     
+    override func layoutSubviews() {
+        
+        contentView.frame = UIEdgeInsetsInsetRect(contentView.frame, UIEdgeInsetsMake(0, 0, 5, 0))
+    }
+    
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
         nameLabel.text = ""
         captionLabel.text = ""
+        
+        
         
         // add a tap gesture to the comment image for users to segue to the commentVC
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleCommentImageViewTap))
@@ -131,13 +142,16 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         let photoURL = post?.photoURL
 //        if let photoURL = post?.photoURL {
 //            postImageView.image = nil
-            if photoURL != "" {
+        if photoURL != ""  {
 
                 Manager.shared.loadImage(with: URL(string : photoURL!)!, into: self.postImageView)
+            if locationName != nil {
                 locationName.isHidden = true
-            
+            }
             } else {
+            if locationName != nil {
                 postImageView.isHidden = true
+            
                 locationName.isHidden = false
                 let bounds = UIScreen.main.bounds
                 let height = bounds.size.height
@@ -145,7 +159,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
                 switch height {
                 case 480.0:
                     print("iPhone 3,4")
-                    locationName.frame = CGRect(x: 10, y: 98, width: 296, height: 21)
+                 
 
                 case 568.0:
                     print("iPhone 5")
@@ -154,16 +168,24 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
                 case 667.0:
                     print("iPhone 6")
                     locationName.frame = CGRect(x: 10, y: 110, width: 296, height: 21)
+//                    locationName.frame = CGRect(x: 10, y: 155, width: 296, height: 21)
+//                    likeImageView.frame = CGRect(x: 20, y: 155, width: 20, height: 19)
+//                    likeCountButton.frame = CGRect(x: likeImageView.frame.origin.x + likeImageView.frame.width + 10, y: 155, width: 30, height: 30)
+//                    captionLabel.frame = CGRect(x: 10, y: 195, width: 290, height: 30)
+//                    commentImageView.frame = CGRect(x: likeCountButton.frame.origin.x + likeImageView.frame.width + 10, y: 155, width: 30, height: 30)
                 case 736.0:
                     print("iPhone 6+")
                     locationName.frame = CGRect(x: 10, y: 150, width: 296, height: 21)
+                case 812.0:
+                    print("iPhone X")
+                    locationName.frame = CGRect(x: 10, y: 180, width: 296, height: 21)
 
                 default:
                     print("not an iPhone")
                     
                 }
-                
             }
+        }
 //        }
         
         self.updateLike(post: post!)
@@ -433,7 +455,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         
         DispatchQueue.main.async {
             
-            let imageName = post.isLiked ?? false ? "likeSelected" : "like"
+            let imageName = post.isLiked ?? false ? "firecolors" : "fireuncolors"
             self.likeImageView.image = UIImage(named: imageName)
             
             // display a message for Likes
@@ -442,7 +464,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
             }
             
             if count != 0 {
-                self.likeCountButton.setTitle("\(count) ", for: .normal)
+                self.likeCountButton.setTitle("\(count) Dope", for: .normal)
             } else if post.likeCount == 0 {
                 self.likeCountButton.setTitle("", for: .normal)
             }
@@ -455,16 +477,20 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         guard let count = post.rating else {
             return
         }
+        if productRatingLabel != nil {
         self.productRatingLabel.text = "- has rated \(count)/10 for this product."
+        }
     }
     
     func locationName(post: Post) {
         guard let count = post.location else {
             return
         }
+        if locationName != nil {
+        
         if locationName.text != "null" || locationName.text != ""   {
         self.locationName.text = "\(count) "
-        
+            }
         }
     }
     
@@ -495,9 +521,11 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
                 let timeString = formatter.string(from: before, to: now)
         
         
-        
+        if postTime != nil {
         
         self.postTime.text = timeString
+   
+        }
     }
     
     

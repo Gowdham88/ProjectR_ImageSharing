@@ -37,19 +37,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         
         
-//        var initialViewController: UIViewController?
+        var initialViewController: UIViewController?
 //        if let username = UserDefaults.standard.value(forKey: "emailTextField") {
-//            let mainStoryboard : UIStoryboard = UIStoryboard(name: "TabBar", bundle: nil)
-//
-//            initialViewController = mainStoryboard.instantiateViewController(withIdentifier: "TabBarID")
-//        } else {
-//            let mainStoryboard : UIStoryboard = UIStoryboard(name: "Start", bundle: nil)
-//
-//            initialViewController = mainStoryboard.instantiateViewController(withIdentifier: "SignUpViewController")
-//        }
-//        self.window = UIWindow(frame: UIScreen.main.bounds)
-//        self.window?.rootViewController = initialViewController
-//        self.window?.makeKeyAndVisible()
+        if Auth.auth().currentUser != nil {
+            let mainStoryboard : UIStoryboard = UIStoryboard(name: "TabBar", bundle: nil)
+
+            initialViewController = mainStoryboard.instantiateViewController(withIdentifier: "TabBarID")
+        } else {
+            let mainStoryboard : UIStoryboard = UIStoryboard(name: "Start", bundle: nil)
+
+            initialViewController = mainStoryboard.instantiateViewController(withIdentifier: "SignUpViewController")
+        }
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window?.rootViewController = initialViewController
+        self.window?.makeKeyAndVisible()
 
         Thread.sleep(forTimeInterval: 3.0)
         
