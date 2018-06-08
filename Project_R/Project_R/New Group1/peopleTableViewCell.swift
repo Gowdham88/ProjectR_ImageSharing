@@ -12,7 +12,9 @@ import FirebaseAuth
 import FirebaseFirestore
 import SDWebImage
 import Nuke
-
+protocol PeopleTableViewCellDelegate {
+    func goToProfileUserVC(userId: String)
+}
 
 class peopleTableViewCell: UITableViewCell {
     
@@ -22,18 +24,36 @@ class peopleTableViewCell: UITableViewCell {
     @IBOutlet weak var followBtn: UIButton!
     
     var userID: String!
+    var delegate: PeopleTableViewCellDelegate?
+
+    var user: Users? {
+        didSet {
+            updateView()
+        }
+    }
+    
+  
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handlefollowbtnTap))
-        followBtn.addGestureRecognizer(tapGesture)
-        followBtn.isUserInteractionEnabled = true
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handlefollowbtnTap))
+//        followBtn.addGestureRecognizer(tapGesture)
+//        followBtn.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.nameLabel_TouchUpInside))
+        profileUserName.addGestureRecognizer(tapGesture)
+        profileUserName.isUserInteractionEnabled = true
         
     }
 
+    
+    @objc func nameLabel_TouchUpInside() {
+        if let id = user?.id {
+            delegate?.goToProfileUserVC(userId: id)
+        }
+    }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
@@ -42,50 +62,69 @@ class peopleTableViewCell: UITableViewCell {
     
     @objc func handlefollowbtnTap(){
     
-        followers()
+//        followers()
     
     }
     
-    func followers() {
+    
+    
+    func updateView() {
+        profileUserName.text = user?.username
+        if let photoUrlString = user?.profileImageURL {
+            let photoUrl = URL(string: photoUrlString)
+            profileUserImage.sd_setImage(with: photoUrl, placeholderImage: UIImage(named: "placeholder-photo"))
+            
+        }
         
-        guard let currentUserID = Auth.auth().currentUser?.uid else { return }
-        print("currentuid:::::\(currentUserID)")
-        
-        
-//            let key = db.collection("users").document().value(forKey: "key")
-            var isFollower = false
-            var users : Users!
-        
-        API.User.observeCurrentUser { user in
-            users = user
-            let db = Firestore.firestore()
-            db.collection("followers").document(currentUserID).setData([
-                currentUserID: "true",
-                
-                ]){ err in
-                    if let err = err {
-                        print("Error writing document: \(err)")
-//                        ProgressHUD.showError("Photo Save Error: \(err.localizedDescription)")
-                        return
-                    } else {
-                        
-                        print("Document successfully written!")
-                        
-                        db.collection("following").document(currentUserID).setData([
-                            currentUserID: "true",
-                            
-                            ]){ err in
-                                if let err = err {
-                                    print("Error writing document: \(err)")
-                                    ProgressHUD.showError("Photo Save Error: \(err.localizedDescription)")
-                                    return
-                                }
-                        }
-                    }
-            }
+        if user!.isFollowing! {
+            configureUnFollowButton()
+        } else {
+            configureFollowButton()
+        }
     }
-}
+    
+    func configureFollowButton() {
+        followBtn.layer.borderWidth = 1
+        followBtn.layer.borderColor = UIColor(red: 226/255, green: 228/255, blue: 232.255, alpha: 1).cgColor
+        followBtn.layer.cornerRadius = 5
+        followBtn.clipsToBounds = true
         
+        followBtn.setTitleColor(UIColor.white, for: UIControlState.normal)
+        followBtn.backgroundColor = UIColor(red: 69/255, green: 142/255, blue: 255/255, alpha: 1)
+        followBtn.setTitle("Follow", for: UIControlState.normal)
+        followBtn.addTarget(self, action: #selector(self.followAction), for: UIControlEvents.touchUpInside)
+    }
+    
+    func configureUnFollowButton() {
+        followBtn.layer.borderWidth = 1
+        followBtn.layer.borderColor = UIColor(red: 226/255, green: 228/255, blue: 232.255, alpha: 1).cgColor
+        followBtn.layer.cornerRadius = 5
+        followBtn.clipsToBounds = true
+        
+        followBtn.setTitleColor(UIColor.black, for: UIControlState.normal)
+        followBtn.backgroundColor = UIColor.clear
+        followBtn.setTitle("Following", for: UIControlState.normal)
+        followBtn.addTarget(self, action: #selector(self.unFollowAction), for: UIControlEvents.touchUpInside)
+    }
+    
+    @objc func followAction() {
+        if user!.isFollowing! == false {
+            API.Follow.followAction(withUser: user!.id!)
+            configureUnFollowButton()
+            user!.isFollowing! = true
+        }
+    }
+    
+    @objc func unFollowAction() {
+        if user!.isFollowing! == true {
+            API.Follow.unFollowAction(withUser: user!.id!)
+            configureFollowButton()
+            user!.isFollowing! = false
+        }
+    }
+        
+
+    
         func updatefollowingbtn() {
            DispatchQueue.main.async {
        

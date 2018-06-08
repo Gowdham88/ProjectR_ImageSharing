@@ -91,47 +91,72 @@ class HomeViewController : UIViewController {
     
     // MARK: - Firebase Data Loading Method
     
+    
     func loadPosts() {
-        activityIndicatorView.startAnimating()
- 
-        API.Post.observePosts { (newPost,lastsnap) in
-         
-            DispatchQueue.main.async {
-            
-            self.posts    = newPost
-            self.snapshot = lastsnap
-            self.activityIndicatorView.stopAnimating()
-            self.tableView.reloadData()
-            self.refreshControl.endRefreshing()
-                
+        
+        API.Feed.observeFeed(withId: API.User.CURRENT_USER!.uid) { (post) in
+            guard let postUid = post.uid else {
+                return
             }
-           
+            self.fetchUser(uid: postUid, completed: {
+                self.posts.append(post)
+                self.tableView.reloadData()
+            })
+        }
+        
+        
+        API.Feed.observeFeedRemoved(withId: API.User.CURRENT_USER!.uid) { (post) in
+            self.posts = self.posts.filter { $0.id != post.id }
+            self.users = self.users.filter { $0.id != post.uid }
+            
+            self.tableView.reloadData()
         }
     }
     
-    func loadPostsPage(snap : DocumentSnapshot) {
-        activityIndicatorView.startAnimating()
-        
-        API.Post.observePostsPage(lastSnapshot: snap) { (newPost,lastsnap) in
-            
-            for item in newPost {
-                
-                self.posts.append(item)
-                
-            }
-            
-            DispatchQueue.main.async {
-                
-                self.snapshot = lastsnap
-                self.activityIndicatorView.stopAnimating()
-                self.tableView.reloadData()
-                self.refreshControl.endRefreshing()
-            }
-            
-            
-            
-        }
-    }
+    
+    
+    
+//    func loadPosts() {
+//        activityIndicatorView.startAnimating()
+//
+//        API.Post.observePosts { (newPost,lastsnap) in
+//
+//            DispatchQueue.main.async {
+//
+//            self.posts    = newPost
+//            self.snapshot = lastsnap
+//            self.activityIndicatorView.stopAnimating()
+//            self.tableView.reloadData()
+//            self.refreshControl.endRefreshing()
+//
+//            }
+//
+//        }
+//    }
+    
+//    func loadPostsPage(snap : DocumentSnapshot) {
+//        activityIndicatorView.startAnimating()
+//
+//        API.Post.observePostsPage(lastSnapshot: snap) { (newPost,lastsnap) in
+//
+//            for item in newPost {
+//
+//                self.posts.append(item)
+//
+//            }
+//
+//            DispatchQueue.main.async {
+//
+//                self.snapshot = lastsnap
+//                self.activityIndicatorView.stopAnimating()
+//                self.tableView.reloadData()
+//                self.refreshControl.endRefreshing()
+//            }
+//
+//
+//
+//        }
+//    }
     
     
     // fetch all user info at once and cache it into the users array
@@ -292,18 +317,18 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
     }
     
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
-        if indexPath.row == posts.count - 1  {
-            
-            if let pageItem = snapshot {
-             
-                loadPostsPage(snap: pageItem)
-                
-            }
-            
-        }
-    }
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//
+//        if indexPath.row == posts.count - 1  {
+//
+//            if let pageItem = snapshot {
+//
+//                loadPostsPage(snap: pageItem)
+//
+//            }
+//
+//        }
+//    }
     
     
     @objc func scrollToFirstRow(sender:UITapGestureRecognizer) {
@@ -313,7 +338,7 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
 
     func openUserStoryboard(position: Int) {
         
-        let storyboard = UIStoryboard(name: "Home", bundle: nil)
+        let storyboard = UIStoryboard(name: "people", bundle: nil)
         let vc =  storyboard.instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
         vc.userId = posts[position].uid!
         vc.delegate = self
@@ -471,14 +496,18 @@ extension HomeViewController : UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
        
-//            let viewController  = tabBarController.viewControllers?[1] as! UINavigationController
-//            let svc = viewController.topViewController as! peopleViewController
+//            let viewController0  = tabBarController.viewControllers?[0] as! UINavigationController
+//            let svc0 = viewController0.topViewController as! HomeViewController
+       
+            let viewController  = tabBarController.viewControllers?[1] as! UINavigationController
+            let svc = viewController.topViewController as! peopleViewController
 //            svc.delegate = self as! NotificationViewControllerDelegate;
         
-            let viewController2  = tabBarController.viewControllers?[1] as! UINavigationController
+            let viewController2  = tabBarController.viewControllers?[2] as! UINavigationController
             let svc1 = viewController2.topViewController as! NotificationViewController
+//            svc.delegate = self as! NotificationViewControllerDelegate;
         
-            let viewController3  = tabBarController.viewControllers?[2] as! UINavigationController
+            let viewController3  = tabBarController.viewControllers?[3] as! UINavigationController
             let svc2 = viewController3.topViewController as! ProfileViewController
             svc2.delegate = self;
         

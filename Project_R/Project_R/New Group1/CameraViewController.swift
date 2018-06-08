@@ -342,7 +342,8 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
                     ProgressHUD.showError("Photo Save Error: \(err.localizedDescription)")
                 } else {
                     print("Document successfully written!")
-                    
+                    API.Feed.REF_FEED.child(API.User.CURRENT_USER!.uid).child(newPostID).setValue(true)
+
                     db.collection("user-posts").document(newPostID).setData([
                         newPostID: "true",
                         

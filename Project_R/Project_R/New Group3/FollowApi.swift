@@ -20,17 +20,7 @@ class FollowApi {
     func followAction(withUser id: String) {
         
         
-        
-//        Api.MyPosts.REF_MYPOSTS.child(id).observeSingleEvent(of: .value, with: {
-//            snapshot in
-//            if let dict = snapshot.value as? [String: Any] {
-//                for key in dict.keys {
-//                    FIRDatabase.database().reference().child("feed").child(Api.User.CURRENT_USER!.uid).child(key).setValue(true)
-//                }
-//            }
-        //        })
-        
-        let docRef = db.collection("myPosts").document(id)
+        let docRef = db.collection("user-posts").document(id)
         
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
@@ -54,7 +44,7 @@ class FollowApi {
     
     func unFollowAction(withUser id: String) {
         
-        let docRef = db.collection("myPosts").document(id)
+        let docRef = db.collection("user-posts").document(id)
         
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {

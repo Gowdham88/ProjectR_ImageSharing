@@ -134,6 +134,8 @@ class UserViewController: UIViewController {
             let commentVC = segue.destination as! CommentViewController
             commentVC.postID = sender as! String
         }
+        
+//        CommentViewController
     }
     
 

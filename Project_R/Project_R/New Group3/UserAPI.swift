@@ -48,7 +48,7 @@ class UserAPI {
         docRef.getDocument { (document, error) in
             if let document = document {
                 
-                let user = Users.transformUser(postDictionary: document.data()!)
+                let user = Users.transformUser(postDictionary: document.data()!, key: document.documentID)
                 completion(user)
                 return
             } else {
@@ -63,9 +63,9 @@ class UserAPI {
         docRef.getDocument { (document, error) in
             if let document = document {
                 
-                print("documentdata:::\(document.data())")
+                print("documentdata:::\(String(describing: document.data()))")
                 
-                let user = Users.transformUser(postDictionary: document.data()!)
+                let user = Users.transformUser(postDictionary: document.data()!, key: document.documentID)
                 completion(user)
                 
             } else {
@@ -74,7 +74,7 @@ class UserAPI {
         }
     }
     
-    func observeUser(completion: @escaping ([Users]) -> Void) {
+    func observeUser(completion: @escaping (Users) -> Void) {
         
         db.collection("users")
             .getDocuments() { (querySnapshot, err) in
@@ -84,13 +84,15 @@ class UserAPI {
                     
                     self.userList.removeAll()
                     
+                    var user : Users?
                     for document in querySnapshot!.documents {
                         
-                        let user = Users.transformUser(postDictionary: document.data())
-                        self.userList.append(user)
+                         user = Users.transformUser(postDictionary: document.data(), key: document.documentID)
+//                        self.userList.append(user!)
+                        completion(user!)
                     }
                     
-                    completion(self.userList)
+//                    completion(user!)
                     
                 }
         }
