@@ -24,17 +24,29 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
-    
+//    func loadUsers() {
+//
+//        self.users = []
+//
+//        API.User.observeUser { (user) in
+//            self.isFollowing(userId: user.id!, completed: { (value) in
+//                user.isFollowing = value
+//
+//                self.users.append(user)
+//                self.tableView.reloadData()
+//
+//            })
+//        }
+//    }
     
     func loadUsers() {
   
-       
+        self.users = []
+        
         API.User.observeUser { (user) in
-//            self.userList.append(user.id!)
-//            print("userList::::\(self.userList)")
+
             self.isFollowing(userId: user.id!, completed: { (value) in
                 user.isFollowing = value
-//                uniqueElementsFrom(array: self.users)
 
                 self.users.append(user)
                 self.tableView.reloadData()
@@ -54,20 +66,6 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         return result
     }
- 
-    
-  
-//    func uniq<S : Sequence, T : Hashable>(source: S) -> [T] where S.Iterator.Element == T {
-//        var buffer = [T]()
-//        var added = Set<T>()
-//        for elem in source {
-//            if !added.contains(elem) {
-//                buffer.append(elem)
-//                added.insert(elem)
-//            }
-//        }
-//        return buffer
-//    }
 
     
     func isFollowing(userId: String, completed: @escaping (Bool) -> Void) {
@@ -81,6 +79,13 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             profileVC.userId = userId
             profileVC.delegate = self as? UserViewControllerDelegate
         }
+
+//        let vc = performSegue(withIdentifier: "ProfileSegue", sender: nil)
+//        self.navigationController?.pushViewController(vc, animated: true)
+
+//        self.performSegue(withIdentifier: "ProfileSegue", sender: sender)
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -104,7 +109,15 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return cell
     }
     
-  
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//
+//        let storyboard = UIStoryboard(name: "Home", bundle: nil)
+//        let vc =  storyboard.instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
+////        let userId = indexPath.row as! String
+////        vc.userId = userId
+////        vc.delegate = self as! UserViewControllerDelegate
+//        self.navigationController?.pushViewController(vc, animated: true)
+//    }
     
 
 

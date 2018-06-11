@@ -142,9 +142,10 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         let photoURL = post?.photoURL
 //        if let photoURL = post?.photoURL {
 //            postImageView.image = nil
-        if photoURL != ""  {
-
+        if photoURL != "" {
+            if photoURL != nil {
                 Manager.shared.loadImage(with: URL(string : photoURL!)!, into: self.postImageView)
+            }
             if locationName != nil {
                 locationName.isHidden = true
             }

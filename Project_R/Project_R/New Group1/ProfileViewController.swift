@@ -7,7 +7,6 @@
 //
 
 import UIKit
-// TODO: Refactor Model functionality out of the VC
 import FirebaseAuth
 
 protocol  ProfileViewControllerDelegate {
@@ -22,6 +21,7 @@ class ProfileViewController: UIViewController {
     var posts: [Post] = []
     var countpost : [Post] = []
     var countuser : [Users] = []
+    var postCountsss: Int?
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     var selectedProfilePhoto: UIImage?
@@ -34,6 +34,8 @@ class ProfileViewController: UIViewController {
         collectionView.delegate = self
         
         fetchUser()
+        
+        
         
     }
     
@@ -82,6 +84,8 @@ class ProfileViewController: UIViewController {
         API.Post.observeUserPosts(withID: currentUser.uid, completion: {
             post in
             self.posts = post
+        
+            
             
             completion("success")
         })
@@ -158,8 +162,9 @@ extension ProfileViewController: UICollectionViewDataSource,UICollectionViewDele
         }
         
         headerViewCell.delegate = self
-        headerViewCell.postCountLabel.text = "\(self.countpost.count)"
-        headerViewCell.followersCountLabel.text = "\(self.countuser.count)"
+//        headerViewCell.postCountLabel.text = "\(self.countpost.count)"
+//        print("post:::\(self.countpost.count)")
+//        headerViewCell.followersCountLabel.text = "\(self.countuser.count)"
         
         return headerViewCell
     }

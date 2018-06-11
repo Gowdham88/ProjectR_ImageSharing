@@ -19,11 +19,17 @@ class FollowApi {
     
     func followAction(withUser id: String) {
         
-        
+        print("withuser:::\(id)")
         let docRef = db.collection("user-posts").document(id)
+        print("id::::\(docRef)")
         
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
+                
+//                self.db.collection("followers").document(id).setData([API.User.CURRENT_USER!.uid: true])
+
+//                 self.db.collection("following").document(API.User.CURRENT_USER!.uid).setData([id: true])
+                
                 let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
                 print("Document data: \(dataDescription)")
                 
@@ -31,14 +37,21 @@ class FollowApi {
                 
             } else {
                 print("Document does not exist")
+//                self.db.collection("followers").document(id).updateData([API.User.CURRENT_USER!.uid: true])
+                
+//                self.db.collection("following").document(API.User.CURRENT_USER!.uid).updateData([id: true])
             }
         }
-        
-        
+       
+      
+        self.db.collection("followers").document(id).setData([API.User.CURRENT_USER!.uid: true])
+        self.db.collection("following").document(API.User.CURRENT_USER!.uid).setData([id: true])
 
-       self.db.collection("followers").document(id).setData([API.User.CURRENT_USER!.uid: true])
-       self.db.collection("following").document(API.User.CURRENT_USER!.uid).setData([id: true])
-        
+//        self.db.collection("following").document(API.User.CURRENT_USER!.uid).setData([id: true])
+//        REF_FOLLOWERS.child(id).child(API.User.CURRENT_USER!.uid).setValue(true)
+//        REF_FOLLOWING.child(API.User.CURRENT_USER!.uid).child(id).setValue(true)
+      
+
         
     }
     
@@ -51,7 +64,9 @@ class FollowApi {
                 let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
                 print("Document data: \(dataDescription)")
                 
-                self.db.collection("feed").document(API.User.CURRENT_USER!.uid).setData([document.documentID: NSNull()])
+//                self.db.collection("feed").document(API.User.CURRENT_USER!.uid).setData([document.documentID: NSNull()])
+                self.db.collection("feed").document(API.User.CURRENT_USER!.uid).delete()
+
                 
             } else {
                 print("Document does not exist")
@@ -115,13 +130,42 @@ class FollowApi {
 //
 //    }
 //
-//    func fetchCountFollowers(userId: String, completion: @escaping (Int) -> Void) {
+    func fetchCountFollowers(userId: String, completion: @escaping (Int) -> Void) {
 //        REF_FOLLOWERS.child(userId).observe(.value, with: {
 //            snapshot in
 //            let count = Int(snapshot.childrenCount)
 //            completion(count)
 //        })
+        
+        
+        let docRef = db.collection("followers").whereField(API.User.CURRENT_USER!.uid, isEqualTo: true)
+      
+        docRef.getDocuments() { (querySnapshot, err) in
+            let count = querySnapshot?.count
+            print("followersCount::::\(String(describing: count))")
+        }
+        
+//        db.collection("followers").document(userId).addSnapshotListener { (documentSnapshot, error) in
+//            let count = documentSnapshot?.data()?.count
+//            print("followersCount::::\(String(describing: count))")
+//            completion(count!)
 //
-//    }
+//        }
+
+    }
     
-}
+    
+    
+        func fetchCountFollowing(userId: String, completion: @escaping (Int) -> Void) {
+
+            
+            db.collection("following").document(API.User.CURRENT_USER!.uid).addSnapshotListener { (documentSnapshot, error) in
+                let count = documentSnapshot?.data()?.count
+                print("followingCount::::\(String(describing: count))")
+                completion(count!)
+                
+            }
+
+        }
+
+}//followAPI

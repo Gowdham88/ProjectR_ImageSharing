@@ -24,6 +24,7 @@ class Post {
     var documentID: String?
     var rating: String?
     var location: String?
+    
 }
 
 extension Post {
