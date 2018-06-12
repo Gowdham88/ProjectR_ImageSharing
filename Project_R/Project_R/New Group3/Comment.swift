@@ -15,6 +15,7 @@ class Comment {
     var userName : String?
     var profileImageURL : String?
     var postTime : Double?
+    var commentCount: Int?
 }
 
 extension Comment {

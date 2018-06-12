@@ -36,6 +36,36 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
         if let photoURL = user?.profileImageURL {
             self.profileImageView.sd_setImage(with: URL(string: photoURL))
         }
+        
+        API.Follow.fetchCountFollowing(userId: user!.id!) { (count) in
+            
+            if self.followingCountLabel.text != nil {
+            self.followingCountLabel.text = "\(count)"
+                print("followingcountlabel::::\(self.followingCountLabel)")
+                
+            }
+        }
+        
+        API.Follow.fetchCountFollowers(userId: API.User.CURRENT_USER!.uid) { (count) in
+
+            if self.followersCountLabel.text != nil {
+                self.followersCountLabel.text = "\(count)"
+                print("followersCountLabel::::\(self.followersCountLabel)")
+                
+            }
+        }
+        
+        API.Post.fetchCountuserPost(withID: API.User.CURRENT_USER!.uid) { (count) in
+ 
+            if self.postCountLabel.text != nil {
+                
+                self.postCountLabel.text = "\(count)"
+                print("postcountLabel::::\(self.postCountLabel)")
+            }
+        }
+        
+        
+     
     }
     
     @IBAction func ButtonProfile(_ sender: UIButton) {

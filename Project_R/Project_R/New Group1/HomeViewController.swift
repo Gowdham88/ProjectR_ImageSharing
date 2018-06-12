@@ -16,11 +16,13 @@ class HomeViewController : UIViewController {
     @IBOutlet var navigationItemList: UINavigationItem!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
+   
     
     var refreshControl: UIRefreshControl!
     var posts = [Post]()
     var users = [Users]()
     var snapshot :DocumentSnapshot?
+    var commentCountte: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,13 +46,21 @@ class HomeViewController : UIViewController {
         
         loadPosts()
         
-       
+//        tableView.rowHeight = UITableViewAutomaticDimension
+//        tableView.estimatedRowHeight = 44
+        
       
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        
+        print("commentCount:::\(commentCountte)")
     }
     
     @objc func refresh(sender:AnyObject) {
@@ -81,45 +91,70 @@ class HomeViewController : UIViewController {
     
     // MARK: - Firebase Data Loading Method
     
+    
+//    func loadPosts() {
+//
+//        API.Feed.observeFeed(withId: API.User.CURRENT_USER!.uid) { (post) in
+//            guard let postUid = post.uid else {
+//                return
+//            }
+//            self.fetchUser(uid: postUid, completed: {
+//                self.posts.append(post)
+//                self.tableView.reloadData()
+//            })
+//        }
+//
+//
+//        API.Feed.observeFeedRemoved(withId: API.User.CURRENT_USER!.uid) { (post) in
+//            self.posts = self.posts.filter { $0.id != post.id }
+//            self.users = self.users.filter { $0.id != post.uid }
+//
+//            self.tableView.reloadData()
+//        }
+//    }
+//
+    
+    
+    
     func loadPosts() {
         activityIndicatorView.startAnimating()
- 
+
         API.Post.observePosts { (newPost,lastsnap) in
-         
+
             DispatchQueue.main.async {
-            
+
             self.posts    = newPost
             self.snapshot = lastsnap
             self.activityIndicatorView.stopAnimating()
             self.tableView.reloadData()
             self.refreshControl.endRefreshing()
-                
+
             }
-           
+
         }
     }
     
     func loadPostsPage(snap : DocumentSnapshot) {
         activityIndicatorView.startAnimating()
-        
+
         API.Post.observePostsPage(lastSnapshot: snap) { (newPost,lastsnap) in
-            
+
             for item in newPost {
-                
+
                 self.posts.append(item)
-                
+
             }
-            
+
             DispatchQueue.main.async {
-                
+
                 self.snapshot = lastsnap
                 self.activityIndicatorView.stopAnimating()
                 self.tableView.reloadData()
                 self.refreshControl.endRefreshing()
             }
-            
-            
-            
+
+
+
         }
     }
     
@@ -145,16 +180,55 @@ class HomeViewController : UIViewController {
         }
     }
     
-    @IBAction func BtnInfo(_ sender: UIBarButtonItem) {
+//    @IBAction func BtnInfo(_ sender: UIBarButtonItem) {
+//        
+////        let storyboard = UIStoryboard(name: "Profile", bundle: nil)
+////        let vc         =  storyboard.instantiateViewController(withIdentifier: "textscroll") as! TextScroll
+////        self.navigationController?.pushViewController(vc, animated: true)
+//        
+//    }
+    
+    @IBAction func createNewpost(_ sender: Any) {
+   
+        let Alert: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         
-        let storyboard = UIStoryboard(name: "Profile", bundle: nil)
-        let vc         =  storyboard.instantiateViewController(withIdentifier: "textscroll") as! TextScroll
+        let CamAction: UIAlertAction = UIAlertAction(title: "Create Post", style: .default) { ACTION in
+            self.openCreatePost()
+        }
+        
+        let GallAction: UIAlertAction = UIAlertAction(title: "Check In", style: .default){ ACTION in
+            self.opencheckIn()
+        }
+        let CancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel)
+        CancelAction.setValue(UIColor.red, forKey: "titleTextColor")
+        
+        Alert.addAction(CamAction)
+        Alert.addAction(GallAction)
+        Alert.addAction(CancelAction)
+        
+        Alert.popoverPresentationController?.sourceView = self.view
+        Alert.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.size.width / 2.0, y: self.view.bounds.size.height / 2.0, width: 1.0, height: 1.0)
+        present(Alert, animated: true, completion: nil)
+        
+        
+        
+    }
+    func openCreatePost(){
+      
+        let storyboard = UIStoryboard(name: "Camera", bundle: nil)
+        let vc         =  storyboard.instantiateViewController(withIdentifier: "CameraViewController") as! CameraViewController
         self.navigationController?.pushViewController(vc, animated: true)
         
     }
     
-    
-    
+    func opencheckIn(){
+        
+        let storyboard = UIStoryboard(name: "Camera", bundle: nil)
+        let vc         =  storyboard.instantiateViewController(withIdentifier: "CheckInViewController") as! CheckInViewController
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+        
+    }
 }
 
 
@@ -180,6 +254,8 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
             label.font = UIFont(name: "AvenirNext-Regular", size: 16.0)
             tableView.backgroundView  = label
             tableView.separatorStyle  = .none
+            
+            
         }
         return numOfSections
     }
@@ -190,6 +266,15 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HomeCell", for: indexPath) as! HomeTableViewCell
+        
+        
+//        cell.layer.cornerRadius = 10
+//        let shadowPath2 = UIBezierPath(rect: cell.bounds)
+        cell.layer.masksToBounds = false
+        cell.layer.shadowColor = UIColor.black.cgColor
+        cell.layer.shadowOffset = CGSize(width: CGFloat(0.5), height: CGFloat(0.5))
+        cell.layer.shadowOpacity = 0.25
+//        cell.layer.shadowPath = shadowPath2.cgPath
         
         guard posts.count > 0 else {
             
@@ -203,9 +288,28 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
         cell.postImageView.tag    = indexPath.row
         cell.shareImageView.tag   = indexPath.row
         cell.nameLabel.tag        = indexPath.row
-        
+        cell.productRatingLabel.tag = indexPath.row
+//        cell.postTime.tag =
+//        cell.postTime.tag =
+        cell.postTime.tag = indexPath.row
+        cell.locationName.tag = indexPath.row
+       
         return cell
+   
+        
     }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+       
+        let post = posts[indexPath.row]
+       
+        if post.photoURL != "" {
+            return 498
+        } else {
+            return 260
+        }
+    }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
       
@@ -214,15 +318,15 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
     
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
+
         if indexPath.row == posts.count - 1  {
-            
+
             if let pageItem = snapshot {
-             
+
                 loadPostsPage(snap: pageItem)
-                
+
             }
-            
+
         }
     }
     
@@ -234,7 +338,7 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
 
     func openUserStoryboard(position: Int) {
         
-        let storyboard = UIStoryboard(name: "Home", bundle: nil)
+        let storyboard = UIStoryboard(name: "people", bundle: nil)
         let vc =  storyboard.instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
         vc.userId = posts[position].uid!
         vc.delegate = self
@@ -246,8 +350,12 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
         
         let storyboard = UIStoryboard(name: "Home", bundle: nil)
         let vc         =  storyboard.instantiateViewController(withIdentifier: "imagezoom") as! ImageZoom
-        vc.imageUrl    =   posts[position].photoURL!
-        present(vc, animated: true, completion: nil)
+        
+        if let images = posts[position].photoURL{
+            vc.imageUrl    =   images
+            present(vc, animated: true, completion: nil)
+        }
+        
     }
     
    
@@ -295,19 +403,27 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
             
         }
         
-        let reportAction = UIAlertAction(title: "Report post", style: UIAlertActionStyle.default)
+//        let reportAction = UIAlertAction(title: "Report post", style: UIAlertActionStyle.default)
+//        {
+//            UIAlertAction in
+//
+//            self.reportPostDb(post: self.posts[position])
+//        }
+//
+//        let blockAction = UIAlertAction(title: "Block user", style: UIAlertActionStyle.default)
+//        {
+//            UIAlertAction in
+//
+//            self.blockUserDb(post: self.posts[position])
+//        }
+        
+        let saveAction = UIAlertAction(title: "Save", style: UIAlertActionStyle.default)
         {
             UIAlertAction in
             
-            self.reportPostDb(post: self.posts[position])
+            self.saveUserPost(post: self.posts[position])
         }
         
-        let blockAction = UIAlertAction(title: "Block user", style: UIAlertActionStyle.default)
-        {
-            UIAlertAction in
-            
-            self.blockUserDb(post: self.posts[position])
-        }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel)
         {
@@ -322,14 +438,16 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
         if currentUser.uid == self.posts[position].uid {
             
             alert.addAction(cameraAction)
-            alert.addAction(blockAction)
-            alert.addAction(reportAction)
+//            alert.addAction(blockAction)
+//            alert.addAction(reportAction)
+            alert.addAction(saveAction)
             
             
         } else {
             
-            alert.addAction(reportAction)
-            alert.addAction(blockAction)
+//            alert.addAction(reportAction)
+//            alert.addAction(blockAction)
+            alert.addAction(saveAction)
             
             
         }
@@ -378,12 +496,19 @@ extension HomeViewController : UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
        
+//            let viewController0  = tabBarController.viewControllers?[0] as! UINavigationController
+//            let svc0 = viewController0.topViewController as! HomeViewController
+       
             let viewController  = tabBarController.viewControllers?[1] as! UINavigationController
-            let svc = viewController.topViewController as! CameraViewController
-            svc.delegate = self;
+            let svc = viewController.topViewController as! peopleViewController
+//            svc.delegate = self as! NotificationViewControllerDelegate;
         
             let viewController2  = tabBarController.viewControllers?[2] as! UINavigationController
-            let svc2 = viewController2.topViewController as! ProfileViewController
+            let svc1 = viewController2.topViewController as! NotificationViewController
+//            svc1.delegate = self as! NotificationViewControllerDelegate
+        
+            let viewController3  = tabBarController.viewControllers?[3] as! UINavigationController
+            let svc2 = viewController3.topViewController as! ProfileViewController
             svc2.delegate = self;
         
         return true
@@ -440,6 +565,31 @@ extension HomeViewController {
         
     }
     
+    
+    func saveUserPost(post: Post){
+        
+        let db = Firestore.firestore()
+        db.collection("save").document(post.documentID ?? "0000").setData([
+            "uid" : post.uid ??  "empty" ,
+//            "caption": post.caption ?? "empty",
+            "userName"  : post.userName ?? "empty",
+            "profileImageURL" : post.profileImageURL ?? "empty",
+            "postTime": post.postTime ?? "empty",
+            "photoURL": post.photoURL ?? "empty",
+            
+        ]) { err in
+            if let err = err {
+                print("Error writing document: \(err)")
+                ProgressHUD.showError("Server error: \(err.localizedDescription)")
+            } else {
+                print("Document successfully written!")
+//                self.showErrorAlert(message: "Your report is under processing stage.It will take one day.")
+                
+            }
+        }
+        
+    }
+    
     func showErrorAlert(message : String){
         
         let alert = UIAlertController(title: "Hey!", message: message, preferredStyle: .alert)
@@ -447,5 +597,16 @@ extension HomeViewController {
         self.present(alert, animated: true, completion: nil)
         
     }
+  
+}
+extension HomeViewController: commentCountDelegate {
+    func usercommentcount(count: Int!) {
+        
+        
+       
+            print("count:::\(count)")
+        
+    }
+    
   
 }

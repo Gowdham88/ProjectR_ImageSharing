@@ -7,7 +7,6 @@
 //
 
 import UIKit
-// TODO: Refactor Model functionality out of the VC
 import FirebaseAuth
 
 protocol  ProfileViewControllerDelegate {
@@ -15,13 +14,18 @@ protocol  ProfileViewControllerDelegate {
     func refreshPostData()
 }
 
-class ProfileViewController: UIViewController {
-
+class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+   
+    
+    
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var MenuBar: CustomSegmentedControl!
     @IBOutlet weak var collectionView: UICollectionView!
     var user: Users!
     var posts: [Post] = []
     var countpost : [Post] = []
     var countuser : [Users] = []
+    var postCountsss: Int?
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     var selectedProfilePhoto: UIImage?
@@ -34,6 +38,8 @@ class ProfileViewController: UIViewController {
         collectionView.delegate = self
         
         fetchUser()
+//        tableView.reloadData()
+        
         
     }
     
@@ -47,6 +53,7 @@ class ProfileViewController: UIViewController {
                 
                 self.activityIndicator.stopAnimating()
                 self.collectionView.reloadData()
+                self.tableView.reloadData()
             }
             
 
@@ -82,7 +89,6 @@ class ProfileViewController: UIViewController {
         API.Post.observeUserPosts(withID: currentUser.uid, completion: {
             post in
             self.posts = post
-            
             completion("success")
         })
         
@@ -108,7 +114,7 @@ class ProfileViewController: UIViewController {
         AuthService.signOut(onSuccess: {
             // Present the Sign In VC
             let storyboard = UIStoryboard(name: "Start", bundle: nil)
-            let signInVC = storyboard.instantiateViewController(withIdentifier: "SignInViewController")
+            let signInVC = storyboard.instantiateViewController(withIdentifier: "SignUpViewController")
             self.present(signInVC, animated: true)
         }) { (errorMessage) in
             ProgressHUD.showError(errorMessage)
@@ -117,6 +123,7 @@ class ProfileViewController: UIViewController {
     func fetchUserCount() {
         
         self.collectionView.reloadData()
+        self.tableView.reloadData()
         
 //        self.countuser.removeAll()
 //        API.User.Recuringuserstop()
@@ -129,7 +136,105 @@ class ProfileViewController: UIViewController {
     }
     
     
+    @IBAction func SegmentChanged(_ sender: UISegmentedControl) {
+        
+        
+
+        
+    }
+    
+    @IBAction func customSegmentValueChanged(_ sender: CustomSegmentedControl) {
+        
+//        switch sender.selectedSegmentIndex {
+//        case 0:
+//            UIView.animate(withDuration: 0.3, animations: {
+//
+//
+//
+//            })
+//
+//        case 1:
+//
+//            UIView.animate(withDuration: 0.3, animations: {
+//
+//
+//
+//            })
+//
+//
+//        default:
+//            //3rd segment
+//
+//            UIView.animate(withDuration: 0.3, animations: {
+//
+//
+//
+//            })
+//            break
+//        }
+        
+        tableView.reloadData()
+        
+    }
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        var returnValue = 0
+        
+        switch(MenuBar.selectedSegmentIndex)
+        {
+        case 0:
+            returnValue = posts.count
+            break
+        case 1:
+//            returnValue = friendsAndFamily.count
+            break
+            
+        case 2:
+//            returnValue = publicList.count
+            break
+            
+        default:
+            break
+            
+        }
+        
+        return returnValue
+//        return posts.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MenubarTableViewCell
+       
+        switch(MenuBar.selectedSegmentIndex)
+       
+        {
+        case 0:
+
+            cell.post = posts[indexPath.row]
+            
+            break
+        case 1:
+//            cell.textLabel!.text = friendsAndFamily[indexPath.row]
+            break
+            
+        case 2:
+//            cell.textLabel!.text = publicList[indexPath.row]
+            break
+            
+        default:
+            break
+            
+        }
+        
+        return cell
+    }
+    
 }
+
+
 
 
 extension ProfileViewController: UICollectionViewDataSource,UICollectionViewDelegate {
@@ -140,13 +245,13 @@ extension ProfileViewController: UICollectionViewDataSource,UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCollectionViewCell", for: indexPath) as! PhotoCollectionViewCell
-        
-        guard posts.count > 0 else {
-            
-            return cell
-        }
-        
-        cell.post = posts[indexPath.row]        
+
+//        guard posts.count > 0 else {
+//
+//            return cell
+//        }
+
+//        cell.post = posts[indexPath.row]
         return cell
     }
     
@@ -158,8 +263,9 @@ extension ProfileViewController: UICollectionViewDataSource,UICollectionViewDele
         }
         
         headerViewCell.delegate = self
-        headerViewCell.postCountLabel.text = "\(self.countpost.count)"
-        headerViewCell.followersCountLabel.text = "\(self.countuser.count)"
+//        headerViewCell.postCountLabel.text = "\(self.countpost.count)"
+//        print("post:::\(self.countpost.count)")
+//        headerViewCell.followersCountLabel.text = "\(self.countuser.count)"
         
         return headerViewCell
     }

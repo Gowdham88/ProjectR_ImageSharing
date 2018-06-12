@@ -10,6 +10,11 @@ import UIKit
 import Firebase
 import FirebaseFirestore
 
+protocol  commentCountDelegate {
+    
+    func usercommentcount(count:Int!)
+    
+}
 
 class CommentViewController: UIViewController {
 
@@ -24,6 +29,8 @@ class CommentViewController: UIViewController {
     var comments = [Comment]()
     var Sortingcomments   = [SortComment]()
     var users = [Users]()
+    var commentCount: Int!
+    var delegate: commentCountDelegate?
     
     // MARK: - View Lifecycle
     
@@ -63,7 +70,25 @@ class CommentViewController: UIViewController {
 
     @IBAction func backBtn(_ sender: Any) {
         
-         _ = self.navigationController?.popToRootViewController(animated: true)
+        
+        if let delegatee = delegate {
+            
+            delegatee.usercommentcount(count: commentCount)
+        }
+//         _ = self.navigationController?.popToRootViewController(animated: true)
+       
+        
+//
+//        let storyboard = UIStoryboard(name: "Home", bundle: nil)
+//        let vc =  storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+//        print("comment\(commentCount)")
+        
+     
+        
+        self.navigationController?.popViewController(animated: true)
+        
+       
+        
      }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -176,16 +201,21 @@ class CommentViewController: UIViewController {
         let docRef = db.collection("comments").whereField("postid", isEqualTo: self.postID).limit(to: 500)
         
         docRef.getDocuments() { (querySnapshot, err) in
+            self.commentCount = querySnapshot?.count
+            print("countComment1::::\(String(describing: self.commentCount))")
+
             if let err = err {
                 print("Error getting documents: \(err)")
                 self.activityIndicator.stopAnimating()
             } else {
-                
+//                self.commentCount = querySnapshot?.count
+//                print("countComment::::\(String(describing: self.commentCount))")
                 self.activityIndicator.stopAnimating()
                 
                 for document in querySnapshot!.documents {
                     
                     let newComment = Comment.transformComment(postDictionary: document.data(),key: document.documentID)
+                    print("newComment::::\(newComment)")
                     self.Sortingcomments.append(SortComment(SortingCommentList: newComment, timestamp: newComment.postTime ?? 0))
                   
                 }
@@ -385,3 +415,5 @@ extension CommentViewController: UITableViewDataSource,UITableViewDelegate,Comme
     }
     
 }
+
+

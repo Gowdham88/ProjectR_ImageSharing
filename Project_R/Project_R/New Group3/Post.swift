@@ -21,6 +21,10 @@ class Post {
     var userName : String?
     var profileImageURL : String?
     var postTime : Double?
+    var documentID: String?
+    var rating: String?
+    var location: String?
+    
 }
 
 extension Post {
@@ -39,6 +43,10 @@ extension Post {
         post.userName = postDictionary["userName"] as? String
         post.profileImageURL = postDictionary["profileImageURL"] as? String
         post.postTime        = postDictionary["postTime"] as? Double
+        post.documentID = postDictionary["documentID"] as? String
+        post.rating = postDictionary["rating"] as? String
+        post.location = postDictionary["location"] as? String
+
         
         if let currentUserID = Auth.auth().currentUser?.uid {
             if post.likes != nil {

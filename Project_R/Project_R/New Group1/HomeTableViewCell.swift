@@ -21,6 +21,9 @@ protocol HomeTableViewCellDelegate {
 }
 class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
 
+    @IBOutlet weak var locationName: UILabel!
+    @IBOutlet weak var postTime: UILabel!
+    @IBOutlet weak var productRatingLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var postImageView: UIImageView!
@@ -29,10 +32,12 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     @IBOutlet weak var shareImageView: UIImageView!
     @IBOutlet weak var likeCountButton: UIButton!
     @IBOutlet weak var captionLabel: UILabel!
+    @IBOutlet weak var commentCountLabel: UILabel!
     var delegate : HomeTableViewCellDelegate?
     var homeVC: HomeViewController?
     var userVC: UserViewController?
     var postReference: DatabaseReference!
+    var commentCount = [Comment]()
     
     var post: Post? {
         didSet {
@@ -46,11 +51,20 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         }
     }
     
+    override func layoutSubviews() {
+        
+        contentView.frame = UIEdgeInsetsInsetRect(contentView.frame, UIEdgeInsetsMake(0, 0, 5, 0))
+    }
+    
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
         nameLabel.text = ""
         captionLabel.text = ""
+        
+        
         
         // add a tap gesture to the comment image for users to segue to the commentVC
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleCommentImageViewTap))
@@ -125,34 +139,91 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     
     func updateView() {
         captionLabel.text = post?.caption
-        
-        if let photoURL = post?.photoURL {
-            postImageView.image = nil
-            Manager.shared.loadImage(with: URL(string : photoURL)!, into: self.postImageView)
+        let photoURL = post?.photoURL
+//        if let photoURL = post?.photoURL {
+//            postImageView.image = nil
+        if photoURL != "" {
+            if photoURL != nil {
+                Manager.shared.loadImage(with: URL(string : photoURL!)!, into: self.postImageView)
+            }
+            if locationName != nil {
+                locationName.isHidden = true
+            }
+            } else {
+            if locationName != nil {
+                postImageView.isHidden = true
             
+                locationName.isHidden = false
+                let bounds = UIScreen.main.bounds
+                let height = bounds.size.height
+                
+                switch height {
+                case 480.0:
+                    print("iPhone 3,4")
+                 
+
+                case 568.0:
+                    print("iPhone 5")
+                    locationName.frame = CGRect(x: 10, y: 98, width: 296, height: 21)
+
+                case 667.0:
+                    print("iPhone 6")
+                    locationName.frame = CGRect(x: 10, y: 110, width: 296, height: 21)
+//                    locationName.frame = CGRect(x: 10, y: 155, width: 296, height: 21)
+//                    likeImageView.frame = CGRect(x: 20, y: 155, width: 20, height: 19)
+//                    likeCountButton.frame = CGRect(x: likeImageView.frame.origin.x + likeImageView.frame.width + 10, y: 155, width: 30, height: 30)
+//                    captionLabel.frame = CGRect(x: 10, y: 195, width: 290, height: 30)
+//                    commentImageView.frame = CGRect(x: likeCountButton.frame.origin.x + likeImageView.frame.width + 10, y: 155, width: 30, height: 30)
+                case 736.0:
+                    print("iPhone 6+")
+                    locationName.frame = CGRect(x: 10, y: 150, width: 296, height: 21)
+                case 812.0:
+                    print("iPhone X")
+                    locationName.frame = CGRect(x: 10, y: 180, width: 296, height: 21)
+
+                default:
+                    print("not an iPhone")
+                    
+                }
+            }
         }
+//        }
         
         self.updateLike(post: post!)
-       
+        self.ratingPost(post: post!)
+        self.timePost(post: post!)
+        self.locationName(post: post!)
+//        self.elapsedTime(post: post!, datetime: postTime)
         guard let currentUser = Auth.auth().currentUser else {
             return
         }
         
         if currentUser.uid == post?.uid {
             
-            
+//            if let Driver_name = document.data()["Driver_name"] as? String {
+//                print("Driver_name:::::\(String(describing: Driver_name))")
+//                self.Driver_name = Driver_name
+//
+//            }
             nameLabel.text = PrefsManager.sharedinstance.username
-            profileImageView.image = nil
-            Manager.shared.loadImage(with: URL(string : PrefsManager.sharedinstance.imageURL)!, into: self.profileImageView)
             
+            if profileImageView.image != nil {
+//            profileImageView.image = nil
+            Manager.shared.loadImage(with: URL(string : PrefsManager.sharedinstance.imageURL)!, into: self.profileImageView)
+            }
         } else {
             
            
             nameLabel.text = post?.userName
             profileImageView.image = nil
             if let photoURL = post?.profileImageURL {
-               
+                print("photourl:::\(photoURL)")
+                
+                if photoURL != "" {
                 Manager.shared.loadImage(with: URL(string : photoURL)!, into: self.profileImageView)
+                
+                return
+                }
             }
         }
         
@@ -385,7 +456,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         
         DispatchQueue.main.async {
             
-            let imageName = post.isLiked ?? false ? "likeSelected" : "like"
+            let imageName = post.isLiked ?? false ? "firecolors" : "fireuncolors"
             self.likeImageView.image = UIImage(named: imageName)
             
             // display a message for Likes
@@ -394,13 +465,106 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
             }
             
             if count != 0 {
-                self.likeCountButton.setTitle("\(count) Likes", for: .normal)
+                self.likeCountButton.setTitle("\(count) Dope", for: .normal)
             } else if post.likeCount == 0 {
-                self.likeCountButton.setTitle("Be the first to Like this", for: .normal)
+                self.likeCountButton.setTitle("", for: .normal)
             }
         }
          
         
     }
+    
+    func ratingPost(post: Post) {
+        guard let count = post.rating else {
+            return
+        }
+        if productRatingLabel != nil {
+        self.productRatingLabel.text = "- has rated \(count)/10 for this product."
+        }
+    }
+    
+    func locationName(post: Post) {
+        guard let count = post.location else {
+            return
+        }
+        if locationName != nil {
+        
+        if locationName.text != "null" || locationName.text != ""   {
+        self.locationName.text = "\(count) "
+            }
+        }
+    }
+    
+    func timePost(post: Post) {
+      
 
+//        guard let count = post.postTime else {
+//            return
+//        }
+        
+     
+        //just to create a date that is before the current time
+        
+        let before = Date(timeIntervalSince1970: Double(post.postTime!))
+        
+                //getting the current time
+                let now = Date()
+        
+                let formatter = DateComponentsFormatter()
+                formatter.unitsStyle = .full
+                formatter.zeroFormattingBehavior = .dropAll
+                formatter.maximumUnitCount = 1 //increase it if you want more precision
+                formatter.allowedUnits = [.year, .month, .weekOfMonth, .day, .hour, .minute]
+                formatter.includesApproximationPhrase = false //to write "About" at the beginning
+        
+        
+                let formatString = NSLocalizedString("%@", comment: "Used to say how much time has passed. e.g. '2 hours ago'")
+                let timeString = formatter.string(from: before, to: now)
+        
+        
+        if postTime != nil {
+        
+        self.postTime.text = timeString
+   
+        }
+    }
+    
+    
+    
+}
+extension Date {
+    func yearsFromNow(from date: Date) -> Int {
+        return Calendar.current.dateComponents([.year], from: date, to: self).year ?? 0
+    }
+    func monthsFromNow(from date: Date) -> Int {
+        return Calendar.current.dateComponents([.month], from: date, to: self).month ?? 0
+    }
+    func weeksFromNow(from date: Date) -> Int {
+        return Calendar.current.dateComponents([.weekOfYear], from: date, to: self).weekOfYear ?? 0
+    }
+    func daysFromNow(from date: Date) -> Int {
+        return Calendar.current.dateComponents([.day], from: date, to: self).day ?? 0
+    }
+    func hoursFromNow(from date: Date) -> Int {
+        return Calendar.current.dateComponents([.hour], from: date, to: self).hour ?? 0
+    }
+    func minutesFromNow(from date: Date) -> Int {
+        return Calendar.current.dateComponents([.minute], from: date, to: self).minute ?? 0
+    }
+    func secondsFromNow(from date: Date) -> Int {
+        return Calendar.current.dateComponents([.second], from: date, to: self).second ?? 0
+    }
+    
+    
+    func relativeTime(from date: Date) -> String {
+        if yearsFromNow(from: date)   > 0 { return "\(yearsFromNow) year"    + (yearsFromNow(from: date)    > 1 ? "s" : "") + " ago" }
+        if monthsFromNow(from: date)  > 0 { return "\(monthsFromNow) month"  + (monthsFromNow(from: date)   > 1 ? "s" : "") + " ago" }
+        if weeksFromNow(from: date)   > 0 { return "\(weeksFromNow) week"    + (weeksFromNow(from: date)    > 1 ? "s" : "") + " ago" }
+        if daysFromNow(from: date)    > 0 { return daysFromNow(from: date) == 1 ? "Yesterday" : "\(daysFromNow) days ago" }
+        if hoursFromNow(from: date)   > 0 { return "\(hoursFromNow) hour"     + (hoursFromNow(from: date)   > 1 ? "s" : "") + " ago" }
+        if minutesFromNow(from: date) > 0 { return "\(minutesFromNow) minute" + (minutesFromNow(from: date) > 1 ? "s" : "") + " ago" }
+        if secondsFromNow(from: date) > 0 { return secondsFromNow(from: date) < 15 ? "Just now"
+            : "\(secondsFromNow) second" + (secondsFromNow(from: date) > 1 ? "s" : "") + " ago" }
+        return ""
+    }
 }

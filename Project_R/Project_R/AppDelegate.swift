@@ -23,12 +23,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Connect to Firebase
         FirebaseApp.configure()
+        //        try! Auth.auth().signOut()
+        
+        //        if Auth.auth().currentUser != nil {
+        //
+        //            let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
+        //            let controller = storyboard.instantiateViewController(withIdentifier: "TabBarID")
+        //            self.window = UIWindow(frame: UIScreen.main.bounds)
+        //            self.window?.rootViewController = controller
+        //            self.window?.makeKeyAndVisible()
+        //
+        //        }
+
+        
+        
+        var initialViewController: UIViewController?
+//        if let username = UserDefaults.standard.value(forKey: "emailTextField") {
+        if Auth.auth().currentUser != nil {
+            let mainStoryboard : UIStoryboard = UIStoryboard(name: "TabBar", bundle: nil)
+
+            initialViewController = mainStoryboard.instantiateViewController(withIdentifier: "TabBarID")
+        } else {
+            let mainStoryboard : UIStoryboard = UIStoryboard(name: "Start", bundle: nil)
+
+            initialViewController = mainStoryboard.instantiateViewController(withIdentifier: "SignUpViewController")
+        }
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window?.rootViewController = initialViewController
+        self.window?.makeKeyAndVisible()
+
         Thread.sleep(forTimeInterval: 3.0)
         
         return true
     }
     
-   
+    // Called when APNs has assigned the device a unique token
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data)
+    {
+        // Convert token to string
+        _ = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
+        Auth.auth().setAPNSToken((deviceToken as NSData) as Data, type: AuthAPNSTokenType.sandbox)
+    }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
