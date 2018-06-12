@@ -9,7 +9,7 @@
 import Foundation
 import Firebase
 
-var postCount: Int?
+//var postCount: Int?
 
 class PostAPI {
     
@@ -84,9 +84,9 @@ class PostAPI {
     func observeUserPosts(withID id:String,completion: @escaping ([Post]) -> Void) {
         db.collection("posts").whereField("uid", isEqualTo: id)
             .getDocuments() { (querySnapshot, err) in
-                let count  = querySnapshot?.count
-                postCount = count
-                print("postCounts:::::=\(String(describing: postCount))")
+//                let count  = querySnapshot?.count
+//                postCount = count
+//                print("postCounts:::::=\(String(describing: postCount))")
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
@@ -114,6 +114,25 @@ class PostAPI {
                 }
         }
     }
+    
+    
+    func fetchCountuserPost(withID id: String, completion: @escaping (Int) -> Void) {
+        
+        
+        db.collection("posts").whereField("uid", isEqualTo: id)
+            .getDocuments() { (querySnapshot, err) in
+            
+            let count = querySnapshot?.count
+            if count != nil {
+                
+                print("postnewCount::::\(String(describing: count))")
+                completion(count!)
+                
+            }
+        }
+        
+    }
+    
     
     func observePost(withID id:String, completion: @escaping (Post) -> Void) {
         let docRef = db.collection("posts").document(id)

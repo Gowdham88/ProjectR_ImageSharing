@@ -54,6 +54,18 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
                 
             }
         }
+        
+        API.Post.fetchCountuserPost(withID: API.User.CURRENT_USER!.uid) { (count) in
+ 
+            if self.postCountLabel.text != nil {
+                
+                self.postCountLabel.text = "\(count)"
+                print("postcountLabel::::\(self.postCountLabel)")
+            }
+        }
+        
+        
+     
     }
     
     @IBAction func ButtonProfile(_ sender: UIButton) {

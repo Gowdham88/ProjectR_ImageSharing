@@ -23,22 +23,7 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         loadUsers()
         
     }
-    
-//    func loadUsers() {
-//
-//        self.users = []
-//
-//        API.User.observeUser { (user) in
-//            self.isFollowing(userId: user.id!, completed: { (value) in
-//                user.isFollowing = value
-//
-//                self.users.append(user)
-//                self.tableView.reloadData()
-//
-//            })
-//        }
-//    }
-    
+
     func loadUsers() {
   
         self.users = []
@@ -55,19 +40,7 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
 
     }
-    func uniqueElementsFrom<T: Hashable>(array: [T]) -> [T] {
-        var set = Set<T>()
-        let result = array.filter {
-            guard !set.contains($0) else {
-                return false
-            }
-            set.insert($0)
-            return true
-        }
-        return result
-    }
 
-    
     func isFollowing(userId: String, completed: @escaping (Bool) -> Void) {
         API.Follow.isFollowing(userId: userId, completed: completed)
     }
@@ -108,21 +81,24 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.delegate = self
         return cell
     }
-    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//
-//        let storyboard = UIStoryboard(name: "Home", bundle: nil)
-//        let vc =  storyboard.instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
-////        let userId = indexPath.row as! String
-////        vc.userId = userId
-////        vc.delegate = self as! UserViewControllerDelegate
-//        self.navigationController?.pushViewController(vc, animated: true)
-//    }
-    
 
 
 }
 extension peopleViewController: PeopleTableViewCellDelegate {
+ 
+    
+    func updateFollowButton(forUser user: Users) {
+        
+            for u in self.users {
+                if u.id == user.id {
+                    u.isFollowing = user.isFollowing
+                    self.tableView.reloadData()
+                }
+            }
+        
+        
+    }
+    
     func goToProfileUserVC(userId: String) {
         performSegue(withIdentifier: "ProfileSegue", sender: userId)
 //        if segue.identifier == "ProfileSegue" {
@@ -133,7 +109,17 @@ extension peopleViewController: PeopleTableViewCellDelegate {
 //        }
         
     }
+    
+//    func updateFollowButton(forUser user: User) {
+//        for u in self.users {
+//            if u.id == user.id {
+//                u.isFollowing = user.isFollowing
+//                self.tableView.reloadData()
+//            }
+//        }
+//    }
 }
+
 
 
 

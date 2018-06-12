@@ -10,15 +10,15 @@ import UIKit
 import Nuke
 
 class PhotoCollectionViewCell: UICollectionViewCell {
-    
+
     @IBOutlet weak var photoView: UIImageView!
-    
+
     var post: Post? {
         didSet {
             updateView()
         }
     }
-    
+
     func updateView() {
         if let photoURL = post?.photoURL {
            photoView.image = nil

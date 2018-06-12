@@ -14,7 +14,10 @@ import SDWebImage
 import Nuke
 protocol PeopleTableViewCellDelegate {
     func goToProfileUserVC(userId: String)
+    func updateFollowButton(forUser user: Users)
 }
+
+
 
 class peopleTableViewCell: UITableViewCell {
     
@@ -81,6 +84,8 @@ class peopleTableViewCell: UITableViewCell {
         } else {
             configureFollowButton()
         }
+        
+//        updateStateFollowButton()
     }
     
     func configureFollowButton() {
@@ -112,6 +117,7 @@ class peopleTableViewCell: UITableViewCell {
             API.Follow.followAction(withUser: user!.id!)
             configureUnFollowButton()
             user!.isFollowing! = true
+//            delegate?.updateFollowButton(forUser: user!)
         }
     }
     
@@ -120,51 +126,22 @@ class peopleTableViewCell: UITableViewCell {
             API.Follow.unFollowAction(withUser: user!.id!)
             configureFollowButton()
             user!.isFollowing! = false
+//            delegate?.updateFollowButton(forUser: user!)
         }
     }
+
+    
+    func updateStateFollowButton() {
+        if user!.isFollowing! {
+            configureUnFollowButton()
+        } else {
+            configureFollowButton()
+            
+        }
         
-
-    
-        func updatefollowingbtn() {
-           DispatchQueue.main.async {
-       
-//            let followBnt = post.isLiked ?? false ? "likeSelected" : "like"
-
-            
-            }
-            
     }
-    
-    //    let uid = FIRAuth.auth()!.currentUser!.uid
-    //    let ref = FIRDatabase.database().reference()
-    //    let key = ref.child("users").childByAutoId().key
-    //
-    //    var isFollower = false
-    //
-    //    ref.child("users").child(uid).child("following").queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
-    //
-    //    if let following = snapshot.value as? [String : AnyObject] {
-    //    for (ke, value) in following {
-    //    if value as! String == self.user[indexPath.row].userID {
-    //    isFollower = true
-    //
-    //    ref.child("users").child(uid).child("following/\(ke)").removeValue()
-    //    ref.child("users").child(self.user[indexPath.row].userID).child("followers/\(ke)").removeValue()
-    //
-    //    self.tableview.cellForRow(at: indexPath)?.accessoryType = .none
-    //    }
-    //    }
-    //    }
-    //    if !isFollower {
-    //    let following = ["following/\(key)" : self.user[indexPath.row].userID]
-    //    let followers = ["followers/\(key)" : uid]
-    //
-    //    ref.child("users").child(uid).updateChildValues(following)
-    //    ref.child("users").child(self.user[indexPath.row].userID).updateChildValues(followers)
-    //
-    //    self.tableview.cellForRow(at: indexPath)?.accessoryType = .checkmark
-    //    }
-    //    })
-    //    ref.removeAllObservers()
-
+            
 }
+    
+
+
