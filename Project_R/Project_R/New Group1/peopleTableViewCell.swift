@@ -42,12 +42,16 @@ class peopleTableViewCell: UITableViewCell {
         // Initialization code
         
         
+        
 //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handlefollowbtnTap))
 //        followBtn.addGestureRecognizer(tapGesture)
 //        followBtn.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.nameLabel_TouchUpInside))
         profileUserName.addGestureRecognizer(tapGesture)
         profileUserName.isUserInteractionEnabled = true
+        
+        self.profileUserImage.layer.cornerRadius = self.profileUserImage.frame.size.width / 2;
+        self.profileUserImage.clipsToBounds = true
         
     }
 
@@ -90,19 +94,19 @@ class peopleTableViewCell: UITableViewCell {
     
     func configureFollowButton() {
         followBtn.layer.borderWidth = 1
-        followBtn.layer.borderColor = UIColor(red: 226/255, green: 228/255, blue: 232.255, alpha: 1).cgColor
+        followBtn.layer.borderColor = UIColor(red: 112/255, green: 112/255, blue: 112/255, alpha: 1).cgColor
         followBtn.layer.cornerRadius = 5
         followBtn.clipsToBounds = true
         
         followBtn.setTitleColor(UIColor.white, for: UIControlState.normal)
-        followBtn.backgroundColor = UIColor(red: 69/255, green: 142/255, blue: 255/255, alpha: 1)
+        followBtn.backgroundColor = UIColor(red: 7/255, green: 192/255, blue: 141/255, alpha: 1)
         followBtn.setTitle("Follow", for: UIControlState.normal)
         followBtn.addTarget(self, action: #selector(self.followAction), for: UIControlEvents.touchUpInside)
     }
     
     func configureUnFollowButton() {
         followBtn.layer.borderWidth = 1
-        followBtn.layer.borderColor = UIColor(red: 226/255, green: 228/255, blue: 232.255, alpha: 1).cgColor
+        followBtn.layer.borderColor = UIColor(red: 7/255, green: 192/255, blue: 141/255, alpha: 1).cgColor
         followBtn.layer.cornerRadius = 5
         followBtn.clipsToBounds = true
         
@@ -140,6 +144,8 @@ class peopleTableViewCell: UITableViewCell {
         }
         
     }
+    
+    
             
 }
     

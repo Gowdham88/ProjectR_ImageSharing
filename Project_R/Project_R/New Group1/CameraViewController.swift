@@ -15,7 +15,6 @@ protocol CameraViewControllerDelegate {
     
     func saveData()
     
-    
 }
 
 
@@ -33,32 +32,55 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     @IBOutlet weak var captionTextView: UITextView!
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var clearBarButton: UIBarButtonItem!
+    @IBOutlet weak var cancelBarBtn: UIBarButtonItem!
     
     var selectedImage: UIImage?
     var delegate  : CameraViewControllerDelegate?
     var ratingValue: String?
     var dateTime: Double!
+    
+    
+    
+
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Dismiss keyboard - touch any where
+        self.hideKeyboardWhenTappedAround()
+        
+        
+        //Navigation bar title color
+        let textAttributes = [NSAttributedStringKey.foregroundColor: UIColor(red: 7/255, green: 192/255, blue: 141/255, alpha: 1)]
+//        cancelBarBtn.setTitleTextAttributes([
+//            NSAttributedStringKey.font : UIFont(name: "Avenir Light", size: 16)!,], for: .normal)
+        let textFont = [NSAttributedStringKey.font: UIFont(name: "Avenir Light", size: 16)!]
+        self.navigationController?.navigationBar.titleTextAttributes = textFont
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
+        
         self.captionTextView.delegate = self
+        
+        //Search bar design changes
         self.searchBar.delegate = self
-    
+        self.searchBar.backgroundImage = UIImage()
+        self.searchBar.layer.cornerRadius = 3.0
+        self.searchBar.clipsToBounds = true
+//        self.searchBar.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
         
-        self.photoImageView.layer.cornerRadius = 10
-        //                self.addProfileImageView.clipsToBounds = true
-        
+
+//        photoImageView.clipsToBounds = true
+        photoImageView.layer.cornerRadius = 20
         photoImageView.layer.shadowColor = UIColor.black.cgColor
         photoImageView.layer.shadowOpacity = 0.2
-        photoImageView.layer.shadowOffset = CGSize.zero
-        photoImageView.layer.shadowRadius = 5
+        photoImageView.layer.shadowOffset = CGSize(width: -1, height: 1)
+        photoImageView.layer.shadowRadius = 4
         photoImageView.layer.masksToBounds = false
+   
 //        self.view.addSubview(photoImageView)
         
         self.captionTextView.layer.cornerRadius = 5
-        //                self.addProfileImageView.clipsToBounds = true
+//      self.addProfileImageView.clipsToBounds = true
         
         captionTextView.layer.shadowColor = UIColor.black.cgColor
         captionTextView.layer.shadowOpacity = 0.2
@@ -80,7 +102,12 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         API.Post.Recuringpoststop()
         
         tabBarController?.tabBar.isHidden = true
-  
+        
+        
+        cancelBarBtn.setTitleTextAttributes([
+            NSAttributedStringKey.font : UIFont(name: "Avenir Light", size: 16)!,], for: .normal)
+        
+        
     }
     @IBAction func CancelPost(_ sender: UIBarButtonItem) {
         
@@ -121,10 +148,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
 ////        searchBar.resignFirstResponder()
 //        return true
 //    }
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        return false
-    }
+   
 //    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 //        view.endEditing(true)
 //        captionTextView.resignFirstResponder()
@@ -143,6 +167,11 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+        func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?){
+          view.endEditing(true)
+        super.touchesBegan(touches, with: event)
     }
     
     
@@ -377,6 +406,8 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
       
     }
     
+   
+    
 }
 
 
@@ -396,11 +427,13 @@ extension CameraViewController: UINavigationControllerDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         
         if textView.text == "Write something here" {
-            
+
             textView.text = ""
-            
+
         }
+       
     }
+    
     
     
     func imageOrientation(_ src:UIImage)->UIImage {
@@ -456,9 +489,24 @@ extension CameraViewController: UINavigationControllerDelegate {
         return img
     }
     
+      
+}
+
+extension CameraViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(CameraViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
     
+    func textFieldShouldReturn(_ captionTextView: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
+    }
     
-    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }
 
 
