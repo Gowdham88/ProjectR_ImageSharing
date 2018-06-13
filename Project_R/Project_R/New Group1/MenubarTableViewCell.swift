@@ -25,16 +25,26 @@ class MenubarTableViewCell: UITableViewCell {
         }
     }
     
+    var saves: save? {
+        
+        didSet {
+            
+            saveUpadteView()
+            
+        }
+        
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
+//    override func setSelected(_ selected: Bool, animated: Bool) {
+//        super.setSelected(selected, animated: animated)
+//
+//        // Configure the view for the selected state
+//    }
 
     
     
@@ -51,8 +61,20 @@ class MenubarTableViewCell: UITableViewCell {
         
     }
     
-    func saceUpadteView(){
+    func saveUpadteView(){
         
+        if let photoURL = saves?.photoURL {
+            
+            productImage.image = nil
+            if photoURL != "" {
+                
+                Manager.shared.loadImage(with: URL(string: photoURL)!, into: self.productImage)
+            }
+            
+        }
+        
+        productName.text = "2K Display iMac"
+        productDescription.text = saves?.caption
         
     }
 }
