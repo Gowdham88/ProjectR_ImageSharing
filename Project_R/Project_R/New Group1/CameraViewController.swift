@@ -34,6 +34,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     @IBOutlet weak var clearBarButton: UIBarButtonItem!
     @IBOutlet weak var cancelBarBtn: UIBarButtonItem!
     
+    
     var selectedImage: UIImage?
     var delegate  : CameraViewControllerDelegate?
     var ratingValue: String?
@@ -43,14 +44,14 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     
 
     // MARK: - View Lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
         //Dismiss keyboard - touch any where
         self.hideKeyboardWhenTappedAround()
-        
-        
+
         //Navigation bar title color
         let textAttributes = [NSAttributedStringKey.foregroundColor: UIColor(red: 7/255, green: 192/255, blue: 141/255, alpha: 1)]
 //        cancelBarBtn.setTitleTextAttributes([
@@ -87,6 +88,8 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         captionTextView.layer.shadowOffset = CGSize.zero
         captionTextView.layer.shadowRadius = 4
         captionTextView.layer.masksToBounds = false
+        captionTextView.textContainer.maximumNumberOfLines = 3
+       
 
 //        self.view.addSubview(captionTextView)
         
@@ -499,14 +502,17 @@ extension CameraViewController {
         view.addGestureRecognizer(tap)
     }
     
-    func textFieldShouldReturn(_ captionTextView: UITextField) -> Bool {
+    func textFieldShouldReturn(_ captionTextView: UITextView) -> Bool {
         self.view.endEditing(true)
         return true
     }
     
     @objc func dismissKeyboard() {
-        view.endEditing(true)
+        self.view.endEditing(true)
+       
     }
+   
+    
 }
 
 

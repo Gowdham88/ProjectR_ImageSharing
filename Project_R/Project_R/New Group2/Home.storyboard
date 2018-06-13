@@ -148,7 +148,7 @@
                                         <connections>
                                             <outlet property="captionLabel" destination="RW1-jo-Vtn" id="ZwM-RK-TU2"/>
                                             <outlet property="commentImageView" destination="Kyn-Vn-iWb" id="YXO-qv-cO1"/>
-                                            <outlet property="likeCountButton" destination="oaj-xI-QJq" id="il0-07-X3A"/>
+                                            <outlet property="likeCountButton" destination="oaj-xI-QJq" id="CbR-a6-UpL"/>
                                             <outlet property="likeImageView" destination="h3n-Fn-OeS" id="HWX-oG-RzC"/>
                                             <outlet property="locationName" destination="ERj-jW-4Za" id="fMt-6T-5ER"/>
                                             <outlet property="nameLabel" destination="Ceh-RK-QtZ" id="Yak-JX-oqs"/>
@@ -199,7 +199,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="28o-Ct-t7x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3200" y="-977.81109445277366"/>
+            <point key="canvasLocation" x="3200" y="-1058"/>
         </scene>
         <!--Title-->
         <scene sceneID="lbf-6F-BSd">

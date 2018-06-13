@@ -467,7 +467,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
             if count != 0 {
                 self.likeCountButton.setTitle("\(count) Dope", for: .normal)
             } else if post.likeCount == 0 {
-                self.likeCountButton.setTitle("", for: .normal)
+                self.likeCountButton.setTitle("0 Dope", for: .normal)
             }
         }
          
