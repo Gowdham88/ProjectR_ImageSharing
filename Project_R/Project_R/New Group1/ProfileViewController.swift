@@ -28,8 +28,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     var countuser : [Users] = []
     var postCountsss: Int?
     var post = [Post]()
-    var saves = [pinned]()
-    var saveCount: Int?
+    var saves = [save]()
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     var selectedProfilePhoto: UIImage?
@@ -61,6 +60,17 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
             
 
+        })
+        fetchMYSaves(completion: { status in
+        
+        
+            DispatchQueue.main.async {
+                
+                self.activityIndicator.stopAnimating()
+                self.collectionView.reloadData()
+                self.tableView.reloadData()
+            }
+        
         })
         
         
@@ -96,6 +106,25 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             completion("success")
         })
         
+        
+    }
+    
+    
+    func fetchMYSaves(completion: @escaping (String) -> Void) {
+        
+        saves.removeAll()
+        activityIndicator.startAnimating()
+        guard let currentUser = Auth.auth().currentUser else {
+            self.activityIndicator.stopAnimating()
+            return
+        }
+        API.MySaves.observeUserSaves(withID: currentUser.uid, completion: {
+            
+            savee in
+            self.saves = savee
+            completion("Success")
+            
+        })
         
     }
     
@@ -223,10 +252,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         case 1:
 //            cell.textLabel!.text = friendsAndFamily[indexPath.row]
             
-            if API.User.CURRENT_USER?.uid == posts[indexPath.row].documentID {
-                
-                cell.saves = saves[indexPath.row]
-            }
+            cell.saves = saves[indexPath.row]
             
             break
             

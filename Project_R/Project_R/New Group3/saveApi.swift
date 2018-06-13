@@ -12,7 +12,7 @@ import Foundation
 //  Blocstagram
 //
 //  Created by ddenis on 1/24/17.
-//  Copyright © 2017 ddApps. All rights reserved.
+//  Copyright © 2017 ddApps. All rights reserved..
 //
 
 import Foundation
@@ -33,7 +33,7 @@ class saveApi {
     
     func observeSavePosts(completion: @escaping ([save],DocumentSnapshot?) -> Void) {
         
-        db.collection("posts").order(by: "savePostTime", descending: true).limit(to: 5)
+        db.collection("save").order(by: "savePostTime", descending: true).limit(to: 5)
             .getDocuments() { (querySnapshot, err) in
                 
                 
@@ -60,7 +60,7 @@ class saveApi {
         }
     }
     
-    func observePostsPage(lastSnapshot : DocumentSnapshot,completion: @escaping ([save],DocumentSnapshot?) -> Void) {
+    func observeSavePage(lastSnapshot : DocumentSnapshot,completion: @escaping ([save],DocumentSnapshot?) -> Void) {
         
         db.collection("save").order(by: "savePostTime", descending: true).start(afterDocument: lastSnapshot).limit(to: 5)
             .getDocuments() { (querySnapshot, err) in
