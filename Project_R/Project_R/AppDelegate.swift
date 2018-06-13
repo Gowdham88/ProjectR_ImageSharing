@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBar.appearance().tintColor = UIColor(red: 52/255, green: 73/255, blue: 94/255, alpha: 1)
         
         
-        // Connect to Firebase
+        // Connect to Firebase content
         FirebaseApp.configure()
         //        try! Auth.auth().signOut()
         
