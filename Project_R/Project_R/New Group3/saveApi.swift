@@ -92,7 +92,7 @@ class saveApi {
     
     
     func observeUserSaves(withID id:String,completion: @escaping ([save]) -> Void) {
-        db.collection("save").whereField("uid", isEqualTo: id)
+        db.collection("save").whereField("currentUserUID", isEqualTo: id)
             .getDocuments() { (querySnapshot, err) in
                 //                let count  = querySnapshot?.count
                 //                postCount = count
