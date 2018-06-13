@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Dicover People-->
+        <!--Discover People-->
         <scene sceneID="CvT-Lk-wro">
             <objects>
                 <viewController storyboardIdentifier="peopleViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Voe-Pn-z2b" customClass="peopleViewController" customModule="Project_R" customModuleProvider="target" sceneMemberID="viewController">
@@ -42,7 +42,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qeE-ge-fKw">
-                                                    <rect key="frame" x="286" y="26" width="74" height="29"/>
+                                                    <rect key="frame" x="234" y="26" width="74" height="29"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="12"/>
                                                     <state key="normal" title="Follow"/>
@@ -65,7 +65,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="ddi-ZI-W3a"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Dicover People" id="YC1-xc-OoU"/>
+                    <navigationItem key="navigationItem" title="Discover People" id="YC1-xc-OoU"/>
                     <connections>
                         <outlet property="tableView" destination="pwh-r6-ncW" id="VPB-bO-n06"/>
                         <segue destination="CSg-6z-unC" kind="show" identifier="ProfileSegue" id="dGy-OF-DuB"/>

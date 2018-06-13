@@ -18,8 +18,14 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //    var tagArray = [String] ()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Navigation bar title color
+        let textAttributes = [NSAttributedStringKey.foregroundColor: UIColor(red: 7/255, green: 192/255, blue: 141/255, alpha: 1)]
+        let textFont = [NSAttributedStringKey.font: UIFont(name: "Avenir Light", size: 16)!]
+        self.navigationController?.navigationBar.titleTextAttributes = textFont
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
       
-        title = "People"
+        title = "Discover People"
         loadUsers()
         
     }
@@ -60,10 +66,12 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

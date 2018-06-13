@@ -2,14 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Nsl</key>
-	<string></string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Allow to access your current location</string>
-	<key>NSCameraUsageDescription</key>
-	<string>allow to access camera</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>allow to access photos</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -39,14 +31,22 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>allow to access camera</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Allow to access your current location</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>allow to access photos</string>
+	<key>Nsl</key>
+	<string></string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
+	<string>Camera</string>
 	<key>UIMainStoryboardFile</key>
-	<string>Start</string>
+	<string>Camera</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

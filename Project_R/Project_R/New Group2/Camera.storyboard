@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qpU-Jq-1VL">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -47,21 +47,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="placeholder-photo" translatesAutoresizingMaskIntoConstraints="NO" id="hxD-ra-uUy">
-                                                <rect key="frame" x="8" y="100" width="359" height="210"/>
+                                                <rect key="frame" x="8" y="102" width="359" height="210"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </imageView>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Write something here" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="eEy-Fv-qlq">
-                                                <rect key="frame" x="8" y="450" width="359" height="80"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="textColor" red="0.16470588235294117" green="0.16470588235294117" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                <connections>
-                                                    <outlet property="delegate" destination="gwx-UJ-d6d" id="AJR-Ou-fPe"/>
-                                                </connections>
-                                            </textView>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bSc-aB-Or4">
                                                 <rect key="frame" x="58" y="554" width="259" height="36"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -74,9 +63,10 @@
                                                     <action selector="share:" destination="gwx-UJ-d6d" eventType="touchUpInside" id="aoj-r2-WDL"/>
                                                 </connections>
                                             </button>
-                                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Search product..." translatesAutoresizingMaskIntoConstraints="NO" id="xsR-ra-BJf">
+                                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Search product here" translatesAutoresizingMaskIntoConstraints="NO" id="xsR-ra-BJf">
                                                 <rect key="frame" x="0.0" y="34" width="375" height="56"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.99519230769230771" green="0.99038461538461542" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <color key="barTintColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </searchBar>
@@ -117,8 +107,8 @@
                                                 <color key="textColor" red="0.16470588235294117" green="0.16470588235294117" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add text/Catpion " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAZ-Lh-Pcp">
-                                                <rect key="frame" x="8" y="421" width="105" height="18"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add text/Caption" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAZ-Lh-Pcp">
+                                                <rect key="frame" x="8" y="421" width="102" height="18"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="13"/>
                                                 <color key="textColor" red="0.16470588235294117" green="0.16470588235294117" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -131,6 +121,17 @@
                                                 <color key="textColor" red="0.16470588235294117" green="0.16470588235294117" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Write something here" translatesAutoresizingMaskIntoConstraints="NO" id="eEy-Fv-qlq">
+                                                <rect key="frame" x="8" y="448" width="359" height="80"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="textColor" red="0.16470588235294117" green="0.16470588235294117" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="gwx-UJ-d6d" id="AJR-Ou-fPe"/>
+                                                </connections>
+                                            </textView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
@@ -154,8 +155,8 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Post" id="ka8-QI-oWi">
-                        <barButtonItem key="leftBarButtonItem" title="Clear" id="Oem-Jg-3aW">
-                            <color key="tintColor" red="0.027450980392156862" green="0.75294117647058822" blue="0.55294117647058827" alpha="1" colorSpace="calibratedRGB"/>
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="Oem-Jg-3aW">
+                            <color key="tintColor" red="0.16470588235294117" green="0.16470588235294117" blue="0.16470588235294117" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="clearInputs" destination="gwx-UJ-d6d" id="27Z-m4-5c1"/>
                             </connections>
@@ -170,6 +171,7 @@
                     <connections>
                         <outlet property="addCaptionLabel" destination="eAZ-Lh-Pcp" id="ugQ-BX-fP4"/>
                         <outlet property="addProductLabe" destination="1ld-Y8-DPY" id="wJS-1o-9vW"/>
+                        <outlet property="cancelBarBtn" destination="1nV-M6-OX9" id="koM-X8-DnD"/>
                         <outlet property="captionTextView" destination="eEy-Fv-qlq" id="Rfa-1V-LQQ"/>
                         <outlet property="clearBarButton" destination="Oem-Jg-3aW" id="lyD-yD-f4A"/>
                         <outlet property="photoImageView" destination="hxD-ra-uUy" id="qhi-u1-z2L"/>
@@ -229,7 +231,7 @@
             </objects>
             <point key="canvasLocation" x="-3223" y="-325"/>
         </scene>
-        <!--Post-->
+        <!--Check In-->
         <scene sceneID="40x-S0-a3r">
             <objects>
                 <viewController storyboardIdentifier="CheckInViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="x8l-of-WrV" customClass="CheckInViewController" customModule="Project_R" customModuleProvider="target" sceneMemberID="viewController">
@@ -260,7 +262,7 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <color key="backgroundColor" red="0.027450980390000001" green="0.75294117650000003" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="13"/>
-                                                <state key="normal" title="Post">
+                                                <state key="normal" title="Check In">
                                                     <color key="titleColor" red="0.92549019610000005" green="0.94117647059999998" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <connections>
@@ -272,7 +274,7 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search location here..." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="FCn-B0-6sc">
-                                                        <rect key="frame" x="8" y="13" width="359" height="30"/>
+                                                        <rect key="frame" x="8" y="4" width="359" height="30"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="textColor"/>
@@ -312,14 +314,14 @@
                                                     </label>
                                                 </subviews>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add text/Catpion " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SoK-F7-gX6">
-                                                <rect key="frame" x="8" y="219" width="105" height="18"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add text/Caption" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SoK-F7-gX6">
+                                                <rect key="frame" x="8" y="219" width="102" height="18"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="13"/>
                                                 <color key="textColor" red="0.1647058824" green="0.1647058824" blue="0.1647058824" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add a Product/Purchase*" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rwu-F2-iit">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rwu-F2-iit">
                                                 <rect key="frame" x="8" y="18" width="169" height="18"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="13"/>
@@ -400,7 +402,7 @@
                             <constraint firstItem="pa9-hS-Uvw" firstAttribute="top" secondItem="6JO-k1-PVe" secondAttribute="bottom" id="ucp-NW-nRe"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Post" id="lij-aD-N1X">
+                    <navigationItem key="navigationItem" title="Check In" id="lij-aD-N1X">
                         <barButtonItem key="leftBarButtonItem" title="Clear" id="vMu-ga-eaD">
                             <color key="tintColor" red="0.027450980390000001" green="0.75294117650000003" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
@@ -417,6 +419,7 @@
                     <connections>
                         <outlet property="addCaptionLabel" destination="SoK-F7-gX6" id="PuY-fG-sXo"/>
                         <outlet property="addProductLabe" destination="rwu-F2-iit" id="FRB-HK-WUw"/>
+                        <outlet property="cancelBarBtn" destination="e9M-KT-RG1" id="NcJ-SU-XOV"/>
                         <outlet property="captionTextView" destination="ju7-kA-Vce" id="Wkb-Ia-ri6"/>
                         <outlet property="clearBarButton" destination="vMu-ga-eaD" id="JlB-HG-Md0"/>
                         <outlet property="locationSearchTable" destination="qAd-A0-cWG" id="LTR-hC-Hta"/>
@@ -448,12 +451,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UCC-oK-5jz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1959.2" y="-339.58020989505252"/>
+            <point key="canvasLocation" x="-1694" y="-341"/>
         </scene>
     </scenes>
     <resources>
         <image name="TabBarNotification" width="23" height="23"/>
         <image name="TabBarNotificationselected" width="23" height="23"/>
-        <image name="placeholder-photo" width="512" height="512"/>
+        <image name="placeholder-photo" width="355" height="211"/>
     </resources>
 </document>

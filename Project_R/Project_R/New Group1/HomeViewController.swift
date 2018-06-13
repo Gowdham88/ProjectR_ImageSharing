@@ -189,6 +189,7 @@ class HomeViewController : UIViewController {
 //    }
     
     @IBAction func createNewpost(_ sender: Any) {
+    
    
         let Alert: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         
@@ -205,6 +206,7 @@ class HomeViewController : UIViewController {
         Alert.addAction(CamAction)
         Alert.addAction(GallAction)
         Alert.addAction(CancelAction)
+       
         
         Alert.popoverPresentationController?.sourceView = self.view
         Alert.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.size.width / 2.0, y: self.view.bounds.size.height / 2.0, width: 1.0, height: 1.0)

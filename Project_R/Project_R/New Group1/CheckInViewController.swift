@@ -28,8 +28,9 @@ class CheckInViewController: UIViewController, UITextViewDelegate, UISearchBarDe
     @IBOutlet weak var captionTextView: UITextView!
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var clearBarButton: UIBarButtonItem!
-    
+    @IBOutlet weak var cancelBarBtn: UIBarButtonItem!
     @IBOutlet weak var locationSearchTable: UITableView!
+    
     var delegate  : CameraViewControllerDelegate?
     var ratingValue: String?
     var autocompleteplaceArray = [String]()
@@ -37,10 +38,24 @@ class CheckInViewController: UIViewController, UITextViewDelegate, UISearchBarDe
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Dismiss keyboard - touch any where
+        self.hideKeyboardWhenTappedAround()
+        
+        //Navigation bar title color
+        let textAttributes = [NSAttributedStringKey.foregroundColor: UIColor(red: 7/255, green: 192/255, blue: 141/255, alpha: 1)]
+        let textFont = [NSAttributedStringKey.font: UIFont(name: "Avenir Light", size: 16)!]
+        self.navigationController?.navigationBar.titleTextAttributes = textFont
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
 
         self.captionTextView.delegate = self
         self.captionTextView.layer.cornerRadius = 5
+        
+        //searchLocation bar design changes
         self.searchLoaction.delegate = self
+        self.searchLoaction.layer.cornerRadius = 3.0
+        self.searchLoaction.clipsToBounds = true
+        
         captionTextView.layer.shadowColor = UIColor.black.cgColor
         captionTextView.layer.shadowOpacity = 0.2
         captionTextView.layer.shadowOffset = CGSize.zero
@@ -59,6 +74,13 @@ class CheckInViewController: UIViewController, UITextViewDelegate, UISearchBarDe
 //        locationSearchTable.isHidden = true
         locationSearchTable.delegate   = self
         locationSearchTable.dataSource = self
+        
+        
+        //Bar button - font size
+        cancelBarBtn.setTitleTextAttributes([
+            NSAttributedStringKey.font : UIFont(name: "Avenir Light", size: 16)!,], for: .normal)
+        clearBarButton.setTitleTextAttributes([
+            NSAttributedStringKey.font : UIFont(name: "Avenir Light", size: 16)!,], for: .normal)
         
         if let address =  PrefsManager.sharedinstance.lastlocation {
             
@@ -479,6 +501,18 @@ extension CheckInViewController : UITableViewDataSource,UITableViewDelegate {
     }
     
     
+}
+
+extension CheckInViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(CheckInViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }
 
 
