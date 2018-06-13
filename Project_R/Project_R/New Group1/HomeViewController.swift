@@ -586,6 +586,7 @@ extension HomeViewController {
                 }
                 print("Current data: \(String(describing: document.data()))")
                 
+                
                 let postuid = post.uid
                 let postphotoURL = post.photoURL
                 let postCaption = post.caption
@@ -612,8 +613,9 @@ extension HomeViewController {
                     "likes": postLikes,
                     "documentID": postDocumentID ?? "empty",
                     "rating": postRating ?? "empty",
-                    "location": postLocation ?? "empty"
+                    "location": postLocation ?? "empty",
                     //            "likee": post.isLiked!
+                    "currentUserUID": API.User.CURRENT_USER!.uid ?? "empty"
                     
                     
                 ]) { err in
