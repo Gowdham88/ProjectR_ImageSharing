@@ -23,6 +23,8 @@ class HomeViewController : UIViewController {
     var users = [Users]()
     var snapshot :DocumentSnapshot?
     var commentCountte: Int!
+    var postID: String!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,6 +63,10 @@ class HomeViewController : UIViewController {
         super.viewDidAppear(true)
         
         print("commentCount:::\(commentCountte)")
+   
+            
+            tabBarController?.tabBar.isHidden = false
+        
     }
     
     @objc func refresh(sender:AnyObject) {
@@ -571,24 +577,74 @@ extension HomeViewController {
     func saveUserPost(post: Post){
         
         let db = Firestore.firestore()
-        db.collection("save").document(post.documentID ?? "0000").setData([
-            "uid" : post.uid ??  "empty" ,
-//            "caption": post.caption ?? "empty",
-            "userName"  : post.userName ?? "empty",
-            "profileImageURL" : post.profileImageURL ?? "empty",
-            "postTime": post.postTime ?? "empty",
-            "photoURL": post.photoURL ?? "empty",
-            
-        ]) { err in
-            if let err = err {
-                print("Error writing document: \(err)")
-                ProgressHUD.showError("Server error: \(err.localizedDescription)")
-            } else {
-                print("Document successfully written!")
-//                self.showErrorAlert(message: "Your report is under processing stage.It will take one day.")
+        
+        db.collection("posts").document(post.documentID!)
+            .addSnapshotListener { documentSnapshot, error in
+                guard let document = documentSnapshot else {
+                    print("Error fetching document: \(error!)")
+                    return
+                }
+                print("Current data: \(String(describing: document.data()))")
                 
-            }
+                let postuid = post.uid
+                let postphotoURL = post.photoURL
+                let postCaption = post.caption
+                let postLikeCount = post.likeCount
+                print("postLikesCount::::\(postLikeCount)")
+                let postUsername = post.userName
+                let postProfileImageURL  = post.profileImageURL
+                let postLikes  = post.likes
+                let postDocumentID  = post.documentID
+                let postRating  = post.rating
+                let postLocation  = post.location
+                let postPostTime = post.postTime
+ 
+                
+                db.collection("save").document(post.documentID ?? "0000").setData([
+                    "uid" : postuid ??  "empty" ,
+                    "photoURL": postphotoURL ?? "empty",
+                    "caption": postCaption ?? "empty",
+                    "likecount": postLikeCount!,
+                    "userName"  : postUsername ?? "empty",
+                    "profileImageURL" : postProfileImageURL ?? "empty",
+                    "postTime": postPostTime,
+                    "savePostTime": Date().timeIntervalSince1970,
+                    "likes": postLikes,
+                    "documentID": postDocumentID ?? "empty",
+                    "rating": postRating ?? "empty",
+                    "location": postLocation ?? "empty"
+                    //            "likee": post.isLiked!
+                    
+                    
+                ]) { err in
+                    if let err = err {
+                        print("Error writing document: \(err)")
+                        ProgressHUD.showError("Server error: \(err.localizedDescription)")
+                    } else {
+                        print("Document successfully written!")
+                        
+                    }
+                }
         }
+
+        
+     
+        
+//        let saveRef = Firestore.firestore().collection("save").document(API.User.CURRENT_USER!.uid)
+//        saveRef.getDocument { (snapshot, error) in
+//            guard let _snapshot = snapshot else {return}
+//
+//            if !_snapshot.exists {
+//                /// First time following someone
+//                saveRef.setData([post.documentID!: true])
+//                return
+//            }
+//
+//            // For next time
+//            var data = _snapshot.data()
+//            data![post.documentID!] = true
+//            saveRef.setData(data!)
+//        }
         
     }
     

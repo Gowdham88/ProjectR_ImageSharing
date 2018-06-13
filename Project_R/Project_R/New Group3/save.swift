@@ -25,6 +25,7 @@ class save {
     var documentID: String?
     var rating: String?
     var location: String?
+    var savePostTime: String?
     
     
 }
@@ -47,6 +48,7 @@ extension save {
         Save.documentID = saveDictionary["documentID"] as? String
         Save.rating = saveDictionary["rating"] as? String
         Save.location = saveDictionary["location"] as? String
+        Save.savePostTime = saveDictionary["savePostTime"] as? String
         
         
         if let currentUserID = Auth.auth().currentUser?.uid {

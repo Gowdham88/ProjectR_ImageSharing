@@ -50,4 +50,9 @@ class MenubarTableViewCell: UITableViewCell {
         productDescription.text = post?.caption
         
     }
+    
+    func saceUpadteView(){
+        
+        
+    }
 }

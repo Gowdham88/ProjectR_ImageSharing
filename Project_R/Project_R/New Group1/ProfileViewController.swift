@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 
 protocol  ProfileViewControllerDelegate {
     
@@ -26,6 +27,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     var countpost : [Post] = []
     var countuser : [Users] = []
     var postCountsss: Int?
+    var post = [Post]()
+    var saves = [pinned]()
+    var saveCount: Int?
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     var selectedProfilePhoto: UIImage?
@@ -34,8 +38,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.dataSource = self
-        collectionView.delegate = self
+        collectionView.dataSource = self as? UICollectionViewDataSource
+        collectionView.delegate = self as? UICollectionViewDelegate
         
         fetchUser()
 //        tableView.reloadData()
@@ -188,7 +192,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             returnValue = posts.count
             break
         case 1:
-//            returnValue = friendsAndFamily.count
+            returnValue = saves.count
             break
             
         case 2:
@@ -218,6 +222,12 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             break
         case 1:
 //            cell.textLabel!.text = friendsAndFamily[indexPath.row]
+            
+            if API.User.CURRENT_USER?.uid == posts[indexPath.row].documentID {
+                
+                cell.saves = saves[indexPath.row]
+            }
+            
             break
             
         case 2:
@@ -232,6 +242,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell
     }
     
+    
+
+
 }
 
 
