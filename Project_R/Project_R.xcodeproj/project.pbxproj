@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		6CE12BFBB665A2D7111C060C /* Pods_Project_RTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8017FE2158174D16B5F44DCB /* Pods_Project_RTests.framework */; };
 		74116F47F32778D9B42622D2 /* Pods_Project_RUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 218C4CE2692F64FCFC5E47DF /* Pods_Project_RUITests.framework */; };
+		AE0F27D220D0E30500B6FF9F /* pinned.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0F27D120D0E30500B6FF9F /* pinned.swift */; };
+		AE0F27D420D1109F00B6FF9F /* saveApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0F27D320D1109F00B6FF9F /* saveApi.swift */; };
+		AE0F27D620D1135400B6FF9F /* sortSave.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0F27D520D1135400B6FF9F /* sortSave.swift */; };
 		AE2CC0BC20CFB71C0047BCC0 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CC0BB20CFB71C0047BCC0 /* CustomSegmentedControl.swift */; };
 		AE2CC0BE20CFD1880047BCC0 /* MenubarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CC0BD20CFD1880047BCC0 /* MenubarTableViewCell.swift */; };
 		AE2CC0C020CFDB1F0047BCC0 /* save.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CC0BF20CFDB1F0047BCC0 /* save.swift */; };
@@ -97,6 +100,9 @@
 		6D45ED1DC474B8A027E98B41 /* Pods-Project_R.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project_R.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Project_R/Pods-Project_R.debug.xcconfig"; sourceTree = "<group>"; };
 		8017FE2158174D16B5F44DCB /* Pods_Project_RTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Project_RTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BED8746D785E3F6D324DD8D /* Pods-Project_RUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project_RUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Project_RUITests/Pods-Project_RUITests.release.xcconfig"; sourceTree = "<group>"; };
+		AE0F27D120D0E30500B6FF9F /* pinned.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pinned.swift; sourceTree = "<group>"; };
+		AE0F27D320D1109F00B6FF9F /* saveApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = saveApi.swift; sourceTree = "<group>"; };
+		AE0F27D520D1135400B6FF9F /* sortSave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sortSave.swift; sourceTree = "<group>"; };
 		AE2CC0BB20CFB71C0047BCC0 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 		AE2CC0BD20CFD1880047BCC0 /* MenubarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenubarTableViewCell.swift; sourceTree = "<group>"; };
 		AE2CC0BF20CFDB1F0047BCC0 /* save.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = save.swift; sourceTree = "<group>"; };
@@ -301,6 +307,9 @@
 				AE3CF29A20BFAF850074D5F7 /* UserPostAPI.swift */,
 				AE3CF29F20BFAF870074D5F7 /* Users.swift */,
 				AE7AA98220C6892500E9F805 /* checkInPost.swift */,
+				AE0F27D120D0E30500B6FF9F /* pinned.swift */,
+				AE0F27D320D1109F00B6FF9F /* saveApi.swift */,
+				AE0F27D520D1135400B6FF9F /* sortSave.swift */,
 			);
 			name = Model;
 			path = "New Group3";
@@ -663,6 +672,8 @@
 				AEE4F4F520C7ADF10047A2B6 /* peopleViewController.swift in Sources */,
 				AE3CF27420BFAF530074D5F7 /* SignUpViewController.swift in Sources */,
 				AE2CC0BE20CFD1880047BCC0 /* MenubarTableViewCell.swift in Sources */,
+				AE0F27D420D1109F00B6FF9F /* saveApi.swift in Sources */,
+				AE0F27D220D0E30500B6FF9F /* pinned.swift in Sources */,
 				AE3CF2AB20BFAF890074D5F7 /* PostCommentAPI.swift in Sources */,
 				AE4F075120C8300F00B6D230 /* FollowApi.swift in Sources */,
 				AE3CF28620BFAF530074D5F7 /* ImageZoom.swift in Sources */,
@@ -698,6 +709,7 @@
 				AE3CF2A520BFAF890074D5F7 /* UserPostAPI.swift in Sources */,
 				AE3CF27620BFAF530074D5F7 /* TextScroll.swift in Sources */,
 				AE3CF28320BFAF530074D5F7 /* SignInViewController.swift in Sources */,
+				AE0F27D620D1135400B6FF9F /* sortSave.swift in Sources */,
 				AE3CF27B20BFAF530074D5F7 /* ProfileViewController.swift in Sources */,
 				AE3CF27C20BFAF530074D5F7 /* CommentTableViewCell.swift in Sources */,
 				AE3CF27820BFAF530074D5F7 /* DiscoverViewController.swift in Sources */,
