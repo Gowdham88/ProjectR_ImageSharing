@@ -13,6 +13,8 @@
 		AE0F27D220D0E30500B6FF9F /* pinned.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0F27D120D0E30500B6FF9F /* pinned.swift */; };
 		AE0F27D420D1109F00B6FF9F /* saveApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0F27D320D1109F00B6FF9F /* saveApi.swift */; };
 		AE0F27D620D1135400B6FF9F /* sortSave.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0F27D520D1135400B6FF9F /* sortSave.swift */; };
+		AE10A2AB20D25CD000D0A41C /* HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE10A2AA20D25CD000D0A41C /* HMAC.swift */; };
+		AE10A2AF20D2912300D0A41C /* AWSAPIGateway.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE10A2AE20D2912300D0A41C /* AWSAPIGateway.framework */; };
 		AE2CC0BC20CFB71C0047BCC0 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CC0BB20CFB71C0047BCC0 /* CustomSegmentedControl.swift */; };
 		AE2CC0BE20CFD1880047BCC0 /* MenubarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CC0BD20CFD1880047BCC0 /* MenubarTableViewCell.swift */; };
 		AE2CC0C020CFDB1F0047BCC0 /* save.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CC0BF20CFDB1F0047BCC0 /* save.swift */; };
@@ -105,6 +107,8 @@
 		AE0F27D120D0E30500B6FF9F /* pinned.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pinned.swift; sourceTree = "<group>"; };
 		AE0F27D320D1109F00B6FF9F /* saveApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = saveApi.swift; sourceTree = "<group>"; };
 		AE0F27D520D1135400B6FF9F /* sortSave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sortSave.swift; sourceTree = "<group>"; };
+		AE10A2AA20D25CD000D0A41C /* HMAC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMAC.swift; sourceTree = "<group>"; };
+		AE10A2AE20D2912300D0A41C /* AWSAPIGateway.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AWSAPIGateway.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE2CC0BB20CFB71C0047BCC0 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 		AE2CC0BD20CFD1880047BCC0 /* MenubarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenubarTableViewCell.swift; sourceTree = "<group>"; };
 		AE2CC0BF20CFDB1F0047BCC0 /* save.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = save.swift; sourceTree = "<group>"; };
@@ -185,6 +189,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE10A2AF20D2912300D0A41C /* AWSAPIGateway.framework in Frameworks */,
 				C6C5A3A5B7E6C1FBBA4846A0 /* Pods_Project_R.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -211,6 +216,7 @@
 		0CDBEDCF10B98297EA8EF3DF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AE10A2AE20D2912300D0A41C /* AWSAPIGateway.framework */,
 				B79CB268E129286815C907D1 /* Pods_Project_R.framework */,
 				8017FE2158174D16B5F44DCB /* Pods_Project_RTests.framework */,
 				218C4CE2692F64FCFC5E47DF /* Pods_Project_RUITests.framework */,
@@ -237,6 +243,7 @@
 				AE3CF25C20BFAF290074D5F7 /* AuthService.swift */,
 				AE3CF25D20BFAF2A0074D5F7 /* PrefsManager.swift */,
 				0FE5CADD20D13D4500A8E091 /* SliderDesign.swift */,
+				AE10A2AA20D25CD000D0A41C /* HMAC.swift */,
 			);
 			name = Services;
 			path = "New Group";
@@ -622,6 +629,26 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Project_R/Pods-Project_R-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AWSAPIGateway/AWSAPIGateway.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSAutoScaling/AWSAutoScaling.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSCloudWatch/AWSCloudWatch.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSCognito/AWSCognito.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSCognitoIdentityProvider/AWSCognitoIdentityProvider.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSCognitoIdentityProviderASF/AWSCognitoIdentityProviderASF.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSCore/AWSCore.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSDynamoDB/AWSDynamoDB.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSEC2/AWSEC2.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSElasticLoadBalancing/AWSElasticLoadBalancing.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSIoT/AWSIoT.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSKinesis/AWSKinesis.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSLambda/AWSLambda.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSMachineLearning/AWSMachineLearning.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSMobileAnalytics/AWSMobileAnalytics.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSS3/AWSS3.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSSES/AWSSES.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSSNS/AWSSNS.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSSQS/AWSSQS.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSSimpleDB/AWSSimpleDB.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
@@ -629,6 +656,7 @@
 				"${BUILT_PRODUCTS_DIR}/Nuke/Nuke.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SHXMLParser/SHXMLParser.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults/SwiftyUserDefaults.framework",
 				"${BUILT_PRODUCTS_DIR}/Toucan/Toucan.framework",
@@ -641,6 +669,26 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSAPIGateway.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSAutoScaling.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCloudWatch.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCognito.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCognitoIdentityProvider.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCognitoIdentityProviderASF.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSDynamoDB.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSEC2.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSElasticLoadBalancing.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSIoT.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSKinesis.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSLambda.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSMachineLearning.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSMobileAnalytics.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSS3.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSSES.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSSNS.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSSQS.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSSimpleDB.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
@@ -648,6 +696,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nuke.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SHXMLParser.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyUserDefaults.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toucan.framework",
@@ -676,6 +725,7 @@
 				AE3CF27420BFAF530074D5F7 /* SignUpViewController.swift in Sources */,
 				AE2CC0BE20CFD1880047BCC0 /* MenubarTableViewCell.swift in Sources */,
 				AE0F27D420D1109F00B6FF9F /* saveApi.swift in Sources */,
+				AE10A2AB20D25CD000D0A41C /* HMAC.swift in Sources */,
 				AE0F27D220D0E30500B6FF9F /* pinned.swift in Sources */,
 				AE3CF2AB20BFAF890074D5F7 /* PostCommentAPI.swift in Sources */,
 				AE4F075120C8300F00B6D230 /* FollowApi.swift in Sources */,
