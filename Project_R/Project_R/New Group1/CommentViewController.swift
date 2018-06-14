@@ -139,7 +139,7 @@ class CommentViewController: UIViewController {
             return
         }
 
-        
+        Database.database().reference().child("comments")
         let commentsReference = API.Comment.REF_COMMENTS
         let newCommentID = commentsReference.childByAutoId().key
         

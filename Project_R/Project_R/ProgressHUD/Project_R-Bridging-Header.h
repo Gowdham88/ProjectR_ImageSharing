@@ -5,6 +5,8 @@
 #ifndef Project_R_h
 #define Project_R_h
 #import "ProgressHUD.h"
+#import <CommonCrypto/CommonHMAC.h>
 
 #endif /*  Project_R_h */
+
 
