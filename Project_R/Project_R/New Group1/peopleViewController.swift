@@ -25,7 +25,7 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.navigationController?.navigationBar.titleTextAttributes = textFont
         navigationController?.navigationBar.titleTextAttributes = textAttributes
       
-        title = "Discover People"
+//        title = "Discover People"
         loadUsers()
         
     }

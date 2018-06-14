@@ -61,6 +61,7 @@ class CheckInViewController: UIViewController, UITextViewDelegate, UISearchBarDe
         captionTextView.layer.shadowOffset = CGSize.zero
         captionTextView.layer.shadowRadius = 4
         captionTextView.layer.masksToBounds = false
+        captionTextView.textContainer.maximumNumberOfLines = 4
         
 //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showPop))
 //        photoImageView.addGestureRecognizer(tapGesture)

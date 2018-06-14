@@ -467,7 +467,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
             if count != 0 {
                 self.likeCountButton.setTitle("\(count) Dope", for: .normal)
             } else if post.likeCount == 0 {
-                self.likeCountButton.setTitle("", for: .normal)
+                self.likeCountButton.setTitle("0 Dope", for: .normal)
             }
         }
          
@@ -555,7 +555,7 @@ extension Date {
         return Calendar.current.dateComponents([.second], from: date, to: self).second ?? 0
     }
     
-    
+    //
     func relativeTime(from date: Date) -> String {
         if yearsFromNow(from: date)   > 0 { return "\(yearsFromNow) year"    + (yearsFromNow(from: date)    > 1 ? "s" : "") + " ago" }
         if monthsFromNow(from: date)  > 0 { return "\(monthsFromNow) month"  + (monthsFromNow(from: date)   > 1 ? "s" : "") + " ago" }
