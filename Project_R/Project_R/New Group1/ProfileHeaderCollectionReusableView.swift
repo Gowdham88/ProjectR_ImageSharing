@@ -22,6 +22,8 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     @IBOutlet weak var postCountLabel: UILabel!
     @IBOutlet weak var followingCountLabel: UILabel!
     @IBOutlet weak var followersCountLabel: UILabel!
+    @IBOutlet weak var addText: UITextView!
+    
     var delegate : ProfileHeaderCollectionReusableViewDelegate?
     
     var user: Users? {
@@ -30,6 +32,7 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
         }
     }
     
+
     func updateView() {
         self.nameLabel.text = user?.username
         
@@ -64,7 +67,9 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
             }
         }
         
-        
+        profileImageView.layer.cornerRadius = 12
+        profileImageView.clipsToBounds = true
+//        profileImageView.layer.borderWidth = 2
         
         
      
@@ -80,4 +85,6 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
         
         delegate?.editname()
     }
+    
+    
 }

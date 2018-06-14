@@ -168,10 +168,52 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
+    @IBAction func settingBtn(_ sender: Any) {
+        
+        performSegue(withIdentifier: "settings", sender: self)
+        
+//        let alert = UIAlertController(title: "Change username", message: "Enter your username", preferredStyle: .alert)
+//
+//        alert.addTextField(configurationHandler: configurationTextField)
+//
+//        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler:handleCancel))
+//
+//        alert.addAction(UIAlertAction(title: "Save", style: .default, handler:{ (UIAlertAction) in
+//
+//            if let email = self.tField.text {
+//                if email.count > 0 {
+//                    ProgressHUD.show("Updating...", interaction: true)
+//                    API.User.setUserProfileName(profilename: email, onSuccess: {
+//
+//                        ProgressHUD.showSuccess("Saved successfully.")
+//                        self.fetchUser()
+//
+//                    })
+//                }else {
+//                    ProgressHUD.showError("Username cannot be empty")
+//
+//                }
+//
+//            } else {
+//
+//                ProgressHUD.showError("Enter username")
+//            }
+//
+//
+//            
+//        }))
+//
+//        self.present(alert, animated: true, completion: {
+//
+//            print("completion block")
+//
+//        })
+        
+    }
     
     @IBAction func SegmentChanged(_ sender: UISegmentedControl) {
         
-        
+       
 
         
     }
