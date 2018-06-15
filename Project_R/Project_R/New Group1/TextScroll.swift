@@ -45,7 +45,7 @@ class TextScroll: UIViewController, UITextViewDelegate {
         self.navigationController?.navigationBar.titleTextAttributes = textFont
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         
-        //profile image circle view:-
+        //profile image circle view:--
         profileImg.layer.cornerRadius = profileImg.frame.size.width / 2
         profileImg.clipsToBounds = true
         profileImg.layer.borderWidth = 2
