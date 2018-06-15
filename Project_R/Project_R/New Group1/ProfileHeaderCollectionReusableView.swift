@@ -34,7 +34,9 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     
 
     func updateView() {
+       
         self.nameLabel.text = user?.username
+
         
         if let photoURL = user?.profileImageURL {
             self.profileImageView.sd_setImage(with: URL(string: photoURL))

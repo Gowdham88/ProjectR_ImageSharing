@@ -16,6 +16,7 @@ class Comment {
     var profileImageURL : String?
     var postTime : Double?
     var commentCount: Int?
+    var postid: String?
 }
 
 extension Comment {
@@ -29,6 +30,8 @@ extension Comment {
         comment.userName        = postDictionary["userName"] as? String
         comment.profileImageURL = postDictionary["profileImageURL"] as? String
         comment.postTime        = postDictionary["postTime"] as? Double
+        comment.postid = postDictionary["postid"] as? String
+
         
         return comment
     }

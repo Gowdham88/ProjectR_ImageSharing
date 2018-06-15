@@ -29,6 +29,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     var postCountsss: Int?
     var post = [Post]()
     var saves = [save]()
+    var activities = [activity]()
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     var selectedProfilePhoto: UIImage?
@@ -73,7 +74,17 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         })
         
-        
+        fetchMYActivity(completion:  { status in
+            
+            
+            DispatchQueue.main.async {
+                
+                self.activityIndicator.stopAnimating()
+                self.collectionView.reloadData()
+                self.tableView.reloadData()
+            }
+            
+        })
     }
     
     func fetchUser() {
@@ -126,6 +137,25 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             
         })
         
+    }
+    
+    
+    func fetchMYActivity(completion: @escaping (String) -> Void) {
+        
+        activities.removeAll()
+        activityIndicator.startAnimating()
+        guard let currentUser = Auth.auth().currentUser else {
+            self.activityIndicator.stopAnimating()
+            return
+        }
+        API.MyActivity.observeUserSaves(withID: currentUser.uid, completion: {
+            
+            activitee in
+            self.activities = activitee
+            completion("Success")
+            
+        })
+       
     }
     
     func fetchPostCount(completion: @escaping (String) -> Void) {
@@ -267,7 +297,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             break
             
         case 2:
-//            returnValue = publicList.count
+            returnValue = activities.count
             break
             
         default:
@@ -290,16 +320,36 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 
             cell.post = posts[indexPath.row]
             
+            cell.activityComments.isHidden = true
+            cell.productName.isHidden = false
+            cell.productImage.isHidden = false
+            cell.productDescription.isHidden = false
+            cell.verify.isHidden = false
+            
             break
         case 1:
 //            cell.textLabel!.text = friendsAndFamily[indexPath.row]
             
             cell.saves = saves[indexPath.row]
             
+            cell.activityComments.isHidden = true
+            cell.productName.isHidden = false
+            cell.productImage.isHidden = false
+            cell.productDescription.isHidden = false
+            cell.verify.isHidden = false
+            
             break
             
         case 2:
 //            cell.textLabel!.text = publicList[indexPath.row]
+            cell.activities = activities[indexPath.row]
+            
+            cell.activityComments.isHidden = false
+            cell.productName.isHidden = true
+            cell.productImage.isHidden = true
+            cell.productDescription.isHidden = true
+            cell.verify.isHidden = true
+            
             break
             
         default:
@@ -333,6 +383,8 @@ extension ProfileViewController: UICollectionViewDataSource,UICollectionViewDele
 //        }
 
 //        cell.post = posts[indexPath.row]
+        
+        collectionView.isScrollEnabled = false
         return cell
     }
     
@@ -342,6 +394,7 @@ extension ProfileViewController: UICollectionViewDataSource,UICollectionViewDele
         if let user = self.user {
             headerViewCell.user = user
         }
+        collectionView.isScrollEnabled = false
         
         headerViewCell.delegate = self
 //        headerViewCell.postCountLabel.text = "\(self.countpost.count)"

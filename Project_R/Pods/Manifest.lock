@@ -1,5 +1,44 @@
 PODS:
   - Alamofire (4.7.2)
+  - AWSAPIGateway (2.6.17):
+    - AWSCore (= 2.6.17)
+  - AWSAutoScaling (2.6.17):
+    - AWSCore (= 2.6.17)
+  - AWSCloudWatch (2.6.17):
+    - AWSCore (= 2.6.17)
+  - AWSCognito (2.6.17):
+    - AWSCore (= 2.6.17)
+  - AWSCognitoIdentityProvider (2.6.17):
+    - AWSCognitoIdentityProviderASF (= 1.0.1)
+    - AWSCore (= 2.6.17)
+  - AWSCognitoIdentityProviderASF (1.0.1)
+  - AWSCore (2.6.17)
+  - AWSDynamoDB (2.6.17):
+    - AWSCore (= 2.6.17)
+  - AWSEC2 (2.6.17):
+    - AWSCore (= 2.6.17)
+  - AWSElasticLoadBalancing (2.6.17):
+    - AWSCore (= 2.6.17)
+  - AWSIoT (2.6.17):
+    - AWSCore (= 2.6.17)
+  - AWSKinesis (2.6.17):
+    - AWSCore (= 2.6.17)
+  - AWSLambda (2.6.17):
+    - AWSCore (= 2.6.17)
+  - AWSMachineLearning (2.6.17):
+    - AWSCore (= 2.6.17)
+  - AWSMobileAnalytics (2.6.17):
+    - AWSCore (= 2.6.17)
+  - AWSS3 (2.6.17):
+    - AWSCore (= 2.6.17)
+  - AWSSES (2.6.17):
+    - AWSCore (= 2.6.17)
+  - AWSSimpleDB (2.6.17):
+    - AWSCore (= 2.6.17)
+  - AWSSNS (2.6.17):
+    - AWSCore (= 2.6.17)
+  - AWSSQS (2.6.17):
+    - AWSCore (= 2.6.17)
   - BoringSSL (10.0.2):
     - BoringSSL/Implementation (= 10.0.2)
     - BoringSSL/Interface (= 10.0.2)
@@ -107,12 +146,32 @@ PODS:
   - SDWebImage (4.3.3):
     - SDWebImage/Core (= 4.3.3)
   - SDWebImage/Core (4.3.3)
+  - SHXMLParser (1.1.0)
   - SwiftyJSON (4.1.0)
   - SwiftyUserDefaults (3.0.1)
   - Toucan (1.0.0)
 
 DEPENDENCIES:
   - Alamofire (~> 4.5)
+  - AWSAPIGateway
+  - AWSAutoScaling
+  - AWSCloudWatch
+  - AWSCognito
+  - AWSCognitoIdentityProvider
+  - AWSCore
+  - AWSDynamoDB
+  - AWSEC2
+  - AWSElasticLoadBalancing
+  - AWSIoT
+  - AWSKinesis
+  - AWSLambda
+  - AWSMachineLearning
+  - AWSMobileAnalytics
+  - AWSS3
+  - AWSSES
+  - AWSSimpleDB
+  - AWSSNS
+  - AWSSQS
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
@@ -124,6 +183,7 @@ DEPENDENCIES:
   - GooglePlaces
   - Nuke
   - SDWebImage
+  - SHXMLParser
   - SwiftyJSON
   - SwiftyUserDefaults
   - Toucan
@@ -131,6 +191,26 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
+    - AWSAPIGateway
+    - AWSAutoScaling
+    - AWSCloudWatch
+    - AWSCognito
+    - AWSCognitoIdentityProvider
+    - AWSCognitoIdentityProviderASF
+    - AWSCore
+    - AWSDynamoDB
+    - AWSEC2
+    - AWSElasticLoadBalancing
+    - AWSIoT
+    - AWSKinesis
+    - AWSLambda
+    - AWSMachineLearning
+    - AWSMobileAnalytics
+    - AWSS3
+    - AWSSES
+    - AWSSimpleDB
+    - AWSSNS
+    - AWSSQS
     - BoringSSL
     - Firebase
     - FirebaseAnalytics
@@ -155,12 +235,33 @@ SPEC REPOS:
     - Nuke
     - Protobuf
     - SDWebImage
+    - SHXMLParser
     - SwiftyJSON
     - SwiftyUserDefaults
     - Toucan
 
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  AWSAPIGateway: 0bf1a841609dbcabe94f2203ff98aa0f5f37f2f1
+  AWSAutoScaling: 2264338bb6e05a60e3ac23f9a79d58a4e093d769
+  AWSCloudWatch: 65a4e32a73de6b7b771980bef03baba777d06ff6
+  AWSCognito: 2a3da30af7d731cfd1032812a052e65099bbe26a
+  AWSCognitoIdentityProvider: 9f15b1d0073c3585d791877c98e1315c368b4f18
+  AWSCognitoIdentityProviderASF: f94f1a502e72ef3d0a1de93e10bf7a79c8698118
+  AWSCore: 82fbb01d73a22cfae77ac2f03f6073a123092452
+  AWSDynamoDB: bbfc2583819099ccc0ba92eb54cb425049d4278b
+  AWSEC2: 75f0c7bc30a063c1c171413ae950f94958fd6f14
+  AWSElasticLoadBalancing: af631a46fff3b98a3514895805d00ee48c0fbed8
+  AWSIoT: 68f7b6d87856136843a8fe496b4a50fb590727e1
+  AWSKinesis: 342e84eb54eda89d247b14b32cf5240c7f0e4d46
+  AWSLambda: eabf39017c8193d5d028cca4076fbd07fcfd57f9
+  AWSMachineLearning: 70fd62c137a800120b5f029e3cef3fea3e7aa891
+  AWSMobileAnalytics: a29a1059066917b2365bc8e8cba42b11fe6a89c6
+  AWSS3: 00482eb3363cab1d4c3fd7b0bb7c117ae7264505
+  AWSSES: 002427d285d8e3a552612d1318d42f7e44adc227
+  AWSSimpleDB: 01fbfca17057f46e64f36afb059cefabbf7e1c65
+  AWSSNS: 4f5ee521ea0e4fdbada21b8121de7f792d52a846
+  AWSSQS: 923b4f77e62a795ffe9f8b7a4095fe188ee9fb57
   BoringSSL: 60dd24df4af296bf41d78e5841dbb95d75f88c0d
   Firebase: 5ec5e863d269d82d66b4bf56856726f8fb8f0fb3
   FirebaseAnalytics: 7ef69e76a5142f643aeb47c780e1cdce4e23632e
@@ -185,10 +286,11 @@ SPEC CHECKSUMS:
   Nuke: bf5d58b2d95ff15cb170c231fe6002d706be77e1
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
   SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
+  SHXMLParser: 3e5ada336541b3e5b8d66046a14c2bf49742c62e
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
   SwiftyUserDefaults: 3d273b1739b68ada3145dc754a70ec775bc5c8be
   Toucan: 61867fb10948c02e9804280a95eb183e98eac97a
 
-PODFILE CHECKSUM: d18db9f16bbc3fb470bc563f85333d0787b7fcf7
+PODFILE CHECKSUM: cca4bda64956f29d89f68ae3c63ea9303c77be74
 
 COCOAPODS: 1.5.0

@@ -38,7 +38,10 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     var userVC: UserViewController?
     var postReference: DatabaseReference!
     var commentCount = [Comment]()
-    
+    var userss = [Users]()
+    var currentuser = [UserAPI]()
+    var currentName: String! = ""
+    var postUSerName: String! = ""
     var post: Post? {
         didSet {
             updateView()
@@ -228,7 +231,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         }
         
         
-        
+       
         
         
         
@@ -320,7 +323,15 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     }
     
     func incrementLikes(forReference ref: DatabaseReference) {
-        
+        API.User.observeCurrentUser(completion: { (user) in
+            if self.currentName != nil {
+                
+                self.currentName = user.username!
+                
+                print("currentname::\(String(describing: self.currentName))")
+                
+            }
+        })
         API.Post.db.collection("posts").document(post!.id!)
             .getDocument { (document, error) in
                 if let document = document {
@@ -363,7 +374,9 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
                                 print("Error updating document: \(err)")
                             } else {
                                 print("Document successfully updated")
+                                
                                 self.updateLike(post: post)
+                             
                             }
                         }
                         
@@ -379,6 +392,15 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         
         let sfReference = API.Post.db.collection("posts").document(post!.id!)
         var postItem = Post()
+        API.User.observeCurrentUser(completion: { (user) in
+            if self.currentName != nil {
+                
+                self.currentName = user.username!
+                
+                print("currentname::\(String(describing: self.currentName))")
+                
+            }
+        })
         
         API.Post.db.runTransaction({ (transaction, errorPointer) -> Any? in
             let sfDocument: DocumentSnapshot
@@ -437,7 +459,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
             
                 transaction.updateData(["likeCount": likeCount,
                                          "likes.\(uid)" : likes[uid] ?? false], forDocument: sfReference)
-                
+              
                 
             }
             return nil
@@ -446,8 +468,33 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
                 print("Transaction failed: \(error)")
             } else {
                 print("Transaction successfully committed!")
-                
-                
+                 let db = Firestore.firestore()
+                if self.postUSerName != nil {
+                 self.postUSerName = self.post!.userName
+                   
+                 print("postUSerName::\(String(describing: self.postUSerName))")
+                }
+                print("currentusernamesss:::\(self.currentName)")
+                let finalcomment = self.currentName + " " + "likes" + " " + self.postUSerName
+                print("finalcomment::::\(finalcomment)")
+               
+                db.collection("activity").document().setData([
+                    "uid": self.post?.uid ?? "empty",
+                    "currentUserUID": API.User.CURRENT_USER?.uid ?? "empty",
+                    "currentUserName": self.currentName ?? "empty",
+                    "activityName": finalcomment + " " + "product." ,
+                    "userName"  : self.postUSerName ?? "empty"
+
+                    ]){ err in
+                        if let err = err {
+                            print("Error writing document: \(err)")
+                            ProgressHUD.showError("Error : \(err.localizedDescription)")
+                        } else {
+                            
+                            print("Document successfully committed!")
+                        }
+                }
+             
             }
         }
     }

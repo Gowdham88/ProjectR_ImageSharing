@@ -577,6 +577,9 @@ extension HomeViewController {
     func saveUserPost(post: Post){
         
         let db = Firestore.firestore()
+//        let autoID = Database.database().reference().child("save")
+//        let commentsReference = autoID
+//        let newCommentID = commentsReference.childByAutoId().key
         
         db.collection("posts").document(post.documentID!)
             .addSnapshotListener { documentSnapshot, error in
@@ -601,7 +604,7 @@ extension HomeViewController {
                 let postPostTime = post.postTime
  
                 
-                db.collection("save").document(post.documentID ?? "0000").setData([
+                db.collection("save").document().setData([
                     "uid" : postuid ??  "empty" ,
                     "photoURL": postphotoURL ?? "empty",
                     "caption": postCaption ?? "empty",

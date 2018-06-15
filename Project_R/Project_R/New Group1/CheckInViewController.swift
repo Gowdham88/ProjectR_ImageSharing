@@ -14,6 +14,9 @@ import MapKit
 import GooglePlaces
 import Alamofire
 import SwiftyJSON
+import AWSCore
+
+
 
 class CheckInViewController: UIViewController, UITextViewDelegate, UISearchBarDelegate{
 
@@ -38,7 +41,6 @@ class CheckInViewController: UIViewController, UITextViewDelegate, UISearchBarDe
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         //Dismiss keyboard - touch any where
         self.hideKeyboardWhenTappedAround()
         
@@ -89,8 +91,15 @@ class CheckInViewController: UIViewController, UITextViewDelegate, UISearchBarDe
             
         }
         shareButton.layer.cornerRadius = 15
+        
+        
 
     }
+  
+    
+
+    
+    
     
     @IBAction func CancelPost(_ sender: UIBarButtonItem) {
         
@@ -103,7 +112,9 @@ class CheckInViewController: UIViewController, UITextViewDelegate, UISearchBarDe
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -515,8 +526,6 @@ extension CheckInViewController {
         view.endEditing(true)
     }
 }
-
-
 
 
 
