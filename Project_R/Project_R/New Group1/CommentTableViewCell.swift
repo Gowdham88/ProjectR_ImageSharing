@@ -7,8 +7,9 @@
 //
 
 import UIKit
-import Firebase
+import FirebaseDatabase
 import FirebaseAuth
+import FirebaseFirestore
 import Nuke
 
 protocol  CommentTableViewCellDelegate {
@@ -23,7 +24,14 @@ class CommentTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var commentLabel: UILabel!
     var delegate : CommentTableViewCellDelegate?
+    var userss = [Users]()
+    var currentuser = [UserAPI]()
+    var posts: [Post] = []
 
+    var currentName: String! = ""
+    var postUSerName: String! = ""
+    var  postUserUID: String! = ""
+    
     var comment: Comment? {
         didSet {
             updateView()
@@ -35,6 +43,8 @@ class CommentTableViewCell: UITableViewCell {
             updateUserInfo()
         }
     }
+    
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -86,11 +96,46 @@ class CommentTableViewCell: UITableViewCell {
     
     
     func updateView() {
+      
+        API.User.observeCurrentUser(completion: { (user) in
+            if self.currentName != nil {
+                
+                self.currentName = user.username!
+                
+                print("currentname::\(String(describing: self.currentName))")
+                
+            }
+        })
+      
         
+        
+     
         commentLabel.text = comment?.commentText
         
         guard let currentUser = Auth.auth().currentUser else {
             return
+        }
+        let db = Firestore.firestore()
+        let docRef = db.collection("posts").whereField("documentID", isEqualTo: comment?.postid).limit(to: 500)
+        
+        docRef.getDocuments() { (querySnapshot, err) in
+            
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    print("\(document.documentID) => \(document.data())")
+                    
+                    let postget = API.Post.observePost(withID: document.documentID, completion: { (post) in
+                        
+                        self.postUSerName = post.userName
+                        print("posusername:::\(self.postUSerName)")
+                        self.postUserUID = post.uid
+                    })
+                    
+                }
+            }
+        
         }
         
         if currentUser.uid == comment?.uid {
@@ -98,7 +143,38 @@ class CommentTableViewCell: UITableViewCell {
             nameLabel.text = PrefsManager.sharedinstance.username
             profileImageView.image = nil
             Manager.shared.loadImage(with:  URL(string: PrefsManager.sharedinstance.imageURL)!, into: self.profileImageView)
-           
+            
+            let db = Firestore.firestore()
+         
+            
+            if self.postUSerName != nil {
+              
+                
+                print("postUSerName::\(String(describing: self.postUSerName))")
+            }
+                   
+                    self.currentName = self.comment?.userName
+            print("currentusernamesss:::\(self.currentName)")
+            let finalcomment = self.currentName + " " + "commented on" + " " + self.postUSerName
+            print("finalcomment::::\(finalcomment)")
+            
+            db.collection("activity").document().setData([
+                "uid": self.postUserUID ?? "empty",
+                "currentUserUID": API.User.CURRENT_USER?.uid ?? "empty",
+                "currentUserName": self.currentName ?? "empty",
+                "activityName": finalcomment + " " + "product." ,
+                "userName"  : self.postUSerName ?? "empty"
+                
+            ]){ err in
+                if let err = err {
+                    print("Error writing document: \(err)")
+                    ProgressHUD.showError("Error : \(err.localizedDescription)")
+                } else {
+                    
+                    print("Document successfully committed!")
+                }
+            }
+        
             
         } else {
             

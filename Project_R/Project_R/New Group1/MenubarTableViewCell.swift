@@ -16,6 +16,7 @@ class MenubarTableViewCell: UITableViewCell {
     @IBOutlet weak var productName: UILabel!
     
     @IBOutlet weak var productDescription: UILabel!
+    @IBOutlet weak var activityComments: UILabel!
     
     @IBOutlet weak var verify: UILabel!
     
@@ -30,6 +31,16 @@ class MenubarTableViewCell: UITableViewCell {
         didSet {
             
             saveUpadteView()
+            
+        }
+        
+    }
+    
+    var activities: activity? {
+        
+        didSet {
+            
+            activityUpadteView()
             
         }
         
@@ -76,5 +87,11 @@ class MenubarTableViewCell: UITableViewCell {
         productName.text = "2K Display iMac"
         productDescription.text = saves?.caption
         
+    }
+    
+    func activityUpadteView(){
+        
+        activityComments.text = activities?.activityName
+
     }
 }

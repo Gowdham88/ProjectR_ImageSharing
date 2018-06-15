@@ -18,5 +18,6 @@ struct API {
     static var Feed = FeedApi()
     static var MyPosts = MyPostsApi()
     static var MySaves = saveApi()
+    static var MyActivity = activityApi()
     
 }
