@@ -246,8 +246,6 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
     }
     
     
-    
-    
     // MARK: - Sign Up User Method
     
     @IBAction func signUp(_ sender: Any) {

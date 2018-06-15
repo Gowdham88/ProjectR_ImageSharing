@@ -49,6 +49,12 @@ class MenubarTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        productImage.layer.cornerRadius = productImage.frame.size.width / 2
+        productImage.clipsToBounds = true
+//        productImage.layer.borderWidth = 2
+//        productImage.layer.borderColor = UIColor.black.cgColor
+        
     }
 
 //    override func setSelected(_ selected: Bool, animated: Bool) {

@@ -11,12 +11,53 @@ import UIKit
 
 class TextScroll: UIViewController, UITextViewDelegate {
     
-    @IBOutlet weak var label1: UILabel!
-    @IBOutlet weak var textView: UITextView!
+//    @IBOutlet weak var label1: UILabel!
+//    @IBOutlet weak var textView: UITextView!
+    
+    @IBOutlet weak var profileImg: UIImageView!
+    @IBOutlet weak var userName: UILabel!
+    
+    @IBOutlet weak var privPolicy: UILabel!
+    @IBOutlet weak var policyImg: UIButton!
+    @IBOutlet weak var privacyView: UIView!
+    
+    @IBOutlet weak var termView: UIView!
+    @IBOutlet weak var termLbl: UILabel!
+    @IBOutlet weak var termImg: UIButton!
+    
+    @IBOutlet weak var shareView: UIView!
+    @IBOutlet weak var shareLbl: UILabel!
+    @IBOutlet weak var shareImg: UIImageView!
+    
+    @IBOutlet weak var logoutView: UIView!
+    @IBOutlet weak var logLbl: UILabel!
+    @IBOutlet weak var logoutBtn: UIButton!
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        textView.delegate = self
-        textView.scrollsToTop = true
+        
+        //Navigation title heading - colour setting:-
+        let textAttributes = [NSAttributedStringKey.foregroundColor: UIColor(red: 7/255, green: 192/255, blue: 141/255, alpha: 1)]
+        let textFont = [NSAttributedStringKey.font: UIFont(name: "Avenir Light", size: 16)!]
+        self.navigationController?.navigationBar.titleTextAttributes = textFont
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
+        
+        //profile image circle view:--
+        profileImg.layer.cornerRadius = profileImg.frame.size.width / 2
+        profileImg.clipsToBounds = true
+        profileImg.layer.borderWidth = 2
+        profileImg.layer.borderColor = UIColor.black.cgColor
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(TextScroll.tappedMe))
+        profileImg.addGestureRecognizer(tap)
+        profileImg.isUserInteractionEnabled = true
+        
+        
+//        textView.delegate = self
+//        textView.scrollsToTop = true
 //        let point = CGPoint(x: 0.0, y: (textView.contentSize.height - textView.bounds.height))
 //        textView.setContentOffset(point, animated: true)
 //        let range = NSMakeRange(textView.text.characters.count - 1, 0)
@@ -29,24 +70,18 @@ class TextScroll: UIViewController, UITextViewDelegate {
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.textView.setContentOffset(CGPoint.zero, animated: false)
     }
     
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    @objc func tappedMe()
+    {
+        print("Tapped on Image")
+
+    }
+
     
     @IBAction func BtnBack(_ sender: UIBarButtonItem) {
         
