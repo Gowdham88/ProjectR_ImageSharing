@@ -51,7 +51,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     var delegate  : CameraViewControllerDelegate?
     var ratingValue: String?
     var dateTime: Double!
-    
+    var currentName: String! = ""
 //    AWS String
     
     var page: String = ""
@@ -60,9 +60,20 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     var minimumPrice: String = ""
     var sorting: String = ""
     var searchKeyword: String = ""
+    var users = [User]()
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        getname()
+        
+        
+        ////getusername/////
+        
+     
+
+        
+        /////////////////
         
         
         
@@ -135,6 +146,8 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
        
     }
     
+   
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 //        if !shouldShowSearchResults {
 //            shouldShowSearchResults = true
@@ -189,10 +202,12 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     }
     
     func send(url: String) -> String {
+        
         guard let url = URL(string: url) else {
             print("Error! Invalid URL!") //Do something else
             return ""
         }
+        print("send URL: \(url)")
         
         let request = URLRequest(url: url)
         let semaphore = DispatchSemaphore(value: 0)
@@ -201,6 +216,8 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         
         URLSession.shared.dataTask(with: request) { (responseData, _, _) -> Void in
             data = responseData
+            
+            print("send URL session data: \(data)")
             semaphore.signal()
             }.resume()
         
@@ -250,6 +267,8 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         let signedParams = signedParametersForParameters(parameters: operationParams)
         let query = signedParams.map { "\($0)=\($1)" }.joined(separator: "&")
         let url = "http://webservices.amazon.com/onca/xml?" + query
+        
+        print("getSearchItem url \(url)")
         let reply = send(url: url)
         print("reply::::::\(reply)")
        
@@ -535,13 +554,16 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
                 
                 // and put the photoURL into the database
                 self.saveToDatabase(photoURL: photoURL!)
-            
+//                self.saveActivity()
+//                self.getname()
             })
         } else {
             ProgressHUD.showError("Your photo to Share can not be empty. Tap it to set it and Share.")
         }
     }
     
+    
+  
     
     // MARK: - Dismiss Keyboard
     
@@ -580,6 +602,8 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
 //        let timeString = formatter.string(from: before, to: now)
 //        return String(format: formatString, timeString!)
 //    }
+    
+
 
     // MARK: - Save to Firebase Method
     
@@ -619,6 +643,31 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
                     ProgressHUD.showError("Photo Save Error: \(err.localizedDescription)")
                 } else {
                     print("Document successfully written!")
+            
+                    
+                    
+                    let finalcomment = users.username! + " " + "created on new product post"
+                    print("finalcomment:::\(finalcomment)")
+                    
+                    db.collection("activity").document().setData([
+                        "uid": "" ,
+                        "currentUserUID": API.User.CURRENT_USER?.uid ?? "empty",
+                        "currentUserName": users.username ?? "empty" ,
+                        "activityName": finalcomment ,
+                        "userName"  : ""
+                        
+                    ]){ err in
+                        if let err = err {
+                            print("Error writing document: \(err)")
+                            ProgressHUD.showError("Error : \(err.localizedDescription)")
+                        } else {
+                            
+                            print("Document successfully committed!")
+                        }
+                    }
+                    
+                    
+                    
                     API.Feed.REF_FEED.child(API.User.CURRENT_USER!.uid).child(newPostID).setValue(true)
 
                     db.collection("user-posts").document(newPostID).setData([

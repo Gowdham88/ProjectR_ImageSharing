@@ -15,6 +15,9 @@
 		AE0F27D620D1135400B6FF9F /* sortSave.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0F27D520D1135400B6FF9F /* sortSave.swift */; };
 		AE10A2AB20D25CD000D0A41C /* HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE10A2AA20D25CD000D0A41C /* HMAC.swift */; };
 		AE10A2AF20D2912300D0A41C /* AWSAPIGateway.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE10A2AE20D2912300D0A41C /* AWSAPIGateway.framework */; };
+		AE217A5C20D40A3000CE2BC6 /* activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE217A5B20D40A3000CE2BC6 /* activity.swift */; };
+		AE217A5E20D40C1B00CE2BC6 /* activityAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE217A5D20D40C1B00CE2BC6 /* activityAPI.swift */; };
+		AE217A6020D40F1F00CE2BC6 /* sortActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE217A5F20D40F1F00CE2BC6 /* sortActivity.swift */; };
 		AE2CC0BC20CFB71C0047BCC0 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CC0BB20CFB71C0047BCC0 /* CustomSegmentedControl.swift */; };
 		AE2CC0BE20CFD1880047BCC0 /* MenubarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CC0BD20CFD1880047BCC0 /* MenubarTableViewCell.swift */; };
 		AE2CC0C020CFDB1F0047BCC0 /* save.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CC0BF20CFDB1F0047BCC0 /* save.swift */; };
@@ -109,6 +112,9 @@
 		AE0F27D520D1135400B6FF9F /* sortSave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sortSave.swift; sourceTree = "<group>"; };
 		AE10A2AA20D25CD000D0A41C /* HMAC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMAC.swift; sourceTree = "<group>"; };
 		AE10A2AE20D2912300D0A41C /* AWSAPIGateway.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AWSAPIGateway.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE217A5B20D40A3000CE2BC6 /* activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = activity.swift; sourceTree = "<group>"; };
+		AE217A5D20D40C1B00CE2BC6 /* activityAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = activityAPI.swift; sourceTree = "<group>"; };
+		AE217A5F20D40F1F00CE2BC6 /* sortActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sortActivity.swift; sourceTree = "<group>"; };
 		AE2CC0BB20CFB71C0047BCC0 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 		AE2CC0BD20CFD1880047BCC0 /* MenubarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenubarTableViewCell.swift; sourceTree = "<group>"; };
 		AE2CC0BF20CFDB1F0047BCC0 /* save.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = save.swift; sourceTree = "<group>"; };
@@ -320,6 +326,9 @@
 				AE0F27D120D0E30500B6FF9F /* pinned.swift */,
 				AE0F27D320D1109F00B6FF9F /* saveApi.swift */,
 				AE0F27D520D1135400B6FF9F /* sortSave.swift */,
+				AE217A5B20D40A3000CE2BC6 /* activity.swift */,
+				AE217A5D20D40C1B00CE2BC6 /* activityAPI.swift */,
+				AE217A5F20D40F1F00CE2BC6 /* sortActivity.swift */,
 			);
 			name = Model;
 			path = "New Group3";
@@ -725,6 +734,7 @@
 				AE3CF27420BFAF530074D5F7 /* SignUpViewController.swift in Sources */,
 				AE2CC0BE20CFD1880047BCC0 /* MenubarTableViewCell.swift in Sources */,
 				AE0F27D420D1109F00B6FF9F /* saveApi.swift in Sources */,
+				AE217A5C20D40A3000CE2BC6 /* activity.swift in Sources */,
 				AE10A2AB20D25CD000D0A41C /* HMAC.swift in Sources */,
 				AE0F27D220D0E30500B6FF9F /* pinned.swift in Sources */,
 				AE3CF2AB20BFAF890074D5F7 /* PostCommentAPI.swift in Sources */,
@@ -733,8 +743,10 @@
 				AE64451B20BD79F500216484 /* ProgressHUD.m in Sources */,
 				AE7AA98120C684FA00E9F805 /* CheckInViewController.swift in Sources */,
 				AE3CF28520BFAF530074D5F7 /* ActivityViewController.swift in Sources */,
+				AE217A6020D40F1F00CE2BC6 /* sortActivity.swift in Sources */,
 				AE7AA98B20C695A800E9F805 /* locationNameTableViewCell.swift in Sources */,
 				AE3CF27720BFAF530074D5F7 /* OnboardVc.swift in Sources */,
+				AE217A5E20D40C1B00CE2BC6 /* activityAPI.swift in Sources */,
 				AE3CF25F20BFAF2A0074D5F7 /* PrefsManager.swift in Sources */,
 				AE3CF27D20BFAF530074D5F7 /* CommentViewController.swift in Sources */,
 				AE3CF2A720BFAF890074D5F7 /* PostAPI.swift in Sources */,
