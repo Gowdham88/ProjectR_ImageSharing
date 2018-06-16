@@ -367,6 +367,18 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
         
     }
     
+//    func openbuyStoryboard(position: Int) {
+//
+//        let storyboard = UIStoryboard(name: "Home", bundle: nil)
+//        let vc         =  storyboard.instantiateViewController(withIdentifier: "imagezoom") as! ImageZoom
+//
+//        if let images = posts[position].photoURL{
+//            vc.imageUrl    =   images
+//            present(vc, animated: true, completion: nil)
+//        }
+//
+//    }
+    
    
     
     func deletePost(position: Int) {
@@ -603,6 +615,8 @@ extension HomeViewController {
                 let postRating  = post.rating
                 let postLocation  = post.location
                 let postPostTime = post.postTime
+//                let productDetailPageURL = post.productDetailPageURL
+//                let productName = post.productName
  
                 
                 db.collection("save").document().setData([
@@ -620,7 +634,7 @@ extension HomeViewController {
                     "location": postLocation ?? "empty",
                     //            "likee": post.isLiked!
                     "currentUserUID": API.User.CURRENT_USER!.uid ?? "empty"
-                    
+                
                     
                 ]) { err in
                     if let err = err {
