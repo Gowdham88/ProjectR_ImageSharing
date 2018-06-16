@@ -77,6 +77,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     var eName: String = String()
     var bookTitle = String()
     var bookAuthor = String()
+    var searchText: String?
 
     /****************/
     
@@ -150,7 +151,6 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         
         
 //        searchKeyword = searchWord
-        
        
         
        
@@ -174,7 +174,13 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         getSearchItem(searchKeyword: searchWord!)
         tableView.isHidden = false
         
+        tableView.reloadData()
     }
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(true)
+//        tableView.reloadData()
+//
+//    }
     
     /*****************amazon product search*****************/
     
@@ -551,6 +557,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
                 "likes"           : likes,
                 "documentID": newPostID,
                 "rating": self.ratingValue ?? "empty",
+                "productName": self.searchText ?? "empty",
                 "location": "" ?? "empty"
             ]) { err in
                 if let err = err {
@@ -769,7 +776,6 @@ extension CameraViewController: XMLParserDelegate {
     
     func parser(_ parser: XMLParser, foundCharacters string: String) {
         currentValue? += string
-//        let data = string.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 //        let data = string.trimmingCharacters(in: CharacterSet.whitespaces)
 //
 //        if (!data.isEmpty) {
@@ -790,7 +796,6 @@ extension CameraViewController: XMLParserDelegate {
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == recordKey {
             results.append(currentDictionary!)
-
             currentDictionary = nil
         } else if dictionaryKeys.contains(elementName) {
             currentDictionary![elementName] = currentValue
@@ -834,10 +839,28 @@ extension CameraViewController: XMLParserDelegate {
         print("prodic:::\(item)")
 
                 cell.amazonProductTitle?.text =  item["Title"]
+//        cell.amazonProductTitle?.text = item["Title"]
 
         //        cell.detailTextLabel?.text = book.bookAuthor
 
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let indexPath = tableView.indexPathForSelectedRow  {
+            let currentCell = tableView.cellForRow(at: indexPath) as! UITableViewCell
+            searchBar.text = (currentCell.textLabel?.text)
+            let item = results[indexPath.row]
+            searchBar.text = item["Title"]
+//            searchLoaction.text = autocompleteplaceArray[indexPath.row]
+//            PrefsManager.sharedinstance.lastlocation = searchLoaction.text
+            searchText = searchBar.text
+            
+            print("searchText::::\(String(describing: searchText))")
+        }
+        
+        tableView.isHidden = true
+        
     }
     
 }

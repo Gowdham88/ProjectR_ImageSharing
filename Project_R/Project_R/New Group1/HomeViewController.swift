@@ -301,6 +301,7 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
 //        cell.postTime.tag =
         cell.postTime.tag = indexPath.row
         cell.locationName.tag = indexPath.row
+        cell.productNameLabel.tag = indexPath.row
        
         return cell
    
