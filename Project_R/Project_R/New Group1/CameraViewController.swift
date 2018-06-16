@@ -71,13 +71,15 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     var indices: [String] = []
     var currentDictionary: [String: String]? // the current dictionary
     var currentValue: String?                // the current value for one of the keys in the dictionary
-    let recordKey = "ItemAttributes"
+    let recordKey = "Item"
     let dictionaryKeys = Set<String>(["Title"])
+    let dictionaryKeys1 = Set<String>(["DetailPageURL"])
     var books: [Book] = []
     var eName: String = String()
     var bookTitle = String()
     var bookAuthor = String()
     var searchText: String?
+    var poductDetailPageUrl: String?
 
     /****************/
     
@@ -558,6 +560,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
                 "documentID": newPostID,
                 "rating": self.ratingValue ?? "empty",
                 "productName": self.searchText ?? "empty",
+                "productDetailPageURL": self.poductDetailPageUrl ?? "empty",
                 "location": "" ?? "empty"
             ]) { err in
                 if let err = err {
@@ -761,6 +764,9 @@ extension CameraViewController: XMLParserDelegate {
             currentDictionary = [:]
         } else if dictionaryKeys.contains(elementName) {
             currentValue = ""
+        } else if dictionaryKeys1.contains(elementName){
+            
+            currentValue = ""
         }
 //        eName = elementName
 //        if elementName == "ItemAttributes" {
@@ -798,6 +804,10 @@ extension CameraViewController: XMLParserDelegate {
             results.append(currentDictionary!)
             currentDictionary = nil
         } else if dictionaryKeys.contains(elementName) {
+            currentDictionary![elementName] = currentValue
+            currentValue = nil
+        } else if dictionaryKeys1.contains(elementName) {
+            
             currentDictionary![elementName] = currentValue
             currentValue = nil
         }
@@ -839,6 +849,7 @@ extension CameraViewController: XMLParserDelegate {
         print("prodic:::\(item)")
 
                 cell.amazonProductTitle?.text =  item["Title"]
+        
 //        cell.amazonProductTitle?.text = item["Title"]
 
         //        cell.detailTextLabel?.text = book.bookAuthor
@@ -852,6 +863,9 @@ extension CameraViewController: XMLParserDelegate {
             searchBar.text = (currentCell.textLabel?.text)
             let item = results[indexPath.row]
             searchBar.text = item["Title"]
+            poductDetailPageUrl = item["DetailPageURL"]
+            print("poductDetailPageUrl::::\(poductDetailPageUrl)")
+            
 //            searchLoaction.text = autocompleteplaceArray[indexPath.row]
 //            PrefsManager.sharedinstance.lastlocation = searchLoaction.text
             searchText = searchBar.text

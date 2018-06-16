@@ -25,6 +25,7 @@ class Post {
     var rating: String?
     var location: String?
     var productName: String?
+    var productDetailPageURL: String?
 }
 
 extension Post {
@@ -47,7 +48,7 @@ extension Post {
         post.rating = postDictionary["rating"] as? String
         post.location = postDictionary["location"] as? String
         post.productName = postDictionary["productName"] as? String
-
+        post.productDetailPageURL = postDictionary["productDetailPageURL"] as? String
         
         if let currentUserID = Auth.auth().currentUser?.uid {
             if post.likes != nil {

@@ -21,6 +21,7 @@ protocol HomeTableViewCellDelegate {
 }
 class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
 
+    @IBOutlet weak var buyProduct: UIImageView!
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var locationName: UILabel!
     @IBOutlet weak var postTime: UILabel!
@@ -43,6 +44,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     var currentuser = [UserAPI]()
     var currentName: String! = ""
     var postUSerName: String! = ""
+    var productbuyURL: String! = ""
     var post: Post? {
         didSet {
             updateView()
@@ -95,6 +97,12 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         let deleteImagetap = UITapGestureRecognizer(target: self, action: #selector(HomeTableViewCell.deleteImagetap(sender:)))
         shareImageView.addGestureRecognizer(deleteImagetap)
         shareImageView.isUserInteractionEnabled = true
+        
+        let buyImagetap = UITapGestureRecognizer(target: self, action: #selector(HomeTableViewCell.BuyImagetap(sender:)))
+        buyProduct.addGestureRecognizer(buyImagetap)
+        buyProduct.isUserInteractionEnabled = true
+        
+//        buyProduct
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -126,6 +134,16 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         
     }
     
+    @objc func BuyImagetap(sender: UITapGestureRecognizer) {
+        
+        if let url = URL(string: productbuyURL) {
+            
+            UIApplication.shared.open(url, options: [:])
+        }
+        
+        
+    }
+    
     @objc func deleteImagetap(sender : UITapGestureRecognizer) {
         
         if let _ = homeVC {
@@ -142,6 +160,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     
     
     func updateView() {
+        productbuyURL = post?.productDetailPageURL
         captionLabel.text = post?.caption
         productNameLabel.text = post?.productName
         let photoURL = post?.photoURL
