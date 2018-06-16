@@ -22,17 +22,20 @@ protocol CameraViewControllerDelegate {
 }
 
 
-class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerControllerDelegate, UISearchBarDelegate {
+class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerControllerDelegate, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
     
-    static let kAmazonAccessID = "AKIAIHCYONZKCYR67QWQ"
-    static let kAmazonAccessSecretKey = "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"
-
+    static let kAmazonAccessID = "AKIAJ3VPWLGL2UIWB3SA"
+    static let kAmazonAccessSecretKey = "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"
+    
     static let kAmazonAssociateTag = "projectr0c-21"
+    var searchWord: String?
+    var DateString: String?
 //    var timestampFormatter = DateFormatter()
     
-  
+//    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     let imagePicker = UIImagePickerController()
+    @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var addCaptionLabel: UILabel!
@@ -55,26 +58,33 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
 //    AWS String
     
     var page: String = ""
-    var searchIndex: String = ""
-    var maximumPrice: String = ""
-    var minimumPrice: String = ""
     var sorting: String = ""
-    var searchKeyword: String = ""
     var users = [User]()
     // MARK: - View Lifecycle
+    
+    //amazon product name search model//
+    var ProductName = [amazonProductName]()
+    var productTitle: String = String()
+    var productDetailPageURL:String = String()
+    var productASIN:String = String()
+    var results = [[String: String]]()
+    var indices: [String] = []
+    var currentDictionary: [String: String]? // the current dictionary
+    var currentValue: String?                // the current value for one of the keys in the dictionary
+    let recordKey = "ItemAttributes"
+    let dictionaryKeys = Set<String>(["Title"])
+    var books: [Book] = []
+    var eName: String = String()
+    var bookTitle = String()
+    var bookAuthor = String()
+
+    /****************/
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        getname()
-        
-        
-        ////getusername/////
-        
-     
 
-        
-        /////////////////
-        
         
         
         //Dismiss keyboard - touch any where
@@ -117,7 +127,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         captionTextView.layer.shadowRadius = 4
         captionTextView.layer.masksToBounds = false
         captionTextView.textContainer.maximumNumberOfLines = 3
-       
+        tableView.isHidden = true
 
 //        self.view.addSubview(captionTextView)
         
@@ -155,30 +165,25 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
 //        }
         
         
-        searchKeyword = searchBar.text!
+        searchWord = searchBar.text!
 //        _ = itemSearch(searchKeyword: searchKeyword)
         
 //        print("itemSearch::::\(itemSearch(searchKeyword: searchKeyword))")
 //        searchController.searchBar.resignFirstResponder()
         
-        
-      getSearchItem(searchKeyword: searchKeyword)
+        getSearchItem(searchKeyword: searchWord!)
+        tableView.isHidden = false
         
     }
     
-    
-    
-    
-    
-    /*******************************************************/
-    
+    /*****************amazon product search*****************/
     
     private func signedParametersForParameters(parameters: [String: String]) -> [String: String] {
         let sortedKeys = Array(parameters.keys).sorted(by: <)
         
         let query = sortedKeys.map { String(format: "%@=%@", $0, parameters[$0] ?? "") }.joined(separator: "&")
         
-        let stringToSign = "GET\nwebservices.amazon.com\n/onca/xml\n\(query)"
+        let stringToSign = "GET\nwebservices.amazon.in\n/onca/xml\n\(query)"
         print("stringToSign::::\(stringToSign)")
         
         let dataToSign = stringToSign.data(using: String.Encoding.utf8)
@@ -200,11 +205,11 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         
         return ""
     }
-    
     func send(url: String) -> String {
-        
+//        activityIndicator.startAnimating()
         guard let url = URL(string: url) else {
             print("Error! Invalid URL!") //Do something else
+//            activityIndicator.stopAnimating()
             return ""
         }
         print("send URL: \(url)")
@@ -216,165 +221,75 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         
         URLSession.shared.dataTask(with: request) { (responseData, _, _) -> Void in
             data = responseData
-            
-            print("send URL session data: \(data)")
+
+            print("send URL session data: \(String(describing: data))")
+            let parser = XMLParser(data: data!)
+            parser.delegate = self as? XMLParserDelegate
+            if parser.parse() {
+                print(self.results ?? "No results")
+            }
             semaphore.signal()
+
             }.resume()
-        
+    
+//        activityIndicator.stopAnimating()
         semaphore.wait(timeout: .distantFuture)
         
         let reply = data.flatMap { String(data: $0, encoding: .utf8) } ?? ""
         return reply
     }
-    
-//    public func getProductPrice(_ asin: AmazonStandardIdNumber) -> Double {
-//
-//        let operationParams: [String: String] = [
-//            "Service": "AWSECommerceService",
-//            "Operation": "ItemLookup",
-//            "ResponseGroup": "Offers",
-//            "IdType": "ASIN",
-//            "ItemId": asin,
-//            "AWSAccessKeyId": urlEncode(CameraViewController.kAmazonAccessID),
-//            "AssociateTag": urlEncode(CameraViewController.kAmazonAssociateTag),
-//            "Timestamp": urlEncode(timestampFormatter.string(from: Date())),]
-//
-//        let signedParams = signedParametersForParameters(parameters: operationParams)
-//
-//        let query = signedParams.map { "\($0)=\($1)" }.joined(separator: "&")
-//        let url = "http://webservices.amazon.com/onca/xml?" + query
-//
-//        let reply = send(url: url)
-//
-//        // USE THE RESPONSE
-//    }
-    
+ 
     public func getSearchItem(searchKeyword: String) -> [String:AnyObject]{
         
-        let timestamp = getTimestamp()
-        let operationParams: [String:String] = [
+        let timestampFormatter: DateFormatter
+        timestampFormatter = DateFormatter()
+        timestampFormatter.timeZone = TimeZone(identifier: "GMT")
+        timestampFormatter.dateFormat = "YYYY-MM-dd'T'HH:mm:ss'Z'"
+        timestampFormatter.locale = Locale(identifier: "en_US_POSIX")
         
-        "Service": "AWSECommerceService",
-        "Operation": "ItemSearch",
-        "ResponseGroup": "Images,ItemAttributes,Offers",
-        "SearchIndex":"All",
-        "Keywords": searchKeyword,
-        "Timestamp": urlEncode(timestamp.string(from: Date())),
-        "AWSAccessKeyId": urlEncode(CameraViewController.kAmazonAccessID),
-        "AssociateTag": urlEncode(CameraViewController.kAmazonAssociateTag)
-         ]
+//        let responsegroupitem: String = "ItemAttributes"
+//        let responsegroupImages:String = "Images"
+        
+//        activityIndicator.startAnimating()
+        let operationParams: [String: String] = [
+            "Service": "AWSECommerceService",
+            "Operation": "ItemSearch",
+            "ResponseGroup": "ItemAttributes",
+            "IdType": "ASIN",
+            "SearchIndex":"All",
+            "Keywords": searchKeyword,
+            "AWSAccessKeyId": urlEncode(CameraViewController.kAmazonAccessID),
+            "AssociateTag": urlEncode(CameraViewController.kAmazonAssociateTag),
+            "Timestamp": urlEncode(timestampFormatter.string(from: Date()))]
         
         let signedParams = signedParametersForParameters(parameters: operationParams)
+        
+        
+        
         let query = signedParams.map { "\($0)=\($1)" }.joined(separator: "&")
-        let url = "http://webservices.amazon.com/onca/xml?" + query
-        
-        print("getSearchItem url \(url)")
-        let reply = send(url: url)
-        print("reply::::::\(reply)")
+        let url = "http://webservices.amazon.in/onca/xml?" + query
+        print("querydata::::\(query)")
        
-   
-        return signedParams as [String : AnyObject]
+        let reply = send(url: url)
+        print("reply::::\(reply)")
+//        activityIndicator.stopAnimating()
+
+     
         
+        
+        
+        return [:]
     }
 
-//    func timeStamp() -> DateFormatter{
-//        var timestampFormatter = DateFormatter()
-//        timestampFormatter = DateFormatter()
-//        timestampFormatter.timeZone = TimeZone(identifier: "GMT")
-//        timestampFormatter.dateFormat = "YYYY-MM-dd'T'HH:mm:ss'Z'"
-//        timestampFormatter.locale = Locale(identifier: "en_US_POSIX")
-//        return timestampFormatter
-//    }
-    
-    func getTimestamp() -> DateFormatter{
-                var timestampFormatter = DateFormatter()
-                timestampFormatter = DateFormatter()
-                timestampFormatter.dateFormat = AWSDateISO8601DateFormat3
-                timestampFormatter.timeZone = TimeZone(identifier: "GMT")
-                timestampFormatter.locale = Locale(identifier: "en_US_POSIX")
-                return timestampFormatter
-            }
-   
-    
-    
-//    required init?(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-    
-    
-    //Amazon product advertising API
+ 
 
-//    func itemSearch(searchKeyword:String) -> [String:AnyObject]{
-//        let accessKey = getAmazonAccountCredentials().0
-//        let associateTag = getAmazonAccountCredentials().1
-//        let timestamp = getTimestamp()
-//        var keyParams = ["Service": "AWSECommerceService", "Operation": "ItemSearch","Keywords": searchKeyword,"ItemPage": page,"Timestamp": timestamp.string(from: Date()),"AWSAccessKeyId": accessKey, "AssociateTag": associateTag,"ResponseGroup":"OfferSummary,Images,Medium,VariationSummary","SearchIndex":"All","Availability":"Available"]
-//
-//        if (searchIndex.lowercased() != "all"){
-//            keyParams["Sort"] = sorting
-//        }
-//
-//        if (maximumPrice.isEmpty == false) && (minimumPrice.isEmpty == false){
-//            keyParams["MaximumPrice"] = "\(maximumPrice)00"
-//            keyParams["MinimumPrice"] = "\(minimumPrice)00"
-//        }
-//
-//        print("response parmas")
-//        print(keyParams)
-//
-//        let globalSearchParams = signedParametersForParameters(keyParams)
-//        return globalSearchParams
-//    }
-//
-//
-//    func signedParametersForParameters(_ parameters: [String: String]) -> [String:AnyObject]{
-//        let secretKey = getAmazonAccountCredentials().2
-//        let sortedKeys = Array(parameters.keys).sorted(by: <)
-//        var components: [(String, String)] = []
-//
-//        for  key in sortedKeys {
-//            components += URLEncoding.queryString.queryComponents(fromKey: key, value: parameters[key]!)
-//
-//        }
-//
-//        let query = (components.map { "\($0)=\($1)" } as [String]).joined(separator: "&")
-//        let stringToSign = "http://webservices.amazon.in/onca/xml/\(query)"
-//
-//
-//        print("stringtosign::::\(stringToSign)")
-//        let dataToSign = stringToSign.data(using: String.Encoding.utf8)
-//
-//        let signature = AWSSignatureSignerUtility.hmacSign(dataToSign, withKey: secretKey, usingAlgorithm: UInt32(kCCHmacAlgSHA256))!
-//
-//        var params : [String:AnyObject] = parameters as [String : AnyObject]
-//
-//        params["Signature"] = signature as AnyObject?
-//
-//
-//
-//        return params
-//        //        UInt32(kCCHmacAlgSHA256)
-//        //        CCHmac(UInt32(kCCHmacAlgSHA256)))
-//    }
-//
-//    func getAmazonAccountCredentials()->(String,String,String){
-//        let AWSAccessKey = "AKIAIHCYONZKCYR67QWQ"
-//        let AssociateTag = "projectr0c-21"
-//        let AWSSecretKey = "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"
-//
-//        return (AWSAccessKey,AssociateTag,AWSSecretKey)
-//
-//    }
-//
-//
-//    func getTimestamp() -> DateFormatter{
-//        var timestampFormatter = DateFormatter()
-//        timestampFormatter = DateFormatter()
-//        timestampFormatter.dateFormat = AWSDateISO8601DateFormat3
-//        timestampFormatter.timeZone = TimeZone(identifier: "GMT")
-//        timestampFormatter.locale = Locale(identifier: "en_US_POSIX")
-//        return timestampFormatter
-//    }
+    
+    /*******************************************************/
+    
+    
+  
+
+
     
     @IBAction func CancelPost(_ sender: UIBarButtonItem) {
         
@@ -386,8 +301,8 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: Notification.Name.UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: Notification.Name.UIKeyboardWillShow, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: Notification.Name.UIKeyboardWillHide, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: Notification.Name.UIKeyboardWillShow, object: nil)
         setButtons()
        
     }
@@ -442,23 +357,23 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     }
     
     
-    @objc func keyboardWillAppear(_ notification: NSNotification) {
-        
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0{
-                self.view.frame.origin.y -= keyboardSize.height
-            }
-        }
-    }
-    
-    @objc func keyboardWillDisappear(_ notification: NSNotification) {
-        
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y != 0{
-                self.view.frame.origin.y += keyboardSize.height
-            }
-        }
-    }
+//    @objc func keyboardWillAppear(_ notification: NSNotification) {
+//
+//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+//            if self.view.frame.origin.y == 0{
+//                self.view.frame.origin.y -= keyboardSize.height
+//            }
+//        }
+//    }
+//
+//    @objc func keyboardWillDisappear(_ notification: NSNotification) {
+//
+//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+//            if self.view.frame.origin.y != 0{
+//                self.view.frame.origin.y += keyboardSize.height
+//            }
+//        }
+//    }
     
     // MARK: - Handle the Image Selection and Button UI
     @objc func showPop(){
@@ -808,15 +723,121 @@ extension CameraViewController {
    
     
 }
-extension String {
-    var URLEncoded:String {
-        let unreservedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~"
-        let unreservedCharset = NSCharacterSet(charactersIn: unreservedChars)
-        let encodedString = self.addingPercentEncoding(withAllowedCharacters: unreservedCharset as CharacterSet)!
-        return encodedString
-    }
+extension Formatter {
+    static let iso8601: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
+        if #available(iOS 11.0, *) {
+            formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        } else {
+            // Fallback on earlier versions
+        }
+        return formatter
+    }()
 }
 
 
+extension CameraViewController: XMLParserDelegate {
+    
+    // initialize results structure
+    
+//    func parserDidStartDocument(_ parser: XMLParser) {
+//        results = [[:]]
+//    }
+    
+    // start element
+    //
+    // - If we're starting a "record" create the dictionary that will hold the results
+    // - If we're starting one of our dictionary keys, initialize `currentValue` (otherwise leave `nil`)
+    
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
+        if elementName == recordKey {
+            currentDictionary = [:]
+        } else if dictionaryKeys.contains(elementName) {
+            currentValue = ""
+        }
+//        eName = elementName
+//        if elementName == "ItemAttributes" {
+//            bookTitle = String()
+////            bookAuthor = String()
+//        }
+    }
+    
+    // found characters
+    //
+    // - If this is an element we care about, append those characters.
+    // - If `currentValue` still `nil`, then do nothing.
+    
+    func parser(_ parser: XMLParser, foundCharacters string: String) {
+        currentValue? += string
+//        let data = string.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+//        let data = string.trimmingCharacters(in: CharacterSet.whitespaces)
+//
+//        if (!data.isEmpty) {
+//            if eName == "Title" {
+//                bookTitle += data
+//            }
+////            } else if eName == "author" {
+////                bookAuthor += data
+////            }
+//        }
+    }
+    
+    // end element
+    //
+    // - If we're at the end of the whole dictionary, then save that dictionary in our array
+    // - If we're at the end of an element that belongs in the dictionary, then save that value in the dictionary
+    
+    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+        if elementName == recordKey {
+            results.append(currentDictionary!)
 
+            currentDictionary = nil
+        } else if dictionaryKeys.contains(elementName) {
+            currentDictionary![elementName] = currentValue
+            currentValue = nil
+        }
+        
+//        if elementName == "ItemAttributes" {
+//
+//            let book = Book()
+//            book.bookTitle = self.bookTitle
+////            book.bookAuthor = bookAuthor
+//
+//            books.append(book)
+//        }
+    }
+    
+    // Just in case, if there's an error, report it. (We don't want to fly blind here.)
+    
+    func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
+        print(parseError)
+        
+        currentValue = nil
+        currentDictionary = nil
+        results.removeAll()
+//        results = nil
+    }
+    
+//         func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+//            return 1
+//        }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
+        return results.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath) as! amazonProductListTableViewCell
+
+        let item = results[indexPath.row]
+        print("prodic:::\(item)")
+
+                cell.amazonProductTitle?.text =  item["Title"]
+
+        //        cell.detailTextLabel?.text = book.bookAuthor
+
+        return cell
+    }
+    
+}

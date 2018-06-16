@@ -15,6 +15,9 @@
 		AE0F27D620D1135400B6FF9F /* sortSave.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0F27D520D1135400B6FF9F /* sortSave.swift */; };
 		AE10A2AB20D25CD000D0A41C /* HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE10A2AA20D25CD000D0A41C /* HMAC.swift */; };
 		AE10A2AF20D2912300D0A41C /* AWSAPIGateway.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE10A2AE20D2912300D0A41C /* AWSAPIGateway.framework */; };
+		AE12536220D4DF8F009929F4 /* amazonProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE12536120D4DF8F009929F4 /* amazonProductModel.swift */; };
+		AE12536420D4EAEB009929F4 /* amazonProductListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE12536320D4EAEB009929F4 /* amazonProductListTableViewCell.swift */; };
+		AE12536820D5317C009929F4 /* product.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE12536720D5317C009929F4 /* product.swift */; };
 		AE217A5C20D40A3000CE2BC6 /* activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE217A5B20D40A3000CE2BC6 /* activity.swift */; };
 		AE217A5E20D40C1B00CE2BC6 /* activityAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE217A5D20D40C1B00CE2BC6 /* activityAPI.swift */; };
 		AE217A6020D40F1F00CE2BC6 /* sortActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE217A5F20D40F1F00CE2BC6 /* sortActivity.swift */; };
@@ -112,6 +115,9 @@
 		AE0F27D520D1135400B6FF9F /* sortSave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sortSave.swift; sourceTree = "<group>"; };
 		AE10A2AA20D25CD000D0A41C /* HMAC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMAC.swift; sourceTree = "<group>"; };
 		AE10A2AE20D2912300D0A41C /* AWSAPIGateway.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AWSAPIGateway.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE12536120D4DF8F009929F4 /* amazonProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = amazonProductModel.swift; sourceTree = "<group>"; };
+		AE12536320D4EAEB009929F4 /* amazonProductListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = amazonProductListTableViewCell.swift; sourceTree = "<group>"; };
+		AE12536720D5317C009929F4 /* product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = product.swift; sourceTree = "<group>"; };
 		AE217A5B20D40A3000CE2BC6 /* activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = activity.swift; sourceTree = "<group>"; };
 		AE217A5D20D40C1B00CE2BC6 /* activityAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = activityAPI.swift; sourceTree = "<group>"; };
 		AE217A5F20D40F1F00CE2BC6 /* sortActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sortActivity.swift; sourceTree = "<group>"; };
@@ -283,6 +289,7 @@
 				AEE4F4F420C7ADF10047A2B6 /* peopleViewController.swift */,
 				AEE4F4F620C7B00B0047A2B6 /* peopleTableViewCell.swift */,
 				AE2CC0BD20CFD1880047BCC0 /* MenubarTableViewCell.swift */,
+				AE12536320D4EAEB009929F4 /* amazonProductListTableViewCell.swift */,
 			);
 			name = Controllers;
 			path = "New Group1";
@@ -329,6 +336,8 @@
 				AE217A5B20D40A3000CE2BC6 /* activity.swift */,
 				AE217A5D20D40C1B00CE2BC6 /* activityAPI.swift */,
 				AE217A5F20D40F1F00CE2BC6 /* sortActivity.swift */,
+				AE12536120D4DF8F009929F4 /* amazonProductModel.swift */,
+				AE12536720D5317C009929F4 /* product.swift */,
 			);
 			name = Model;
 			path = "New Group3";
@@ -747,6 +756,7 @@
 				AE7AA98B20C695A800E9F805 /* locationNameTableViewCell.swift in Sources */,
 				AE3CF27720BFAF530074D5F7 /* OnboardVc.swift in Sources */,
 				AE217A5E20D40C1B00CE2BC6 /* activityAPI.swift in Sources */,
+				AE12536220D4DF8F009929F4 /* amazonProductModel.swift in Sources */,
 				AE3CF25F20BFAF2A0074D5F7 /* PrefsManager.swift in Sources */,
 				AE3CF27D20BFAF530074D5F7 /* CommentViewController.swift in Sources */,
 				AE3CF2A720BFAF890074D5F7 /* PostAPI.swift in Sources */,
@@ -766,8 +776,10 @@
 				AE3CF2AE20BFAF890074D5F7 /* CommentAPI.swift in Sources */,
 				AE3CF2A820BFAF890074D5F7 /* API.swift in Sources */,
 				AE4F075020C8300F00B6D230 /* FeedApi.swift in Sources */,
+				AE12536820D5317C009929F4 /* product.swift in Sources */,
 				AE3CF27E20BFAF530074D5F7 /* ProfileLinkViewController.swift in Sources */,
 				0FE5CADE20D13D4500A8E091 /* SliderDesign.swift in Sources */,
+				AE12536420D4EAEB009929F4 /* amazonProductListTableViewCell.swift in Sources */,
 				AE3CF25A20BFAEC10074D5F7 /* Constants.swift in Sources */,
 				AE3CF25E20BFAF2A0074D5F7 /* AuthService.swift in Sources */,
 				AE3CF28220BFAF530074D5F7 /* ProfileHeaderCollectionReusableView.swift in Sources */,
