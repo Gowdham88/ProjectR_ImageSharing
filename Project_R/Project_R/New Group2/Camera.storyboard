@@ -144,6 +144,37 @@
                                                     <outlet property="delegate" destination="gwx-UJ-d6d" id="AJR-Ou-fPe"/>
                                                 </connections>
                                             </textView>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eZx-b6-FiK">
+                                                <rect key="frame" x="8" y="90" width="359" height="456"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <prototypes>
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="70" id="caw-mJ-5c5" customClass="amazonProductListTableViewCell" customModule="Project_R" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="28" width="359" height="70"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="caw-mJ-5c5" id="G44-dL-G0F">
+                                                            <rect key="frame" x="0.0" y="0.0" width="359" height="69.5"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mSR-nY-6HL">
+                                                                    <rect key="frame" x="15" y="24" width="329" height="21"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </tableViewCellContentView>
+                                                        <connections>
+                                                            <outlet property="amazonProductTitle" destination="mSR-nY-6HL" id="fMb-GC-spR"/>
+                                                        </connections>
+                                                    </tableViewCell>
+                                                </prototypes>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="gwx-UJ-d6d" id="Ipi-FD-xdt"/>
+                                                    <outlet property="delegate" destination="gwx-UJ-d6d" id="C71-Oc-2bp"/>
+                                                </connections>
+                                            </tableView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
@@ -192,11 +223,12 @@
                         <outlet property="searchBar" destination="xsR-ra-BJf" id="cpZ-mg-vaP"/>
                         <outlet property="shareButton" destination="bSc-aB-Or4" id="B60-TI-qyw"/>
                         <outlet property="sliderValue" destination="ozy-Sk-B5q" id="duI-DD-RUl"/>
+                        <outlet property="tableView" destination="eZx-b6-FiK" id="v0O-6q-Wi9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OBi-iY-ec0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2458" y="-325"/>
+            <point key="canvasLocation" x="-2458.4000000000001" y="-325.18740629685158"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="djO-IF-OMp">

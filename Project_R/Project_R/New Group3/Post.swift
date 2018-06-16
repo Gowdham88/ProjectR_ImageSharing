@@ -24,7 +24,7 @@ class Post {
     var documentID: String?
     var rating: String?
     var location: String?
-    
+    var productName: String?
 }
 
 extension Post {
@@ -46,6 +46,7 @@ extension Post {
         post.documentID = postDictionary["documentID"] as? String
         post.rating = postDictionary["rating"] as? String
         post.location = postDictionary["location"] as? String
+        post.productName = postDictionary["productName"] as? String
 
         
         if let currentUserID = Auth.auth().currentUser?.uid {

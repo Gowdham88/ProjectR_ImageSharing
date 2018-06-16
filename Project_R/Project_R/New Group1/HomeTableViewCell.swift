@@ -21,6 +21,7 @@ protocol HomeTableViewCellDelegate {
 }
 class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
 
+    @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var locationName: UILabel!
     @IBOutlet weak var postTime: UILabel!
     @IBOutlet weak var productRatingLabel: UILabel!
@@ -142,6 +143,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     
     func updateView() {
         captionLabel.text = post?.caption
+        productNameLabel.text = post?.productName
         let photoURL = post?.photoURL
 //        if let photoURL = post?.photoURL {
 //            postImageView.image = nil
