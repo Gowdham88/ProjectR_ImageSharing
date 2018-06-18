@@ -74,12 +74,16 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     let recordKey = "Item"
     let dictionaryKeys = Set<String>(["Title"])
     let dictionaryKeys1 = Set<String>(["DetailPageURL"])
+    let dictionaryKeys2 = Set<String>(["ASIN"])
+    let dictionaryKeys3 = Set<String>(["LargeImage"])
     var books: [Book] = []
     var eName: String = String()
     var bookTitle = String()
     var bookAuthor = String()
     var searchText: String?
     var poductDetailPageUrl: String?
+    var AISNid:String?
+    var ImageByItemId:String?
 
     /****************/
     
@@ -221,7 +225,6 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
             return ""
         }
         print("send URL: \(url)")
-        
         let request = URLRequest(url: url)
         let semaphore = DispatchSemaphore(value: 0)
         
@@ -281,16 +284,49 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         let reply = send(url: url)
         print("reply::::\(reply)")
 //        activityIndicator.stopAnimating()
+        
+       
 
-     
-        
-        
-        
         return [:]
     }
+    
+     /*************************Amazon Product url******************************/
 
+    public func getProductImage(itemid: String) -> [String:AnyObject]  {
+
+        let timestampFormatter: DateFormatter
+        timestampFormatter = DateFormatter()
+        timestampFormatter.timeZone = TimeZone(identifier: "GMT")
+        timestampFormatter.dateFormat = "YYYY-MM-dd'T'HH:mm:ss'Z'"
+        timestampFormatter.locale = Locale(identifier: "en_US_POSIX")
+
+        let operationparameters : [String: String] = [
+            "Service": "AWSECommerceService",
+            "Operation": "ItemLookup",
+            "ResponseGroup": "Images",
+            "IdType": "ASIN",
+            "ItemId": itemid,
+            "AWSAccessKeyId": urlEncode(CameraViewController.kAmazonAccessID),
+            "AssociateTag": urlEncode(CameraViewController.kAmazonAssociateTag),
+            "Timestamp": urlEncode(timestampFormatter.string(from: Date()))]
+        
+        let signedParams = signedParametersForParameters(parameters: operationparameters)
+        
+        
+        
+        let query = signedParams.map { "\($0)=\($1)" }.joined(separator: "&")
+        let url = "http://webservices.amazon.in/onca/xml?" + query
+        print("queryImagesdata::::\(query)")
+        
+        let reply = send(url: url)
+        print("replyImages::::\(reply)")
+        //        activityIndicator.stopAnimating()
+        
+        return [:]
+
+    }
  
-
+ 
     
     /*******************************************************/
     
@@ -767,13 +803,16 @@ extension CameraViewController: XMLParserDelegate {
         } else if dictionaryKeys1.contains(elementName){
             
             currentValue = ""
+        } else if dictionaryKeys2.contains(elementName){
+            
+            currentValue = ""
+        } else if dictionaryKeys3.contains(elementName){
+
+            currentValue = ""
         }
-//        eName = elementName
-//        if elementName == "ItemAttributes" {
-//            bookTitle = String()
-////            bookAuthor = String()
-//        }
-    }
+
+        
+    } 
     
     // found characters
     //
@@ -782,16 +821,7 @@ extension CameraViewController: XMLParserDelegate {
     
     func parser(_ parser: XMLParser, foundCharacters string: String) {
         currentValue? += string
-//        let data = string.trimmingCharacters(in: CharacterSet.whitespaces)
-//
-//        if (!data.isEmpty) {
-//            if eName == "Title" {
-//                bookTitle += data
-//            }
-////            } else if eName == "author" {
-////                bookAuthor += data
-////            }
-//        }
+
     }
     
     // end element
@@ -810,16 +840,18 @@ extension CameraViewController: XMLParserDelegate {
             
             currentDictionary![elementName] = currentValue
             currentValue = nil
+        } else if dictionaryKeys2.contains(elementName) {
+            
+            currentDictionary![elementName] = currentValue
+            currentValue = ""
+            
+        } else if dictionaryKeys3.contains(elementName){
+
+            currentDictionary![elementName] = currentValue
+            currentValue = ""
         }
         
-//        if elementName == "ItemAttributes" {
-//
-//            let book = Book()
-//            book.bookTitle = self.bookTitle
-////            book.bookAuthor = bookAuthor
-//
-//            books.append(book)
-//        }
+
     }
     
     // Just in case, if there's an error, report it. (We don't want to fly blind here.)
@@ -846,13 +878,11 @@ extension CameraViewController: XMLParserDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath) as! amazonProductListTableViewCell
 
         let item = results[indexPath.row]
-        print("prodic:::\(item)")
+        print("productItem:::\(item)")
 
                 cell.amazonProductTitle?.text =  item["Title"]
         
-//        cell.amazonProductTitle?.text = item["Title"]
 
-        //        cell.detailTextLabel?.text = book.bookAuthor
 
         return cell
     }
@@ -860,17 +890,29 @@ extension CameraViewController: XMLParserDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let indexPath = tableView.indexPathForSelectedRow  {
             let currentCell = tableView.cellForRow(at: indexPath) as! UITableViewCell
-            searchBar.text = (currentCell.textLabel?.text)
-            let item = results[indexPath.row]
-            searchBar.text = item["Title"]
-            poductDetailPageUrl = item["DetailPageURL"]
-            print("poductDetailPageUrl::::\(poductDetailPageUrl)")
-            
+           
+
+           let item = self.results[indexPath.row]
 //            searchLoaction.text = autocompleteplaceArray[indexPath.row]
 //            PrefsManager.sharedinstance.lastlocation = searchLoaction.text
-            searchText = searchBar.text
+         
+            UIView.animate(withDuration: 1, animations: {
+                self.searchBar.text = (currentCell.textLabel?.text)
+                
+                self.searchBar.text = item["Title"]
+                self.poductDetailPageUrl = item["DetailPageURL"]
+                print("poductDetailPageUrl::::\(String(describing: self.poductDetailPageUrl))")
+                self.AISNid = item["ASIN"]
+                print("ASINid:::\(String(describing: self.AISNid))")
+                self.searchText = self.searchBar.text
+                print("searchText::::\(String(describing: self.searchText))")
+            }) { (true) in
+                
+                self.getProductImage(itemid: self.AISNid!)
+//                self.ImageByItemId = item["LargeImage"]
+//                print("ImageByItemId:::\(String(describing: self.ImageByItemId))")
+            }
             
-            print("searchText::::\(String(describing: searchText))")
         }
         
         tableView.isHidden = true
