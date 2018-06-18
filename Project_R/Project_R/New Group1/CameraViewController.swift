@@ -75,7 +75,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     let dictionaryKeys = Set<String>(["Title"])
     let dictionaryKeys1 = Set<String>(["DetailPageURL"])
     let dictionaryKeys2 = Set<String>(["ASIN"])
-    let dictionaryKeys3 = Set<String>(["LargeImage"])
+    let dictionaryKeys3 = Set<String>(["URL"])
     var books: [Book] = []
     var eName: String = String()
     var bookTitle = String()
@@ -812,7 +812,7 @@ extension CameraViewController: XMLParserDelegate {
         }
 
         
-    } 
+    }
     
     // found characters
     //
@@ -908,9 +908,10 @@ extension CameraViewController: XMLParserDelegate {
                 print("searchText::::\(String(describing: self.searchText))")
             }) { (true) in
                 
-                self.getProductImage(itemid: self.AISNid!)
 //                self.ImageByItemId = item["LargeImage"]
-//                print("ImageByItemId:::\(String(describing: self.ImageByItemId))")
+                self.getProductImage(itemid: self.AISNid!)
+                self.ImageByItemId = item["URL"]
+                print("ImageByItemId:::\(String(describing: self.ImageByItemId))")
             }
             
         }
