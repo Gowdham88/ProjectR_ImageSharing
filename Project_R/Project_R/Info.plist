@@ -27,24 +27,24 @@
 			</array>
 		</dict>
 	</array>
-    <key>NSAppTransportSecurity</key>
-    <dict>
-        <key>NSAllowsArbitraryLoads</key>
-        <true/>
-    </dict>
-    <key>NSExceptionDomains</key>
-    <dict>
-        <key>NSExceptionAllowsInsecureHTTPLoads</key>
-        <true/>
-        <key>NSIncludesSubdomains</key>
-        <true/>
-    </dict>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>allow to access camera</string>
+	<key>NSExceptionDomains</key>
+	<dict>
+		<key>NSExceptionAllowsInsecureHTTPLoads</key>
+		<true/>
+		<key>NSIncludesSubdomains</key>
+		<true/>
+	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Allow to access your current location</string>
 	<key>NSPhotoLibraryUsageDescription</key>
