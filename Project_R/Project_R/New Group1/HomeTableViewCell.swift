@@ -160,6 +160,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     
     
     func updateView() {
+        
         productbuyURL = post?.productDetailPageURL
         captionLabel.text = post?.caption
         productNameLabel.text = post?.productName
@@ -223,22 +224,18 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         }
         
         if currentUser.uid == post?.uid {
-            
-//            if let Driver_name = document.data()["Driver_name"] as? String {
-//                print("Driver_name:::::\(String(describing: Driver_name))")
-//                self.Driver_name = Driver_name
-//
-//            }
-            nameLabel.text = PrefsManager.sharedinstance.username
-            
+
+            nameLabel.text = post?.userName
+             print("namelabel::::\(nameLabel.text)")
             if profileImageView.image != nil {
-//            profileImageView.image = nil
-            Manager.shared.loadImage(with: URL(string : PrefsManager.sharedinstance.imageURL)!, into: self.profileImageView)
+                Manager.shared.loadImage(with: URL(string : (post?.profileImageURL)!)!, into: self.profileImageView)
+                print("profileimage:::\(post?.profileImageURL)")
             }
         } else {
             
            
             nameLabel.text = post?.userName
+            print("namelabel::::\(nameLabel.text)")
             profileImageView.image = nil
             if let photoURL = post?.profileImageURL {
                 print("photourl:::\(photoURL)")

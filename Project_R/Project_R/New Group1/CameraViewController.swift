@@ -14,6 +14,7 @@ import AWSCore
 import Alamofire
 import AWSAPIGateway
 import SHXMLParser
+import Nuke
 
 protocol CameraViewControllerDelegate {
     
@@ -265,10 +266,11 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         let operationParams: [String: String] = [
             "Service": "AWSECommerceService",
             "Operation": "ItemSearch",
-            "ResponseGroup": "ItemAttributes",
+//            "ResponseGroup": "Images,ItemAttributes",
+            "ResponseGroup":urlEncode("Images,ItemAttributes"),
             "IdType": "ASIN",
             "SearchIndex":"All",
-            "Keywords": searchKeyword,
+            "Keywords": urlEncode(searchKeyword),
             "AWSAccessKeyId": urlEncode(CameraViewController.kAmazonAccessID),
             "AssociateTag": urlEncode(CameraViewController.kAmazonAssociateTag),
             "Timestamp": urlEncode(timestampFormatter.string(from: Date()))]
@@ -292,39 +294,39 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     
      /*************************Amazon Product url******************************/
 
-    public func getProductImage(itemid: String) -> [String:AnyObject]  {
-
-        let timestampFormatter: DateFormatter
-        timestampFormatter = DateFormatter()
-        timestampFormatter.timeZone = TimeZone(identifier: "GMT")
-        timestampFormatter.dateFormat = "YYYY-MM-dd'T'HH:mm:ss'Z'"
-        timestampFormatter.locale = Locale(identifier: "en_US_POSIX")
-
-        let operationparameters : [String: String] = [
-            "Service": "AWSECommerceService",
-            "Operation": "ItemLookup",
-            "ResponseGroup": "Images",
-            "IdType": "ASIN",
-            "ItemId": itemid,
-            "AWSAccessKeyId": urlEncode(CameraViewController.kAmazonAccessID),
-            "AssociateTag": urlEncode(CameraViewController.kAmazonAssociateTag),
-            "Timestamp": urlEncode(timestampFormatter.string(from: Date()))]
-        
-        let signedParams = signedParametersForParameters(parameters: operationparameters)
-        
-        
-        
-        let query = signedParams.map { "\($0)=\($1)" }.joined(separator: "&")
-        let url = "http://webservices.amazon.in/onca/xml?" + query
-        print("queryImagesdata::::\(query)")
-        
-        let reply = send(url: url)
-        print("replyImages::::\(reply)")
-        //        activityIndicator.stopAnimating()
-        
-        return [:]
-
-    }
+//    public func getProductImage(itemid: String) -> [String:AnyObject]  {
+//
+//        let timestampFormatter: DateFormatter
+//        timestampFormatter = DateFormatter()
+//        timestampFormatter.timeZone = TimeZone(identifier: "GMT")
+//        timestampFormatter.dateFormat = "YYYY-MM-dd'T'HH:mm:ss'Z'"
+//        timestampFormatter.locale = Locale(identifier: "en_US_POSIX")
+//
+//        let operationparameters : [String: String] = [
+//            "Service": "AWSECommerceService",
+//            "Operation": "ItemLookup",
+//            "ResponseGroup": "Images",
+//            "IdType": "ASIN",
+//            "ItemId": itemid,
+//            "AWSAccessKeyId": urlEncode(CameraViewController.kAmazonAccessID),
+//            "AssociateTag": urlEncode(CameraViewController.kAmazonAssociateTag),
+//            "Timestamp": urlEncode(timestampFormatter.string(from: Date()))]
+//
+//        let signedParams = signedParametersForParameters(parameters: operationparameters)
+//
+//
+//
+//        let query = signedParams.map { "\($0)=\($1)" }.joined(separator: "&")
+//        let url = "http://webservices.amazon.in/onca/xml?" + query
+//        print("queryImagesdata::::\(query)")
+//
+//        let reply = send(url: url)
+//        print("replyImages::::\(reply)")
+//        //        activityIndicator.stopAnimating()
+//
+//        return [:]
+//
+//    }
  
  
     
@@ -588,16 +590,16 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
                 "photoURL": photoURL,
                 "caption": self.captionTextView.text!,
                 "likeCount" : 0,
-                "userName"  : users.username ?? "empty",
-                "profileImageURL" : users.profileImageURL ?? "empty",
+                "userName"  : users.username ?? "",
+                "profileImageURL" : users.profileImageURL ?? "",
                 "postTime"        : Date().timeIntervalSince1970,
 //                "postTime"          : timeOffset1,
                 "likes"           : likes,
                 "documentID": newPostID,
-                "rating": self.ratingValue ?? "empty",
-                "productName": self.searchText ?? "empty",
-                "productDetailPageURL": self.poductDetailPageUrl ?? "empty",
-                "location": "" ?? "empty"
+                "rating": self.ratingValue ?? "",
+                "productName": self.searchText ?? "",
+                "productDetailPageURL": self.poductDetailPageUrl ?? "",
+                "location": "" ?? ""
             ]) { err in
                 if let err = err {
                     print("Error writing document: \(err)")
@@ -906,12 +908,33 @@ extension CameraViewController: XMLParserDelegate {
                 print("ASINid:::\(String(describing: self.AISNid))")
                 self.searchText = self.searchBar.text
                 print("searchText::::\(String(describing: self.searchText))")
+                self.ImageByItemId = item["URL"]
+                print("ImageByItemId:::\(String(describing: self.ImageByItemId))")
+                
+                if let photoURL = self.ImageByItemId {
+                    self.photoImageView.image = nil
+                    if  photoURL != "" {
+                        Manager.shared.loadImage(with: URL(string : photoURL)!, into: self.photoImageView)
+
+                        DispatchQueue.global().async {
+                            let data = try? Data(contentsOf: URL(string: photoURL)!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                            DispatchQueue.main.async {
+                                self.selectedImage = UIImage(data: data!)
+                                print("photoimageview:::\(String(describing: self.selectedImage))")
+                                self.setButtons()
+                            }
+                        }
+                       
+                        //
+                    }
+                }
+
             }) { (true) in
                 
 //                self.ImageByItemId = item["LargeImage"]
-                self.getProductImage(itemid: self.AISNid!)
-                self.ImageByItemId = item["URL"]
-                print("ImageByItemId:::\(String(describing: self.ImageByItemId))")
+//                self.getProductImage(itemid: self.AISNid!)
+//                self.ImageByItemId = item["URL"]
+//                print("ImageByItemId:::\(String(describing: self.ImageByItemId))")
             }
             
         }
