@@ -35,6 +35,10 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     @IBOutlet weak var likeCountButton: UIButton!
     @IBOutlet weak var captionLabel: UILabel!
     @IBOutlet weak var commentCountLabel: UILabel!
+
+    @IBOutlet weak var commentCountButton: UIButton!
+    @IBOutlet weak var shareCountButton: UIButton!
+    
     var delegate : HomeTableViewCellDelegate?
     var homeVC: HomeViewController?
     var userVC: UserViewController?
@@ -98,9 +102,9 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         shareImageView.addGestureRecognizer(deleteImagetap)
         shareImageView.isUserInteractionEnabled = true
         
-        let buyImagetap = UITapGestureRecognizer(target: self, action: #selector(HomeTableViewCell.BuyImagetap(sender:)))
-        buyProduct.addGestureRecognizer(buyImagetap)
-        buyProduct.isUserInteractionEnabled = true
+//        let buyImagetap = UITapGestureRecognizer(target: self, action: #selector(HomeTableViewCell.BuyImagetap(sender:)))
+//        buyProduct.addGestureRecognizer(buyImagetap)
+//        buyProduct.isUserInteractionEnabled = true
         
 //        buyProduct
     }
@@ -134,15 +138,19 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         
     }
     
-    @objc func BuyImagetap(sender: UITapGestureRecognizer) {
-        
-        if let url = URL(string: productbuyURL) {
-            
-            UIApplication.shared.open(url, options: [:])
-        }
-        
-        
-    }
+//    @objc func BuyImagetap(sender: UITapGestureRecognizer) {
+//
+//        if productbuyURL != nil {
+//
+//        if let url = URL(string: productbuyURL) {
+//
+//            UIApplication.shared.open(url, options: [:])
+//
+//            }
+//
+//        }
+//
+//    }
     
     @objc func deleteImagetap(sender : UITapGestureRecognizer) {
         
@@ -161,9 +169,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     
     func updateView() {
         
-        productbuyURL = post?.productDetailPageURL
-        captionLabel.text = post?.caption
-        productNameLabel.text = post?.productName
+
         let photoURL = post?.photoURL
 //        if let photoURL = post?.photoURL {
 //            postImageView.image = nil
@@ -194,11 +200,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
                 case 667.0:
                     print("iPhone 6")
                     locationName.frame = CGRect(x: 10, y: 110, width: 296, height: 21)
-//                    locationName.frame = CGRect(x: 10, y: 155, width: 296, height: 21)
-//                    likeImageView.frame = CGRect(x: 20, y: 155, width: 20, height: 19)
-//                    likeCountButton.frame = CGRect(x: likeImageView.frame.origin.x + likeImageView.frame.width + 10, y: 155, width: 30, height: 30)
-//                    captionLabel.frame = CGRect(x: 10, y: 195, width: 290, height: 30)
-//                    commentImageView.frame = CGRect(x: likeCountButton.frame.origin.x + likeImageView.frame.width + 10, y: 155, width: 30, height: 30)
+
                 case 736.0:
                     print("iPhone 6+")
                     locationName.frame = CGRect(x: 10, y: 150, width: 296, height: 21)
@@ -218,6 +220,10 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         self.ratingPost(post: post!)
         self.timePost(post: post!)
         self.locationName(post: post!)
+        self.productnamepost(post: post!)
+        self.productUrl(post: post!)
+        self.caption(post: post!)
+        
 //        self.elapsedTime(post: post!, datetime: postTime)
         guard let currentUser = Auth.auth().currentUser else {
             return
@@ -545,6 +551,43 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         }
         if productRatingLabel != nil {
         self.productRatingLabel.text = "- has rated \(count)/10 for this product."
+            print("selfrating:::\(self.productRatingLabel.text)")
+        }
+    }
+    
+    func productnamepost(post: Post) {
+        
+        guard let count = post.productName else {
+            return
+        }
+        if productNameLabel !=  nil {
+            
+            self.productNameLabel.text = "\(count)"
+            print("selfproductname:::\(self.productNameLabel.text)")
+        }
+       
+        
+    }
+    
+    func productUrl(post: Post) {
+        guard let count = post.productDetailPageURL else {
+            return
+        }
+        if productbuyURL != nil {
+            
+            productbuyURL = "\(count)"
+            print("selfproductbuyURL:::\(self.productbuyURL)")
+        }
+    }
+    
+    func caption(post: Post) {
+        guard let count = post.caption else {
+            return
+        }
+        if captionLabel != nil {
+            
+            captionLabel.text = "\(count)"
+            print("selfcaptionLabel:::\(self.captionLabel.text)")
         }
     }
     

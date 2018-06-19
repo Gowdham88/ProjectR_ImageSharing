@@ -45,12 +45,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.navigationController?.navigationBar.titleTextAttributes = textFont
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         
-        collectionView.dataSource = self as? UICollectionViewDataSource
-        collectionView.delegate = self as? UICollectionViewDelegate
+        collectionView.dataSource = self
+        collectionView.delegate = self
         
         fetchUser()
 //        tableView.reloadData()
-        
+        collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: "PhotoCollectionViewCell")
+
         
     }
     
@@ -337,7 +338,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             break
         case 1:
-//            cell.textLabel!.text = friendsAndFamily[indexPath.row]
             
             cell.saves = saves[indexPath.row]
             
@@ -350,7 +350,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             break
             
         case 2:
-//            cell.textLabel!.text = publicList[indexPath.row]
+            
             cell.activities = activities[indexPath.row]
             
             cell.activityComments.isHidden = false
@@ -377,12 +377,12 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 
 
 
-extension ProfileViewController: UICollectionViewDataSource,UICollectionViewDelegate {
+extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return posts.count
     }
-    
+//
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCollectionViewCell", for: indexPath) as! PhotoCollectionViewCell
 
@@ -392,7 +392,7 @@ extension ProfileViewController: UICollectionViewDataSource,UICollectionViewDele
 //        }
 
 //        cell.post = posts[indexPath.row]
-        
+
         collectionView.isScrollEnabled = false
         return cell
     }
