@@ -187,6 +187,10 @@ extension UserViewController : UITableViewDelegate,UITableViewDataSource,HomeTab
         cell.postImageView.tag    = indexPath.row
         cell.shareImageView.tag   = indexPath.row
         cell.nameLabel.tag        = indexPath.row
+        cell.productRatingLabel.tag = indexPath.row
+        cell.postTime.tag = indexPath.row
+        cell.locationName.tag = indexPath.row
+        cell.productNameLabel.tag = indexPath.row
         
         return cell
 
