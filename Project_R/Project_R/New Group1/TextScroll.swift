@@ -8,6 +8,11 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
+import FirebaseDatabase
+import FirebaseFirestore
+import Alamofire
+import Nuke
 
 class TextScroll: UIViewController, UITextViewDelegate {
     
@@ -33,11 +38,19 @@ class TextScroll: UIViewController, UITextViewDelegate {
     @IBOutlet weak var logLbl: UILabel!
     @IBOutlet weak var logoutBtn: UIButton!
     
+    @IBOutlet weak var protectionView: UIView!
+    @IBOutlet weak var protectLbl: UILabel!
+    @IBOutlet weak var protBtn: UIButton!
     
-    
+    var transferImg: UIImage!
+    var users = [Users]()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        userDetails()
+        profileImg.image = transferImg
+        print("My image retrive",profileImg.image)
         
         //Navigation title heading - colour setting:-
         let textAttributes = [NSAttributedStringKey.foregroundColor: UIColor(red: 7/255, green: 192/255, blue: 141/255, alpha: 1)]
@@ -48,8 +61,8 @@ class TextScroll: UIViewController, UITextViewDelegate {
         //profile image circle view:--
         profileImg.layer.cornerRadius = profileImg.frame.size.width / 2
         profileImg.clipsToBounds = true
-        profileImg.layer.borderWidth = 2
-        profileImg.layer.borderColor = UIColor.black.cgColor
+//        profileImg.layer.borderWidth = 2
+//        profileImg.layer.borderColor = UIColor.black.cgColor
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(TextScroll.tappedMe))
         profileImg.addGestureRecognizer(tap)
@@ -68,6 +81,36 @@ class TextScroll: UIViewController, UITextViewDelegate {
 //        navigationController?.navigationBar.topItem?.rightBarButtonItem = add
         
     }
+    
+    func userDetails() {
+        
+        
+        API.User.observeCurrentUser { (user) in
+            
+        
+            
+            if let profileurl = user.profileImageURL{
+                
+                self.profileImg.image = nil
+                if profileurl != "" {
+                    
+                    Manager.shared.loadImage(with: URL(string: profileurl)!, into: self.profileImg)
+                }
+            }
+            
+         
+            if self.userName.text != nil {
+                
+                self.userName.text = user.username
+                
+            }
+            
+        }
+        
+        
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -81,10 +124,47 @@ class TextScroll: UIViewController, UITextViewDelegate {
         print("Tapped on Image")
 
     }
-
     
+   
     @IBAction func BtnBack(_ sender: UIBarButtonItem) {
         
         _ = self.navigationController?.popToRootViewController(animated: true)
     }
+    
+    @IBAction func protectionTap(_ sender: Any) {
+        
+    }
+    @IBAction func policyTap(_ sender: Any) {
+        
+        print("Policy button tapped")
+        
+    }
+    @IBAction func termsTap(_ sender: Any) {
+        
+         print("Terms button tapped")
+        
+    }
+    @IBAction func shareTap(_ sender: Any) {
+        
+         print("Share button tapped")
+        
+    }
+    @IBAction func logoutTap(_ sender: Any) {
+        
+         print("Logout button tapped")
+        
+        //Logging out from firebase:
+        AuthService.signOut(onSuccess: {
+            // Present the Sign In VC
+            let storyboard = UIStoryboard(name: "Start", bundle: nil)
+            let signInVC = storyboard.instantiateViewController(withIdentifier: "SignUpViewController")
+            self.present(signInVC, animated: true)
+        }) { (errorMessage) in
+            ProgressHUD.showError(errorMessage)
+        }
+        
+    }
+    
+    
+    
 }

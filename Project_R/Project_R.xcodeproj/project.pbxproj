@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F5E121220D7F86600E5C964 /* verification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5E121120D7F86600E5C964 /* verification.swift */; };
 		0FE5CADE20D13D4500A8E091 /* SliderDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE5CADD20D13D4500A8E091 /* SliderDesign.swift */; };
 		6CE12BFBB665A2D7111C060C /* Pods_Project_RTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8017FE2158174D16B5F44DCB /* Pods_Project_RTests.framework */; };
 		74116F47F32778D9B42622D2 /* Pods_Project_RUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 218C4CE2692F64FCFC5E47DF /* Pods_Project_RUITests.framework */; };
@@ -103,6 +104,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F5E121120D7F86600E5C964 /* verification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = verification.swift; sourceTree = "<group>"; };
 		0FE5CADD20D13D4500A8E091 /* SliderDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderDesign.swift; sourceTree = "<group>"; };
 		1FA443CF77ABD732C0AD5CBA /* Pods-Project_RUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project_RUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Project_RUITests/Pods-Project_RUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		218C4CE2692F64FCFC5E47DF /* Pods_Project_RUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Project_RUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -290,6 +292,7 @@
 				AEE4F4F620C7B00B0047A2B6 /* peopleTableViewCell.swift */,
 				AE2CC0BD20CFD1880047BCC0 /* MenubarTableViewCell.swift */,
 				AE12536320D4EAEB009929F4 /* amazonProductListTableViewCell.swift */,
+				0F5E121120D7F86600E5C964 /* verification.swift */,
 			);
 			name = Controllers;
 			path = "New Group1";
@@ -777,6 +780,7 @@
 				AE3CF2A820BFAF890074D5F7 /* API.swift in Sources */,
 				AE4F075020C8300F00B6D230 /* FeedApi.swift in Sources */,
 				AE12536820D5317C009929F4 /* product.swift in Sources */,
+				0F5E121220D7F86600E5C964 /* verification.swift in Sources */,
 				AE3CF27E20BFAF530074D5F7 /* ProfileLinkViewController.swift in Sources */,
 				0FE5CADE20D13D4500A8E091 /* SliderDesign.swift in Sources */,
 				AE12536420D4EAEB009929F4 /* amazonProductListTableViewCell.swift in Sources */,

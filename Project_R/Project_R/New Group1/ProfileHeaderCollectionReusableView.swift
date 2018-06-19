@@ -32,6 +32,15 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
         }
     }
     
+    func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let destinationVc = segue.destination as! TextScroll
+    
+        destinationVc.transferImg = profileImageView.image
+        print("Get profile image",destinationVc.transferImg)
+    }
+    
+    
 
     func updateView() {
        
@@ -76,6 +85,8 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
         
      
     }
+    
+   
     
     @IBAction func ButtonProfile(_ sender: UIButton) {
         

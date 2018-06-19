@@ -38,6 +38,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Navigation title heading - colour setting:-
+        let textAttributes = [NSAttributedStringKey.foregroundColor: UIColor(red: 7/255, green: 192/255, blue: 141/255, alpha: 1)]
+        let textFont = [NSAttributedStringKey.font: UIFont(name: "Avenir Light", size: 16)!]
+        self.navigationController?.navigationBar.titleTextAttributes = textFont
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
+        
         collectionView.dataSource = self as? UICollectionViewDataSource
         collectionView.delegate = self as? UICollectionViewDelegate
         
@@ -86,6 +93,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             
         })
     }
+    
+   
     
     func fetchUser() {
         
@@ -172,17 +181,17 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
-    @IBAction func logOut(_ sender: Any) {
-        // Log out user from Firebase
-        AuthService.signOut(onSuccess: {
-            // Present the Sign In VC
-            let storyboard = UIStoryboard(name: "Start", bundle: nil)
-            let signInVC = storyboard.instantiateViewController(withIdentifier: "SignUpViewController")
-            self.present(signInVC, animated: true)
-        }) { (errorMessage) in
-            ProgressHUD.showError(errorMessage)
-        }
-    }
+//    @IBAction func logOut(_ sender: Any) {
+//        // Log out user from Firebase
+//        AuthService.signOut(onSuccess: {
+//            // Present the Sign In VC
+//            let storyboard = UIStoryboard(name: "Start", bundle: nil)
+//            let signInVC = storyboard.instantiateViewController(withIdentifier: "SignUpViewController")
+//            self.present(signInVC, animated: true)
+//        }) { (errorMessage) in
+//            ProgressHUD.showError(errorMessage)
+//        }
+//    }
     func fetchUserCount() {
         
         self.collectionView.reloadData()
