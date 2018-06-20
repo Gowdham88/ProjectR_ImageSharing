@@ -14,6 +14,10 @@ protocol ProfileHeaderCollectionReusableViewDelegate {
     func editname()
 }
 
+protocol HeaderProfileCollectionReusableViewDelegate {
+    func updateFollowButton(forUser user: Users)
+}
+
 
 class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     
@@ -22,9 +26,10 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     @IBOutlet weak var postCountLabel: UILabel!
     @IBOutlet weak var followingCountLabel: UILabel!
     @IBOutlet weak var followersCountLabel: UILabel!
-    @IBOutlet weak var addText: UITextView!
+    @IBOutlet weak var addText: UILabel!
     
     var delegate : ProfileHeaderCollectionReusableViewDelegate?
+    var delegate2: HeaderProfileCollectionReusableViewDelegate?
     
     var user: Users? {
         didSet {

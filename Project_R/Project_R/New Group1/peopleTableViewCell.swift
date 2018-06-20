@@ -12,9 +12,10 @@ import FirebaseAuth
 import FirebaseFirestore
 import SDWebImage
 import Nuke
+
 protocol PeopleTableViewCellDelegate {
     func goToProfileUserVC(userId: String)
-    func updateFollowButton(forUser user: Users)
+//    func updateFollowButton(forUser user: Users)
 }
 
 
@@ -42,7 +43,6 @@ class peopleTableViewCell: UITableViewCell {
         // Initialization code
         
         
-        
 //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handlefollowbtnTap))
 //        followBtn.addGestureRecognizer(tapGesture)
 //        followBtn.isUserInteractionEnabled = true
@@ -57,6 +57,7 @@ class peopleTableViewCell: UITableViewCell {
 
     
     @objc func nameLabel_TouchUpInside() {
+        print("Following user:::::")
         if let id = user?.id {
             delegate?.goToProfileUserVC(userId: id)
         }
@@ -117,6 +118,7 @@ class peopleTableViewCell: UITableViewCell {
     }
     
     @objc func followAction() {
+        print("Follow button tapped")
         if user!.isFollowing! == false {
             API.Follow.followAction(withUser: user!.id!)
             configureUnFollowButton()
@@ -145,6 +147,8 @@ class peopleTableViewCell: UITableViewCell {
         
     }
     
+   
+  
     
             
 }

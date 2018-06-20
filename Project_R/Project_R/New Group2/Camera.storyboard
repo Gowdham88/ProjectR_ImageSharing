@@ -198,8 +198,8 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Post" id="ka8-QI-oWi">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="Oem-Jg-3aW">
-                            <color key="tintColor" red="0.16470588235294117" green="0.16470588235294117" blue="0.16470588235294117" alpha="1" colorSpace="calibratedRGB"/>
+                        <barButtonItem key="leftBarButtonItem" image="left-arrow" id="Oem-Jg-3aW">
+                            <color key="tintColor" red="0.027450980392156862" green="0.75294117647058822" blue="0.55294117647058827" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="clearInputs" destination="gwx-UJ-d6d" id="27Z-m4-5c1"/>
                             </connections>
@@ -573,6 +573,7 @@
     <resources>
         <image name="TabBarNotification" width="23" height="23"/>
         <image name="TabBarNotificationselected" width="23" height="23"/>
+        <image name="left-arrow" width="24" height="18"/>
         <image name="placeholder-photo" width="355" height="211"/>
         <image name="sliderButtonIcon" width="24" height="24"/>
     </resources>
