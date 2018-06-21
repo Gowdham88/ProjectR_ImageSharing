@@ -56,7 +56,7 @@ class UserdetailPage: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         tabBarController?.tabBar.isHidden = true
         
-           
+        
     }
     
     func userDetails() {
@@ -98,9 +98,7 @@ class UserdetailPage: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillLayoutSubviews() {
-        tabBarController?.tabBar.isHidden = true
-    }
+    
     
     @IBAction func settingBtnTap(_ sender: Any) {
         print("Setting btn tapped:::::")
