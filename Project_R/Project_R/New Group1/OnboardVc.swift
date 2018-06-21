@@ -248,9 +248,9 @@ class OnboardVc: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
                         
                         print("Document successfully written!")
                         PrefsManager.sharedinstance.UIDfirebase = uid
-                        PrefsManager.sharedinstance.username  = username
-                        PrefsManager.sharedinstance.userEmail = email
-                        PrefsManager.sharedinstance.imageURL  = profileImageURL
+                        PrefsManager.sharedinstance.username    = username
+                        PrefsManager.sharedinstance.userEmail   = email
+                        PrefsManager.sharedinstance.imageURL    = profileImageURL
                         ProgressHUD.dismiss()
                     }
                 }

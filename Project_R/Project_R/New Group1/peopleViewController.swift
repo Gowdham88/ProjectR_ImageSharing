@@ -15,12 +15,21 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     @IBOutlet weak var tableView: UITableView!
     
+    
+    
 //    var users = [Users]()
-    var users: [Users] = []
+    var users       : [Users] = []
+    var followers   : [String : Any]?
+    
+    var newUsers: [Users] = []
+    var newListOfUsers:[Users] = []
+    
 //    var userList = [String]()
 //    var tagArray = [String] ()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         
         //Navigation bar title color
         let textAttributes = [NSAttributedStringKey.foregroundColor: UIColor(red: 7/255, green: 192/255, blue: 141/255, alpha: 1)]
@@ -30,32 +39,84 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
       
 //        title = "Discover People"
         
-        loadUsers()
+       
+//        removeMyDuplicates()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+         loadUsers()
     }
 
     func loadUsers() {
-  
-//        self.users = []
         
+        self.users.removeAll()
+  
         API.User.observeUser { (user) in
-
-            self.isFollowing(userId: user.id!, completed: { (value) in
-                user.isFollowing = value
             
-                self.users.append(user)
-                self.tableView.reloadData()
-                
-            })
+            self.users = user
+            self.loadFollowers()
+          
         }
-
+        
     }
     
-   
-
-    func isFollowing(userId: String, completed: @escaping (Bool) -> Void) {
-        API.Follow.isFollowing(userId: userId, completed: completed)
+    
+    func loadFollowers() {
+        
+        if followers != nil {
+            
+            followers?.removeAll()
+        }
+        
+        let userId = API.User.CURRENT_USER_ID ?? "empty"
+        
+        print(userId)
+        
+        API.Follow.isFollowing(userId: userId, completed: { (followersList) in
+            
+            if let followerslist = followersList
+            {
+                
+                self.followers = followerslist
+                
+            }
+            
+            
+            DispatchQueue.main.async {
+                
+                self.tableView.reloadData()
+            }
+           
+            
+            
+            
+        })
+        
+        
     }
+    
+    func removeMyDuplicates(){
+
+        for user in self.users{
+            var added = false
+            for newUser in self.newListOfUsers{
+                if(user.id == newUser.id){
+                    added = true
+                }
+            }
+            if !added{
+                newUsers.append(user)
+            }
+        }
+        self.users = newUsers
+    }
+    
+
+
+   
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ProfileSegue" {
@@ -85,14 +146,19 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-     
+        print("Number of user",users.count)
         return users.count
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PeopleTableViewCell", for: indexPath) as! peopleTableViewCell
        
-       
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(moveToUserPage(sender:)))
+        cell.profileUserImage.addGestureRecognizer(tapGesture)
+        cell.profileUserImage.isUserInteractionEnabled = true
+        cell.followers = self.followers
+        cell.followBtn.tag = indexPath.row
         let user = users[indexPath.row]
         print("letuser::::\(user)")
         cell.user = user
@@ -100,22 +166,36 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return cell
     }
     
+    @objc func moveToUserPage(sender: UITapGestureRecognizer) {
+        
+        print("User detail page tapped")
+        let storyboard = UIStoryboard(name: "Profile", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "UserdetailPage") as! UserdetailPage
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    
 
 }
 extension peopleViewController: PeopleTableViewCellDelegate {
+    
+    
+    func updateFollowers(position: Int) {
+        
+        API.Follow.followAction(withUser: users[position].id ?? "empty")
+        loadFollowers()
+        
+    }
+    
+    func updateUnFollowers(position: Int) {
+        
+        API.Follow.unFollowAction(withUser: users[position].id ?? "empty")
+        loadFollowers()
+    }
+    
  
     
-//    func updateFollowButton(forUser user: Users) {
-//        
-//            for u in self.users {
-//                if u.id == user.id {
-//                    u.isFollowing = user.isFollowing
-//                    self.tableView.reloadData()
-//                }
-//            }
-//        
-//        
-//    }
+
     
     func goToProfileUserVC(userId: String) {
         performSegue(withIdentifier: "ProfileSegue", sender: userId)
@@ -128,14 +208,7 @@ extension peopleViewController: PeopleTableViewCellDelegate {
         
     }
     
-//    func updateFollowButton(forUser user: User) {
-//        for u in self.users {
-//            if u.id == user.id {
-//                u.isFollowing = user.isFollowing
-//                self.tableView.reloadData()
-//            }
-//        }
-//    }
+
 }
 
 extension peopleViewController: HeaderProfileCollectionReusableViewDelegate {

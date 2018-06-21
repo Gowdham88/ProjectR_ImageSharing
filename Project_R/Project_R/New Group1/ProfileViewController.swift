@@ -17,11 +17,10 @@ protocol  ProfileViewControllerDelegate {
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
    
-    
-    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var MenuBar: CustomSegmentedControl!
     @IBOutlet weak var collectionView: UICollectionView!
+    
     var user: Users!
     var posts: [Post] = []
     var countpost : [Post] = []
@@ -32,8 +31,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     var activities = [activity]()
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     var selectedProfilePhoto: UIImage?
-     var tField : UITextField = UITextField()
+    var tField : UITextField = UITextField()
     var delegate : ProfileViewControllerDelegate?
     
     override func viewDidLoad() {
@@ -212,7 +212,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let storyboard = UIStoryboard(name: "Profile", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "TextScroll") as! TextScroll
-            self.navigationController?.pushViewController(vc, animated: true)
+        self.navigationController?.pushViewController(vc, animated: true)
         
 //        performSegue(withIdentifier: "settings", sender: self)
         
