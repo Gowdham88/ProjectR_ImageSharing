@@ -48,12 +48,17 @@ class UserdetailPage: UIViewController, UITableViewDelegate, UITableViewDataSour
         profileImg.layer.cornerRadius = 12
         profileImg.clipsToBounds = true
         
+        //Follow UI changes
         followButton.layer.cornerRadius = 5
         followButton.clipsToBounds = true
         
+        
+        //Asset UI changes
         assetTitleLbl.layer.cornerRadius = 5
         assetTitleLbl.clipsToBounds = true
         
+        
+        //Hide tab bar
         tabBarController?.tabBar.isHidden = true
         
         
