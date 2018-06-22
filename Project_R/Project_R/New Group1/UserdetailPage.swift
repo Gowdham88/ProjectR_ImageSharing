@@ -15,8 +15,19 @@ import Nuke
 
 class UserdetailPage: UIViewController, UITableViewDelegate, UITableViewDataSource {
   
-    var numOfRow = 0
+    
     var transferImg: UIImage!
+    
+    var posts: [Post] = []
+    var saves = [save]()
+    var activities = [activity]()
+//    var user: Users!
+    
+    var user: Users? {
+        didSet {
+            updateView()
+        }
+    }
 
 
     @IBOutlet weak var profileImg: UIImageView!
@@ -35,18 +46,20 @@ class UserdetailPage: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet weak var assetTabView: UITableView!
     
-    @IBOutlet weak var assetTitleLbl: UILabel!
+    @IBOutlet weak var menuBar: CustomSegmentedControl!
+    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Get user profile image and username
-        userDetails()
-        profileImg.image = transferImg
-        print("My image retrive",profileImg.image)
+       
         
-        profileImg.layer.cornerRadius = 12
-        profileImg.clipsToBounds = true
+        //Get user profile image and username
+//        userDetails()
+//        profileImg.image = transferImg
+//        print("My image retrive",profileImg.image)
+        
         
         //Follow UI changes
         followButton.layer.cornerRadius = 5
@@ -54,57 +67,263 @@ class UserdetailPage: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         
         //Asset UI changes
-        assetTitleLbl.layer.cornerRadius = 5
-        assetTitleLbl.clipsToBounds = true
-        
+//        assetTitleLbl.layer.cornerRadius = 5
+//        assetTitleLbl.clipsToBounds = true
+      
         
         //Hide tab bar
         tabBarController?.tabBar.isHidden = true
         
+        fetchUser()
+        
         
     }
     
-    func userDetails() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         
-        API.User.observeCurrentUser { (user) in
+        fetchUser()
+        fetchMyPosts(completion: { status in
             
-            if let profileurl = user.profileImageURL{
-                
-                self.profileImg.image = nil
-                if profileurl != "" {
-                    
-                    Manager.shared.loadImage(with: URL(string: profileurl)!, into: self.profileImg)
-                }
+            DispatchQueue.main.async {
+                self.assetTabView.reloadData()
             }
             
-            if self.userName.text != nil {
-                self.userName.text = user.username
+            
+        })
+        fetchMYSaves(completion: { status in
+            
+            DispatchQueue.main.async {
+                self.assetTabView.reloadData()
+            }
+            
+        })
+        
+        fetchMYActivity(completion:  { status in
+            
+            
+            DispatchQueue.main.async {
+                self.assetTabView.reloadData()
+            }
+            
+        })
+    }
+    
+    
+    
+    func fetchUser() {
+        
+//        self.activityIndicator.startAnimating()
+    
+        API.User.observeCurrentUser { user in
+            
+            
+            DispatchQueue.main.async {
+                self.user = user
 
             }
             
         }
+    }
+    
+    func fetchMyPosts(completion: @escaping (String) -> Void) {
+        posts.removeAll()
+       
+        guard let currentUser = Auth.auth().currentUser else {
+            return
+        }
+        
+        API.Post.observeUserPosts(withID: currentUser.uid, completion: {
+            post in
+            self.posts = post
+            completion("success")
+        })
+        
+        
+    }
+    
+    func fetchMYSaves(completion: @escaping (String) -> Void) {
+        
+        saves.removeAll()
+        guard let currentUser = Auth.auth().currentUser else {
+            return
+        }
+        API.MySaves.observeUserSaves(withID: currentUser.uid, completion: {
+            
+            savee in
+            self.saves = savee
+            completion("Success")
+            
+        })
+        
+    }
+    func fetchUserCount() {
+        
+        self.assetTabView.reloadData()
+    }
+    
+    func fetchMYActivity(completion: @escaping (String) -> Void) {
+        
+        activities.removeAll()
+        guard let currentUser = Auth.auth().currentUser else {
+            return
+        }
+        API.MyActivity.observeUserSaves(withID: currentUser.uid, completion: {
+            
+            activitee in
+            self.activities = activitee
+            completion("Success")
+            
+        })
+        
+    }
+    
+//    func userDetails() {
+//
+//        API.User.observeCurrentUser { (user) in
+//
+//            if let profileurl = user.profileImageURL{
+//
+//                self.profileImg.image = nil
+//                if profileurl != "" {
+//
+//                    Manager.shared.loadImage(with: URL(string: profileurl)!, into: self.profileImg)
+//                }
+//            }
+//
+//            if self.userName.text != nil {
+//                self.userName.text = user.username
+//                self.navigationItem.title = "@"  + self.userName.text!
+//
+//            }
+//
+//        }
+//
+//
+//    }
+    
+    func updateView() {
+        
+        self.userName.text = user?.username
+        self.navigationItem.title = "@"  + self.userName.text!
+        
+        
+        if let photoURL = user?.profileImageURL {
+            self.profileImg.sd_setImage(with: URL(string: photoURL))
+        }
+        
+        API.Follow.fetchCountFollowing(userId: user!.id!) { (count) in
+            
+            if self.followingCount.text != nil {
+                self.followingCount.text = "\(count)"
+                print("followingcountlabel::::\(self.followingCount)")
+                
+            }
+        }
+        
+        API.Follow.fetchCountFollowers(userId: API.User.CURRENT_USER!.uid) { (count) in
+            
+            if self.followersCount.text != nil {
+                self.followersCount.text = "\(count)"
+                print("followersCountLabel::::\(self.followersCount)")
+                
+            }
+        }
+        
+        API.Post.fetchCountuserPost(withID: API.User.CURRENT_USER!.uid) { (count) in
+            
+            if self.assetCount.text != nil {
+                
+                self.assetCount.text = "\(count)"
+                print("postcountLabel::::\(self.assetCount)")
+            }
+        }
+        
+        profileImg.layer.cornerRadius = 12
+        profileImg.clipsToBounds = true
+        //        profileImageView.layer.borderWidth = 2
+        
         
         
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return numOfRow
+       
+        var returnValue = 0
+        
+        switch(menuBar.selectedSegmentIndex)
+        {
+        case 0:
+            
+            returnValue = posts.count
+            print("Get post count",posts.count)
+            break
+        case 1:
+            returnValue = saves.count
+            break
+            
+        case 2:
+            returnValue = activities.count
+            break
+            
+        default:
+            break
+            
+        }
+        
+        return returnValue
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "userDetail", for: indexPath) as! userDetailTableViewCell
+        
+        switch(menuBar.selectedSegmentIndex)
+            
+        {
+        case 0:
+            
+            cell.post = posts[indexPath.row]
+            
+            
+            cell.itemName.isHidden = false
+            cell.userProduct.isHidden = false
+            cell.itemdetail.isHidden = false
+            cell.itemVerified.isHidden = false
+            
+            break
+        case 1:
+            
+            cell.saves = saves[indexPath.row]
+            
+            
+            cell.itemName.isHidden = false
+            cell.userProduct.isHidden = false
+            cell.itemdetail.isHidden = false
+            cell.itemVerified.isHidden = false
+            
+            break
+            
+        case 2:
+            
+           
+            cell.itemName.isHidden = true
+            cell.userProduct.isHidden = true
+            cell.itemdetail.isHidden = true
+            cell.itemVerified.isHidden = true
+            
+            break
+            
+        default:
+            break
+            
+        }
+        
         return cell
-
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
-    
+
+
     @IBAction func settingBtnTap(_ sender: Any) {
         print("Setting btn tapped:::::")
         let storyboard = UIStoryboard(name: "Profile", bundle: nil)
@@ -113,4 +332,8 @@ class UserdetailPage: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     
+    @IBAction func backBtn(_ sender: Any) {
+        
+         navigationController?.popViewController(animated: true)
+    }
 }

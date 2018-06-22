@@ -13,9 +13,10 @@ import Nuke
 class MenubarTableViewCell: UITableViewCell {
     
     @IBOutlet weak var productImage: UIImageView!
-    @IBOutlet weak var productName: UILabel!
     
+    @IBOutlet weak var productName: UILabel!
     @IBOutlet weak var productDescription: UILabel!
+    
     @IBOutlet weak var activityComments: UILabel!
     
     @IBOutlet weak var verify: UILabel!

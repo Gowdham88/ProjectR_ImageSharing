@@ -7,15 +7,16 @@
 //
 
 import UIKit
-//protocol  NotificationViewControllerDelegate {
-//
-////    func refreshPostData()
-//}
+
+protocol  NotificationViewControllerDelegate {
+
+    func refreshPostData()
+}
 
 class NotificationViewController: UIViewController {
 
     
-//    var delegate : NotificationViewControllerDelegate?
+    var delegate : NotificationViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
