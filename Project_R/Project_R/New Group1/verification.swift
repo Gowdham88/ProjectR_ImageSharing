@@ -8,11 +8,15 @@
 
 import UIKit
 
-class verification: UIViewController {
+class verification: UIViewController, UIImagePickerControllerDelegate {
+    
+    let imagePicker = UIImagePickerController()
 
     @IBOutlet weak var addproductLbl: UILabel!
     @IBOutlet weak var billImg: UIImageView!
     @IBOutlet weak var attachBtn: UIButton!
+    
+    var selectedImage: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,8 +30,16 @@ class verification: UIViewController {
         //2.Attach button corner radius
         attachBtn.layer.cornerRadius = 15
         
+       tabBarController?.tabBar.isHidden = true
         
         
+        
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        tabBarController?.tabBar.isHidden = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -62,7 +74,62 @@ class verification: UIViewController {
         
     }
     
+    func openCamera() {
+        
+        if(UIImagePickerController .isSourceTypeAvailable(.camera))
+            
+        {
+            
+            self.imagePicker.sourceType = .camera
+            
+            self.imagePicker.delegate = self
+            
+            
+            
+        }
+        
+        present(imagePicker, animated: true, completion: nil)
+        
+    }
+    
+    
+    
+    func handlePhotoSelection() {
+        
+        let imagePickerController = UIImagePickerController()
+        
+        imagePickerController.delegate = self
+        
+        present(imagePickerController, animated: true)
+        
+    }
+    
     @IBAction func attachBill(_ sender: Any) {
              uploadBillFromFile()
     }
+    
+    @IBAction func backBtn(_ sender: Any) {
+        
+        _ = navigationController?.popViewController(animated: true)
+
+    }
+}
+
+extension verification: UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            
+            billImg.image = image
+            selectedImage = image
+            
+        }
+        
+        
+        
+        dismiss(animated: true)
+        
+    }
+    
 }

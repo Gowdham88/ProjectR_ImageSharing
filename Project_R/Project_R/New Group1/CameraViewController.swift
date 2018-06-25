@@ -1,4 +1,4 @@
-//
+ //
 //  CameraViewController.swift
 //  Blocstagram
 //
@@ -23,7 +23,7 @@ protocol CameraViewControllerDelegate {
 }
 
 
-class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerControllerDelegate, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
+class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerControllerDelegate, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
     static let kAmazonAccessID = "AKIAJ3VPWLGL2UIWB3SA"
     static let kAmazonAccessSecretKey = "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"
@@ -92,6 +92,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        captionTextView.returnKeyType = UIReturnKeyType.done
 
         
         
@@ -495,6 +496,14 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     // MARK: - The Share Action
     
     @IBAction func share(_ sender: Any) {
+        
+//
+                  showBillVerification()
+        
+    }
+    
+    
+    func sharePost(){
         // show the progress to the user
         ProgressHUD.show("Sharing started...", interaction: false)
         
@@ -520,15 +529,64 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
                 
                 // and put the photoURL into the database
                 self.saveToDatabase(photoURL: photoURL!)
-//                self.saveActivity()
-//                self.getname()
+                //                self.saveActivity()
+                //                self.getname()
             })
         } else {
             ProgressHUD.showError("Your photo to Share can not be empty. Tap it to set it and Share.")
         }
     }
     
+    func showBillVerification(){
+        
+        let Alert: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        
+        
+        
+        let verifyAction: UIAlertAction = UIAlertAction(title: "Do you want to verify the bill", style: .default) { ACTION in
+            
+            self.billVerification()
+            
+        }
+        
+        
+        
+        let skipAction: UIAlertAction = UIAlertAction(title: "Skip", style: .default){ ACTION in
+            
+            self.sharePost()
+            
+        }
+        
+        let CancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        CancelAction.setValue(UIColor.red, forKey: "titleTextColor")
+        
+        
+        
+        Alert.addAction(verifyAction)
+        
+        Alert.addAction(skipAction)
+        
+        Alert.addAction(CancelAction)
+        
+        present(Alert, animated: true, completion: nil)
+        
+    }
     
+    func billVerification() {
+        
+        let storyboard = UIStoryboard(name: "Camera", bundle: nil)
+        let vc         =  storyboard.instantiateViewController(withIdentifier: "verification") as! verification
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    
+    
+    public func textViewDidChange(_ textView: UITextView) {
+        
+            textView.resignFirstResponder() //Dismiss keyboard
+        
+    }
   
     
     // MARK: - Dismiss Keyboard
@@ -764,10 +822,10 @@ extension CameraViewController {
         view.addGestureRecognizer(tap)
     }
     
-    func textFieldShouldReturn(_ captionTextView: UITextView) -> Bool {
-        self.view.endEditing(true)
-        return true
-    }
+//    func textFieldShouldReturn(_ captionTextView: UITextView) -> Bool {
+//        self.view.endEditing(true)
+//        return true
+//    }
     
     @objc func dismissKeyboard() {
         self.view.endEditing(true)
