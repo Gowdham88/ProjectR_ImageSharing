@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -699,7 +699,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DdZ-V3-SgA" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4577" y="-935"/>
+            <point key="canvasLocation" x="4628" y="-1069"/>
         </scene>
     </scenes>
     <resources>
@@ -853,6 +853,6 @@ AAAAAAAAWQAAAAAAAAAAAAAAAAAAHYE
         <image name="shareNew" width="19" height="19"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="csA-1J-Rvw"/>
+        <segue reference="J0N-PZ-jaM"/>
     </inferredMetricsTieBreakers>
 </document>

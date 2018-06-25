@@ -28,6 +28,14 @@ class HomeViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        //Navigation title heading - colour setting:-
+        let textAttributes = [NSAttributedStringKey.foregroundColor: UIColor(red: 7/255, green: 192/255, blue: 141/255, alpha: 1)]
+        let textFont = [NSAttributedStringKey.font: UIFont(name: "Avenir Light", size: 16)!]
+        self.navigationController?.navigationBar.titleTextAttributes = textFont
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
+        
         // for performance set an estimated row height
         tableView.estimatedRowHeight = 571
         // but also request to dynamically adjust to content using AutoLayout
@@ -517,8 +525,8 @@ extension HomeViewController : UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
        
-//            let viewController0  = tabBarController.viewControllers?[0] as! UINavigationController
-//            let svc0 = viewController0.topViewController as! HomeViewController
+            let viewController0  = tabBarController.viewControllers?[0] as! UINavigationController
+            let svc0 = viewController0.topViewController as! HomeViewController     
        
             let viewController  = tabBarController.viewControllers?[1] as! UINavigationController
             let svc = viewController.topViewController as! peopleViewController

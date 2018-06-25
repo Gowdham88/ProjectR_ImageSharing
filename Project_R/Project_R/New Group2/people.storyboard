@@ -61,12 +61,17 @@
                                     <outlet property="delegate" destination="Voe-Pn-z2b" id="lyn-oN-WAN"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="SFy-aO-RpZ">
+                                <rect key="frame" x="19" y="358" width="375" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="ddi-ZI-W3a"/>
                     </view>
                     <navigationItem key="navigationItem" title="Discover People" id="YC1-xc-OoU"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="SFy-aO-RpZ" id="ZS7-IG-trQ"/>
                         <outlet property="tableView" destination="pwh-r6-ncW" id="VPB-bO-n06"/>
                         <segue destination="CSg-6z-unC" kind="show" identifier="ProfileSegue" id="dGy-OF-DuB"/>
                     </connections>
@@ -127,7 +132,7 @@
                                 <rect key="frame" x="0.0" y="212" width="414" height="480"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HomeCell" rowHeight="469" id="ESg-wm-zwQ" customClass="HomeTableViewCell" customModule="Project_R" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HomeCell" rowHeight="469" id="ESg-wm-zwQ" customClass="HomeTableViewCell" customModule="Project_R" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="469"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ESg-wm-zwQ" id="sP2-yZ-Dzh">

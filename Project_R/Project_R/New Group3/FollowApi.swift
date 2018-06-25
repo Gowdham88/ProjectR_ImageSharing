@@ -93,7 +93,7 @@ class FollowApi {
                 let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
                 print("Document data: \(dataDescription)")
                 
-//                self.db.collection("feed").document(API.User.CURRENT_USER!.uid).setData([document.documentID: NSNull()])
+                self.db.collection("feed").document(API.User.CURRENT_USER!.uid).setData([document.documentID: NSNull()])
                 self.db.collection("feed").document(API.User.CURRENT_USER!.uid).delete()
 
                 
@@ -120,23 +120,18 @@ class FollowApi {
 //        REF_FOLLOWING.child(Api.User.CURRENT_USER!.uid).child(id).setValue(NSNull())
     }
     
-    func isFollowing(userId: String, completed: @escaping (Bool) -> Void) {
+    func isFollowing(userId: String, completed: @escaping ([String : Any]?) -> Void) {
         
-        let docRef = db.collection("followers").document(userId)
+        let docRef = db.collection("following").document(userId)
         
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
                 
-                print("documnetData::::\(String(describing: document.data()))")
-                if let dataDescription = document.data(), let _ = dataDescription[API.User.CURRENT_USER!.uid] as? Bool {
-                    
-                    completed(true)
-                }
-                
-                completed(false)
+                completed(document.data())
                 
             } else {
-               completed(false)
+               
+                completed(nil)
             }
         }
         

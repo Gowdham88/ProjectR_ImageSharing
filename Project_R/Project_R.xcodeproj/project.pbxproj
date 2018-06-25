@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F0A297E20DBB4B000A14F8A /* UserdetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0A297D20DBB4B000A14F8A /* UserdetailPage.swift */; };
+		0F0A298020DBB72300A14F8A /* userDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0A297F20DBB72300A14F8A /* userDetailTableViewCell.swift */; };
 		0F5E121220D7F86600E5C964 /* verification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5E121120D7F86600E5C964 /* verification.swift */; };
 		0FE5CADE20D13D4500A8E091 /* SliderDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE5CADD20D13D4500A8E091 /* SliderDesign.swift */; };
 		6CE12BFBB665A2D7111C060C /* Pods_Project_RTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8017FE2158174D16B5F44DCB /* Pods_Project_RTests.framework */; };
@@ -104,6 +106,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F0A297D20DBB4B000A14F8A /* UserdetailPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserdetailPage.swift; sourceTree = "<group>"; };
+		0F0A297F20DBB72300A14F8A /* userDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userDetailTableViewCell.swift; sourceTree = "<group>"; };
 		0F5E121120D7F86600E5C964 /* verification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = verification.swift; sourceTree = "<group>"; };
 		0FE5CADD20D13D4500A8E091 /* SliderDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderDesign.swift; sourceTree = "<group>"; };
 		1FA443CF77ABD732C0AD5CBA /* Pods-Project_RUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project_RUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Project_RUITests/Pods-Project_RUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -293,6 +297,8 @@
 				AE2CC0BD20CFD1880047BCC0 /* MenubarTableViewCell.swift */,
 				AE12536320D4EAEB009929F4 /* amazonProductListTableViewCell.swift */,
 				0F5E121120D7F86600E5C964 /* verification.swift */,
+				0F0A297D20DBB4B000A14F8A /* UserdetailPage.swift */,
+				0F0A297F20DBB72300A14F8A /* userDetailTableViewCell.swift */,
 			);
 			name = Controllers;
 			path = "New Group1";
@@ -772,6 +778,7 @@
 				AE64456B20BD7A6A00216484 /* AppDelegate.swift in Sources */,
 				AE3CF2AC20BFAF890074D5F7 /* SortPost.swift in Sources */,
 				AE2CC0C020CFDB1F0047BCC0 /* save.swift in Sources */,
+				0F0A298020DBB72300A14F8A /* userDetailTableViewCell.swift in Sources */,
 				AE2CC0BC20CFB71C0047BCC0 /* CustomSegmentedControl.swift in Sources */,
 				AEE4F4F720C7B00B0047A2B6 /* peopleTableViewCell.swift in Sources */,
 				AE3CF2A420BFAF890074D5F7 /* Comment.swift in Sources */,
@@ -790,6 +797,7 @@
 				AE3CF28420BFAF530074D5F7 /* ForgetPassword.swift in Sources */,
 				AE3CF2A520BFAF890074D5F7 /* UserPostAPI.swift in Sources */,
 				AE3CF27620BFAF530074D5F7 /* TextScroll.swift in Sources */,
+				0F0A297E20DBB4B000A14F8A /* UserdetailPage.swift in Sources */,
 				AE3CF28320BFAF530074D5F7 /* SignInViewController.swift in Sources */,
 				AE0F27D620D1135400B6FF9F /* sortSave.swift in Sources */,
 				AE3CF27B20BFAF530074D5F7 /* ProfileViewController.swift in Sources */,

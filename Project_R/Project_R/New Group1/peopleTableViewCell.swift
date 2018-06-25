@@ -12,9 +12,14 @@ import FirebaseAuth
 import FirebaseFirestore
 import SDWebImage
 import Nuke
+
 protocol PeopleTableViewCellDelegate {
     func goToProfileUserVC(userId: String)
-    func updateFollowButton(forUser user: Users)
+
+    func updateFollowers(position : Int)
+    
+    func updateUnFollowers(position : Int)
+    
 }
 
 
@@ -28,6 +33,7 @@ class peopleTableViewCell: UITableViewCell {
     
     var userID: String!
     var delegate: PeopleTableViewCellDelegate?
+    var followers   : [String : Any]?
 
     var user: Users? {
         didSet {
@@ -42,13 +48,12 @@ class peopleTableViewCell: UITableViewCell {
         // Initialization code
         
         
-        
 //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handlefollowbtnTap))
 //        followBtn.addGestureRecognizer(tapGesture)
 //        followBtn.isUserInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.nameLabel_TouchUpInside))
-        profileUserName.addGestureRecognizer(tapGesture)
-        profileUserName.isUserInteractionEnabled = true
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.nameLabel_TouchUpInside))
+//        profileUserName.addGestureRecognizer(tapGesture)
+//        profileUserName.isUserInteractionEnabled = true
         
         self.profileUserImage.layer.cornerRadius = self.profileUserImage.frame.size.width / 2;
         self.profileUserImage.clipsToBounds = true
@@ -57,6 +62,7 @@ class peopleTableViewCell: UITableViewCell {
 
     
     @objc func nameLabel_TouchUpInside() {
+        print("Following user:::::")
         if let id = user?.id {
             delegate?.goToProfileUserVC(userId: id)
         }
@@ -83,13 +89,33 @@ class peopleTableViewCell: UITableViewCell {
             
         }
         
-        if user!.isFollowing! {
-            configureUnFollowButton()
+        if let followersList = followers,let uid = user?.id {
+            
+            if let isFollowing = followersList[uid] as? Bool {
+                
+                if isFollowing {
+                    
+                    configureUnFollowButton()
+                    
+                    
+                } else
+                {
+                    configureFollowButton()
+                    
+                }
+                
+            } else {
+                
+                configureFollowButton()
+            }
+           
         } else {
-            configureFollowButton()
+        
+           configureFollowButton()
+            
         }
         
-//        updateStateFollowButton()
+      
     }
     
     func configureFollowButton() {
@@ -116,22 +142,24 @@ class peopleTableViewCell: UITableViewCell {
         followBtn.addTarget(self, action: #selector(self.unFollowAction), for: UIControlEvents.touchUpInside)
     }
     
-    @objc func followAction() {
-        if user!.isFollowing! == false {
-            API.Follow.followAction(withUser: user!.id!)
-            configureUnFollowButton()
-            user!.isFollowing! = true
-//            delegate?.updateFollowButton(forUser: user!)
+    @objc func followAction(sender : UIButton) {
+        print("Follow button tapped")
+        
+        if let delegatexits = delegate {
+            
+            delegatexits.updateFollowers(position: sender.tag)
         }
+        
+        
     }
     
-    @objc func unFollowAction() {
-        if user!.isFollowing! == true {
-            API.Follow.unFollowAction(withUser: user!.id!)
-            configureFollowButton()
-            user!.isFollowing! = false
-//            delegate?.updateFollowButton(forUser: user!)
+    @objc func unFollowAction(sender : UIButton) {
+        
+        if let delegatexits = delegate {
+            
+            delegatexits.updateUnFollowers(position: sender.tag)
         }
+       
     }
 
     
@@ -145,8 +173,9 @@ class peopleTableViewCell: UITableViewCell {
         
     }
     
+   
     
-            
+    
 }
     
 

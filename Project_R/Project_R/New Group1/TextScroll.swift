@@ -48,6 +48,9 @@ class TextScroll: UIViewController, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tabBarController?.tabBar.isHidden = true
+        
         userDetails()
         profileImg.image = transferImg
         print("My image retrive",profileImg.image)
@@ -165,6 +168,13 @@ class TextScroll: UIViewController, UITextViewDelegate {
         
     }
     
+    @IBAction func backBtnTap(_ sender: Any) {
+        print("Back btn tapped")
+        tabBarController?.tabBar.isHidden = false
+        navigationController?.popViewController(animated: true)
+        
+
+    }
     
     
 }

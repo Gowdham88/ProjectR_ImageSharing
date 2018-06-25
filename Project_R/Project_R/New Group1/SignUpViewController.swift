@@ -396,6 +396,7 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
 //                        print("Document successfully written!")
                         if PrefsManager.sharedinstance.isFirstTime == true{
                             
+                            PrefsManager.sharedinstance.UIDfirebase = user?.uid ?? "empty"
                             
                             let when = DispatchTime.now() + 0
                             DispatchQueue.main.asyncAfter(deadline: when) {

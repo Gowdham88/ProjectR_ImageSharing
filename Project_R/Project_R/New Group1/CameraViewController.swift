@@ -166,11 +166,14 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
    
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+//           searchBar.resignFirstResponder()
+        
 //        if !shouldShowSearchResults {
 //            shouldShowSearchResults = true
 //            tblSearchResults.reloadData()
 //        }
-        
+//
         
         searchWord = searchBar.text!
 //        _ = itemSearch(searchKeyword: searchKeyword)
@@ -178,6 +181,8 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
 //        print("itemSearch::::\(itemSearch(searchKeyword: searchKeyword))")
 //        searchController.searchBar.resignFirstResponder()
         
+        
+        self.results.removeAll()   // removes search bar prev.history from table view 
         getSearchItem(searchKeyword: searchWord!)
         tableView.isHidden = false
         
