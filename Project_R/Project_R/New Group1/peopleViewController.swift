@@ -14,7 +14,6 @@ import FirebaseDatabase
 class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     //    var users = [Users]()
     var users       : [Users] = []
@@ -51,7 +50,7 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     func loadUsers() {
         
-        self.activityIndicator.startAnimating()
+//        self.activityIndicator.startAnimating()
         
         self.users.removeAll()
   
@@ -61,8 +60,8 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             self.loadFollowers()
             
-            self.activityIndicator.stopAnimating()
-            self.activityIndicator.isHidden = true
+//            self.activityIndicator.stopAnimating()
+//            self.activityIndicator.isHidden = true
           
         }
         
@@ -82,10 +81,11 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         API.Follow.isFollowing(userId: userId, completed: { (followersList) in
             
-            self.activityIndicator.startAnimating()
+            
             
             if let followerslist = followersList
             {
+                
                 self.followers = followerslist
                 
             }
@@ -94,14 +94,15 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             DispatchQueue.main.async {
                 
                 self.tableView.reloadData()
-                self.activityIndicator.stopAnimating()
-                self.activityIndicator.isHidden = true
+             
+//                self.activityIndicator.isHidden = true
             }
            
             
             
             
         })
+        
         
         
     }
@@ -191,8 +192,10 @@ extension peopleViewController: PeopleTableViewCellDelegate {
     func updateFollowers(position: Int) {
         
         API.Follow.followAction(withUser: users[position].id ?? "empty")
+        
         loadFollowers()
         
+       
     }
     
     func updateUnFollowers(position: Int) {

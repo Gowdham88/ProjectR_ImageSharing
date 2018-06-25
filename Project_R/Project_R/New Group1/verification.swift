@@ -7,9 +7,17 @@
 //
 
 import UIKit
+import FirebaseStorage
+import Firebase
+import FirebaseAuth
+import AWSCore
+import Alamofire
+import AWSAPIGateway
+import SHXMLParser
+import Nuke
 
 class verification: UIViewController, UIImagePickerControllerDelegate {
-    
+  
     let imagePicker = UIImagePickerController()
 
     @IBOutlet weak var addproductLbl: UILabel!
@@ -20,6 +28,10 @@ class verification: UIViewController, UIImagePickerControllerDelegate {
     @IBOutlet weak var backOption: UIBarButtonItem!
     
     var selectedImage: UIImage?
+    
+    var imageVc: UIImage?
+   
+  
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +61,8 @@ class verification: UIViewController, UIImagePickerControllerDelegate {
         billImg.isUserInteractionEnabled = true
         billImg.layer.cornerRadius = 2
         tabBarController?.tabBar.isHidden = true
+        
+        print("Get image URL:::",imageVc)
         
         
         
@@ -146,7 +160,11 @@ class verification: UIViewController, UIImagePickerControllerDelegate {
     }
     
     @IBAction func attachBill(_ sender: Any) {
-            
+        
+        sharePost()
+        
+       
+        
     }
     
     @IBAction func backBtn(_ sender: Any) {
@@ -155,6 +173,46 @@ class verification: UIViewController, UIImagePickerControllerDelegate {
         
         setBtn()
 
+    }
+    
+    func saveToDatabase(photoURL: String) {
+        
+    }
+    
+    func sharePost(){
+        // show the progress to the user
+//        ProgressHUD.show("Sharing started...", interaction: false)
+
+        // convert selected image to JPEG Data format to push to file store
+        if let photo = imageVc, let imageData = UIImageJPEGRepresentation(photo, 0.1) {
+
+            // get a unique ID
+            let photoIDString = NSUUID().uuidString
+
+            // get a reference to our file store
+            let storeRef = Storage.storage().reference(forURL: Constants.fileStoreURL).child("verification").child(photoIDString)
+
+            // push to file store
+            storeRef.putData(imageData, metadata: nil, completion: { (metaData, error) in
+                if error != nil {
+                    ProgressHUD.showError("Photo Save Error: \(error?.localizedDescription)")
+                    return
+                }
+
+                // if there's no error
+                // get the URL of the photo in the file store
+                let photoURL = metaData?.downloadURL()?.absoluteString
+
+                // and put the photoURL into the database
+                self.saveToDatabase(photoURL: photoURL!)
+                //                self.saveActivity()
+                //                self.getname()
+            })
+        } else {
+            ProgressHUD.showError("Your photo to Share can not be empty. Tap it to set it and Share.")
+        }
+        
+        self.navigationController?.popToRootViewController(animated: true)
     }
 }
 

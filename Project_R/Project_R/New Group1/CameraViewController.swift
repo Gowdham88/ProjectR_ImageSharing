@@ -37,7 +37,6 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     
     let imagePicker = UIImagePickerController()
     @IBOutlet weak var tableView: UITableView!
-    
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var addCaptionLabel: UILabel!
     @IBOutlet weak var sliderValue: UILabel!
@@ -56,6 +55,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     var ratingValue: String?
     var dateTime: Double!
     var currentName: String! = ""
+    
 //    AWS String
     
     var page: String = ""
@@ -85,6 +85,8 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     var poductDetailPageUrl: String?
     var AISNid:String?
     var ImageByItemId:String?
+    
+    var imageUrlVc: String?
   
     /****************/
     
@@ -544,6 +546,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
                 // if there's no error
                 // get the URL of the photo in the file store
                 let photoURL = metaData?.downloadURL()?.absoluteString
+                self.imageUrlVc = photoURL
                 
                 // and put the photoURL into the database
                 self.saveToDatabase(photoURL: photoURL!)
@@ -564,6 +567,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         let verifyAction: UIAlertAction = UIAlertAction(title: "Do you want to verify the bill", style: .default) { ACTION in
             
             self.billVerification()
+//            self.sharePost()
             
         }
         
@@ -595,6 +599,8 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         
         let storyboard = UIStoryboard(name: "Camera", bundle: nil)
         let vc         =  storyboard.instantiateViewController(withIdentifier: "verification") as! verification
+        vc.imageVc = selectedImage
+//         self.imageUrlVc = photoURL
         self.navigationController?.pushViewController(vc, animated: true)
         
     }

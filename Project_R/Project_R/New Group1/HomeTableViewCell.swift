@@ -12,6 +12,7 @@ import FirebaseAuth
 import FirebaseFirestore
 import SDWebImage
 import Nuke
+import UserNotifications
 
 
 protocol HomeTableViewCellDelegate {
@@ -70,6 +71,10 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+      
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: {didAllow, error in
+            
+        })
         
         nameLabel.text = ""
         captionLabel.text = ""
@@ -116,7 +121,8 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         
         if let _ = homeVC {
             
-            delegate?.openUserStoryboard(position: (sender.view?.tag)!)
+//            delegate?.openUserStoryboard(position: (sender.view?.tag)!) commented by karthik
+           delegate?.openUserStoryboard(position: (sender.view?.tag)!)
             
         }
 
@@ -340,9 +346,20 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     // MARK: - Like Tap Handler
     
     @objc func handleLikeTap() {
+        
+        let content = UNMutableNotificationContent()
+        content.title = "You have a notification"
+        content.subtitle = "the post have a like"
+        content.badge = 1
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        let request = UNNotificationRequest(identifier: "timerDone", content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
        
         postReference = API.Post.REF_POSTS.child(post!.id!)
         incrementLikesTrans(forReference: postReference)
+        
         
     }
     

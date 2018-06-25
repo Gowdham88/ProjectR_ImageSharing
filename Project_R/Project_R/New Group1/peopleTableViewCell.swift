@@ -145,6 +145,8 @@ class peopleTableViewCell: UITableViewCell {
     @objc func followAction(sender : UIButton) {
         print("Follow button tapped")
         
+        
+        
         if let delegatexits = delegate {
             
             delegatexits.updateFollowers(position: sender.tag)
