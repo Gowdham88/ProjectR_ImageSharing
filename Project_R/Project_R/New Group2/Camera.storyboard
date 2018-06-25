@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Ixw-sF-97M">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -521,7 +521,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <navigationItem key="navigationItem" title="Verify" id="YJf-6j-CEB">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="fR9-IA-SvJ"/>
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="fR9-IA-SvJ">
+                            <connections>
+                                <action selector="backBtn:" destination="xsI-bH-DXb" id="WWx-pP-K71"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="addproductLbl" destination="Kov-Ti-RWz" id="DFb-pb-O7P"/>

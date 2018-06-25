@@ -18,7 +18,9 @@ import AWSCore
 
 
 
-class CheckInViewController: UIViewController, UITextViewDelegate, UISearchBarDelegate{
+class CheckInViewController: UIViewController, UITextViewDelegate, UISearchBarDelegate {
+    
+    
 
     
     @IBOutlet weak var tableViews: UIView!
