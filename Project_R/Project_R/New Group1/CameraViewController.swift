@@ -85,16 +85,18 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     var poductDetailPageUrl: String?
     var AISNid:String?
     var ImageByItemId:String?
-
+  
     /****************/
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
         captionTextView.returnKeyType = UIReturnKeyType.done
 
-        
+        self.extendedLayoutIncludesOpaqueBars = true
         
         //Dismiss keyboard - touch any where
         self.hideKeyboardWhenTappedAround()
@@ -164,9 +166,21 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
        
     }
     
+    
+    
    
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        if searchBar.text == nil || searchBar.text == "" {
+            
+            let alert = UIAlertController(title: "Alert!", message: "Enter product to search", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            
+            tableView.isHidden = true
+            
+        } else {
         
 //           searchBar.resignFirstResponder()
         
@@ -188,6 +202,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         tableView.isHidden = false
         
         tableView.reloadData()
+        }
     }
 //    override func viewDidAppear(_ animated: Bool) {
 //        super.viewDidAppear(true)
@@ -353,8 +368,11 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
 //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: Notification.Name.UIKeyboardWillHide, object: nil)
 //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: Notification.Name.UIKeyboardWillShow, object: nil)
+        
+        
         setButtons()
        
     }
@@ -374,7 +392,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-         tabBarController?.tabBar.isHidden = false
+         tabBarController?.tabBar.isHidden = true
     }
     
 //    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -409,23 +427,23 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     }
     
     
-//    @objc func keyboardWillAppear(_ notification: NSNotification) {
-//
-//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-//            if self.view.frame.origin.y == 0{
-//                self.view.frame.origin.y -= keyboardSize.height
-//            }
-//        }
-//    }
-//
-//    @objc func keyboardWillDisappear(_ notification: NSNotification) {
-//
-//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-//            if self.view.frame.origin.y != 0{
-//                self.view.frame.origin.y += keyboardSize.height
-//            }
-//        }
-//    }
+    @objc func keyboardWillAppear(_ notification: NSNotification) {
+
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0{
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+
+    @objc func keyboardWillDisappear(_ notification: NSNotification) {
+
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0{
+                self.view.frame.origin.y += keyboardSize.height
+            }
+        }
+    }
     
     // MARK: - Handle the Image Selection and Button UI
     @objc func showPop(){
@@ -584,8 +602,16 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     
     public func textViewDidChange(_ textView: UITextView) {
         
-            textView.resignFirstResponder() //Dismiss keyboard
+//            textView.resignFirstResponder() //Dismiss keyboard
         
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if (text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
     }
   
     
@@ -934,6 +960,7 @@ extension CameraViewController: XMLParserDelegate {
 //            return 1
 //        }
     
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         return results.count
@@ -941,6 +968,7 @@ extension CameraViewController: XMLParserDelegate {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath) as! amazonProductListTableViewCell
+        
 
         let item = results[indexPath.row]
         print("productItem:::\(item)")
@@ -1005,5 +1033,5 @@ extension CameraViewController: XMLParserDelegate {
         tableView.isHidden = true
         
     }
-    
+  
 }
