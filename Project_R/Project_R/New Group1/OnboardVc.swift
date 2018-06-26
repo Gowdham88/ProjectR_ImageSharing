@@ -218,7 +218,7 @@ class OnboardVc: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
             
             
             self.saveData(profileImageURL: self.imageURL, username: self.usernameTextField.text!, email: self.emailTextField.text!, uid: currentUser!);
-            ProgressHUD.show("Please wait...", interaction: false)
+//            ProgressHUD.show("Please wait...", interaction: false)
 
         }) { (success) in
                     ProgressHUD.dismiss()
@@ -233,7 +233,7 @@ class OnboardVc: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
     }
 
      func saveData(profileImageURL: String, username: String, email: String, uid: String){
-        ProgressHUD.show("Please wait...", interaction: false)
+//        ProgressHUD.show("Please wait...", interaction: false)
         let db = Firestore.firestore()
         db.collection("users").document(currentUser!).setData([
                     "username": username,

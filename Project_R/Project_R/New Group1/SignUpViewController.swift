@@ -21,6 +21,8 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var signupButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
 //    @IBOutlet weak var profileImageView: UIImageView!
     
     var selectedProfilePhoto: UIImage?
@@ -42,6 +44,7 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        activityIndicator.isHidden = true
         signupButton.titleLabel?.text = "Send OTP"
 //        let clouds = UIColor(red: 236/255, green: 240/255, blue: 241/255, alpha: 1)
 //        self.imagePicker.delegate = self
@@ -249,6 +252,10 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
     // MARK: - Sign Up User Method
     
     @IBAction func signUp(_ sender: Any) {
+        
+        self.activityIndicator.isHidden = false
+        self.activityIndicator.startAnimating()
+       
         // dismiss keyboard
         view.endEditing(true)
         
@@ -262,11 +269,15 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
         self.Userdefaults.set(mobileNumber, forKey: "mobileNumber")
         
         print("mobileNumber::::\(mobileNumber)")
+          
 //        UserDefaults.standard.set("value", forKey: "emailTextField")
         Userdefaults.synchronize()
+            
+//            self.activityIndicator.stopAnimating()
         
         sendOTPCode()
         sendOTP = true
+        
         
         } else {
             
@@ -350,6 +361,8 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
                     print("error: \(String(describing: error?.localizedDescription))")
                     
                 } else {
+                    self.activityIndicator.stopAnimating()
+                    self.activityIndicator.isHidden = true
                     print ("code sent")
                     
                     //                    self.infoLabel.text = ""

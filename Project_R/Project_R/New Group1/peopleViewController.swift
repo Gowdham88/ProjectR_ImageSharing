@@ -27,8 +27,6 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
         //Navigation bar title color
         let textAttributes = [NSAttributedStringKey.foregroundColor: UIColor(red: 7/255, green: 192/255, blue: 141/255, alpha: 1)]
         let textFont = [NSAttributedStringKey.font: UIFont(name: "Avenir Light", size: 16)!]
@@ -56,7 +54,26 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
   
         API.User.observeUser { (user) in
             
-            self.users = user
+            let tempArray = user
+            print("Get temp array::::", tempArray)
+//            self.users = user
+            
+            for item in user {
+                if API.User.CURRENT_USER_ID == item.id
+                {
+                    print("Get my user detail id::::",API.User.CURRENT_USER_ID)
+                }
+                else {
+                    
+                    self.users.append(item)
+                    print("Appened users::::", self.users)
+
+                }
+            }
+            
+            print("Print loadusers::::", self.users)
+            
+            
             
             self.loadFollowers()
             
@@ -87,6 +104,7 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             {
                 
                 self.followers = followerslist
+                print("Get followers list::::", followersList,self.followers)
                 
             }
             
@@ -168,6 +186,7 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.profileUserImage.isUserInteractionEnabled = true
         cell.followers = self.followers
         cell.followBtn.tag = indexPath.row
+        
         let user = users[indexPath.row]
         print("letuser::::\(user)")
         cell.user = user
@@ -193,8 +212,15 @@ extension peopleViewController: PeopleTableViewCellDelegate {
         
         API.Follow.followAction(withUser: users[position].id ?? "empty")
         
-        loadFollowers()
+        if API.User.CURRENT_USER_ID == users[position].id {
+            
+            print("Get my user ID:::", API.User.CURRENT_USER_ID)
+            
+        } else {
         
+        loadFollowers()
+            
+        }
        
     }
     

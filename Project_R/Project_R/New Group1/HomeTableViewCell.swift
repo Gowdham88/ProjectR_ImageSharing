@@ -650,6 +650,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         if postTime != nil {
         
         self.postTime.text = timeString
+            print("Get time:::::",timeString)
    
         }
     }
@@ -687,7 +688,7 @@ extension Date {
         if weeksFromNow(from: date)   > 0 { return "\(weeksFromNow) week"    + (weeksFromNow(from: date)    > 1 ? "s" : "") + " ago" }
         if daysFromNow(from: date)    > 0 { return daysFromNow(from: date) == 1 ? "Yesterday" : "\(daysFromNow) days ago" }
         if hoursFromNow(from: date)   > 0 { return "\(hoursFromNow) hour"     + (hoursFromNow(from: date)   > 1 ? "s" : "") + " ago" }
-        if minutesFromNow(from: date) > 0 { return "\(minutesFromNow) minute" + (minutesFromNow(from: date) > 1 ? "s" : "") + " ago" }
+        if minutesFromNow(from: date) > 0 { return "\(minutesFromNow) min" + (minutesFromNow(from: date) > 1 ? "s" : "") + " ago" }
         if secondsFromNow(from: date) > 0 { return secondsFromNow(from: date) < 15 ? "Just now"
             : "\(secondsFromNow) second" + (secondsFromNow(from: date) > 1 ? "s" : "") + " ago" }
         return ""
