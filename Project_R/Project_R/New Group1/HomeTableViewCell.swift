@@ -29,7 +29,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     @IBOutlet weak var productRatingLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var postImageView: UIImageView!
+    @IBOutlet weak var postImageView: UIImageView! 
     @IBOutlet weak var likeImageView: UIImageView!
     @IBOutlet weak var commentImageView: UIImageView!
     @IBOutlet weak var shareImageView: UIImageView!
@@ -120,6 +120,8 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     @objc func profileImagetap(sender : UITapGestureRecognizer) {
         
         if let _ = homeVC {
+            
+            print("Step1 :::: home profile user image tapped")
             
 //            delegate?.openUserStoryboard(position: (sender.view?.tag)!) commented by karthik
            delegate?.openUserStoryboard(position: (sender.view?.tag)!)

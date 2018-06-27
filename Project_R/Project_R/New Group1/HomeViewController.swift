@@ -8,7 +8,12 @@
 
 import UIKit
 import SDWebImage
+import Alamofire
+import SwiftyJSON
 import Firebase
+import FirebaseAuth
+import FirebaseStorage
+import CoreLocation
 ///check
 
 class HomeViewController : UIViewController {
@@ -16,6 +21,10 @@ class HomeViewController : UIViewController {
     @IBOutlet var navigationItemList: UINavigationItem!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
+    
+    
+    var apiClientID : ApiClient!
+    var errormessage : String?
    
     
     var refreshControl: UIRefreshControl!
@@ -29,6 +38,7 @@ class HomeViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        apiClientID = ApiClient()
         
         //Navigation title heading - colour setting:-
         let textAttributes = [NSAttributedStringKey.foregroundColor: UIColor(red: 7/255, green: 192/255, blue: 141/255, alpha: 1)]
@@ -76,6 +86,76 @@ class HomeViewController : UIViewController {
             tabBarController?.tabBar.isHidden = false
         
     }
+    
+    
+//    func apiPost(){
+//
+//        let header     : HTTPHeaders = ["Accept-Language" : "en-US"]
+//        let parameters : Parameters = ["username": currentUser, "count": posts, "likedby", "postId", "tokenId"]
+//
+//        apiClientID.completeSignup(parameters: parameters,headers: header,completion:{status, Values in
+//
+//
+//            print("statusfb: \(status)")
+//            if status == "success" {
+//
+//                self.activityIndicatorView.startAnimating()
+//
+//                if let user = Values {
+//
+//                    self.getUserDetails(user: user)
+//
+//                    self.uploadImage(image: self.profileImage.image!, id: user.id ?? 0, completion: { imageurl in
+//
+//                        PrefsManager.sharedinstance.imageURL = imageurl ?? "empty"
+////                        let storyboard = UIStoryboard(name: Constants.Main, bundle: nil)
+////                        let vc         = storyboard.instantiateViewController(withIdentifier: "Profile_PostViewController") as! Profile_PostViewController
+////                        vc.boolForBack = true
+////                        vc.delegate    = self
+////                        self.navigationController!.pushViewController(vc, animated: true)
+////
+//
+//                    })
+//
+//                } else {
+//
+////                    LoadingHepler.instance.hide()
+////                    AlertProvider.Instance.showAlert(title: "Oops!", subtitle: "Signup failed", vc: self)
+//
+//                }
+//
+//
+//            } else {
+//
+////                LoadingHepler.instance.hide()
+//
+//                if let user = Values {
+//
+//                    if let meassage = user.errormessage {
+//
+//                        if meassage.contains("There is already a user defined with the passed firebaseuid") {
+//
+////                            AlertProvider.Instance.showAlert(title: "Oops!", subtitle: "The email address is already in use by another account.", vc: self)
+//
+//                        } else {
+//
+////                            AlertProvider.Instance.showAlert(title: "Oops!", subtitle: meassage, vc: self)
+//
+//                        }
+//
+//                        return
+//                    }
+//
+//                }
+//
+////                AlertProvider.Instance.showAlert(title: "Oops!", subtitle: "Signup failed", vc: self)
+//
+//            }
+//        })
+//
+//
+//
+//    }
     
     @objc func refresh(sender:AnyObject) {
        
