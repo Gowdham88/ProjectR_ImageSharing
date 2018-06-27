@@ -14,7 +14,6 @@ import FirebaseDatabase
 class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     //    var users = [Users]()
     var users       : [Users] = []
@@ -27,8 +26,6 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //    var tagArray = [String] ()
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         
         //Navigation bar title color
         let textAttributes = [NSAttributedStringKey.foregroundColor: UIColor(red: 7/255, green: 192/255, blue: 141/255, alpha: 1)]
@@ -51,18 +48,37 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     func loadUsers() {
         
-        self.activityIndicator.startAnimating()
+//        self.activityIndicator.startAnimating()
         
         self.users.removeAll()
   
         API.User.observeUser { (user) in
             
-            self.users = user
+            let tempArray = user
+            print("Get temp array::::", tempArray)
+//            self.users = user
+            
+            for item in user {
+                if API.User.CURRENT_USER_ID == item.id
+                {
+                    print("Get my user detail id::::",API.User.CURRENT_USER_ID)
+                }
+                else {
+                    
+                    self.users.append(item)
+                    print("Appened users::::", self.users)
+
+                }
+            }
+            
+            print("Print loadusers::::", self.users)
+            
+            
             
             self.loadFollowers()
             
-            self.activityIndicator.stopAnimating()
-            self.activityIndicator.isHidden = true
+//            self.activityIndicator.stopAnimating()
+//            self.activityIndicator.isHidden = true
           
         }
         
@@ -82,11 +98,13 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         API.Follow.isFollowing(userId: userId, completed: { (followersList) in
             
-            self.activityIndicator.startAnimating()
+            
             
             if let followerslist = followersList
             {
+                
                 self.followers = followerslist
+                print("Get followers list::::", followersList,self.followers)
                 
             }
             
@@ -94,14 +112,15 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             DispatchQueue.main.async {
                 
                 self.tableView.reloadData()
-                self.activityIndicator.stopAnimating()
-                self.activityIndicator.isHidden = true
+             
+//                self.activityIndicator.isHidden = true
             }
            
             
             
             
         })
+        
         
         
     }
@@ -167,6 +186,7 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.profileUserImage.isUserInteractionEnabled = true
         cell.followers = self.followers
         cell.followBtn.tag = indexPath.row
+        
         let user = users[indexPath.row]
         print("letuser::::\(user)")
         cell.user = user
@@ -191,8 +211,17 @@ extension peopleViewController: PeopleTableViewCellDelegate {
     func updateFollowers(position: Int) {
         
         API.Follow.followAction(withUser: users[position].id ?? "empty")
-        loadFollowers()
         
+        if API.User.CURRENT_USER_ID == users[position].id {
+            
+            print("Get my user ID:::", API.User.CURRENT_USER_ID)
+            
+        } else {
+        
+        loadFollowers()
+            
+        }
+       
     }
     
     func updateUnFollowers(position: Int) {

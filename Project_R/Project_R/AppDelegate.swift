@@ -8,6 +8,8 @@
 
 import UIKit
 import Firebase
+import UserNotifications
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,7 +20,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         // change the tint color on the Tab Bar to Wet Asphalt
+//
+//        UNUserNotificationCenter.current().delegate = self as! UNUserNotificationCenterDelegate
+//
+//        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+//            print("granted: (\(granted)")
+//        }
+        
+        UIApplication.shared.registerForRemoteNotifications() //(I)
+        
         UITabBar.appearance().tintColor = UIColor(red: 52/255, green: 73/255, blue: 94/255, alpha: 1)
+        
         
         
         // Connect to Firebase content
@@ -38,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         var initialViewController: UIViewController?
-//        if let username = UserDefaults.standard.value(forKey: "emailTextField") {
+        if let username = UserDefaults.standard.value(forKey: "emailTextField") {
         if Auth.auth().currentUser != nil {
             let mainStoryboard : UIStoryboard = UIStoryboard(name: "TabBar", bundle: nil)
 
@@ -53,18 +65,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
 
         Thread.sleep(forTimeInterval: 3.0)
+    }
         
         return true
     }
-    
     // Called when APNs has assigned the device a unique token
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data)
     {
+        let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
+        print("token: \(token)")
         // Convert token to string
         _ = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
         Auth.auth().setAPNSToken((deviceToken as NSData) as Data, type: AuthAPNSTokenType.sandbox)
     }
-
+    
+//    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+//        print("failed to register for remote notifications with with error: \(error)")
+//    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

@@ -43,6 +43,9 @@ class CheckInViewController: UIViewController, UITextViewDelegate, UISearchBarDe
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        captionTextView.returnKeyType = UIReturnKeyType.done
+        
         //Dismiss keyboard - touch any where
         self.hideKeyboardWhenTappedAround()
         
@@ -166,6 +169,15 @@ class CheckInViewController: UIViewController, UITextViewDelegate, UISearchBarDe
                 self.saveToDatabase()
 
     }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if (text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+    
     
     
     

@@ -525,8 +525,8 @@ extension HomeViewController : UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
        
-            let viewController0  = tabBarController.viewControllers?[0] as! UINavigationController
-            let svc0 = viewController0.topViewController as! HomeViewController     
+//            let viewController0  = tabBarController.viewControllers?[0] as! UINavigationController
+//            let svc0 = viewController0.topViewController as! HomeViewController     
        
             let viewController  = tabBarController.viewControllers?[1] as! UINavigationController
             let svc = viewController.topViewController as! peopleViewController

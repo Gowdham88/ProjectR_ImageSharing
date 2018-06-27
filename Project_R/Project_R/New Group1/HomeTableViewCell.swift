@@ -12,6 +12,7 @@ import FirebaseAuth
 import FirebaseFirestore
 import SDWebImage
 import Nuke
+import UserNotifications
 
 
 protocol HomeTableViewCellDelegate {
@@ -70,6 +71,10 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+      
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: {didAllow, error in
+            
+        })
         
         nameLabel.text = ""
         captionLabel.text = ""
@@ -116,7 +121,8 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         
         if let _ = homeVC {
             
-            delegate?.openUserStoryboard(position: (sender.view?.tag)!)
+//            delegate?.openUserStoryboard(position: (sender.view?.tag)!) commented by karthik
+           delegate?.openUserStoryboard(position: (sender.view?.tag)!)
             
         }
 
@@ -340,9 +346,20 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     // MARK: - Like Tap Handler
     
     @objc func handleLikeTap() {
+        
+        let content = UNMutableNotificationContent()
+        content.title = "You have a notification"
+        content.subtitle = "the post have a like"
+        content.badge = 1
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        let request = UNNotificationRequest(identifier: "timerDone", content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
        
         postReference = API.Post.REF_POSTS.child(post!.id!)
         incrementLikesTrans(forReference: postReference)
+        
         
     }
     
@@ -633,6 +650,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         if postTime != nil {
         
         self.postTime.text = timeString
+            print("Get time:::::",timeString)
    
         }
     }
@@ -670,7 +688,7 @@ extension Date {
         if weeksFromNow(from: date)   > 0 { return "\(weeksFromNow) week"    + (weeksFromNow(from: date)    > 1 ? "s" : "") + " ago" }
         if daysFromNow(from: date)    > 0 { return daysFromNow(from: date) == 1 ? "Yesterday" : "\(daysFromNow) days ago" }
         if hoursFromNow(from: date)   > 0 { return "\(hoursFromNow) hour"     + (hoursFromNow(from: date)   > 1 ? "s" : "") + " ago" }
-        if minutesFromNow(from: date) > 0 { return "\(minutesFromNow) minute" + (minutesFromNow(from: date) > 1 ? "s" : "") + " ago" }
+        if minutesFromNow(from: date) > 0 { return "\(minutesFromNow) min" + (minutesFromNow(from: date) > 1 ? "s" : "") + " ago" }
         if secondsFromNow(from: date) > 0 { return secondsFromNow(from: date) < 15 ? "Just now"
             : "\(secondsFromNow) second" + (secondsFromNow(from: date) > 1 ? "s" : "") + " ago" }
         return ""

@@ -203,6 +203,11 @@ extension UserViewController : UITableViewDelegate,UITableViewDataSource,HomeTab
     
     func openUserStoryboard(position: Int) {
         
+        let storyboard = UIStoryboard(name: "people", bundle: nil)
+        let vc =  storyboard.instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
+        vc.userId = posts[position].uid!
+        vc.delegate = self as! UserViewControllerDelegate
+        self.navigationController?.pushViewController(vc, animated: true)
         
         
     }
