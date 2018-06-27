@@ -364,6 +364,7 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
                     self.activityIndicator.stopAnimating()
                     self.activityIndicator.isHidden = true
                     print ("code sent")
+                    self.signupButton.setTitle("Login", for: .normal)
                     
                     //                    self.infoLabel.text = ""
                     self.emailTextField.allowsEditingTextAttributes = false

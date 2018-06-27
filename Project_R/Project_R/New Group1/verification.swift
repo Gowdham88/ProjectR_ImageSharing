@@ -31,7 +31,6 @@ class verification: UIViewController, UIImagePickerControllerDelegate {
     
     var imageVc: UIImage?
    
-  
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +43,7 @@ class verification: UIViewController, UIImagePickerControllerDelegate {
         
         //2.Attach button corner radius
         attachBtn.layer.cornerRadius = 15
-        
+       
         
         //Bill image:-
         billImg.clipsToBounds = true
@@ -161,11 +160,11 @@ class verification: UIViewController, UIImagePickerControllerDelegate {
     
     @IBAction func attachBill(_ sender: Any) {
         
-        sharePost()
+        shareverficationPost()
         
-       
         
     }
+    
     
     @IBAction func backBtn(_ sender: Any) {
         
@@ -175,16 +174,60 @@ class verification: UIViewController, UIImagePickerControllerDelegate {
 
     }
     
-    func saveToDatabase(photoURL: String) {
+    func saveToDatabases(photoURL: String) {
+      
+        
+        let ref = Database.database().reference()
+        let postsReference = ref.child("verification")
+        let newPostID = postsReference.childByAutoId().key
+        
+        
+        guard let currentUserID = Auth.auth().currentUser?.uid else { return }
+//        let likes   = [currentUserID : false]
+        
+        var users : Users!
+        API.User.observeCurrentUser { (user) in
+            
+            let db = Firestore.firestore()
+            db.collection("verification").document(newPostID).setData([
+                
+                  "uid": currentUserID,
+                  "BillphotoURL": photoURL,
+                  "postTime"  : Date().timeIntervalSince1970,
+                  "value": false,
+                  "postID": postNewID
+                
+            ]) { err in
+                if let err = err {
+                    print("Error writing document: \(String(describing: err))")
+                    ProgressHUD.showError("Photo Save Error: \(String(describing: err.localizedDescription))")
+                } else {
+                    
+                    print("Document successfully written!")
+                }
+            }
+            
+            
+        }
         
     }
     
-    func sharePost(){
+    
+    @IBAction func cancelVerification(_ sender: Any) {
+        
+        let storyboard = UIStoryboard(name: "Home", bundle: nil)
+        let vc         =  storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    
+    
+    func shareverficationPost(){
         // show the progress to the user
 //        ProgressHUD.show("Sharing started...", interaction: false)
 
         // convert selected image to JPEG Data format to push to file store
-        if let photo = imageVc, let imageData = UIImageJPEGRepresentation(photo, 0.1) {
+        if let photo = selectedImage, let imageData = UIImageJPEGRepresentation(photo, 0.1) {
 
             // get a unique ID
             let photoIDString = NSUUID().uuidString
@@ -195,7 +238,7 @@ class verification: UIViewController, UIImagePickerControllerDelegate {
             // push to file store
             storeRef.putData(imageData, metadata: nil, completion: { (metaData, error) in
                 if error != nil {
-                    ProgressHUD.showError("Photo Save Error: \(error?.localizedDescription)")
+                    ProgressHUD.showError("Photo Save Error: \(String(describing: error?.localizedDescription))")
                     return
                 }
 
@@ -204,7 +247,7 @@ class verification: UIViewController, UIImagePickerControllerDelegate {
                 let photoURL = metaData?.downloadURL()?.absoluteString
 
                 // and put the photoURL into the database
-                self.saveToDatabase(photoURL: photoURL!)
+                self.saveToDatabases(photoURL: photoURL!)
                 //                self.saveActivity()
                 //                self.getname()
             })
