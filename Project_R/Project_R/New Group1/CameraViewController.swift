@@ -22,6 +22,7 @@ protocol CameraViewControllerDelegate {
     
 }
 
+ var postNewID: String?
 
 class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerControllerDelegate, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
@@ -87,7 +88,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     var ImageByItemId:String?
     
     var imageUrlVc: String?
-  
+    var skipBool : Bool = true
     /****************/
     
     
@@ -315,41 +316,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         return [:]
     }
     
-     /*************************Amazon Product url******************************/
 
-//    public func getProductImage(itemid: String) -> [String:AnyObject]  {
-//
-//        let timestampFormatter: DateFormatter
-//        timestampFormatter = DateFormatter()
-//        timestampFormatter.timeZone = TimeZone(identifier: "GMT")
-//        timestampFormatter.dateFormat = "YYYY-MM-dd'T'HH:mm:ss'Z'"
-//        timestampFormatter.locale = Locale(identifier: "en_US_POSIX")
-//
-//        let operationparameters : [String: String] = [
-//            "Service": "AWSECommerceService",
-//            "Operation": "ItemLookup",
-//            "ResponseGroup": "Images",
-//            "IdType": "ASIN",
-//            "ItemId": itemid,
-//            "AWSAccessKeyId": urlEncode(CameraViewController.kAmazonAccessID),
-//            "AssociateTag": urlEncode(CameraViewController.kAmazonAssociateTag),
-//            "Timestamp": urlEncode(timestampFormatter.string(from: Date()))]
-//
-//        let signedParams = signedParametersForParameters(parameters: operationparameters)
-//
-//
-//
-//        let query = signedParams.map { "\($0)=\($1)" }.joined(separator: "&")
-//        let url = "http://webservices.amazon.in/onca/xml?" + query
-//        print("queryImagesdata::::\(query)")
-//
-//        let reply = send(url: url)
-//        print("replyImages::::\(reply)")
-//        //        activityIndicator.stopAnimating()
-//
-//        return [:]
-//
-//    }
  
  
     
@@ -567,6 +534,8 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         let verifyAction: UIAlertAction = UIAlertAction(title: "Do you want to verify the bill", style: .default) { ACTION in
             
             self.billVerification()
+            self.sharePost()
+            self.skipBool = false
 //            self.sharePost()
             
         }
@@ -576,7 +545,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         let skipAction: UIAlertAction = UIAlertAction(title: "Skip", style: .default){ ACTION in
             
             self.sharePost()
-            
+            self.skipBool = true
         }
         
         let CancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel)
@@ -663,7 +632,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
 
     // MARK: - Save to Firebase Method
     
-    func saveToDatabase(photoURL: String) {
+     func saveToDatabase(photoURL: String) {
         let ref = Database.database().reference()
         let postsReference = ref.child("posts")
         let newPostID = postsReference.childByAutoId().key
@@ -675,7 +644,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         var users : Users!
         
     
-        
+        postNewID = newPostID
 
         API.User.observeCurrentUser { user in
             users = user
@@ -741,10 +710,12 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
                     
                     ProgressHUD.showSuccess("Photo shared")
                     
+                    if self.skipBool == true {
+                    
                     let storyboard = UIStoryboard(name: "Home", bundle: nil)
                     let vc         =  storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
                     self.navigationController?.pushViewController(vc, animated: true)
-                    
+                    }
                     self.clearInputs()
                     // and jump to the Home tab
                     
@@ -754,6 +725,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
                     }
                     
                     self.tabBarController?.selectedIndex = 0
+                
                 }
             }
             
@@ -1041,3 +1013,5 @@ extension CameraViewController: XMLParserDelegate {
     }
   
 }
+ 
+
