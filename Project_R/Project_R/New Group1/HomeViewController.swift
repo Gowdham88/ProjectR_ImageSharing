@@ -767,9 +767,6 @@ extension HomeViewController {
 }
 extension HomeViewController: commentCountDelegate {
     func usercommentcount(count: Int!) {
-        
-        
-       
             print("count:::\(count)")
         
     }

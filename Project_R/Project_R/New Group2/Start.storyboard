@@ -449,7 +449,7 @@ Hanball</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kNH-VM-695" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="529" y="979"/>
+            <point key="canvasLocation" x="673" y="969"/>
         </scene>
         <!--Terms Service Controller-->
         <scene sceneID="R5Z-k8-QtP">
