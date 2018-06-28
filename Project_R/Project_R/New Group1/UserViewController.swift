@@ -47,6 +47,7 @@ class UserViewController: UIViewController {
         profileImg.layer.cornerRadius = profileImg.frame.height/2
         profileImg.clipsToBounds = true
         fetchUser()
+        print("Step3 ::::: load post function called")
         loadPosts()
         
         self.tabView.delegate = self
@@ -68,7 +69,7 @@ class UserViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-       
+        print("Step 4 ::::: view will appear called")
        
     }
     func refresh(sender:AnyObject) {
@@ -79,6 +80,8 @@ class UserViewController: UIViewController {
     }
     
     func fetchUser() {
+        
+        print("Step 2 ::: fetchUser function called")
         
         activityIndicatorView.startAnimating()
       
@@ -185,12 +188,15 @@ extension UserViewController : UITableViewDelegate,UITableViewDataSource,HomeTab
         cell.delegate = self
         cell.profileImageView.tag = indexPath.row
         cell.postImageView.tag    = indexPath.row
-        cell.shareImageView.tag   = indexPath.row
         cell.nameLabel.tag        = indexPath.row
-        cell.productRatingLabel.tag = indexPath.row
-        cell.postTime.tag = indexPath.row
-        cell.locationName.tag = indexPath.row
-        cell.productNameLabel.tag = indexPath.row
+        
+        
+//        cell.productNameLabel.tag = indexPath.row
+//        cell.shareImageView.tag   = indexPath.row
+//        cell.productRatingLabel.tag = indexPath.row
+//        cell.postTime.tag = indexPath.row
+//        cell.locationName.tag = indexPath.row
+      
         
         return cell
 
