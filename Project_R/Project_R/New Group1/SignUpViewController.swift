@@ -41,7 +41,6 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
     }
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         activityIndicator.isHidden = true
@@ -201,11 +200,13 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
 //            let password = passwordTextField.text, !password.isEmpty
             else {
                 // disable SignUp button if ANY are not empty
+                
                 disableButton()
                 return
         }
         // enable SignUp button if they are ALL not empty
         enableButton()
+       
     }
     
     
@@ -242,6 +243,16 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
         }
         return true
     }
+    
+    
+    func validate(value: String) -> Bool {
+        let PHONE_REGEX = "^((\\+)|(00))[0-9]{6,14}$"
+        let phoneTest = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
+        let result = phoneTest.evaluate(with: value)
+        return result
+    }
+    
+  
     // MARK: - Dismiss Keyboard
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -255,6 +266,10 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
         
         self.activityIndicator.isHidden = false
         self.activityIndicator.startAnimating()
+        
+     
+//
+//        }
        
         // dismiss keyboard
         view.endEditing(true)
@@ -264,10 +279,11 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
 
         
         if sendOTP == false {
+            
+            
         let mobileNumber = "+91" + emailTextField.text!
         
         self.Userdefaults.set(mobileNumber, forKey: "mobileNumber")
-        
         print("mobileNumber::::\(mobileNumber)")
           
 //        UserDefaults.standard.set("value", forKey: "emailTextField")
@@ -277,7 +293,7 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
         
         sendOTPCode()
         sendOTP = true
-        
+     
         
         } else {
             
@@ -285,54 +301,23 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
             
             if codestring?.count == 6 {
                 
-                
+                enableButton()
                 loginusingOTP(OTPtext: codestring!)
                 
                 
             } else {
+                 print("Enter 6 digit code")
+                let alert = UIAlertController(title: "Invalid OTP", message: "Enter a valid OTP", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+
                 
-                print("Enter 6 digit code")
+               
                 
             }
             
         }
-        // convert selected image to JPEG Data format to push to file store
-//        if let profileImage = self.selectedProfilePhoto, let imageData = UIImageJPEGRepresentation(profileImage, 0.1) {
-//            AuthService.signUp(email: emailTextField.text!, password: passwordTextField.text!, imageData: imageData, onSuccess: {
-//                ProgressHUD.showSuccess("Sucessfully signed up.")
-//                // segue to the Tab Bar Controller
-//                if PrefsManager.sharedinstance.isFirstTime == true{
-//
-//
-//                    let when = DispatchTime.now() + 0
-//                    DispatchQueue.main.asyncAfter(deadline: when) {
-//
-//                        self.performSegue(withIdentifier: "signUpToTabBar", sender: nil)
-//
-//                    }
-//
-//
-//                }else{
-//                    let when = DispatchTime.now() + 0
-//                    DispatchQueue.main.asyncAfter(deadline: when) {
-//
-//
-//                        let storyboard = UIStoryboard(name: "Start", bundle: nil)
-//                        let initialViewController = storyboard.instantiateViewController(withIdentifier: "onboardvc")
-//                        self.present(initialViewController, animated: true, completion: nil)
-//
-//                    }
-//                }
-//
-//            }, onError: { (errorString) in
-//                ProgressHUD.dismiss()
-//                self.showErrorAlert(message: errorString!)
-//            })
-//        } else {
-//
-//            ProgressHUD.dismiss()
-//            self.showErrorAlert(message: "Your profile image can not be empty. Tap it to set it.")
-//        }
+
     }
     
     
@@ -458,22 +443,45 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         
-        let codestring = passwordTextField.text
+        if textField == emailTextField {
+            self.signupButton.setTitle("Get OTP", for: .normal)
+            
+            
+//            disableButton()
+            
+//            self.Userdefaults.removeObject(forKey: "mobileNumber")
+ 
         
-        if codestring?.count == 6 {
-            
-            self.view.endEditing(true)
-            
-            loginusingOTP(OTPtext: codestring!)
-            
+        } else {
+            self.signupButton.setTitle("Login", for: .normal)
+            sendOTP = true
+            disableButton()
+            print(":::::Login::::::::")
         }
+        
+            print("passwordTextField has some text")
+        
+            let codestring = passwordTextField.text
+        
+            print(":::::Email text field tapped:::::")
+        
+            if codestring?.count == 6 {
+                
+                self.view.endEditing(true)
+                
+                loginusingOTP(OTPtext: codestring!)
+           }
+        
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         
+          sendOTP = false
+        
         let codestring = passwordTextField.text
         
         if codestring?.count == 6 {
+            
             
             self.view.endEditing(true)
             
