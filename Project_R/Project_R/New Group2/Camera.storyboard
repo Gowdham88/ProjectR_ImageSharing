@@ -12,7 +12,7 @@
         <!--Notification-->
         <scene sceneID="QK5-Be-GrF">
             <objects>
-                <viewController id="ZCO-a4-Vo5" customClass="NotificationViewController" customModule="Project_R" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ZCO-a4-Vo5" customClass="NotificationViewController" customModule="HighAvenue" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wED-rd-DY0"/>
                         <viewControllerLayoutGuide type="bottom" id="GP0-VI-blj"/>
@@ -31,7 +31,7 @@
         <!--Post-->
         <scene sceneID="F3Z-GO-PdD">
             <objects>
-                <viewController storyboardIdentifier="CameraViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gwx-UJ-d6d" customClass="CameraViewController" customModule="Project_R" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CameraViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gwx-UJ-d6d" customClass="CameraViewController" customModule="HighAvenue" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZUF-YH-tYi"/>
                         <viewControllerLayoutGuide type="bottom" id="Twn-gf-DJ1"/>
@@ -54,7 +54,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bSc-aB-Or4">
                                                 <rect key="frame" x="58" y="554" width="259" height="36"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <color key="backgroundColor" red="0.027450980392156862" green="0.75294117647058822" blue="0.55294117647058827" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="13"/>
                                                 <state key="normal" title="Post">
                                                     <color key="titleColor" red="0.92549019610000005" green="0.94117647059999998" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -77,7 +77,7 @@
                                                 <rect key="frame" x="8" y="359" width="359" height="47"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                 <subviews>
-                                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="EfZ-I5-oAe" customClass="SliderDesign" customModule="Project_R" customModuleProvider="target">
+                                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="EfZ-I5-oAe" customClass="SliderDesign" customModule="HighAvenue" customModuleProvider="target">
                                                         <rect key="frame" x="6" y="10" width="347" height="30"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <color key="minimumTrackTintColor" red="0.027450980392156862" green="0.75294117647058822" blue="0.55294117647058827" alpha="1" colorSpace="calibratedRGB"/>
@@ -149,7 +149,7 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="70" id="caw-mJ-5c5" customClass="amazonProductListTableViewCell" customModule="Project_R" customModuleProvider="target">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="70" id="caw-mJ-5c5" customClass="amazonProductListTableViewCell" customModule="HighAvenue" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="28" width="359" height="70"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="caw-mJ-5c5" id="G44-dL-G0F">
@@ -199,13 +199,13 @@
                     </view>
                     <navigationItem key="navigationItem" title="Post" id="ka8-QI-oWi">
                         <barButtonItem key="leftBarButtonItem" image="left-arrow" id="Oem-Jg-3aW">
-                            <color key="tintColor" red="0.027450980392156862" green="0.75294117647058822" blue="0.55294117647058827" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="clearInputs" destination="gwx-UJ-d6d" id="27Z-m4-5c1"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Cancel" id="1nV-M6-OX9">
-                            <color key="tintColor" red="0.027450980392156862" green="0.75294117647058822" blue="0.55294117647058827" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="CancelPost:" destination="gwx-UJ-d6d" id="Yig-IU-rOK"/>
                             </connections>
@@ -278,7 +278,7 @@
         <!--Check In-->
         <scene sceneID="40x-S0-a3r">
             <objects>
-                <viewController storyboardIdentifier="CheckInViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="x8l-of-WrV" customClass="CheckInViewController" customModule="Project_R" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CheckInViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="x8l-of-WrV" customClass="CheckInViewController" customModule="HighAvenue" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6JO-k1-PVe"/>
                         <viewControllerLayoutGuide type="bottom" id="EMF-QW-Hef"/>
@@ -304,7 +304,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YKD-9I-FND">
                                                 <rect key="frame" x="58" y="539" width="259" height="36"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <color key="backgroundColor" red="0.027450980390000001" green="0.75294117650000003" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="13"/>
                                                 <state key="normal" title="Check In">
                                                     <color key="titleColor" red="0.92549019610000005" green="0.94117647059999998" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -332,7 +332,7 @@
                                                 <rect key="frame" x="8" y="158" width="359" height="47"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                 <subviews>
-                                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="V4j-ed-4fo" customClass="SliderDesign" customModule="Project_R" customModuleProvider="target">
+                                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="V4j-ed-4fo" customClass="SliderDesign" customModule="HighAvenue" customModuleProvider="target">
                                                         <rect key="frame" x="6" y="10" width="347" height="30"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <color key="minimumTrackTintColor" red="0.027450980390000001" green="0.75294117650000003" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
@@ -393,7 +393,7 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="placecell" rowHeight="75" id="CMe-Ja-tNo" customClass="locationNameTableViewCell" customModule="Project_R" customModuleProvider="target">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="placecell" rowHeight="75" id="CMe-Ja-tNo" customClass="locationNameTableViewCell" customModule="HighAvenue" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="28" width="375" height="75"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CMe-Ja-tNo" id="ucQ-32-Nwo">
@@ -450,13 +450,13 @@
                     </view>
                     <navigationItem key="navigationItem" title="Check In" id="lij-aD-N1X">
                         <barButtonItem key="leftBarButtonItem" title="Clear" id="vMu-ga-eaD">
-                            <color key="tintColor" red="0.027450980390000001" green="0.75294117650000003" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="clearInputs" destination="x8l-of-WrV" id="hpl-aw-nTy"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Cancel" id="e9M-KT-RG1">
-                            <color key="tintColor" red="0.027450980390000001" green="0.75294117650000003" blue="0.55294117649999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="CancelPost:" destination="x8l-of-WrV" id="Lgv-2T-O0u"/>
                             </connections>
@@ -484,7 +484,7 @@
         <!--Verify-->
         <scene sceneID="ToT-kh-9KK">
             <objects>
-                <viewController storyboardIdentifier="verification" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xsI-bH-DXb" customClass="verification" customModule="Project_R" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="verification" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xsI-bH-DXb" customClass="verification" customModule="HighAvenue" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GSm-f2-jAz"/>
                         <viewControllerLayoutGuide type="bottom" id="40p-TP-dtd"/>

@@ -30,9 +30,11 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
     var Userdefaults = UserDefaults.standard
     var authHandle: AuthStateDidChangeListenerHandle!
     var sendOTP:Bool = false
+    var mobileNumber = String()
     
     @IBAction func dismissOnTap(_ sender: Any) {
         
+        print("Dismiss on TAP")
         sendOTPCode()
         
 //        self.emailTextField.text = ""
@@ -43,154 +45,35 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        if Auth.auth().currentUser != nil {
+            
+            TabBarLogin()
+            
+        }
+        
         activityIndicator.isHidden = true
         signupButton.titleLabel?.text = "Send OTP"
-//        let clouds = UIColor(red: 236/255, green: 240/255, blue: 241/255, alpha: 1)
-//        self.imagePicker.delegate = self
-        
-//        self.imagePicker.allowsEditing = false
-//        self.imagePicker.sourceType = .savedPhotosAlbum
-        
-//        self.usernameTextField.delegate = self
+
         self.emailTextField.delegate = self
         self.passwordTextField.delegate = self
         
-//        usernameTextField.backgroundColor = .clear
-//        usernameTextField.tintColor = .white
-//        usernameTextField.textColor = .white
-//        usernameTextField.borderStyle = .none
-//
-//        usernameTextField.attributedPlaceholder = NSAttributedString(string: usernameTextField.placeholder!, attributes: [kCTForegroundColorAttributeName as NSAttributedStringKey: clouds])
-//        usernameTextField.autocorrectionType = .no
-        
-//        let bottomLayerUsername = CALayer()
-//        bottomLayerUsername.frame = CGRect(x: 0, y: 29, width: 1000, height: 0.6)
-//        bottomLayerUsername.backgroundColor = UIColor(red: 50/255, green: 50/255, blue: 25/255, alpha: 1).cgColor
-//        usernameTextField.layer.addSublayer(bottomLayerUsername)
-//        usernameTextField.clipsToBounds = true
-        
-//        emailTextField.backgroundColor = .clear
-//        emailTextField.tintColor = .white
-//        emailTextField.textColor = .white
-//        emailTextField.borderStyle = .none
-//        emailTextField.autocorrectionType = .no
-//        emailTextField.attributedPlaceholder = NSAttributedString(string: emailTextField.placeholder!, attributes: [kCTForegroundColorAttributeName as NSAttributedStringKey: clouds])
-        
-//        let bottomLayerEmail = CALayer()
-//        bottomLayerEmail.frame = CGRect(x: 0, y: 29, width: 1000, height: 0.6)
-//        bottomLayerEmail.backgroundColor = UIColor(red: 50/255, green: 50/255, blue: 25/255, alpha: 1).cgColor
-//        emailTextField.layer.addSublayer(bottomLayerEmail)
-//        emailTextField.clipsToBounds = true
-//
-//        passwordTextField.backgroundColor = .clear
-//        passwordTextField.tintColor = .white
-//        passwordTextField.textColor = .white
-//        passwordTextField.borderStyle = .none
-//        passwordTextField.attributedPlaceholder = NSAttributedString(string: passwordTextField.placeholder!, attributes: [kCTForegroundColorAttributeName as NSAttributedStringKey: clouds])
-//        passwordTextField.autocorrectionType = .no
-//
-//
-//        let bottomLayerPassword = CALayer()
-//        bottomLayerPassword.frame = CGRect(x: 0, y: 29, width: 1000, height: 0.6)
-//        bottomLayerPassword.backgroundColor = UIColor(red: 50/255, green: 50/255, blue: 25/255, alpha: 1).cgColor
-//        emailTextField.layer.addSublayer(bottomLayerPassword)
-//        passwordTextField.layer.addSublayer(bottomLayerPassword)
-//        passwordTextField.clipsToBounds = true
-        
         signupButton.layer.cornerRadius = 15
-        
-        // add a tap gesture to the profile image for users to pick their avatar
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(popAlert))
-//        profileImageView.addGestureRecognizer(tapGesture)
-//        profileImageView.isUserInteractionEnabled = true
-        
-//        profileImageView.layer.cornerRadius = profileImageView.frame.size.width/2
-//        profileImageView.clipsToBounds      = true
-        
-        // set handlers to text field objects
+   
         handleTextField()
         
         // initially disable button
         disableButton()
         
-//        if Defaults[.islogin] == true {
-//            //Go to Home with animation false
-////             self.performSegue(withIdentifier: "signUpToTabBar", sender: nil)
-//            let storyboard = UIStoryboard(name: "Home", bundle: nil)
-//            let initialViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
-//            self.present(initialViewController, animated: true, completion: nil)
-//        }
     }
-   
-    
-    // MARK: - Handle the User Profile Picking
-//    func handleProfileImageView() {
-//        let imagePickerController = UIImagePickerController()
-//        imagePickerController.delegate = self
-//        present(imagePickerController, animated: true)
-//
-//    }
-//    @objc func popAlert() {
-//    let alert:UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
-//        let cameraAction = UIAlertAction(title: "Camera", style: UIAlertActionStyle.default){ action in
-//            self.openCamera()
-//        }
-//    let gallaryAction = UIAlertAction(title: "Gallery", style: UIAlertActionStyle.default)
-//    {
-//        UIAlertAction in
-//        self.handleProfileImageView()
-//    }
-//    let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel)
-//    {
-//        UIAlertAction in
-//    }
-//    cancelAction.setValue(UIColor.red, forKey: "titleTextColor")
-//
-//
-//    // Add the actions
-//
-//    imagePicker.delegate = self
-//    alert.addAction(cameraAction)
-//    alert.addAction(gallaryAction)
-//    alert.addAction(cancelAction)
-//
-//    alert.popoverPresentationController?.sourceView = self.view
-//    alert.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.size.width / 2.0, y: self.view.bounds.size.height / 2.0, width: 1.0, height: 1.0)
-//    self.present(alert, animated: true, completion: nil)
-//
-//    }
-
-//func openCamera() {
-//
-//    if(UIImagePickerController .isSourceTypeAvailable(.camera))
-//    {
-//        self.imagePicker.sourceType = .camera
-//        self.imagePicker.delegate = self
-//
-//    }
-//    present(imagePicker, animated: true, completion: nil)
-//}
-
-
-//MARK:UIImagePickerControllerDelegate
-//func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]){
-//
-//    picker .dismiss(animated: true, completion: nil)
-//    profileImageView.image=info[UIImagePickerControllerOriginalImage] as? UIImage
-//}
-//func imagePickerControllerDidCancel(picker: UIImagePickerController){
-//    print("picker cancel.")
-//}
-
-
+ 
     // MARK: - Handle the Text Fields
     func handleTextField() {
 //        usernameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         emailTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     }
-    
-    
     
     @objc func textFieldDidChange() {
         // guard against username, email and password all not being empty
@@ -209,12 +92,10 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
        
     }
     
-    
     func disableButton() {
         signupButton.isEnabled = false
         signupButton.alpha = 0.2
     }
-    
     
     func enableButton() {
         signupButton.isEnabled = true
@@ -241,7 +122,6 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
             return true
             
         }
-        return true
     }
     
     
@@ -249,7 +129,7 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
         let PHONE_REGEX = "^((\\+)|(00))[0-9]{6,14}$"
         let phoneTest = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
         let result = phoneTest.evaluate(with: value)
-        return result
+        return  result
     }
     
   
@@ -266,34 +146,24 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
         
         self.activityIndicator.isHidden = false
         self.activityIndicator.startAnimating()
-        
-     
-//
-//        }
-       
-        // dismiss keyboard
+ 
         view.endEditing(true)
-        
-        // show the progress to the user
-//        ProgressHUD.show("Starting sign-up...", interaction: false)
-
         
         if sendOTP == false {
             
-            
-        let mobileNumber = "+91" + emailTextField.text!
+        mobileNumber = "+91" + emailTextField.text!
         
         self.Userdefaults.set(mobileNumber, forKey: "mobileNumber")
+            
         print("mobileNumber::::\(mobileNumber)")
           
-//        UserDefaults.standard.set("value", forKey: "emailTextField")
         Userdefaults.synchronize()
-            
-//            self.activityIndicator.stopAnimating()
         
+        print("signUp SEND OTP = False")
+            
         sendOTPCode()
+            
         sendOTP = true
-     
         
         } else {
             
@@ -307,13 +177,14 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
                 
             } else {
                  print("Enter 6 digit code")
+                
+                self.activityIndicator.isHidden = true
+                self.activityIndicator.stopAnimating()
+                
                 let alert = UIAlertController(title: "Invalid OTP", message: "Enter a valid OTP", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
 
-                
-               
-                
             }
             
         }
@@ -323,46 +194,42 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
     
     func sendOTPCode() {
         
-        let mymobilenumber = Userdefaults.string(forKey: "mobileNumber")
-//        PhoneAuthProvider.provider().verifyPhoneNumber(mymobilenumber!) { (verificationID, error) in
-        
-        PhoneAuthProvider.provider().verifyPhoneNumber(mymobilenumber!, uiDelegate: nil
-            , completion: { (verificationID, error) in
-           
-//        PhoneAuthProvider.provider().verifyPhoneNumber(mymobilenumber!, uiDelegate: nil, completion:
-//            {
-//                (verificationID, error) in
+        PhoneAuthProvider.provider().verifyPhoneNumber(mobileNumber, uiDelegate: nil, completion: { (verificationID, error) in
             
-                self.Userdefaults.set(verificationID, forKey: "authVerificationID")
+            print("verificationID: \(String(describing: verificationID))")
+            
+            self.Userdefaults.set(verificationID, forKey: "authVerificationID")
+            
+            if let error = error {
                 
-                if error != nil
-                {
-                    print ("insde SendCode, there is error")
-                    
-                    //                    self.infoLabel.text = "Please check the Number"
-                    
-                    //                    self.enterCode.alpha = 0
-                    
-                    print("error: \(String(describing: error?.localizedDescription))")
-                    
-                } else {
-                    self.activityIndicator.stopAnimating()
-                    self.activityIndicator.isHidden = true
-                    print ("code sent")
-                    self.signupButton.setTitle("Login", for: .normal)
-                    
-                    //                    self.infoLabel.text = ""
-                    self.emailTextField.allowsEditingTextAttributes = false
-                    //                    self.enterCode.alpha = 1
-                    
-                    
-                }
+                print("Error: \(error.localizedDescription)")
+                
+                return
+                
+            }
+            self.activityIndicator.stopAnimating()
+            self.activityIndicator.isHidden = true
+            print ("code sent")
+            self.signupButton.setTitle("Login", for: .normal)
+            
+            //                    self.infoLabel.text = ""
+            self.emailTextField.allowsEditingTextAttributes = false
+            //                    self.enterCode.alpha = 1
+            
         })
         
     }
     
+    func TabBarLogin() {
+        
+        
+        let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
+        let initialViewController = storyboard.instantiateViewController(withIdentifier: "TabBarID")
+        self.present(initialViewController, animated: true, completion: nil)
+        
+    }
     func loginusingOTP(OTPtext: String) {
-        let db = Firestore.firestore()
+        _ = Firestore.firestore()
         let verificationID = self.Userdefaults.string(forKey: "authVerificationID")
         
         let credential: PhoneAuthCredential = PhoneAuthProvider.provider().credential(withVerificationID: verificationID!,
@@ -401,9 +268,9 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
                             DispatchQueue.main.asyncAfter(deadline: when) {
                                 
 //                                self.performSegue(withIdentifier: "signUpToTabBar", sender: nil)
-                                let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
-                                let initialViewController = storyboard.instantiateViewController(withIdentifier: "TabBarID")
-                                self.present(initialViewController, animated: true, completion: nil)
+                                
+                                self.TabBarLogin()
+                                
                                 
 //                                Defaults[.username] = Your_User_Name
 //                                Defaults[.phoneNo] = user?.phoneNumber
@@ -412,7 +279,8 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
                             }
                             
                             
-                        }else{
+                        } else {
+                            
                             let when = DispatchTime.now() + 0
                             DispatchQueue.main.asyncAfter(deadline: when) {
                                 let storyboard = UIStoryboard(name: "Start", bundle: nil)
@@ -420,9 +288,7 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
                                 vc.phoneNumber = (user?.phoneNumber)!
                                 vc.uid = currentUser!
                                 self.present(vc, animated: true, completion: nil)
-                                
                                
-                                
                             }
                         }
                         
@@ -444,19 +310,21 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         
         if textField == emailTextField {
+            
+            enableButton()
+            
             self.signupButton.setTitle("Get OTP", for: .normal)
-            
-            
+            sendOTP = false
 //            disableButton()
-            
 //            self.Userdefaults.removeObject(forKey: "mobileNumber")
- 
         
         } else {
+            
             self.signupButton.setTitle("Login", for: .normal)
             sendOTP = true
             disableButton()
             print(":::::Login::::::::")
+            
         }
         
             print("passwordTextField has some text")
@@ -476,12 +344,10 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         
-          sendOTP = false
         
         let codestring = passwordTextField.text
         
         if codestring?.count == 6 {
-            
             
             self.view.endEditing(true)
             

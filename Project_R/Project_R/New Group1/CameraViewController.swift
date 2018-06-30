@@ -105,7 +105,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         self.hideKeyboardWhenTappedAround()
 
         //Navigation bar title color
-        let textAttributes = [NSAttributedStringKey.foregroundColor: UIColor(red: 7/255, green: 192/255, blue: 141/255, alpha: 1)]
+        let textAttributes = [NSAttributedStringKey.foregroundColor: UIColor(red: 0, green: 0, blue: 0, alpha: 1)]
 //        cancelBarBtn.setTitleTextAttributes([
 //            NSAttributedStringKey.font : UIFont(name: "Avenir Light", size: 16)!,], for: .normal)
         let textFont = [NSAttributedStringKey.font: UIFont(name: "Avenir Light", size: 16)!]
