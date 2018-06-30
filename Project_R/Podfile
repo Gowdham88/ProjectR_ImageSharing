@@ -6,6 +6,7 @@ target 'Project_R' do
   use_frameworks!
 
   # Pods for Project_R
+pod 'FirebaseUI
 pod 'Firebase/Core'
 pod 'Firebase/Auth'
 pod 'Firebase/Database'
@@ -13,10 +14,10 @@ pod 'Firebase/Storage'
 pod 'Firebase/Firestore'
 pod 'Firebase/Messaging'
 pod 'FirebaseUI/Auth'
+pod 'FirebaseUI/Phone'
 pod 'Nuke'
 pod 'Toucan'
 pod 'SDWebImage'
-pod 'FirebaseUI/Phone'
 pod 'SwiftyUserDefaults'
 pod 'GooglePlaces'
 pod 'Alamofire', '~> 4.5'
