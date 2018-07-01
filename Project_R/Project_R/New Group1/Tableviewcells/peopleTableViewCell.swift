@@ -82,8 +82,11 @@ class peopleTableViewCell: UITableViewCell {
     
     
     func updateView() {
+        
         profileUserName.text = user?.username
+        
         if let photoUrlString = user?.profileImageURL {
+            
             let photoUrl = URL(string: photoUrlString)
             profileUserImage.sd_setImage(with: photoUrl, placeholderImage: UIImage(named: "placeholder-photo"))
             
@@ -98,7 +101,9 @@ class peopleTableViewCell: UITableViewCell {
                     configureUnFollowButton()
                     
                     
-                } else
+                }
+                
+                else
                 {
                     configureFollowButton()
                     

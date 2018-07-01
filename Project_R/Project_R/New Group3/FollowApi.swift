@@ -96,15 +96,15 @@ class FollowApi {
                 self.db.collection("feed").document(API.User.CURRENT_USER!.uid).setData([document.documentID: NSNull()])
                 self.db.collection("feed").document(API.User.CURRENT_USER!.uid).delete()
 
-                
             } else {
+                
                 print("Document does not exist")
+                
             }
+            
         }
         
-        
-        
-        self.db.collection("followers").document(id).setData([API.User.CURRENT_USER!.uid: NSNull()])
+         self.db.collection("followers").document(id).setData([API.User.CURRENT_USER!.uid: NSNull()])
         self.db.collection("following").document(API.User.CURRENT_USER!.uid).setData([id: NSNull()])
         
 //        Api.MyPosts.REF_MYPOSTS.child(id).observeSingleEvent(of: .value, with: {

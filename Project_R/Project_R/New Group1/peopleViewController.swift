@@ -11,16 +11,17 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
+var users       : [Users] = []
+
 class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     
-    //    var users = [Users]()
-    var users       : [Users] = []
     var followers   : [String : Any]?
     
     var newUsers: [Users] = []
     var newListOfUsers:[Users] = []
+    var activityIndicator = UIActivityIndicatorView()
     
 //    var userList = [String]()
 //    var tagArray = [String] ()
@@ -48,9 +49,12 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     func loadUsers() {
         
-//        self.activityIndicator.startAnimating()
         
-        self.users.removeAll()
+        self.activityIndicator.startAnimating()
+        self.activityIndicator.isHidden = false
+        
+        
+        users.removeAll()
   
         API.User.observeUser { (user) in
             
@@ -65,15 +69,13 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 }
                 else {
                     
-                    self.users.append(item)
-                    print("Appened users::::", self.users)
+                    users.append(item)
+                    print("Appened users::::", users)
 
                 }
             }
             
-            print("Print loadusers::::", self.users)
-            
-            
+            print("Print loadusers::::", users)
             
             self.loadFollowers()
             
@@ -112,22 +114,17 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             DispatchQueue.main.async {
                 
                 self.tableView.reloadData()
-             
-//                self.activityIndicator.isHidden = true
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.isHidden = true
             }
            
-            
-            
-            
         })
-        
-        
         
     }
     
     func removeMyDuplicates(){
 
-        for user in self.users{
+        for user in users{
             var added = false
             for newUser in self.newListOfUsers{
                 if(user.id == newUser.id){
@@ -138,26 +135,29 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 newUsers.append(user)
             }
         }
-        self.users = newUsers
+        users = newUsers
     }
-    
-
-
    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if segue.identifier == "ProfileSegue" {
+
             let profileVC = segue.destination as! UserViewController
             let userId = sender  as! String
-            profileVC.userId = userId
+
+            //            profileVC.userId = userId
+            
+            print("People View controller Prepare for Segue: \(userId)")
+            
+            userVCuserId = userId
             profileVC.delegate = self as? UserViewControllerDelegate
+            
         }
 
 //        let vc = performSegue(withIdentifier: "ProfileSegue", sender: nil)
 //        self.navigationController?.pushViewController(vc, animated: true)
-
 //        self.performSegue(withIdentifier: "ProfileSegue", sender: sender)
-        
         
     }
     
@@ -187,6 +187,8 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.followers = self.followers
         cell.followBtn.tag = indexPath.row
         
+        print("indexPath.row: \(indexPath.row)")
+        
         let user = users[indexPath.row]
         print("letuser::::\(user)")
         cell.user = user
@@ -194,15 +196,71 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return cell
     }
     
-    @objc func moveToUserPage(sender: UITapGestureRecognizer) {
+    var posts = [Post]()
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        print("position: \(indexPath.row)")
         
-        print("User detail page tapped")
-        let storyboard = UIStoryboard(name: "Profile", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "UserdetailPage") as! UserdetailPage
-        self.navigationController?.pushViewController(vc, animated: true)
+        openUserStoryboard(position: indexPath.row)
         
     }
+
+    func openUserStoryboard(position: Int) {
+
+        let storyboard = UIStoryboard(name: "people", bundle: nil)
+        let vc =  storyboard.instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
+//        vc.userId = posts[position].uid!
+        
+        print("posts[position].uid!, position: \(posts[position].uid!, position)")
+
+        userVCuserId = posts[position].uid!
+        vc.delegate = self as? UserViewControllerDelegate
+        self.navigationController?.pushViewController(vc, animated: true)
+
+    }
     
+    @objc func moveToUserPage(sender: UITapGestureRecognizer) {
+        
+        print("User detail page tapped \(sender)")
+
+        
+        let tapLocation = sender.location(in: tableView)
+        let indexPath : IndexPath = tableView.indexPathForRow(at: tapLocation)!
+        print("moveToUserPage indexPath.row: \(indexPath.row)")
+
+        userVCuserId = users[indexPath.row].id!
+        
+        print("users.count \(users.count)")
+        
+        if let followbool = users[indexPath.row].isFollowing {
+            
+            userFollowing = false
+            
+        } else {
+            
+            userFollowing = true
+        }
+
+        
+        print("moveToUserPage userVCuserId: \(userVCuserId)")
+        print("userFollowing: \(userFollowing)")
+        
+            let storyboard = UIStoryboard(name: "Home", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
+        
+        let navigationController = UINavigationController(rootViewController: vc)
+        
+            self.navigationController?.pushViewController(vc, animated: true)
+        
+
+    }
+    
+//    func displayContentController(content: UIViewController) {
+//        addChildViewController(content)
+//        self.view.addSubview(content.view)
+//        content.didMove(toParentViewController: self)
+//    }
 
 }
 extension peopleViewController: PeopleTableViewCellDelegate {
@@ -251,7 +309,7 @@ extension peopleViewController: PeopleTableViewCellDelegate {
 extension peopleViewController: HeaderProfileCollectionReusableViewDelegate {
     func updateFollowButton(forUser user: Users) {
         
-        for u in self.users {
+        for u in users {
             if u.id == user.id {
                 u.isFollowing = user.isFollowing
                 self.tableView.reloadData()

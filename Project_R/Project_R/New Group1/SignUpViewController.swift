@@ -194,6 +194,7 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
     
     func sendOTPCode() {
         
+        
         PhoneAuthProvider.provider().verifyPhoneNumber(mobileNumber, uiDelegate: nil, completion: { (verificationID, error) in
             
             print("verificationID: \(String(describing: verificationID))")
@@ -222,12 +223,22 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
     
     func TabBarLogin() {
         
-        
         let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
         let initialViewController = storyboard.instantiateViewController(withIdentifier: "TabBarID")
         self.present(initialViewController, animated: true, completion: nil)
         
     }
+    
+  
+    
+    var posts = [Post]()
+    var users = [Users]()
+    var snapshot :DocumentSnapshot?
+   
+    
+    
+    
+    
     func loginusingOTP(OTPtext: String) {
         _ = Firestore.firestore()
         let verificationID = self.Userdefaults.string(forKey: "authVerificationID")
@@ -237,73 +248,99 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
         Auth.auth().signIn(with: credential)
         {
             (user, error) in
-            if error != nil
+            
+            self.activityIndicator.isHidden = true
+            self.activityIndicator.stopAnimating()
+            
+           if user != nil
             {
-                print("error: \(String(describing: error?.localizedDescription))")
-            }
-            else if user != nil
-            {
+                let db = Firestore.firestore()
+
+                print("users uid: \(user!.uid)")
+                
+                let dbvalue = db.collection("users").document(user!.uid)
+
+                print("dbvalue: \(dbvalue)")
+                
+                dbvalue.getDocument { (snapshot, error) in
+                    
+                    print("snapshot: \(snapshot?.data())")
+                    
+                    guard let snapshot = snapshot else {
+                        
+                        let when = DispatchTime.now() + 0
+                        DispatchQueue.main.asyncAfter(deadline: when) {
+                            
+                           
+                            let storyboard = UIStoryboard(name: "Start", bundle: nil)
+                            let vc = storyboard.instantiateViewController(withIdentifier: "onboardvc") as! OnboardVc
+                            vc.phoneNumber = (user?.phoneNumber)!
+                            vc.uid = currentUser!
+                            self.present(vc, animated: true, completion: nil)
+                            
+                        }
+                        
+                        return
+                        
+                    }
+                    
+                    if snapshot.exists {
+                        
+                        
+                        let when = DispatchTime.now() + 0
+                                                    DispatchQueue.main.asyncAfter(deadline: when) {
+                        
+                                                        self.TabBarLogin()
+                        
+                                                    
+                        }
+                        
+                        
+                        return
+                        
+                    } else {
+                        
+                        
+                        let when = DispatchTime.now() + 0
+                        DispatchQueue.main.asyncAfter(deadline: when) {
+                            
+                            
+                            let storyboard = UIStoryboard(name: "Start", bundle: nil)
+                            let vc = storyboard.instantiateViewController(withIdentifier: "onboardvc") as! OnboardVc
+                            vc.phoneNumber = (user?.phoneNumber)!
+                            vc.uid = currentUser!
+                            self.present(vc, animated: true, completion: nil)
+                            
+                        }
+                        
+                        return
+                        
+                    }
+                    
+                    
+                }
+                
                 
                 print("Phone number: \(String(describing: user?.phoneNumber))")
                 let userInfo = user?.providerData[0]
                 print("Provider ID: \(String(describing: userInfo?.providerID))")
                 
-//                var _: DocumentReference? = nil
-                
                 print("currentUser:::\(String(describing: currentUser))")
-//                db.collection("users").document(currentUser!).setData([
-//                    "User_Phone_number": user?.phoneNumber as Any,
-//                    "uid": currentUser as Any
                 
-//                ]) { err in
-//                    if let err = err {
-//                        print("Error writing document: \(err)")
-//                    } else {
-//                        print("Document successfully written!")
-                        if PrefsManager.sharedinstance.isFirstTime == true{
-                            
-                            PrefsManager.sharedinstance.UIDfirebase = user?.uid ?? "empty"
-                            
-                            let when = DispatchTime.now() + 0
-                            DispatchQueue.main.asyncAfter(deadline: when) {
-                                
-//                                self.performSegue(withIdentifier: "signUpToTabBar", sender: nil)
-                                
-                                self.TabBarLogin()
-                                
-                                
-//                                Defaults[.username] = Your_User_Name
-//                                Defaults[.phoneNo] = user?.phoneNumber
-//                                Defaults[.islogin] = true
-                                
-                            }
-                            
-                            
-                        } else {
-                            
-                            let when = DispatchTime.now() + 0
-                            DispatchQueue.main.asyncAfter(deadline: when) {
-                                let storyboard = UIStoryboard(name: "Start", bundle: nil)
-                                let vc = storyboard.instantiateViewController(withIdentifier: "onboardvc") as! OnboardVc
-                                vc.phoneNumber = (user?.phoneNumber)!
-                                vc.uid = currentUser!
-                                self.present(vc, animated: true, completion: nil)
-                               
-                            }
-                        }
-                        
-//                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//                        let controller = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
-//                        self.present(controller, animated: true, completion: nil)
-                        
-//                        let storyboard = UIStoryboard(name: "Start", bundle: nil)
-//                        let initialViewController = storyboard.instantiateViewController(withIdentifier: "onboardvc")
-//                        self.present(initialViewController, animated: true, completion: nil)
-                        
-                    }
-                }
-                print("error::::::")
+                
+           } else {
+            
+                print("error: \(String(describing: error?.localizedDescription))")
+                
+//                self.showErrorAlert(message: "Oops! Invalid Login.")
+            
             }
+            
+        }
+        
+
+        
+    }
         
     
     
@@ -333,12 +370,12 @@ class SignUpViewController: UIViewController,UITextFieldDelegate {
         
             print(":::::Email text field tapped:::::")
         
-            if codestring?.count == 6 {
-                
-                self.view.endEditing(true)
-                
-                loginusingOTP(OTPtext: codestring!)
-           }
+//            if codestring?.count == 6 {
+//
+//                self.view.endEditing(true)
+//
+//                loginusingOTP(OTPtext: codestring!)
+//           }
         
     }
     
