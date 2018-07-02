@@ -636,7 +636,10 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         let ref = Database.database().reference()
         let postsReference = ref.child("posts")
         let newPostID = postsReference.childByAutoId().key
-      
+        let token = UserDefaults.standard.string(forKey: "token")
+        
+        print("token::::::\(token)")
+
        
         guard let currentUserID = Auth.auth().currentUser?.uid else { return }
         let likes   = [currentUserID : false]
@@ -663,7 +666,8 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
                 "rating": self.ratingValue ?? "",
                 "productName": self.searchText ?? "",
                 "productDetailPageURL": self.poductDetailPageUrl ?? "",
-                "location": "" ?? ""
+                "location": "" ?? "",
+                "token": token ?? ""
             ]) { err in
                 if let err = err {
                     print("Error writing document: \(err)")

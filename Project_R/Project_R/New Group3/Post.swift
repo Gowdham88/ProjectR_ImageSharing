@@ -26,6 +26,7 @@ class Post {
     var location: String?
     var productName: String?
     var productDetailPageURL: String?
+    var token: String?
 }
 
 extension Post {
@@ -49,6 +50,8 @@ extension Post {
         post.location = postDictionary["location"] as? String
         post.productName = postDictionary["productName"] as? String
         post.productDetailPageURL = postDictionary["productDetailPageURL"] as? String
+        post.token  = postDictionary["token"] as? String
+        
         
         if let currentUserID = Auth.auth().currentUser?.uid {
             if post.likes != nil {
