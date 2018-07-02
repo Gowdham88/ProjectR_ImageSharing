@@ -45,31 +45,42 @@ class UserAPI {
         
         let docRef = db.collection("users").document(currentUser.uid)
         
+        
         docRef.getDocument { (document, error) in
+            
             if let document = document {
+                
+                print("observeCurrentUser document: \(document)")
                 
                 let user = Users.transformUser(postDictionary: document.data()!, key: document.documentID)
                 completion(user)
                 return
             } else {
-                print("Document does not exist")
+                print("observeCurrentUser Document does not exist")
             }
         }
     }
     
     func observeUser(withID uid:String, completion: @escaping (Users) -> Void) {
+        
+        
         let docRef = db.collection("users").document(uid)
-        print("docRef:::\(docRef)")
+        
+        print("observeUser docRef:::\(docRef)")
+        print("observeUser UID:::\(uid)")
+        
         docRef.getDocument { (document, error) in
             if let document = document {
                 
-                print("documentdata:::\(String(describing: document.data()))")
+                print("observeUser documentdata:::\(String(describing: document.data()))")
+                print("observeUser documentID:::\(String(describing: document.documentID))")
+
                 
                 let user = Users.transformUser(postDictionary: document.data()!, key: document.documentID)
                 completion(user)
                 
             } else {
-                print("Document does not exist")
+                print("observeUser Document does not exist")
             }
         }
     }

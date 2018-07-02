@@ -280,15 +280,13 @@
 		AE3CF26020BFAF300074D5F7 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B4D3DF0A20E8BC750065BE55 /* Tableviewcells */,
 				AE3CF27320BFAF530074D5F7 /* ImageZoom.swift */,
 				AE3CF27220BFAF530074D5F7 /* ActivityViewController.swift */,
 				AE3CF26620BFAF4D0074D5F7 /* CameraViewController.swift */,
-				AE3CF26920BFAF4E0074D5F7 /* CommentTableViewCell.swift */,
 				AE3CF26A20BFAF4F0074D5F7 /* CommentViewController.swift */,
 				AE3CF26520BFAF4C0074D5F7 /* DiscoverViewController.swift */,
-				AE3CF26D20BFAF500074D5F7 /* HomeTableViewCell.swift */,
 				AE3CF26720BFAF4D0074D5F7 /* HomeViewController.swift */,
-				AE3CF26220BFAF4B0074D5F7 /* PhotoCollectionViewCell.swift */,
 				AE3CF26F20BFAF510074D5F7 /* ProfileHeaderCollectionReusableView.swift */,
 				AE3CF26820BFAF4E0074D5F7 /* ProfileViewController.swift */,
 				AE3CF27020BFAF520074D5F7 /* SignInViewController.swift */,
@@ -301,14 +299,10 @@
 				AE3CF26C20BFAF500074D5F7 /* TermsServiceController.swift */,
 				AE3CF2B220C03C0B0074D5F7 /* NotificationViewController.swift */,
 				AE7AA98020C684FA00E9F805 /* CheckInViewController.swift */,
-				AE7AA98A20C695A800E9F805 /* locationNameTableViewCell.swift */,
 				AEE4F4F420C7ADF10047A2B6 /* peopleViewController.swift */,
-				AEE4F4F620C7B00B0047A2B6 /* peopleTableViewCell.swift */,
-				AE2CC0BD20CFD1880047BCC0 /* MenubarTableViewCell.swift */,
 				AE12536320D4EAEB009929F4 /* amazonProductListTableViewCell.swift */,
 				0F5E121120D7F86600E5C964 /* verification.swift */,
 				0F0A297D20DBB4B000A14F8A /* UserdetailPage.swift */,
-				0F0A297F20DBB72300A14F8A /* userDetailTableViewCell.swift */,
 			);
 			name = Controllers;
 			path = "New Group1";
@@ -432,6 +426,20 @@
 				AE64451620BD79F400216484 /* Project_R-Bridging-Header.h */,
 			);
 			path = ProgressHUD;
+			sourceTree = "<group>";
+		};
+		B4D3DF0A20E8BC750065BE55 /* Tableviewcells */ = {
+			isa = PBXGroup;
+			children = (
+				AE3CF26920BFAF4E0074D5F7 /* CommentTableViewCell.swift */,
+				AE3CF26D20BFAF500074D5F7 /* HomeTableViewCell.swift */,
+				AE3CF26220BFAF4B0074D5F7 /* PhotoCollectionViewCell.swift */,
+				AE7AA98A20C695A800E9F805 /* locationNameTableViewCell.swift */,
+				AEE4F4F620C7B00B0047A2B6 /* peopleTableViewCell.swift */,
+				AE2CC0BD20CFD1880047BCC0 /* MenubarTableViewCell.swift */,
+				0F0A297F20DBB72300A14F8A /* userDetailTableViewCell.swift */,
+			);
+			path = Tableviewcells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

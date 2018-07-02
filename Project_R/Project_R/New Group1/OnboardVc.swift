@@ -31,7 +31,7 @@ class OnboardVc: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let clouds = UIColor(red: 236/255, green: 240/255, blue: 241/255, alpha: 1)
+        _ = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
 
         
         PrefsManager.sharedinstance.isFirstTime = true
@@ -43,42 +43,14 @@ class OnboardVc: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
                 self.usernameTextField.delegate = self
                 self.emailTextField.delegate = self
         
-//                usernameTextField.backgroundColor = .clear
-//                usernameTextField.tintColor = .white
-//                usernameTextField.textColor = .white
-//                usernameTextField.borderStyle = .none
-//
-//                usernameTextField.attributedPlaceholder = NSAttributedString(string: usernameTextField.placeholder!, attributes: [kCTForegroundColorAttributeName as NSAttributedStringKey: clouds])
-//                usernameTextField.autocorrectionType = .no
-        
-//        let bottomLayerEmail = CALayer()
-//        bottomLayerEmail.frame = CGRect(x: 0, y: 29, width: 1000, height: 0.6)
-//        bottomLayerEmail.backgroundColor = UIColor(red: 50/255, green: 50/255, blue: 25/255, alpha: 1).cgColor
-//        usernameTextField.layer.addSublayer(bottomLayerEmail)
-//        usernameTextField.clipsToBounds = true
-        
-        
-//        emailTextField.backgroundColor = .clear
-//        emailTextField.tintColor = .white
-//        emailTextField.textColor = .white
-//        emailTextField.borderStyle = .none
-//        emailTextField.attributedPlaceholder = NSAttributedString(string: emailTextField.placeholder!, attributes: [kCTForegroundColorAttributeName as NSAttributedStringKey: clouds])
-//        emailTextField.autocorrectionType = .no
-        
-//        
-//        let bottomLayerPassword = CALayer()
-//        bottomLayerPassword.frame = CGRect(x: 0, y: 29, width: 1000, height: 0.6)
-//        bottomLayerPassword.backgroundColor = UIColor(red: 50/255, green: 50/255, blue: 25/255, alpha: 1).cgColor
-//        usernameTextField.layer.addSublayer(bottomLayerPassword)
-//        emailTextField.layer.addSublayer(bottomLayerPassword)
-//        emailTextField.clipsToBounds = true
+
         
         // add a tap gesture to the profile image for users to pick their avatar
                 let tapGesture = UITapGestureRecognizer(target: self, action: #selector(popAlert))
                 profileImageView.addGestureRecognizer(tapGesture)
                 profileImageView.isUserInteractionEnabled = true
         
-                profileImageView.layer.cornerRadius = profileImageView.frame.size.width/2
+                profileImageView.layer.cornerRadius = profileImageView.frame.size.height/2
                 profileImageView.clipsToBounds      = true
         
                 self.addProfileImageView.layer.cornerRadius = addProfileImageView.frame.size.width/2
@@ -198,9 +170,9 @@ class OnboardVc: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
         picker .dismiss(animated: true, completion: nil)
         profileImageView.image=info[UIImagePickerControllerOriginalImage] as? UIImage
         
-        
     }
-    func imagePickerControllerDidCancel(picker: UIImagePickerController){
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController){
         print("picker cancel.")
     }
 
@@ -227,9 +199,6 @@ class OnboardVc: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
                     self.present(initialViewController, animated: true, completion: nil)
         }
         
-
-        
-       
     }
 
      func saveData(profileImageURL: String, username: String, email: String, uid: String){
@@ -260,7 +229,6 @@ class OnboardVc: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
     
 }
 extension OnboardVc: UINavigationControllerDelegate {
-
 
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {

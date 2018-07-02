@@ -199,22 +199,21 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
                 switch height {
                 case 480.0:
                     print("iPhone 3,4")
-                 
 
                 case 568.0:
                     print("iPhone 5")
-                    locationName.frame = CGRect(x: 10, y: 98, width: 296, height: 21)
+                    locationName.frame = CGRect(x: 10, y: 90, width: 296, height: 21)
 
                 case 667.0:
                     print("iPhone 6")
-                    locationName.frame = CGRect(x: 10, y: 110, width: 296, height: 21)
+                    locationName.frame = CGRect(x: 10, y: 100, width: 296, height: 21)
 
                 case 736.0:
                     print("iPhone 6+")
-                    locationName.frame = CGRect(x: 10, y: 150, width: 296, height: 21)
+                    locationName.frame = CGRect(x: 10, y: 105, width: 296, height: 21)
                 case 812.0:
                     print("iPhone X")
-                    locationName.frame = CGRect(x: 10, y: 180, width: 296, height: 21)
+                    locationName.frame = CGRect(x: 20, y: 105, width: 296, height: 21)
 
                 default:
                     print("not an iPhone")
