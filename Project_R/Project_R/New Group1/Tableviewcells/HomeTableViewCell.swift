@@ -13,6 +13,8 @@ import FirebaseFirestore
 import SDWebImage
 import Nuke
 import UserNotifications
+import Alamofire
+import SwiftyJSON
 
 
 protocol HomeTableViewCellDelegate {
@@ -50,6 +52,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     var currentName: String! = ""
     var postUSerName: String! = ""
     var productbuyURL: String! = ""
+    var postToken: String! = ""
     var post: Post? {
         didSet {
             updateView()
@@ -230,6 +233,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         self.productnamepost(post: post!)
         self.productUrl(post: post!)
         self.caption(post: post!)
+        self.tokenPost(post: post!)
         
 //        self.elapsedTime(post: post!, datetime: postTime)
         guard let currentUser = Auth.auth().currentUser else {
@@ -501,7 +505,10 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
             
                 transaction.updateData(["likeCount": likeCount,
                                          "likes.\(uid)" : likes[uid] ?? false], forDocument: sfReference)
-              
+                
+//              postNotification(postItem: postItem, post: post!)
+                
+                self.postNotification(postItem: postItem.documentID!, post: self.post!)
                 
             }
             return nil
@@ -572,6 +579,60 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
             print("selfrating:::\(self.productRatingLabel.text)")
         }
     }
+    
+    func tokenPost(post: Post) {
+//        guard let count = post.token else {
+//            return
+//        }
+     
+        if postToken != nil{
+        postToken = post.token
+            print("posttoken::::\(postToken)")
+        }
+    }
+    
+    func postNotification(postItem: String, post: Post) {
+        
+        
+//                declare parameter as a dictionary which contains string as key and value combination. considering inputs are valid
+
+       
+        
+        print("Get token from post:::",post.token)
+        print(postItem)
+        let token = UserDefaults.standard.string(forKey: "token")
+                //create the url with URL
+        
+        
+        var parameters       = [String:Any]()
+        
+        parameters["count"]  = post.likeCount!
+        parameters["likedby"]  = currentName
+        parameters["postId"] = postItem
+        parameters["token"] = post.token!
+        
+        let headers: HTTPHeaders = ["Content-Type" :"application/x-www-form-urlencoded"]
+        
+        Alamofire.request("http://highavenue.co:9000/likesnotification", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { response in
+            
+            // original URL request
+            print("Request is :",response.request!)
+            
+            // HTTP URL response --> header and status code
+            print("Response received is :",response.response)
+            
+            // server data : example 267 bytes
+            print("Response data is :",response.data)
+            
+            // result of response serialization : SUCCESS / FAILURE
+            print("Response result is :",response.result)
+            
+            debugPrint("Debug Print :", response)
+        }
+
+        
+    }
+
     
     func productnamepost(post: Post) {
         
