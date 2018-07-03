@@ -1,6 +1,7 @@
 
 
 import Foundation
+import FirebaseAuth
 
 class Users {
     var email: String?
@@ -8,6 +9,8 @@ class Users {
     var username: String?
     var id: String?
     var isFollowing: Bool?
+    var token: String?
+    var uid: String?
 }
 
 extension Users {
@@ -18,6 +21,9 @@ extension Users {
         user.profileImageURL = postDictionary["profileImageURL"] as? String
         user.username = postDictionary["username"] as? String
         user.id = key
+        user.token = postDictionary["token"] as? String
+        user.uid = postDictionary["uid"] as? String
+
         return user
     }
     
