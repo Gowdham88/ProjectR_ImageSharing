@@ -47,113 +47,53 @@ class peopleTableViewCell: UITableViewCell {
         
         print("Follow tapped sender.tag: \((sender as AnyObject).tag)")
         let sendertag = (sender as AnyObject).tag
-        print("followers, user?.id: \(followers, user?.id)")
-        
-        
-        
+        print("1.followers, user?.id: \(followers, user?.id)")
         
          if let followersList = followers,let uid = user?.id {
             
+            print("2.followers, user?.id: \(followers, user?.id)")
             
-        
             if let isFollowing = followersList[uid] as? Bool {
                 
-                
-                
-            print("isFollowing followBtnTapped: \(isFollowing)")
-                
-                
+            print("3.isFollowing followBtnTapped: \(isFollowing)")
                 
             if isFollowing {
-                
-                followers![uid] = NSNull()
+
+                print("4.isFollowing: true")
                 users[sendertag!].isFollowing = Bool()
-                configureUnFollowButton()
-                print("followers![uid] = NSNull()")
-                
-                
-            } else {
-                
-                followers![uid] = true
-                users[sendertag!].isFollowing = true
-                configureUnFollowButton()
-                print("followers![uid] = true")
-                
-                
-                
-                
-            }
-            
-         } else {
-                
-                
-                
-                
-                followers![uid] = NSNull()
-                users[sendertag!].isFollowing = Bool()
+
                 configureFollowButton()
-                
-            print("Followers list and UID empty")
+                return
+
+            }
+
+         }
             
-                
-        }
-         
+            print("5.followersList[uid] Bool does not exist")
+            users[sendertag!].isFollowing = true
+            configureUnFollowButton()
+
             
+        } else {
             
-         } else {
-            
-            
-            print("Else Condition")
-            
-            
+            print("6.Else Condition NIL = let followersList = followers,let uid = user?.id")
+            users[sendertag!].isFollowing = true
+            configureUnFollowButton()
             
         }
         
-//                if let followersList = followers,let uid = user?.id {
-//
-//                    print("followerslist:\(followersList[uid])")
-//
-//                    if let isFollowing = followersList[uid] as? Bool {
-//
-//                        print("isFollowing: \(isFollowing)")
-//
-//                        if isFollowing {
-//
-//                            configureUnFollowButton()
-//                            return
-//                        }
-//
-//                            configureFollowButton()
-//
-//                    } else {
-//
-//                        configureFollowButton()
-//                    }
-//
-//                } else {
-//
-//                   configureFollowButton()
-//
-//                }
         
     }
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+
         print("Awake from Nib")
         followBtn.layer.borderWidth = 1
         followBtn.layer.cornerRadius = 5
         followBtn.clipsToBounds = true
-        
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handlefollowbtnTap))
-//        followBtn.addGestureRecognizer(tapGesture)
-//        followBtn.isUserInteractionEnabled = true
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.nameLabel_TouchUpInside))
-//        profileUserName.addGestureRecognizer(tapGesture)
-//        profileUserName.isUserInteractionEnabled = true
-        
+
         self.profileUserImage.layer.cornerRadius = self.profileUserImage.frame.size.width / 2;
         self.profileUserImage.clipsToBounds = true
         
@@ -211,7 +151,8 @@ class peopleTableViewCell: UITableViewCell {
     }
     
     @objc func followAction(sender : UIButton) {
-        print("Follow button tapped")
+        
+        print("followAction")
         
         if let delegatexits = delegate {
             
@@ -222,6 +163,8 @@ class peopleTableViewCell: UITableViewCell {
     
     @objc func unFollowAction(sender : UIButton) {
         
+        print("UnfollowAction")
+
         if let delegatexits = delegate {
             
             delegatexits.updateUnFollowers(position: sender.tag)

@@ -49,16 +49,17 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     func loadUsers() {
         
+        print("Load Users called")
         
         self.activityIndicator.startAnimating()
         self.activityIndicator.isHidden = false
-        
         
         users.removeAll()
   
         API.User.observeUser { (user) in
             
             let tempArray = user
+            
             print("Get temp array::::", tempArray)
 //            self.users = user
             
@@ -197,22 +198,27 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
         if isFollowing != nil && isFollowing == true  {
 
-            
             cell.followBtn.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
             cell.followBtn.setTitleColor(UIColor.black, for: UIControlState.normal)
             cell.followBtn.backgroundColor = UIColor.clear
             cell.followBtn.setTitle("Following", for: .normal)
             
+            
+            
         } else {
+            
             
             cell.followBtn.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
             
             cell.followBtn.setTitleColor(UIColor.white, for: UIControlState.normal)
+            
             cell.followBtn.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
             
             cell.followBtn.setTitle("Follow", for: .normal)
             
+            
         }
+        
         return cell
     }
     
@@ -223,7 +229,6 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @objc func moveToUserPage(sender: UITapGestureRecognizer) {
         
         print("User detail page tapped \(sender)")
-
         
         let tapLocation = sender.location(in: tableView)
         let indexPath : IndexPath = tableView.indexPathForRow(at: tapLocation)!
@@ -267,6 +272,8 @@ extension peopleViewController: PeopleTableViewCellDelegate {
     
     func updateFollowers(position: Int) {
         
+        print("updateFollowers:::")
+
         API.Follow.followAction(withUser: users[position].id ?? "empty")
         
         if API.User.CURRENT_USER_ID == users[position].id {
@@ -275,6 +282,8 @@ extension peopleViewController: PeopleTableViewCellDelegate {
             
         } else {
         
+            print("updateFollowers:::")
+            
         loadFollowers()
             
         }
@@ -283,6 +292,8 @@ extension peopleViewController: PeopleTableViewCellDelegate {
     
     func updateUnFollowers(position: Int) {
         
+        print("updateUnFollowers:::")
+
         API.Follow.unFollowAction(withUser: users[position].id ?? "empty")
         loadFollowers()
     }

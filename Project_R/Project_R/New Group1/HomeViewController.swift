@@ -435,7 +435,7 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
 
     func openUserStoryboard(position: Int) {
         
-        let storyboard = UIStoryboard(name: "people", bundle: nil)
+        let storyboard = UIStoryboard(name: "Home", bundle: nil)
         let vc =  storyboard.instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
 //        vc.userId = posts[position].uid!
         userVCuserId = posts[position].uid!
