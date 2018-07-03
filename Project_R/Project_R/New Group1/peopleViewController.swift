@@ -100,16 +100,13 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         API.Follow.isFollowing(userId: userId, completed: { (followersList) in
             
-            
-            
             if let followerslist = followersList
             {
                 
                 self.followers = followerslist
-                print("Get followers list::::", followersList,self.followers)
+                print("Get followers list::::", followersList!,self.followers)
                 
             }
-            
             
             DispatchQueue.main.async {
                 
@@ -185,6 +182,7 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.profileUserImage.addGestureRecognizer(tapGesture)
         cell.profileUserImage.isUserInteractionEnabled = true
         cell.followers = self.followers
+       
         cell.followBtn.tag = indexPath.row
         
         print("indexPath.row: \(indexPath.row)")
@@ -193,32 +191,34 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         print("letuser::::\(user)")
         cell.user = user
         cell.delegate = self
+        
+        let isFollowing = users[indexPath.row].isFollowing
+        print("isFollowing cellForRowAt: \(isFollowing)")
+
+        if isFollowing != nil && isFollowing == true  {
+
+            
+            cell.followBtn.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
+            cell.followBtn.setTitleColor(UIColor.black, for: UIControlState.normal)
+            cell.followBtn.backgroundColor = UIColor.clear
+            cell.followBtn.setTitle("Following", for: .normal)
+            
+        } else {
+            
+            cell.followBtn.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
+            
+            cell.followBtn.setTitleColor(UIColor.white, for: UIControlState.normal)
+            cell.followBtn.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+            
+            cell.followBtn.setTitle("Follow", for: .normal)
+            
+        }
         return cell
     }
     
     var posts = [Post]()
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        print("position: \(indexPath.row)")
-        
-        openUserStoryboard(position: indexPath.row)
-        
-    }
-
-    func openUserStoryboard(position: Int) {
-
-        let storyboard = UIStoryboard(name: "people", bundle: nil)
-        let vc =  storyboard.instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
-//        vc.userId = posts[position].uid!
-        
-        print("posts[position].uid!, position: \(posts[position].uid!, position)")
-
-        userVCuserId = posts[position].uid!
-        vc.delegate = self as? UserViewControllerDelegate
-        self.navigationController?.pushViewController(vc, animated: true)
-
-    }
+   
     
     @objc func moveToUserPage(sender: UITapGestureRecognizer) {
         
@@ -265,7 +265,6 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
 }
 extension peopleViewController: PeopleTableViewCellDelegate {
     
-    
     func updateFollowers(position: Int) {
         
         API.Follow.followAction(withUser: users[position].id ?? "empty")
@@ -289,10 +288,8 @@ extension peopleViewController: PeopleTableViewCellDelegate {
     }
     
  
-    
-
-    
     func goToProfileUserVC(userId: String) {
+        
         performSegue(withIdentifier: "ProfileSegue", sender: userId)
 //        if segue.identifier == "ProfileSegue" {
 //            let profileVC = segue.destination as! UserViewController
@@ -303,7 +300,6 @@ extension peopleViewController: PeopleTableViewCellDelegate {
         
     }
     
-
 }
 
 extension peopleViewController: HeaderProfileCollectionReusableViewDelegate {
@@ -315,7 +311,6 @@ extension peopleViewController: HeaderProfileCollectionReusableViewDelegate {
                 self.tableView.reloadData()
             }
         }
-        
         
     }
 }

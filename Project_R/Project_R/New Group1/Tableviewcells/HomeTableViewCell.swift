@@ -110,9 +110,9 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         shareImageView.addGestureRecognizer(deleteImagetap)
         shareImageView.isUserInteractionEnabled = true
         
-//        let buyImagetap = UITapGestureRecognizer(target: self, action: #selector(HomeTableViewCell.BuyImagetap(sender:)))
-//        buyProduct.addGestureRecognizer(buyImagetap)
-//        buyProduct.isUserInteractionEnabled = true
+        let buyImagetap = UITapGestureRecognizer(target: self, action: #selector(HomeTableViewCell.BuyImagetap(sender:)))
+        buyProduct.addGestureRecognizer(buyImagetap)
+        buyProduct.isUserInteractionEnabled = true
         
 //        buyProduct
     }
@@ -133,8 +133,6 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
 
     }
     
-    
-    
     @objc func postImagetap(sender : UITapGestureRecognizer) {
         
         if let _ = homeVC {
@@ -149,19 +147,19 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         
     }
     
-//    @objc func BuyImagetap(sender: UITapGestureRecognizer) {
-//
-//        if productbuyURL != nil {
-//
-//        if let url = URL(string: productbuyURL) {
-//
-//            UIApplication.shared.open(url, options: [:])
-//
-//            }
-//
-//        }
-//
-//    }
+    @objc func BuyImagetap(sender: UITapGestureRecognizer) {
+
+        if productbuyURL != nil {
+
+        if let url = URL(string: productbuyURL) {
+
+            UIApplication.shared.open(url, options: [:])
+
+            }
+
+        }
+
+    }
     
     @objc func deleteImagetap(sender : UITapGestureRecognizer) {
         
