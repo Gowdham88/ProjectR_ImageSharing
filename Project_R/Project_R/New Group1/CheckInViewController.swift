@@ -447,6 +447,7 @@ extension CheckInViewController : UITableViewDataSource,UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         if let indexPath = tableView.indexPathForSelectedRow  {
             let currentCell = tableView.cellForRow(at: indexPath) as! UITableViewCell
             searchLoaction.text = (currentCell.textLabel?.text)

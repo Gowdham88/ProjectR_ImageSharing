@@ -12,12 +12,14 @@ import FirebaseFirestore
 
 class FollowApi {
     
-    
+    var activityIndicator = UIActivityIndicatorView()
     var REF_FOLLOWERS = Database.database().reference().child("followers")
     var REF_FOLLOWING = Database.database().reference().child("following")
     let db = Firestore.firestore()
     
     func followAction(withUser id: String) {
+        
+        startAnimating()
         
         print("withuser:::\(id)")
         let docRef = db.collection("user-posts").document(id)
@@ -55,6 +57,8 @@ class FollowApi {
             if !_snapshot.exists {
                 /// First time following someone
                 followingRef.setData([id: true])
+                
+                
                 return
             }
             
@@ -62,6 +66,7 @@ class FollowApi {
             var data = _snapshot.data()
             data![id] = true
             followingRef.setData(data!)
+           
         }
         
         let followersRef = Firestore.firestore().collection("followers").document(id)
@@ -71,6 +76,8 @@ class FollowApi {
             if !_snapshot.exists {
                 /// First time following someone
                 followersRef.setData([API.User.CURRENT_USER!.uid: true])
+                self.stopAnimating()
+                
                 return
             }
             
@@ -78,6 +85,7 @@ class FollowApi {
             var data = _snapshot.data()
             data![API.User.CURRENT_USER!.uid] = true
             followersRef.setData(data!)
+            self.stopAnimating()
             
         }
 
@@ -86,13 +94,14 @@ class FollowApi {
     
     func unFollowAction(withUser id: String) {
         
+        startAnimating()
+        
         let docRef = db.collection("user-posts").document(id)
         
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
                 let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
                 print("Document data: \(dataDescription)")
-                
                 self.db.collection("feed").document(API.User.CURRENT_USER!.uid).setData([document.documentID: NSNull()])
                 self.db.collection("feed").document(API.User.CURRENT_USER!.uid).delete()
 
@@ -103,9 +112,10 @@ class FollowApi {
             }
             
         }
-        
-         self.db.collection("followers").document(id).setData([API.User.CURRENT_USER!.uid: NSNull()])
+        self.db.collection("followers").document(id).setData([API.User.CURRENT_USER!.uid: NSNull()])
         self.db.collection("following").document(API.User.CURRENT_USER!.uid).setData([id: NSNull()])
+        
+        stopAnimating()
         
 //        Api.MyPosts.REF_MYPOSTS.child(id).observeSingleEvent(of: .value, with: {
 //            snapshot in
@@ -118,6 +128,19 @@ class FollowApi {
 //
 //        REF_FOLLOWERS.child(id).child(Api.User.CURRENT_USER!.uid).setValue(NSNull())
 //        REF_FOLLOWING.child(Api.User.CURRENT_USER!.uid).child(id).setValue(NSNull())
+    }
+    
+    func startAnimating() {
+        
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+        
+    }
+    func stopAnimating() {
+        
+        self.activityIndicator.isHidden = true
+        self.activityIndicator.stopAnimating()
+        
     }
     
     func isFollowing(userId: String, completed: @escaping ([String : Any]?) -> Void) {
