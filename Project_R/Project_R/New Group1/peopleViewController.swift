@@ -204,9 +204,7 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             cell.followBtn.setTitle("Following", for: .normal)
             
             
-            
         } else {
-            
             
             cell.followBtn.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
             
@@ -215,7 +213,6 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             cell.followBtn.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
             
             cell.followBtn.setTitle("Follow", for: .normal)
-            
             
         }
         
