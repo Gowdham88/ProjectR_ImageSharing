@@ -57,12 +57,14 @@ class FollowApi {
             if !_snapshot.exists {
                 /// First time following someone
                 followingRef.setData([id: true])
-                
+                print("FollowAction following ref API id:true")
                 
                 return
             }
             
             // For next time
+            print("FollowAction following ref API NO snapshot id:true")
+
             var data = _snapshot.data()
             data![id] = true
             followingRef.setData(data!)
@@ -70,18 +72,22 @@ class FollowApi {
         }
         
         let followersRef = Firestore.firestore().collection("followers").document(id)
+        
         followersRef.getDocument { (snapshot, error) in
             guard let _snapshot = snapshot else {return}
             
             if !_snapshot.exists {
                 /// First time following someone
-                followersRef.setData([API.User.CURRENT_USER!.uid: true])
+                print("FollowAction followersref API id:true")
+ followersRef.setData([API.User.CURRENT_USER!.uid: true])
                 self.stopAnimating()
                 
                 return
             }
             
             // For next time
+            print("FollowAction followersref API id:true")
+            
             var data = _snapshot.data()
             data![API.User.CURRENT_USER!.uid] = true
             followersRef.setData(data!)
@@ -93,7 +99,8 @@ class FollowApi {
     }
     
     func unFollowAction(withUser id: String) {
-        
+        print("FollowAction Follow API")
+
         startAnimating()
         
         let docRef = db.collection("user-posts").document(id)
@@ -107,13 +114,36 @@ class FollowApi {
 
             } else {
                 
-                print("Document does not exist")
+                print("feed Document does not exist")
                 
             }
             
         }
-        self.db.collection("followers").document(id).setData([API.User.CURRENT_USER!.uid: NSNull()])
-        self.db.collection("following").document(API.User.CURRENT_USER!.uid).setData([id: NSNull()])
+
+        db.collection("followers").document(id).updateData([
+            API.User.CURRENT_USER!.uid: FieldValue.delete(),
+            ]) { err in
+                if let err = err {
+                    print("Error updating document: \(err)")
+                } else {
+                    print("Unfollow followers Document field successfully deleted")
+                }
+        }
+        db.collection("following").document(API.User.CURRENT_USER!.uid).updateData([
+            id: FieldValue.delete(),
+            ]) { err in
+                if let err = err {
+                    
+                    print("Error updating document: \(err)")
+                    
+                } else {
+                    
+                    print("Unfollow following Document field successfully deleted")
+                    
+                }
+                
+        }
+        
         
         stopAnimating()
         

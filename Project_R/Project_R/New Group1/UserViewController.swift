@@ -278,19 +278,18 @@ extension UserViewController : UITableViewDelegate,UITableViewDataSource,HomeTab
     
     func openUserStoryboard(position: Int) {
         
-        let storyboard = UIStoryboard(name: "people", bundle: nil)
+        let storyboard = UIStoryboard(name: "Home", bundle: nil)
         let vc =  storyboard.instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
 //        vc.userId = posts[position].uid!
         userVCuserId = posts[position].uid!
         vc.delegate = self as! UserViewControllerDelegate
         self.navigationController?.pushViewController(vc, animated: true)
         
-        
     }
     
     func openImageStoryboard(position: Int) {
         
-        let storyboard = UIStoryboard(name: "Home", bundle: nil)
+        let storyboard = UIStoryboard(name: "people", bundle: nil)
         let vc  =  storyboard.instantiateViewController(withIdentifier: "imagezoom") as! ImageZoom
         vc.imageUrl    =   posts[position].photoURL!
         present(vc, animated: true, completion: nil)
@@ -330,14 +329,12 @@ extension UserViewController : UITableViewDelegate,UITableViewDataSource,HomeTab
         let reportAction = UIAlertAction(title: "Report post", style: UIAlertActionStyle.default)
         {
             UIAlertAction in
-            
             self.reportPostDb(post: self.posts[position])
         }
         
         let blockAction = UIAlertAction(title: "Block user", style: UIAlertActionStyle.default)
         {
             UIAlertAction in
-            
             self.blockUserDb(post: self.posts[position])
         }
         
@@ -357,17 +354,14 @@ extension UserViewController : UITableViewDelegate,UITableViewDataSource,HomeTab
             alert.addAction(blockAction)
             alert.addAction(reportAction)
             
-            
         } else {
             
             alert.addAction(reportAction)
             alert.addAction(blockAction)
             
-            
         }
         
         alert.addAction(cancelAction)
-        
         alert.popoverPresentationController?.sourceView = self.view
         alert.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.size.width / 2.0, y: self.view.bounds.size.height / 2.0, width: 1.0, height: 1.0)
         self.present(alert, animated: true, completion: nil)
