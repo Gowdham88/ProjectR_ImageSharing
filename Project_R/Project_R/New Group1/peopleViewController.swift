@@ -266,35 +266,35 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
 }
 extension peopleViewController: PeopleTableViewCellDelegate {
-    
-    func updateFollowers(position: Int) {
+    func updateFollowers(position: Int, cell: peopleTableViewCell) {
         
         print("updateFollowers:::")
-
+        
         API.Follow.followAction(withUser: users[position].id ?? "empty")
+//        cell.configureUnFollowButton()
         
         if API.User.CURRENT_USER_ID == users[position].id {
             
             print("Get my user ID:::", API.User.CURRENT_USER_ID)
             
         } else {
-        
+            
             print("updateFollowers:::")
             
-        loadFollowers()
+            loadFollowers()
             
         }
-       
     }
     
-    func updateUnFollowers(position: Int) {
+    func updateUnFollowers(position: Int, cell: peopleTableViewCell) {
         
         print("updateUnFollowers:::")
-
+//        cell.configureFollowButton()
+        
         API.Follow.unFollowAction(withUser: users[position].id ?? "empty")
         loadFollowers()
     }
-    
+ 
  
     func goToProfileUserVC(userId: String) {
         

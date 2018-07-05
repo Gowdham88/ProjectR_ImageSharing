@@ -16,9 +16,9 @@ import Nuke
 protocol PeopleTableViewCellDelegate {
     func goToProfileUserVC(userId: String)
 
-    func updateFollowers(position : Int)
+    func updateFollowers(position : Int,cell : peopleTableViewCell)
     
-    func updateUnFollowers(position : Int)
+    func updateUnFollowers(position : Int,cell : peopleTableViewCell)
     
 }
 
@@ -44,44 +44,7 @@ class peopleTableViewCell: UITableViewCell {
     var mybool = true
 
     @IBAction func followBtnTapped(_ sender: Any) {
-        
-        print("Follow tapped sender.tag: \((sender as AnyObject).tag)")
-        let sendertag = (sender as AnyObject).tag
-        print("1.followers, user?.id: \(followers, user?.id)")
-        
-         if let followersList = followers,let uid = user?.id {
-            
-            print("2.followers, user?.id: \(followers, user?.id)")
-            
-            if let isFollowing = followersList[uid] as? Bool {
-                
-            print("3.isFollowing followBtnTapped: \(isFollowing)")
-                
-            if isFollowing {
-
-                print("4.isFollowing: true")
-                users[sendertag!].isFollowing = Bool()
-
-                configureFollowButton()
-                return
-
-            }
-
-         }
-            
-            print("5.followersList[uid] Bool does not exist")
-            users[sendertag!].isFollowing = true
-            configureUnFollowButton()
-
-            
-        } else {
-            
-            print("6.Else Condition NIL = let followersList = followers,let uid = user?.id")
-            users[sendertag!].isFollowing = true
-            configureUnFollowButton()
-            
-        }
-        
+       
         
     }
     
@@ -128,6 +91,39 @@ class peopleTableViewCell: UITableViewCell {
             profileUserImage.sd_setImage(with: photoUrl, placeholderImage: UIImage(named: "placeholder-photo"))
         }
         
+        if let followersList = followers,let uid = user?.id {
+            
+            print("2.followers, user?.id: \(followers, user?.id)")
+            
+            if let isFollowing = followersList[uid] as? Bool {
+                
+                print("3.isFollowing followBtnTapped: \(isFollowing)")
+                
+                if isFollowing {
+                    
+                    print("4.isFollowing: true")
+                    
+                    
+                    configureUnFollowButton()
+                    return
+                    
+                }
+                
+            }
+            
+            print("5.followersList[uid] Bool does not exist")
+           
+            configureFollowButton()
+            
+            
+        } else {
+            
+            print("6.Else Condition NIL = let followersList = followers,let uid = user?.id")
+           
+            configureFollowButton()
+            
+        }
+        
     }
     
     func configureFollowButton() {
@@ -156,7 +152,7 @@ class peopleTableViewCell: UITableViewCell {
         
         if let delegatexits = delegate {
             
-            delegatexits.updateFollowers(position: sender.tag)
+            delegatexits.updateFollowers(position: sender.tag, cell: self)
         }
         
     }
@@ -167,7 +163,7 @@ class peopleTableViewCell: UITableViewCell {
 
         if let delegatexits = delegate {
             
-            delegatexits.updateUnFollowers(position: sender.tag)
+            delegatexits.updateUnFollowers(position: sender.tag, cell: self)
         }
        
     }

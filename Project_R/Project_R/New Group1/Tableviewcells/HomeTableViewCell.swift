@@ -639,26 +639,80 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         parameters["postId"] = postItem
         parameters["token"] = post.token!
         
+   
+        
         
         let headers: HTTPHeaders = ["Content-Type" :"application/x-www-form-urlencoded"]
         
-        Alamofire.request("http://highavenue.co:9000/likesnotification", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { response in
-            
-            // original URL request
-            print("Request is :",response.request!)
-            
-            // HTTP URL response --> header and status code
-            print("Response received is :",response.response)
-            
-            // server data : example 267 bytes
-            print("Response data is :",response.data)
-            
-            // result of response serialization : SUCCESS / FAILURE
-            print("Response result is :",response.result)
-            
-            debugPrint("Debug Print :", response)
+        
+        
+        
+        let RequestData = NSMutableURLRequest(url: NSURL.init(string: "http://highavenue.co:9000/likesnotification/")! as URL)
+        RequestData.httpMethod = "POST"
+        RequestData.timeoutInterval = 250 // Time interval here.
+        
+        Alamofire.request(RequestData as! URLRequestConvertible).responseJSON { (responseData) -> Void in
+            if((responseData.result.value) != nil) { // response
+                print(responseData.result.value!)
+            }
         }
 
+//        Alamofire.request("http://highavenue.co:9000/likesnotification", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+//                    //             original URL request
+//                        print("Request is :",response.request!)
+//
+//                        // HTTP URL response --> header and status code
+//                        print("Response received is :",response.response)
+//
+//                        // server data : example 267 bytes
+//                        print("Response data is :",response.data)
+//
+//                        // result of response serialization : SUCCESS / FAILURE
+//                        print("Response result is :",response.result)
+//
+//                        debugPrint("Debug Print :", response)
+//
+//
+//        }
+        
+//        let manager = Alamofire.SessionManager.default
+//        manager.session.configuration.timeoutIntervalForRequest = 120
+//
+//        manager.request("http://highavenue.co:9000/likesnotification", method: .post, parameters: parameters)
+//            .responseJSON {
+//                response in
+//                switch (response.result) {
+//                case .success:
+//                    //do json stuff
+//                    break
+//                case .failure(let error):
+//                    if error._code == NSURLErrorTimedOut {
+//                        //HANDLE TIMEOUT HERE
+//
+//                    }
+//                    print("\n\nAuth request failed with error:\n \(error)")
+//                    break
+//                }
+//        }
+        
+//        Alamofire.request(request, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { response in
+//
+//            // original URL request
+//            print("Request is :",response.request!)
+//
+//            // HTTP URL response --> header and status code
+//            print("Response received is :",response.response)
+//
+//            // server data : example 267 bytes
+//            print("Response data is :",response.data)
+//
+//            // result of response serialization : SUCCESS / FAILURE
+//            print("Response result is :",response.result)
+//
+//            debugPrint("Debug Print :", response)
+//        }
+//
+     
         
     }
 
@@ -784,4 +838,13 @@ extension Date {
             : "\(secondsFromNow) second" + (secondsFromNow(from: date) > 1 ? "s" : "") + " ago" }
         return ""
     }
+}
+extension String: ParameterEncoding {
+    
+    public func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest {
+        var request = try urlRequest.asURLRequest()
+        request.httpBody = data(using: .utf8, allowLossyConversion: false)
+        return request
+    }
+    
 }
