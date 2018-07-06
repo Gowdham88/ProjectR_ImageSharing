@@ -43,11 +43,7 @@ class peopleTableViewCell: UITableViewCell {
     
     var mybool = true
 
-    @IBAction func followBtnTapped(_ sender: Any) {
-       
-        
-    }
-    
+   
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -90,85 +86,110 @@ class peopleTableViewCell: UITableViewCell {
             let photoUrl = URL(string: photoUrlString)
             profileUserImage.sd_setImage(with: photoUrl, placeholderImage: UIImage(named: "placeholder-photo"))
         }
+//        if let followersList = followers,let uid = user?.id {
+//        if let isFollowing = followersList[uid] as? Bool {
+//        if isFollowing {
+//            configureUnFollowButton()
+//        } else {
+//            configureFollowButton()
+//        }
+//        }
+//        }
         
         if let followersList = followers,let uid = user?.id {
-            
+
             print("2.followers, user?.id: \(followers, user?.id)")
             
+//            updateStateFollowButton()
+
             if let isFollowing = followersList[uid] as? Bool {
-                
+
                 print("3.isFollowing followBtnTapped: \(isFollowing)")
-                
+
                 if isFollowing {
-                    
+
                     print("4.isFollowing: true")
-                    
-                    
+
+
                     configureUnFollowButton()
                     return
-                    
+
                 }
-                
+
             }
-            
+
             print("5.followersList[uid] Bool does not exist")
-           
+
             configureFollowButton()
-            
-            
+
+
         } else {
-            
+        
             print("6.Else Condition NIL = let followersList = followers,let uid = user?.id")
-           
+
             configureFollowButton()
-            
+
         }
         
     }
     
     func configureFollowButton() {
         
+        
         followBtn.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
         followBtn.setTitleColor(UIColor.white, for: UIControlState.normal)
         followBtn.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         followBtn.setTitle("Follow", for: UIControlState.normal)
-        followBtn.addTarget(self, action: #selector(self.unFollowAction), for: UIControlEvents.touchUpInside)
+        followBtn.isUserInteractionEnabled = true
+        
+//        followBtn.addTarget(self, action: #selector(self.unFollowAction), for: UIControlEvents.touchUpInside)
+        followBtn.addTarget(self, action: #selector(self.followAction(sender:)), for: .touchUpInside)
+        
+       
         
     }
     
     func configureUnFollowButton() {
         
+        
         followBtn.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
         followBtn.setTitleColor(UIColor.black, for: UIControlState.normal)
         followBtn.backgroundColor = UIColor.clear
         followBtn.setTitle("Following", for: UIControlState.normal)
-        followBtn.addTarget(self, action: #selector(self.followAction), for: UIControlEvents.touchUpInside)
+         followBtn.isUserInteractionEnabled = true
+        
+//        followBtn.addTarget(self, action: #selector(self.followAction), for: UIControlEvents.touchUpInside)
+         followBtn.addTarget(self, action: #selector(self.unFollowAction(sender:)), for: .touchUpInside)
+       
         
     }
     
     @objc func followAction(sender : UIButton) {
         
-        print("followAction")
+        print("::::::followAction:::::")
+        
+        
         
         if let delegatexits = delegate {
             
-            delegatexits.updateFollowers(position: sender.tag, cell: self)
+            delegatexits.updateFollowers(position: (sender as AnyObject).tag, cell: self)
         }
         
     }
     
     @objc func unFollowAction(sender : UIButton) {
         
-        print("UnfollowAction")
-
+         print("::::::UnfollowAction:::::")
+        
         if let delegatexits = delegate {
             
-            delegatexits.updateUnFollowers(position: sender.tag, cell: self)
+            delegatexits.updateUnFollowers(position: (sender as AnyObject).tag, cell: self)
         }
        
     }
 
     func updateStateFollowButton() {
+        
         if user!.isFollowing! {
             configureUnFollowButton()
         } else {

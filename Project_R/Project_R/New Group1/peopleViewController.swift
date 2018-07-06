@@ -13,7 +13,7 @@ import FirebaseDatabase
 
 var users       : [Users] = []
 
-class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -193,6 +193,9 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.user = user
         cell.delegate = self
         
+        print("-->TABLE VIEW CELL WORKS ::: OK :::")
+        
+        
         let isFollowing = users[indexPath.row].isFollowing
         print("isFollowing cellForRowAt: \(isFollowing)")
 
@@ -202,18 +205,20 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             cell.followBtn.setTitleColor(UIColor.black, for: UIControlState.normal)
             cell.followBtn.backgroundColor = UIColor.clear
             cell.followBtn.setTitle("Following", for: .normal)
-            
-            
+
+
         } else {
             
-            cell.followBtn.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
-            
-            cell.followBtn.setTitleColor(UIColor.white, for: UIControlState.normal)
-            
-            cell.followBtn.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-            
-            cell.followBtn.setTitle("Follow", for: .normal)
-            
+            print("::::User in follow:::::")
+
+//            cell.followBtn.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
+//
+//            cell.followBtn.setTitleColor(UIColor.white, for: UIControlState.normal)
+//
+//            cell.followBtn.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+//
+//            cell.followBtn.setTitle("Follow", for: .normal)
+
         }
         
         return cell
@@ -270,8 +275,12 @@ extension peopleViewController: PeopleTableViewCellDelegate {
         
         print("updateFollowers:::")
         
+        
+        
         API.Follow.followAction(withUser: users[position].id ?? "empty")
-//        cell.configureUnFollowButton()
+        
+        cell.configureUnFollowButton()
+        
         
         if API.User.CURRENT_USER_ID == users[position].id {
             
@@ -281,6 +290,7 @@ extension peopleViewController: PeopleTableViewCellDelegate {
             
             print("updateFollowers:::")
             
+            
             loadFollowers()
             
         }
@@ -289,7 +299,7 @@ extension peopleViewController: PeopleTableViewCellDelegate {
     func updateUnFollowers(position: Int, cell: peopleTableViewCell) {
         
         print("updateUnFollowers:::")
-//        cell.configureFollowButton()
+        cell.configureFollowButton()
         
         API.Follow.unFollowAction(withUser: users[position].id ?? "empty")
         loadFollowers()
