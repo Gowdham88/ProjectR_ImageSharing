@@ -55,6 +55,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        print("Profile view tab bar")
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
@@ -93,6 +97,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
             
         })
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.dismiss(animated: true, completion: nil)
     }
     
    
@@ -331,8 +339,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
        
         {
         case 0:
-
-            cell.post = posts[indexPath.row]
+//            cell.post = posts[indexPath.row]
             
             cell.activityComments.isHidden = true
             cell.productName.isHidden = false
@@ -344,7 +351,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         case 1:
             
             cell.saves = saves[indexPath.row]
-            
             cell.activityComments.isHidden = true
             cell.productName.isHidden = false
             cell.productImage.isHidden = false
@@ -356,7 +362,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         case 2:
             
             cell.activities = activities[indexPath.row]
-            
             cell.activityComments.isHidden = false
             cell.productName.isHidden = true
             cell.productImage.isHidden = true

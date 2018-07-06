@@ -127,7 +127,7 @@ class peopleTableViewCell: UITableViewCell {
         
             print("6.Else Condition NIL = let followersList = followers,let uid = user?.id")
 
-            configureFollowButton()
+//            configureFollowButton()
 
         }
         

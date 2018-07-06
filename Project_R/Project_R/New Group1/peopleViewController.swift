@@ -41,8 +41,17 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        print("People view controller tab bar")
+        self.tableView.reloadData()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
+       DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
         
          loadUsers()
     }
@@ -55,6 +64,7 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.activityIndicator.isHidden = false
         
         users.removeAll()
+        
   
         API.User.observeUser { (user) in
             
@@ -161,8 +171,8 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
-        tabBarController?.tabBar.isHidden = false
+        self.dismiss(animated: true, completion: nil)
+//        tabBarController?.tabBar.isHidden = false
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -170,8 +180,11 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("Number of user",users.count)
+        
         return users.count
         
     }
@@ -192,6 +205,7 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         print("letuser::::\(user)")
         cell.user = user
         cell.delegate = self
+
         
         print("-->TABLE VIEW CELL WORKS ::: OK :::")
         
@@ -199,17 +213,17 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let isFollowing = users[indexPath.row].isFollowing
         print("isFollowing cellForRowAt: \(isFollowing)")
 
-        if isFollowing != nil && isFollowing == true  {
-
-            cell.followBtn.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
-            cell.followBtn.setTitleColor(UIColor.black, for: UIControlState.normal)
-            cell.followBtn.backgroundColor = UIColor.clear
-            cell.followBtn.setTitle("Following", for: .normal)
-
-
-        } else {
-            
-            print("::::User in follow:::::")
+//        if isFollowing != nil && isFollowing == true  {
+//
+//            cell.followBtn.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
+//            cell.followBtn.setTitleColor(UIColor.black, for: UIControlState.normal)
+//            cell.followBtn.backgroundColor = UIColor.clear
+////          cell.followBtn.setTitle("Following", for: .normal)
+//
+//
+//        } else {
+//
+//            print("::::User in follow:::::")
 
 //            cell.followBtn.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
 //
@@ -219,7 +233,7 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //
 //            cell.followBtn.setTitle("Follow", for: .normal)
 
-        }
+//        }
         
         return cell
     }
@@ -278,8 +292,11 @@ extension peopleViewController: PeopleTableViewCellDelegate {
         
         
         API.Follow.followAction(withUser: users[position].id ?? "empty")
+       
         
-        cell.configureUnFollowButton()
+//        cell.configureUnFollowButton()
+//
+//        self.tableView.reloadData()
         
         
         if API.User.CURRENT_USER_ID == users[position].id {
@@ -292,6 +309,7 @@ extension peopleViewController: PeopleTableViewCellDelegate {
             
             
             loadFollowers()
+            self.tableView.reloadData()
             
         }
     }
@@ -299,10 +317,12 @@ extension peopleViewController: PeopleTableViewCellDelegate {
     func updateUnFollowers(position: Int, cell: peopleTableViewCell) {
         
         print("updateUnFollowers:::")
-        cell.configureFollowButton()
+//        cell.configureFollowButton()
+        self.tableView.reloadData()
         
         API.Follow.unFollowAction(withUser: users[position].id ?? "empty")
         loadFollowers()
+        self.tableView.reloadData()
     }
  
  
