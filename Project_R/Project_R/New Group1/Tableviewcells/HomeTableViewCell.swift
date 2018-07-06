@@ -53,6 +53,8 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     var postUSerName: String! = ""
     var productbuyURL: String! = ""
     var postToken: String! = ""
+//    var postItem = Post()
+    var currentUserUID: String! = ""
     var post: Post? {
         didSet {
             updateView()
@@ -350,15 +352,15 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     
     @objc func handleLikeTap() {
         
-        let content = UNMutableNotificationContent()
-        content.title = "You have a notification"
-        content.subtitle = "the post have a like"
-        content.badge = 1
-        
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-        let request = UNNotificationRequest(identifier: "timerDone", content: content, trigger: trigger)
-        
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+//        let content = UNMutableNotificationContent()
+//        content.title = "You have a notification"
+//        content.subtitle = "the post have a like"
+//        content.badge = 1
+//
+//        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+//        let request = UNNotificationRequest(identifier: "timerDone", content: content, trigger: trigger)
+//
+//        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
        
         postReference = API.Post.REF_POSTS.child(post!.id!)
         incrementLikesTrans(forReference: postReference)
@@ -440,9 +442,15 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
             if self.currentName != nil {
                 
                 self.currentName = user.username!
-                
+               
                 print("currentname::\(String(describing: self.currentName))")
                 
+            }
+            
+            if self.currentUserUID != nil {
+                
+                 self.currentUserUID = user.uid!
+                 print("currentUserUID::\(String(describing: self.currentUserUID))")
             }
         })
         
@@ -481,18 +489,24 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
                         
                         likeCount -= 1
                         likes[uid] = false
+                       
+
                         
                     } else {
                         
                         likeCount += 1
                         likes[uid] = true
-                        
+                      
+
+
                     }
                     
                 } else {
                     
                     likeCount += 1
                     likes[uid] = true
+//                    self.postNotification(postItem: postItem.documentID!, post: self.post!)
+
                 }
                 
                 postItem.likeCount = likeCount
@@ -506,7 +520,22 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
                 
 //              postNotification(postItem: postItem, post: post!)
                 
-                self.postNotification(postItem: postItem.documentID!, post: self.post!)
+//                self.postNotification(postItem: postItem.documentID!, post: self.post!)
+                if self.currentUserUID != postItem.uid {
+
+                    self.postNotification(postItem: postItem.documentID!, post: self.post!)
+
+                    print("Different user uid")
+
+
+                } else {
+
+
+                    print("current user uid")
+                    print("currentUserUID")
+
+
+                }
                 
             }
             return nil
@@ -552,6 +581,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
             
             let imageName = post.isLiked ?? false ? "firecolors" : "fireuncolors"
             self.likeImageView.image = UIImage(named: imageName)
+
             
             // display a message for Likes
             guard let count = post.likeCount else {
@@ -609,25 +639,80 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         parameters["postId"] = postItem
         parameters["token"] = post.token!
         
+   
+        
+        
         let headers: HTTPHeaders = ["Content-Type" :"application/x-www-form-urlencoded"]
         
-        Alamofire.request("http://highavenue.co:9000/likesnotification", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { response in
-            
-            // original URL request
-            print("Request is :",response.request!)
-            
-            // HTTP URL response --> header and status code
-            print("Response received is :",response.response)
-            
-            // server data : example 267 bytes
-            print("Response data is :",response.data)
-            
-            // result of response serialization : SUCCESS / FAILURE
-            print("Response result is :",response.result)
-            
-            debugPrint("Debug Print :", response)
+        
+        
+        
+        let RequestData = NSMutableURLRequest(url: NSURL.init(string: "http://highavenue.co:9000/likesnotification/")! as URL)
+        RequestData.httpMethod = "POST"
+        RequestData.timeoutInterval = 250 // Time interval here.
+        
+        Alamofire.request(RequestData as! URLRequestConvertible).responseJSON { (responseData) -> Void in
+            if((responseData.result.value) != nil) { // response
+                print(responseData.result.value!)
+            }
         }
 
+//        Alamofire.request("http://highavenue.co:9000/likesnotification", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+//                    //             original URL request
+//                        print("Request is :",response.request!)
+//
+//                        // HTTP URL response --> header and status code
+//                        print("Response received is :",response.response)
+//
+//                        // server data : example 267 bytes
+//                        print("Response data is :",response.data)
+//
+//                        // result of response serialization : SUCCESS / FAILURE
+//                        print("Response result is :",response.result)
+//
+//                        debugPrint("Debug Print :", response)
+//
+//
+//        }
+        
+//        let manager = Alamofire.SessionManager.default
+//        manager.session.configuration.timeoutIntervalForRequest = 120
+//
+//        manager.request("http://highavenue.co:9000/likesnotification", method: .post, parameters: parameters)
+//            .responseJSON {
+//                response in
+//                switch (response.result) {
+//                case .success:
+//                    //do json stuff
+//                    break
+//                case .failure(let error):
+//                    if error._code == NSURLErrorTimedOut {
+//                        //HANDLE TIMEOUT HERE
+//
+//                    }
+//                    print("\n\nAuth request failed with error:\n \(error)")
+//                    break
+//                }
+//        }
+        
+//        Alamofire.request(request, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { response in
+//
+//            // original URL request
+//            print("Request is :",response.request!)
+//
+//            // HTTP URL response --> header and status code
+//            print("Response received is :",response.response)
+//
+//            // server data : example 267 bytes
+//            print("Response data is :",response.data)
+//
+//            // result of response serialization : SUCCESS / FAILURE
+//            print("Response result is :",response.result)
+//
+//            debugPrint("Debug Print :", response)
+//        }
+//
+     
         
     }
 
@@ -753,4 +838,13 @@ extension Date {
             : "\(secondsFromNow) second" + (secondsFromNow(from: date) > 1 ? "s" : "") + " ago" }
         return ""
     }
+}
+extension String: ParameterEncoding {
+    
+    public func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest {
+        var request = try urlRequest.asURLRequest()
+        request.httpBody = data(using: .utf8, allowLossyConversion: false)
+        return request
+    }
+    
 }

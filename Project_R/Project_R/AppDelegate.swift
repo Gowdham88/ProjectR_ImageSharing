@@ -9,7 +9,8 @@
 import UIKit
 import Firebase
 import UserNotifications
-
+import FirebaseInstanceID
+import FirebaseMessaging
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
@@ -108,6 +109,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
 //        print("failed to register for remote notifications with with error: \(error)")
 //    }
     
+    // The callback to handle data message received via FCM for devices running iOS 10 or above.
+    func application(received remoteMessage: MessagingRemoteMessage) {
+        print(remoteMessage.appData)
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -189,9 +195,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         let userInfo = notification.request.content.userInfo
         
-        // With swizzling disabled you must let Messaging know about the message, for Analytics
-        // Messaging.messaging().appDidReceiveMessage(userInfo)
-        
+     
         // Print message ID.
         if let messageID = userInfo["gcm.message_id"] {
             print("Message ID: \(messageID)")
@@ -213,11 +217,10 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
             print("Message ID: \(messageID)")
         }
         
+        
         // Print full message.
         print(userInfo)
         
         completionHandler()
     }
 }
-
-
