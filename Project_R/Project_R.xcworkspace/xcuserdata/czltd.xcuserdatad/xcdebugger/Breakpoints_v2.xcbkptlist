@@ -298,12 +298,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project_R/New Group1/Tableviewcells/peopleTableViewCell.swift"
-            timestampString = "552328617.876462"
+            timestampString = "552647428.749392"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "104"
             endingLineNumber = "104"
-            landmarkName = "nameLabel_TouchUpInside()"
+            landmarkName = "updateView()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -314,12 +314,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project_R/New Group1/Tableviewcells/peopleTableViewCell.swift"
-            timestampString = "552328617.876771"
+            timestampString = "552647428.749705"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "106"
             endingLineNumber = "106"
-            landmarkName = "nameLabel_TouchUpInside()"
+            landmarkName = "updateView()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -330,7 +330,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project_R/New Group1/peopleViewController.swift"
-            timestampString = "552328617.877391"
+            timestampString = "552647428.749925"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "153"
@@ -346,13 +346,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project_R/New Group1/peopleViewController.swift"
-            timestampString = "552328617.877733"
+            timestampString = "552647428.750175"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "242"
             endingLineNumber = "242"
-            landmarkName = "moveToUserPage(sender:)"
-            landmarkType = "7">
+            landmarkName = "peopleViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -362,7 +362,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project_R/New Group1/peopleViewController.swift"
-            timestampString = "552328617.878071"
+            timestampString = "552647428.7503591"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "253"
@@ -474,7 +474,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project_R/New Group1/peopleViewController.swift"
-            timestampString = "552328617.878625"
+            timestampString = "552647428.7505881"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "247"
@@ -490,12 +490,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project_R/New Group1/Tableviewcells/peopleTableViewCell.swift"
-            timestampString = "552328617.878963"
+            timestampString = "552647428.750761"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "80"
             endingLineNumber = "80"
-            landmarkName = "followBtnTapped(_:)"
+            landmarkName = "updateView()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -634,12 +634,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project_R/New Group1/Tableviewcells/peopleTableViewCell.swift"
-            timestampString = "552328617.8795381"
+            timestampString = "552647428.751013"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "54"
             endingLineNumber = "54"
-            landmarkName = "followBtnTapped(_:)"
+            landmarkName = "awakeFromNib()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -666,13 +666,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project_R/New Group1/Tableviewcells/peopleTableViewCell.swift"
-            timestampString = "552328617.8797801"
+            timestampString = "552647428.751201"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "47"
             endingLineNumber = "47"
-            landmarkName = "followBtnTapped(_:)"
-            landmarkType = "7">
+            landmarkName = "peopleTableViewCell"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -682,12 +682,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project_R/New Group1/Tableviewcells/peopleTableViewCell.swift"
-            timestampString = "552328617.879979"
+            timestampString = "552647428.7513781"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "76"
             endingLineNumber = "76"
-            landmarkName = "followBtnTapped(_:)"
+            landmarkName = "handlefollowbtnTap()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -698,11 +698,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project_R/New Group1/Tableviewcells/peopleTableViewCell.swift"
-            timestampString = "552328617.880174"
+            timestampString = "552647428.75155"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "156"
             endingLineNumber = "156"
+            landmarkName = "configureUnFollowButton()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Project_R/New Group1/Tableviewcells/peopleTableViewCell.swift"
+            timestampString = "552647428.7517231"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
             landmarkName = "followAction(sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -714,28 +730,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project_R/New Group1/Tableviewcells/peopleTableViewCell.swift"
-            timestampString = "552328617.880365"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
-            landmarkName = "unFollowAction(sender:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Project_R/New Group1/Tableviewcells/peopleTableViewCell.swift"
-            timestampString = "552328617.88055"
+            timestampString = "552647428.751896"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "134"
             endingLineNumber = "134"
-            landmarkName = "configureFollowButton()"
+            landmarkName = "updateView()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -746,12 +746,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project_R/New Group1/Tableviewcells/peopleTableViewCell.swift"
-            timestampString = "552328617.880735"
+            timestampString = "552647428.752069"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "144"
             endingLineNumber = "144"
-            landmarkName = "configureUnFollowButton()"
+            landmarkName = "configureFollowButton()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -778,7 +778,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project_R/New Group1/peopleViewController.swift"
-            timestampString = "552328617.880959"
+            timestampString = "552647428.752251"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "210"
@@ -794,12 +794,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project_R/New Group1/Tableviewcells/peopleTableViewCell.swift"
-            timestampString = "552328617.881256"
+            timestampString = "552647428.752426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "59"
             endingLineNumber = "59"
-            landmarkName = "followBtnTapped(_:)"
+            landmarkName = "awakeFromNib()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
