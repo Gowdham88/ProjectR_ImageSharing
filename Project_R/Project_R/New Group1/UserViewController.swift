@@ -83,6 +83,14 @@ class UserViewController: UIViewController {
         self.tabView.dataSource = self
        
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+       
+        self.tabBarController?.tabBar.isHidden = true
+        
+         print("User detail page tab bar")
+        
+    }
 
     func displayContentController(content: UIViewController) {
         addChildViewController(content)
@@ -90,6 +98,11 @@ class UserViewController: UIViewController {
         content.didMove(toParentViewController: self)
     }
     @IBAction func back(_ sender: Any) {
+        
+        self.tabBarController?.tabBar.isHidden = false
+        
+        self.dismiss(animated: true, completion: nil)
+
     self.navigationController?.popToRootViewController(animated: true)
         
         if let delegateexits = delegate {

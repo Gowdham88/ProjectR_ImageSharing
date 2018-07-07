@@ -66,6 +66,8 @@ class HomeViewController : UIViewController {
         
         loadPosts()
         
+       
+        
 //        tableView.rowHeight = UITableViewAutomaticDimension
 //        tableView.estimatedRowHeight = 44
         
@@ -603,23 +605,27 @@ extension HomeViewController : CameraViewControllerDelegate,UserViewControllerDe
 
 
 extension HomeViewController : UITabBarControllerDelegate {
+    //        _ tabBarController: UITabBarController, shouldSelect viewController: UIViewController
     
+//    -> Bool
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        
+            let viewController0  = tabBarController.viewControllers?[0] as! UINavigationController
+//            let svc0 = viewController0.topViewController as! HomeViewController
        
-//            let viewController0  = tabBarController.viewControllers?[0] as! UINavigationController
-//            let svc0 = viewController0.topViewController as! HomeViewController     
-       
-            let viewController  = tabBarController.viewControllers?[1] as! UINavigationController
+        let viewController  = tabBarController.viewControllers?[1] as! UINavigationController
             let svc = viewController.topViewController as! peopleViewController
 //            svc.delegate = self as! NotificationViewControllerDelegate;
         
-            let viewController2  = tabBarController.viewControllers?[2] as! UINavigationController
+        let viewController2  = tabBarController.viewControllers?[2] as! UINavigationController
             let svc1 = viewController2.topViewController as! NotificationViewController
 //            svc1.delegate = self as! NotificationViewControllerDelegate
         
-            let viewController3  = tabBarController.viewControllers?[3] as! UINavigationController
+        let viewController3  = tabBarController.viewControllers?[3] as! UINavigationController
             let svc2 = viewController3.topViewController as! ProfileViewController
-            svc2.delegate = self;
+//            svc2.delegate = self;
+        
+        
         
         return true
     }

@@ -42,6 +42,7 @@ pod 'AWSSNS'
 pod 'AWSSQS'
 pod 'SHXMLParser'
 pod 'AWSAPIGateway'
+pod 'MaterialComponents/Tabs'
 
 
 
