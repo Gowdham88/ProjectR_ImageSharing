@@ -127,7 +127,7 @@ class UserViewController: UIViewController {
             
             userFollowing = false
             
-            followButton.setTitle("Follow", for: .normal)
+//            followButton.setTitle("Follow", for: .normal)
             API.Follow.unFollowAction(withUser: userVCuserId)
             
         } else {
@@ -154,7 +154,7 @@ class UserViewController: UIViewController {
             
         } else {
             
-            followButton.setTitle("Follow", for: .normal)
+//            followButton.setTitle("Follow", for: .normal)
         }
         
        

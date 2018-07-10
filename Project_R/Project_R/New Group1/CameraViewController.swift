@@ -470,7 +470,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
             shareButton.alpha = 0.2
             clearBarButton.isEnabled = false
            
-        }
+        } 
     }
     
     func CurrentDate(){
