@@ -27,6 +27,7 @@ class Post {
     var productName: String?
     var productDetailPageURL: String?
     var token: String?
+    var value: Bool?
 }
 
 extension Post {
@@ -51,6 +52,7 @@ extension Post {
         post.productName = postDictionary["productName"] as? String
         post.productDetailPageURL = postDictionary["productDetailPageURL"] as? String
         post.token  = postDictionary["token"] as? String
+        post.value = postDictionary["value"] as? Bool
         
         
         if let currentUserID = Auth.auth().currentUser?.uid {

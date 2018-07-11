@@ -189,13 +189,10 @@ class verification: UIViewController, UIImagePickerControllerDelegate {
         API.User.observeCurrentUser { (user) in
             
             let db = Firestore.firestore()
-            db.collection("verification").document(newPostID).setData([
-                
-                  "uid": currentUserID,
+            db.collection("posts").document(postNewID!).updateData([
+
                   "BillphotoURL": photoURL,
-                  "postTime"  : Date().timeIntervalSince1970,
-                  "value": false,
-                  "postID": postNewID
+                  "value": false
                 
             ]) { err in
                 if let err = err {

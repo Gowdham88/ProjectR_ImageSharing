@@ -13,15 +13,20 @@ import FirebaseDatabase
 
 var users       : [Users] = []
 
+
 class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var followers   : [String : Any]?
     
     var newUsers: [Users] = []
     var newListOfUsers:[Users] = []
-    var activityIndicator = UIActivityIndicatorView()
+    var refreshControl = UIRefreshControl()
+   
+
+
     
 //    var userList = [String]()
 //    var tagArray = [String] ()
@@ -29,23 +34,21 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
         
         //Navigation bar title color
-         let textAttributes = [NSAttributedStringKey.foregroundColor: UIColor(red: 0, green: 0, blue: 0, alpha: 1)]
+        let textAttributes = [NSAttributedStringKey.foregroundColor: UIColor(red: 0, green: 0, blue: 0, alpha: 1)]
         let textFont = [NSAttributedStringKey.font: UIFont(name: "Avenir Light", size: 16)!]
         self.navigationController?.navigationBar.titleTextAttributes = textFont
         navigationController?.navigationBar.titleTextAttributes = textAttributes
+        
+        
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
+        tableView.addSubview(refreshControl)
       
 //        title = "Discover People"
-        
-       
 //        removeMyDuplicates()
         
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        print("People view controller tab bar")
-        self.tableView.reloadData()
-    }
-    
+ 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
@@ -54,6 +57,12 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
          loadUsers()
+    }
+    
+    @objc func refresh(sender:AnyObject) {
+        
+        refreshControl.endRefreshing()
+
     }
 
     func loadUsers() {
@@ -100,10 +109,11 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func loadFollowers() {
         
-        if followers != nil {
-            
-            followers?.removeAll()
-        }
+        
+//        if followers != nil {
+//            
+//            followers?.removeAll()
+//        }
         
         let userId = API.User.CURRENT_USER_ID ?? "empty"
         
@@ -120,7 +130,7 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
             
             DispatchQueue.main.async {
-                
+                    
                 self.tableView.reloadData()
                 self.activityIndicator.stopAnimating()
                 self.activityIndicator.isHidden = true
@@ -188,10 +198,14 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return users.count
         
     }
+//
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        activityIndicator.startAnimating()
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "PeopleTableViewCell", for: indexPath) as! peopleTableViewCell
-       
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(moveToUserPage(sender:)))
         cell.profileUserImage.addGestureRecognizer(tapGesture)
         cell.profileUserImage.isUserInteractionEnabled = true
@@ -201,30 +215,40 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         print("indexPath.row: \(indexPath.row)")
         
-        let user = users[indexPath.row]
-        print("letuser::::\(user)")
-        cell.user = user
-        cell.delegate = self
-
+//        let user = users[indexPath.row]
+        if users.count > 0 {
+            
+            let user1 = users[indexPath.row]
+            print("letuser::::\(user1)")
+            cell.user = user1
+            cell.delegate = self
+            
+            let isFollowing = users[indexPath.row].isFollowing
+            print("isFollowing cellForRowAt: \(isFollowing)")
+            
+            
+        }
         
+        
+       
+        activityIndicator.stopAnimating()
         print("-->TABLE VIEW CELL WORKS ::: OK :::")
         
         
-        let isFollowing = users[indexPath.row].isFollowing
-        print("isFollowing cellForRowAt: \(isFollowing)")
+       
 
-//        if isFollowing != nil && isFollowing == true  {
-//
+//            if isFollowing != nil && isFollowing == true  {
+        
+//            print("::::User in follow:::::")
 //            cell.followBtn.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
 //            cell.followBtn.setTitleColor(UIColor.black, for: UIControlState.normal)
 //            cell.followBtn.backgroundColor = UIColor.clear
-////          cell.followBtn.setTitle("Following", for: .normal)
-//
-//
+//            cell.followBtn.setTitle("Following", for: .normal)
+        
 //        } else {
-//
-//            print("::::User in follow:::::")
 
+//            print("::::User in follow:::::")
+//
 //            cell.followBtn.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
 //
 //            cell.followBtn.setTitleColor(UIColor.white, for: UIControlState.normal)
@@ -232,7 +256,6 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //            cell.followBtn.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
 //
 //            cell.followBtn.setTitle("Follow", for: .normal)
-
 //        }
         
         return cell
@@ -240,8 +263,6 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var posts = [Post]()
 
-   
-    
     @objc func moveToUserPage(sender: UITapGestureRecognizer) {
         
         print("User detail page tapped \(sender)")
@@ -257,6 +278,7 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if let followbool = users[indexPath.row].isFollowing {
             
             userFollowing = false
+            
             
         } else {
             
@@ -287,15 +309,13 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
 extension peopleViewController: PeopleTableViewCellDelegate {
     func updateFollowers(position: Int, cell: peopleTableViewCell) {
         
-        print("updateFollowers:::")
-        
-        
+        print("::GET DETAIL OF OF FOLLOWERS-1::",updateFollowers)
         
         API.Follow.followAction(withUser: users[position].id ?? "empty")
        
         
-//        cell.configureUnFollowButton()
-//
+        cell.configureUnFollowButton()
+
 //        self.tableView.reloadData()
         
         
@@ -305,10 +325,16 @@ extension peopleViewController: PeopleTableViewCellDelegate {
             
         } else {
             
-            print("updateFollowers:::")
+            print("::GET DETAIL OF OF FOLLOWERS-2::",updateFollowers)
             
             
             loadFollowers()
+            
+            if cell.followBtn.tag == position {
+                
+                cell.followBtn.setTitle("Unfollow", for: .normal)
+            }
+            
             self.tableView.reloadData()
             
         }
@@ -316,8 +342,8 @@ extension peopleViewController: PeopleTableViewCellDelegate {
     
     func updateUnFollowers(position: Int, cell: peopleTableViewCell) {
         
-        print("updateUnFollowers:::")
-//        cell.configureFollowButton()
+        print("::GET DETAIL OF OF FOLLOWERS 3::",updateFollowers)
+        cell.configureFollowButton()
         self.tableView.reloadData()
         
         API.Follow.unFollowAction(withUser: users[position].id ?? "empty")
@@ -342,14 +368,14 @@ extension peopleViewController: PeopleTableViewCellDelegate {
 
 extension peopleViewController: HeaderProfileCollectionReusableViewDelegate {
     func updateFollowButton(forUser user: Users) {
-        
+
         for u in users {
             if u.id == user.id {
                 u.isFollowing = user.isFollowing
                 self.tableView.reloadData()
             }
         }
-        
+
     }
 }
 

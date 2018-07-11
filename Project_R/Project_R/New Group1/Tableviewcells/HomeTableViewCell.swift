@@ -41,6 +41,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
 
     @IBOutlet weak var commentCountButton: UIButton!
     @IBOutlet weak var shareCountButton: UIButton!
+    @IBOutlet weak var verifiedLbl: UILabel!
     
     var delegate : HomeTableViewCellDelegate?
     var homeVC: HomeViewController?
@@ -76,7 +77,15 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-      
+        
+//        verifiedLbl != nil; {
+//
+//            self.verifiedLbl.layer.masksToBounds = true
+//            self.verifiedLbl.layer.cornerRadius = 10
+//
+//        }
+//
+        
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: {didAllow, error in
             
         })
@@ -318,6 +327,8 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         super.prepareForReuse()
         profileImageView.image = UIImage(named: "profile")
     }
+    
+    
     
     // fetch the values from the user variable
     func updateUserInfo() {
