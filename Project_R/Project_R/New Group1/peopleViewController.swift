@@ -49,9 +49,9 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-       DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+//       DispatchQueue.main.async {
+//            self.tableView.reloadData()
+//        }
         
          loadUsers()
     }
@@ -81,12 +81,10 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 else {
                     
                     users.append(item)
-                    print("Appened users::::", users)
 
                 }
             }
             
-            print("Print loadusers::::", users)
             
             self.loadFollowers()
             
@@ -115,16 +113,18 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             {
                 
                 self.followers = followerslist
-                print("Get followers list::::", followersList!,self.followers)
+                print("Get followers list::::", followersList!)
                 
             }
             
-            DispatchQueue.main.async {
-                
+            
+            
+//            DispatchQueue.main.async {
+            
                 self.tableView.reloadData()
                 self.activityIndicator.stopAnimating()
                 self.activityIndicator.isHidden = true
-            }
+//            }
            
         })
         
@@ -307,8 +307,9 @@ extension peopleViewController: PeopleTableViewCellDelegate {
             
             print("updateFollowers:::")
             
-            
             loadFollowers()
+//             cell.configureFollowButton()
+            cell.updateStateFollowButton()
             self.tableView.reloadData()
             
         }
@@ -317,11 +318,15 @@ extension peopleViewController: PeopleTableViewCellDelegate {
     func updateUnFollowers(position: Int, cell: peopleTableViewCell) {
         
         print("updateUnFollowers:::")
-//        cell.configureFollowButton()
-        self.tableView.reloadData()
+        
+//        self.tableView.reloadData()
+        
         
         API.Follow.unFollowAction(withUser: users[position].id ?? "empty")
         loadFollowers()
+//        cell.configureUnFollowButton()
+        cell.updateStateFollowButton()
+       
         self.tableView.reloadData()
     }
  
