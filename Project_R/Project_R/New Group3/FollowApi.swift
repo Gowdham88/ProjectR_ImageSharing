@@ -99,7 +99,7 @@ class FollowApi {
     }
     
     func unFollowAction(withUser id: String) {
-        print("unFollowAction Follow API")
+        print("FollowAction Follow API")
 
         startAnimating()
         
@@ -131,7 +131,8 @@ class FollowApi {
         }
         db.collection("following").document(API.User.CURRENT_USER!.uid).updateData([
             id: FieldValue.delete(),
-            ]) { err in
+            ])
+        { err in
                 if let err = err {
                     
                     print("Error updating document: \(err)")
