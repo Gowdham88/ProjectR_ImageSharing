@@ -22,6 +22,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="j38-EQ-GCL">
+                                    <rect key="frame" x="0.0" y="109" width="414" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </activityIndicatorView>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PeopleTableViewCell" rowHeight="81" id="ivU-1O-STB" customClass="peopleTableViewCell" customModule="HighAvenue" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="81"/>
@@ -70,6 +74,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Discover People" id="YC1-xc-OoU"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="j38-EQ-GCL" id="ZRk-4c-soc"/>
                         <outlet property="tableView" destination="pwh-r6-ncW" id="VPB-bO-n06"/>
                         <segue destination="CSg-6z-unC" kind="show" identifier="ProfileSegue" id="dGy-OF-DuB"/>
                     </connections>

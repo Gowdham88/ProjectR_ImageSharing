@@ -13,16 +13,19 @@ import FirebaseDatabase
 
 var users       : [Users] = []
 
+
 class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var followers   : [String : Any]?
     
     var newUsers: [Users] = []
     var newListOfUsers:[Users] = []
-    var activityIndicator = UIActivityIndicatorView()
     var refreshControl = UIRefreshControl()
+   
+
 
     
 //    var userList = [String]()
@@ -45,12 +48,7 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //        removeMyDuplicates()
         
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        print("People view controller tab bar")
-        self.tableView.reloadData()
-    }
-    
+ 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
@@ -200,12 +198,14 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return users.count
         
     }
-    
+//
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        activityIndicator.startAnimating()
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "PeopleTableViewCell", for: indexPath) as! peopleTableViewCell
-       
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(moveToUserPage(sender:)))
         cell.profileUserImage.addGestureRecognizer(tapGesture)
         cell.profileUserImage.isUserInteractionEnabled = true
@@ -215,27 +215,37 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         print("indexPath.row: \(indexPath.row)")
         
-        let user = users[indexPath.row]
-        print("letuser::::\(user)")
-        cell.user = user
-        cell.delegate = self
-
+//        let user = users[indexPath.row]
+        if users.count > 0 {
+            
+            let user1 = users[indexPath.row]
+            print("letuser::::\(user1)")
+            cell.user = user1
+            cell.delegate = self
+            
+            let isFollowing = users[indexPath.row].isFollowing
+            print("isFollowing cellForRowAt: \(isFollowing)")
+            
+            
+        }
+        
+        
+       
+        activityIndicator.stopAnimating()
         print("-->TABLE VIEW CELL WORKS ::: OK :::")
         
-        let isFollowing = users[indexPath.row].isFollowing
-        print("isFollowing cellForRowAt: \(isFollowing)")
         
-        
+       
 
-            if isFollowing != nil && isFollowing == true  {
-                
+//            if isFollowing != nil && isFollowing == true  {
+        
 //            print("::::User in follow:::::")
 //            cell.followBtn.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
 //            cell.followBtn.setTitleColor(UIColor.black, for: UIControlState.normal)
 //            cell.followBtn.backgroundColor = UIColor.clear
 //            cell.followBtn.setTitle("Following", for: .normal)
         
-        } else {
+//        } else {
 
 //            print("::::User in follow:::::")
 //
@@ -246,7 +256,7 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //            cell.followBtn.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
 //
 //            cell.followBtn.setTitle("Follow", for: .normal)
-        }
+//        }
         
         return cell
     }

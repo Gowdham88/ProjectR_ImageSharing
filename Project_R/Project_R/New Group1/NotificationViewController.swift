@@ -8,24 +8,29 @@
 
 import UIKit
 
-protocol  NotificationViewControllerDelegate {
-
-    func refreshPostData()
-}
+//protocol  NotificationViewControllerDelegate {
+//
+//    func refreshPostData()
+//}
 
 class NotificationViewController: UIViewController {
 
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    var delegate : NotificationViewControllerDelegate?
-    
+//    var delegate : NotificationViewControllerDelegate?
+//
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        activityIndicator.startAnimating()
         
         //Navigation title heading - colour setting:-
          let textAttributes = [NSAttributedStringKey.foregroundColor: UIColor(red: 0, green: 0, blue: 0, alpha: 1)]
         let textFont = [NSAttributedStringKey.font: UIFont(name: "Avenir Light", size: 16)!]
         self.navigationController?.navigationBar.titleTextAttributes = textFont
         navigationController?.navigationBar.titleTextAttributes = textAttributes
+        
+       
 
         // Do any additional setup after loading the view.
     }
