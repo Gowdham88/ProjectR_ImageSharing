@@ -22,8 +22,6 @@ protocol PeopleTableViewCellDelegate {
     
 }
 
-
-
 class peopleTableViewCell: UITableViewCell {
     
 
@@ -155,7 +153,7 @@ class peopleTableViewCell: UITableViewCell {
         followBtn.setTitleColor(UIColor.black, for: UIControlState.normal)
         followBtn.backgroundColor = UIColor.clear
         followBtn.setTitle("Following", for: UIControlState.normal)
-         followBtn.isUserInteractionEnabled = true
+        followBtn.isUserInteractionEnabled = true
         
 //        followBtn.addTarget(self, action: #selector(self.followAction), for: UIControlEvents.touchUpInside)
          followBtn.addTarget(self, action: #selector(self.unFollowAction(sender:)), for: .touchUpInside)

@@ -99,26 +99,26 @@ class FollowApi {
     }
     
     func unFollowAction(withUser id: String) {
-        print("FollowAction Follow API")
+        print("unFollowAction Follow API")
 
         startAnimating()
         
         let docRef = db.collection("user-posts").document(id)
         
-        docRef.getDocument { (document, error) in
-            if let document = document, document.exists {
-                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-                print("Document data: \(dataDescription)")
-                self.db.collection("feed").document(API.User.CURRENT_USER!.uid).setData([document.documentID: NSNull()])
-                self.db.collection("feed").document(API.User.CURRENT_USER!.uid).delete()
-
-            } else {
-                
-                print("feed Document does not exist")
-                
-            }
-            
-        }
+//        docRef.getDocument { (document, error) in
+//            if let document = document, document.exists {
+//                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+//                print("Document data: \(dataDescription)")
+//                self.db.collection("feed").document(API.User.CURRENT_USER!.uid).setData([document.documentID: NSNull()])
+//                self.db.collection("feed").document(API.User.CURRENT_USER!.uid).delete()
+//
+//            } else {
+//
+//                print("feed Document does not exist")
+//
+//            }
+//
+//        }
 
         db.collection("followers").document(id).updateData([
             API.User.CURRENT_USER!.uid: FieldValue.delete(),
@@ -147,17 +147,7 @@ class FollowApi {
         
         stopAnimating()
         
-//        Api.MyPosts.REF_MYPOSTS.child(id).observeSingleEvent(of: .value, with: {
-//            snapshot in
-//            if let dict = snapshot.value as? [String: Any] {
-//                for key in dict.keys {
-//                    FIRDatabase.database().reference().child("feed").child(Api.User.CURRENT_USER!.uid).child(key).removeValue()
-//                }
-//            }
-//        })
-//
-//        REF_FOLLOWERS.child(id).child(Api.User.CURRENT_USER!.uid).setValue(NSNull())
-//        REF_FOLLOWING.child(Api.User.CURRENT_USER!.uid).child(id).setValue(NSNull())
+
     }
     
     func startAnimating() {

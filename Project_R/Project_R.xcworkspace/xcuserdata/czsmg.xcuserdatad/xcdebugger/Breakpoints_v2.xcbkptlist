@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Project_R/New Group1/peopleViewController.swift"
-            timestampString = "552929046.427394"
+            filePath = "Project_R/New Group1/UserViewController.swift"
+            timestampString = "552991925.31533"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "301"
-            endingLineNumber = "301"
-            landmarkName = "updateFollowers(position:cell:)"
+            startingLineNumber = "236"
+            endingLineNumber = "236"
+            landmarkName = "scrollToFirstRow(sender:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,141 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Project_R/New Group1/peopleViewController.swift"
-            timestampString = "552929046.428079"
+            filePath = "Project_R/New Group1/UserViewController.swift"
+            timestampString = "552991925.315401"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "299"
-            endingLineNumber = "299"
-            landmarkName = "updateFollowers(position:cell:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Project_R/New Group1/Tableviewcells/peopleTableViewCell.swift"
-            timestampString = "552929046.428966"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
-            landmarkName = "followAction(sender:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Project_R/New Group1/Tableviewcells/peopleTableViewCell.swift"
-            timestampString = "552929046.4290119"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
-            landmarkName = "unFollowAction(sender:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Project_R/New Group1/peopleViewController.swift"
-            timestampString = "552929046.429056"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "304"
-            endingLineNumber = "304"
-            landmarkName = "updateFollowers(position:cell:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Project_R/New Group1/peopleViewController.swift"
-            timestampString = "552929046.429477"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "311"
-            endingLineNumber = "311"
-            landmarkName = "updateFollowers(position:cell:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Project_R/New Group1/peopleViewController.swift"
-            timestampString = "552929046.429888"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "315"
-            endingLineNumber = "315"
-            landmarkName = "updateFollowers(position:cell:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Project_R/New Group1/peopleViewController.swift"
-            timestampString = "552929046.430303"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "318"
-            endingLineNumber = "318"
-            landmarkName = "updateFollowers(position:cell:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Project_R/New Group1/peopleViewController.swift"
-            timestampString = "552929046.430702"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
-            landmarkName = "loadFollowers()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Project_R/New Group1/peopleViewController.swift"
-            timestampString = "552929046.4310991"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
-            landmarkName = "loadFollowers()"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
+            landmarkName = "normalTap(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -170,12 +42,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project_R/New Group3/FollowApi.swift"
-            timestampString = "552929046.4314801"
+            timestampString = "552991925.315457"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
-            landmarkName = "followAction(withUser:)"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
+            landmarkName = "unFollowAction(withUser:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -185,14 +57,62 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Project_R/New Group1/peopleViewController.swift"
-            timestampString = "552929046.431525"
+            filePath = "Project_R/New Group3/FollowApi.swift"
+            timestampString = "552991925.315504"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "322"
-            endingLineNumber = "322"
-            landmarkName = "updateFollowers(position:cell:)"
+            startingLineNumber = "137"
+            endingLineNumber = "137"
+            landmarkName = "unFollowAction(withUser:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Project_R/New Group3/FollowApi.swift"
+            timestampString = "552991925.315547"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "followAction(withUser:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HighAvenue.FollowApi.followAction(withUser: Swift.String) -&gt; ()"
+                  moduleName = "HighAvenue"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/czsmg/projectr_ios/Project_R/Project_R/New%20Group3/FollowApi.swift"
+                  timestampString = "552991925.620849"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "76"
+                  endingLineNumber = "76"
+                  offsetFromSymbolStart = "2300">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Optional&lt;__ObjC.DocumentSnapshot&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in HighAvenue.FollowApi.followAction(withUser: Swift.String) -&gt; ()"
+                  moduleName = "HighAvenue"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/czsmg/projectr_ios/Project_R/Project_R/New%20Group3/FollowApi.swift"
+                  timestampString = "552991925.6224329"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "77"
+                  endingLineNumber = "77"
+                  offsetFromSymbolStart = "32">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

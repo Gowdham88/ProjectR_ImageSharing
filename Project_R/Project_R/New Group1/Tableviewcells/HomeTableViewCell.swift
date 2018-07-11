@@ -41,6 +41,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
 
     @IBOutlet weak var commentCountButton: UIButton!
     @IBOutlet weak var shareCountButton: UIButton!
+    @IBOutlet weak var verifiedLbl: UILabel!
     
     var delegate : HomeTableViewCellDelegate?
     var homeVC: HomeViewController?

@@ -38,6 +38,7 @@ class HomeViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+      
         apiClientID = ApiClient()
         
         //Navigation title heading - colour setting:-
@@ -392,7 +393,17 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
         cell.postTime.tag = indexPath.row
         cell.locationName.tag = indexPath.row
         cell.productNameLabel.tag = indexPath.row
-       
+        
+        if posts[indexPath.row].value == true {
+            
+             cell.verifiedLbl.isHidden = false
+            
+        } else {
+            
+            cell.verifiedLbl.isHidden = true
+            
+        }
+        
         return cell
    
         

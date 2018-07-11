@@ -201,6 +201,8 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PeopleTableViewCell", for: indexPath) as! peopleTableViewCell
        
@@ -266,6 +268,7 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if let followbool = users[indexPath.row].isFollowing {
             
             userFollowing = false
+            
             
         } else {
             

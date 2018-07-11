@@ -85,7 +85,7 @@
                                                     </state>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RW1-jo-Vtn">
-                                                    <rect key="frame" x="15" y="378" width="290" height="30"/>
+                                                    <rect key="frame" x="15" y="378" width="128" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="13"/>
                                                     <nil key="textColor"/>
@@ -141,6 +141,14 @@
                                                         <color key="titleColor" red="0.60784313729999995" green="0.67843137249999996" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                 </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Verified" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pas-Xf-IaH">
+                                                    <rect key="frame" x="182" y="375" width="128" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
+                                                    <color key="backgroundColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="15"/>
+                                                    <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </tableViewCellContentView>
@@ -161,6 +169,7 @@
                                             <outlet property="profileImageView" destination="88l-ap-4T1" id="1Rj-WV-jAP"/>
                                             <outlet property="shareCountButton" destination="d95-Hp-zie" id="oZZ-s0-hUL"/>
                                             <outlet property="shareImageView" destination="S51-gF-Igo" id="Wws-8e-wdX"/>
+                                            <outlet property="verifiedLbl" destination="Pas-Xf-IaH" id="EvI-PP-uSn"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -703,6 +712,6 @@
         <image name="shareNew" width="19" height="19"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="csA-1J-Rvw"/>
+        <segue reference="J0N-PZ-jaM"/>
     </inferredMetricsTieBreakers>
 </document>

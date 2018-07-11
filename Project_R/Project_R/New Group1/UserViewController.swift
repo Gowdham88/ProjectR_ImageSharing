@@ -1,4 +1,3 @@
-
 //
 //  UserViewController.swift
 //  SarvodayaHB
@@ -11,6 +10,10 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 import FirebaseAuth
+import FirebaseFirestore
+import SDWebImage
+import Nuke
+
 
 protocol  UserViewControllerDelegate {
     
@@ -18,14 +21,14 @@ protocol  UserViewControllerDelegate {
 }
 
 var userVCuserId : String = String()
-var userFollowing: Bool = Bool()
+var userFollowing: Bool = true
 
 class UserViewController: UIViewController {
 
     @IBOutlet var profileImg: UIImageView!
     @IBOutlet var userName: UILabel!
     @IBOutlet var userDetail: UILabel!
-    @IBOutlet weak var                                                                                                      activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet var tabView: UITableView!
     @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var userdetailview: UIView!
@@ -123,9 +126,9 @@ class UserViewController: UIViewController {
         print("Follow Button tapped, userFollowing: \(userFollowing, userVCuserId)")
         
         
-        if userFollowing == true {
+        if userFollowing == false {
             
-            userFollowing = false
+//            userFollowing = false
             
 //            followButton.setTitle("Follow", for: .normal)
             API.Follow.unFollowAction(withUser: userVCuserId)
@@ -147,18 +150,38 @@ class UserViewController: UIViewController {
         
         print("Step 4 ::::: view will appear called")
         
-        if userFollowing == true {
+//        if userFollowing == false {
+//
+//            userFollowing = false
+//
+//            followButton.setTitle("Follow", for: .normal)
+//            API.Follow.unFollowAction(withUser: userVCuserId)
+//
+//        } else {
+//
+//            userFollowing = true
+//
+//            followButton.setTitle("Unfollow", for: .normal)
+//            API.Follow.followAction(withUser: userVCuserId)
+//
+//        }
+        
+        if userFollowing == false {
             
+            followButton.setTitle("Follow", for: .normal)
+            API.Follow.unFollowAction(withUser: userVCuserId)
             
-            followButton.setTitle("Unfollow", for: .normal)
             
         } else {
             
-//            followButton.setTitle("Follow", for: .normal)
+            followButton.setTitle("Unfollow", for: .normal)
+            API.Follow.followAction(withUser: userVCuserId)
+       
         }
         
        
     }
+    
     func refresh(sender:AnyObject) {
         
         posts.removeAll()
