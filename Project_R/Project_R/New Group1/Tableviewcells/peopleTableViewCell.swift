@@ -100,8 +100,8 @@ class peopleTableViewCell: UITableViewCell {
 
             print("2.followers, user?.id: \(followers, user?.id)")
             
-//            updateStateFollowButton()
-
+             configureFollowButton()
+            
             if let isFollowing = followersList[uid] as? Bool {
 
                 print("3.isFollowing followBtnTapped: \(isFollowing)")
@@ -118,9 +118,9 @@ class peopleTableViewCell: UITableViewCell {
 
             }
 
-            print("5.followersList[uid] Bool does not exist")
-
-            configureFollowButton()
+//            print("5.followersList[uid] Bool does not exist")
+//
+//            configureFollowButton()
 
 
         } else {
@@ -152,8 +152,7 @@ class peopleTableViewCell: UITableViewCell {
         
          followBtn.setTitle("Follow", for: UIControlState.normal)
         
-       
-        
+
     }
     
     func configureUnFollowButton() {
@@ -173,6 +172,7 @@ class peopleTableViewCell: UITableViewCell {
         }
         
           followBtn.setTitle("Following", for: UIControlState.normal)
+
        
         
     }

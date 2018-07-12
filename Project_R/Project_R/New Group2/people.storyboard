@@ -64,12 +64,17 @@
                                     <outlet property="delegate" destination="Voe-Pn-z2b" id="lyn-oN-WAN"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="j38-EQ-GCL">
+                                <rect key="frame" x="0.0" y="358" width="414" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="ddi-ZI-W3a"/>
                     </view>
                     <navigationItem key="navigationItem" title="Discover People" id="YC1-xc-OoU"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="j38-EQ-GCL" id="ZRk-4c-soc"/>
                         <outlet property="tableView" destination="pwh-r6-ncW" id="VPB-bO-n06"/>
                         <segue destination="CSg-6z-unC" kind="show" identifier="ProfileSegue" id="dGy-OF-DuB"/>
                     </connections>

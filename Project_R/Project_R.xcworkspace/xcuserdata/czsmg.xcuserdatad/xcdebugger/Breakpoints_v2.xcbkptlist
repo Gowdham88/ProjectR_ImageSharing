@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Project_R/New Group1/Tableviewcells/HomeTableViewCell.swift"
-            timestampString = "552502657.574757"
+            filePath = "Project_R/New Group1/UserViewController.swift"
+            timestampString = "553005701.403603"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "656"
-            endingLineNumber = "656"
-            landmarkName = "postNotification(postItem:post:)"
+            startingLineNumber = "236"
+            endingLineNumber = "236"
+            landmarkName = "scrollToFirstRow(sender:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,61 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Project_R/New Group1/Tableviewcells/HomeTableViewCell.swift"
-            timestampString = "552502659.397278"
+            filePath = "Project_R/New Group3/FollowApi.swift"
+            timestampString = "553011509.789488"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "654"
-            endingLineNumber = "654"
-            landmarkName = "postNotification(postItem:post:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "HighAvenue.HomeTableViewCell.postNotification(postItem: Swift.String, post: HighAvenue.Post) -&gt; ()"
-                  moduleName = "HighAvenue"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/czsmg/projectr_ios/Project_R/Project_R/New%20Group1/Tableviewcells/HomeTableViewCell.swift"
-                  timestampString = "552571943.878884"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "654"
-                  endingLineNumber = "654"
-                  offsetFromSymbolStart = "2344">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Any&gt;) -&gt; () in HighAvenue.HomeTableViewCell.postNotification(postItem: Swift.String, post: HighAvenue.Post) -&gt; ()"
-                  moduleName = "HighAvenue"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/czsmg/projectr_ios/Project_R/Project_R/New%20Group1/Tableviewcells/HomeTableViewCell.swift"
-                  timestampString = "552571943.881368"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "655"
-                  endingLineNumber = "655"
-                  offsetFromSymbolStart = "24">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Project_R/New Group1/Tableviewcells/peopleTableViewCell.swift"
-            timestampString = "552567163.259147"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "169"
-            endingLineNumber = "169"
-            landmarkName = "followAction(sender:)"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
+            landmarkName = "unFollowAction(withUser:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -90,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project_R/New Group1/Tableviewcells/peopleTableViewCell.swift"
-            timestampString = "552567163.2592191"
+            timestampString = "553014298.471536"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "182"

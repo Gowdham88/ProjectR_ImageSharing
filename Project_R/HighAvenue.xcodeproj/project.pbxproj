@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0F0A297E20DBB4B000A14F8A /* UserdetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0A297D20DBB4B000A14F8A /* UserdetailPage.swift */; };
 		0F0A298020DBB72300A14F8A /* userDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0A297F20DBB72300A14F8A /* userDetailTableViewCell.swift */; };
+		0F3D15CA20F654C4008AB70E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F3D15C920F654C4008AB70E /* Alamofire.framework */; };
 		0F5E121220D7F86600E5C964 /* verification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5E121120D7F86600E5C964 /* verification.swift */; };
 		0FD1604020E394B50012FA3B /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD1603F20E394B50012FA3B /* ApiClient.swift */; };
 		0FE5CADE20D13D4500A8E091 /* SliderDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE5CADD20D13D4500A8E091 /* SliderDesign.swift */; };
@@ -109,6 +110,7 @@
 /* Begin PBXFileReference section */
 		0F0A297D20DBB4B000A14F8A /* UserdetailPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserdetailPage.swift; sourceTree = "<group>"; };
 		0F0A297F20DBB72300A14F8A /* userDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userDetailTableViewCell.swift; sourceTree = "<group>"; };
+		0F3D15C920F654C4008AB70E /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F5E121120D7F86600E5C964 /* verification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = verification.swift; sourceTree = "<group>"; };
 		0FD1603F20E394B50012FA3B /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		0FE5CADD20D13D4500A8E091 /* SliderDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderDesign.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F3D15CA20F654C4008AB70E /* Alamofire.framework in Frameworks */,
 				AE10A2AF20D2912300D0A41C /* AWSAPIGateway.framework in Frameworks */,
 				C6C5A3A5B7E6C1FBBA4846A0 /* Pods_Project_R.framework in Frameworks */,
 			);
@@ -236,6 +239,7 @@
 		0CDBEDCF10B98297EA8EF3DF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0F3D15C920F654C4008AB70E /* Alamofire.framework */,
 				AE10A2AE20D2912300D0A41C /* AWSAPIGateway.framework */,
 				B79CB268E129286815C907D1 /* Pods_Project_R.framework */,
 				8017FE2158174D16B5F44DCB /* Pods_Project_RTests.framework */,

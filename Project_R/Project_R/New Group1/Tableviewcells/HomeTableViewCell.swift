@@ -41,6 +41,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
 
     @IBOutlet weak var commentCountButton: UIButton!
     @IBOutlet weak var shareCountButton: UIButton!
+    @IBOutlet weak var verifiedLbl: UILabel!
     
     var delegate : HomeTableViewCellDelegate?
     var homeVC: HomeViewController?
@@ -76,7 +77,15 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-      
+        
+//        verifiedLbl != nil; {
+//
+//            self.verifiedLbl.layer.masksToBounds = true
+//            self.verifiedLbl.layer.cornerRadius = 10
+//
+//        }
+//
+        
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: {didAllow, error in
             
         })
@@ -324,6 +333,8 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         super.prepareForReuse()
         profileImageView.image = UIImage(named: "profile")
     }
+    
+    
     
     // fetch the values from the user variable
     func updateUserInfo() {
@@ -645,22 +656,25 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         parameters["postId"] = postItem
         parameters["token"] = post.token!
         
-   
-        
-        
         let headers: HTTPHeaders = ["Content-Type" :"application/x-www-form-urlencoded"]
         
-        
-        
-        
-        let RequestData = NSMutableURLRequest(url: NSURL.init(string: "http://highavenue.co:9000/likesnotification/")! as URL)
+        var RequestData = URLRequest(url: NSURL.init(string: "http://highavenue.co:9000/likesnotification/")! as URL)
         RequestData.httpMethod = "POST"
         RequestData.timeoutInterval = 250 // Time interval here.
-        
+
         Alamofire.request(RequestData as! URLRequestConvertible).responseJSON { (responseData) -> Void in
             if((responseData.result.value) != nil) { // response
                 print(responseData.result.value!)
             }
+        
+            
+        
+//        Alamofire.request(RequestData as! URLRequestConvertible).responseJSON { (responseData) in
+//            if((responseData.result.value) != nil) {
+//                print(responseData.result.value)
+//        }
+//
+        
         }
 
 //        Alamofire.request("http://highavenue.co:9000/likesnotification", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
@@ -681,26 +695,26 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
 //
 //        }
         
-//        let manager = Alamofire.SessionManager.default
-//        manager.session.configuration.timeoutIntervalForRequest = 120
-//
-//        manager.request("http://highavenue.co:9000/likesnotification", method: .post, parameters: parameters)
-//            .responseJSON {
-//                response in
-//                switch (response.result) {
-//                case .success:
-//                    //do json stuff
-//                    break
-//                case .failure(let error):
-//                    if error._code == NSURLErrorTimedOut {
-//                        //HANDLE TIMEOUT HERE
-//
-//                    }
-//                    print("\n\nAuth request failed with error:\n \(error)")
-//                    break
-//                }
-//        }
-        
+        let manager = Alamofire.SessionManager.default
+        manager.session.configuration.timeoutIntervalForRequest = 120
+
+        manager.request("http://highavenue.co:9000/likesnotification", method: .post, parameters: parameters)
+            .responseJSON {
+                response in
+                switch (response.result) {
+                case .success:
+                    //do json stuff
+                    break
+                case .failure(let error):
+                    if error._code == NSURLErrorTimedOut {
+                        //HANDLE TIMEOUT HERE
+
+                    }
+                    print("\n\nAuth request failed with error:\n \(error)")
+                    break
+                }
+        }
+    
 //        Alamofire.request(request, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { response in
 //
 //            // original URL request
