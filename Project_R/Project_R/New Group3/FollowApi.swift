@@ -134,16 +134,33 @@ class FollowApi {
             ])
         { err in
                 if let err = err {
-                    
+
                     print("Error updating document: \(err)")
-                    
+
                 } else {
-                    
+
                     print("Unfollow following Document field successfully deleted")
-                    
+
                 }
-                
+
         }
+//        
+//        db.collection("followers").document(id).delete() { err in
+//            if let err = err {
+//                print("Error removing document: \(err)")
+//            } else {
+//                print("Document successfully removed!")
+//            }
+//        }
+//        
+//        db.collection("following").document(API.User.CURRENT_USER!.uid).delete() { err in
+//            if let err = err {
+//                print("Error removing document: \(err)")
+//            } else {
+//                print("Document successfully removed!")
+//            }
+//        }
+
         
         
         stopAnimating()
@@ -170,7 +187,8 @@ class FollowApi {
         
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
-                
+                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+                print("Document data: \(dataDescription)")
                 completed(document.data())
                 
             } else {

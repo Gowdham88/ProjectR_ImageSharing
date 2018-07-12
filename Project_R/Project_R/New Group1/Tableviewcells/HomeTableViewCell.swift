@@ -252,10 +252,16 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         if currentUser.uid == post?.uid {
 
             nameLabel.text = post?.userName
-             print("namelabel::::\(nameLabel.text)")
+         
             if profileImageView.image != nil {
-                Manager.shared.loadImage(with: URL(string : (post?.profileImageURL)!)!, into: self.profileImageView)
-                print("profileimage:::\(post?.profileImageURL)")
+                
+                if  (post?.profileImageURL?.count)! > 2 {
+                    
+                    Manager.shared.loadImage(with: URL(string : (post?.profileImageURL)!)!, into: self.profileImageView)
+                    
+                }
+               
+                
             }
         } else {
             

@@ -139,11 +139,18 @@ class peopleTableViewCell: UITableViewCell {
         followBtn.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
         followBtn.setTitleColor(UIColor.white, for: UIControlState.normal)
         followBtn.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        followBtn.setTitle("Follow", for: UIControlState.normal)
+       
         followBtn.isUserInteractionEnabled = true
         
 //        followBtn.addTarget(self, action: #selector(self.unFollowAction), for: UIControlEvents.touchUpInside)
-        followBtn.addTarget(self, action: #selector(self.followAction(sender:)), for: .touchUpInside)
+        
+        DispatchQueue.main.async {
+            
+            self.followBtn.addTarget(self, action: #selector(self.followAction(sender:)), for: .touchUpInside)
+
+        }
+        
+         followBtn.setTitle("Follow", for: UIControlState.normal)
         
 
     }
@@ -154,12 +161,18 @@ class peopleTableViewCell: UITableViewCell {
         followBtn.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
         followBtn.setTitleColor(UIColor.black, for: UIControlState.normal)
         followBtn.backgroundColor = UIColor.clear
-        followBtn.setTitle("Following", for: UIControlState.normal)
+      
          followBtn.isUserInteractionEnabled = true
         
 //        followBtn.addTarget(self, action: #selector(self.followAction), for: UIControlEvents.touchUpInside)
-         followBtn.addTarget(self, action: #selector(self.unFollowAction(sender:)), for: .touchUpInside)
         
+        DispatchQueue.main.async {
+            
+            self.followBtn.addTarget(self, action: #selector(self.unFollowAction(sender:)), for: .touchUpInside)
+        }
+        
+          followBtn.setTitle("Following", for: UIControlState.normal)
+
        
         
     }
@@ -190,7 +203,7 @@ class peopleTableViewCell: UITableViewCell {
 
     func updateStateFollowButton() {
         
-        if user!.isFollowing! {
+        if user!.isFollowing == true {
             configureUnFollowButton()
         } else {
             configureFollowButton()
