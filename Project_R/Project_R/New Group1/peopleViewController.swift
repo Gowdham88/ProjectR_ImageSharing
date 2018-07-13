@@ -99,7 +99,22 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //
 //    }
 //
+    func openUserStoryboard(position: Int) {
+        
+        let storyboard = UIStoryboard(name: "Home", bundle: nil)
+        let vc =  storyboard.instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
+        //        vc.userId = posts[position].uid!
+        userVCuserId = posts[position].uid!
+        vc.delegate = self as! UserViewControllerDelegate
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    
+    
+    
     func loadUsers() {
+        
+        self.activityIndicator.startAnimating()
 
         API.User.observeUser { (user) in
 
@@ -113,6 +128,8 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
                     self.users.append(user)
 //                    self.loadFollowers()
+                 self.activityIndicator.stopAnimating()
+                self.activityIndicator.isHidden = true
                     self.tableView.reloadData()
 
                 })
@@ -222,7 +239,7 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        activityIndicator.startAnimating()
+//        activityIndicator.startAnimating()
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "PeopleTableViewCell", for: indexPath) as! peopleTableViewCell
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(moveToUserPage(sender:)))
@@ -243,8 +260,8 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
         }
     
-        self.activityIndicator.stopAnimating()
-        self.activityIndicator.isHidden = true
+        
+//        self.activityIndicator.isHidden = true
         
 
  

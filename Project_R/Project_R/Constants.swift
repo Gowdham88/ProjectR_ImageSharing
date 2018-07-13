@@ -5,6 +5,7 @@ import Foundation
 class Constants {
 
 static let fileStoreURL = "gs://project-r-7ed28.appspot.com"
+//    gs://project-r-7ed28.appspot.com
     
     static let lastlocation = "lastlocation"
     // Map Api key

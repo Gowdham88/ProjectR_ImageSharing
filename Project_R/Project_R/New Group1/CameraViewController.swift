@@ -69,6 +69,8 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     var currentName: String! = ""
     var ref:DatabaseReference?
     var getSearch = [String]()
+    var filtered:[String] = []
+    var inSearchMode = false
 //    AWS String
     
     var page: String = ""
@@ -212,17 +214,25 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
        
     }
     
-    
-    
-   
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+         inSearchMode = true
+
+            filtered = getProductIndex.arrayProd.filter({ (text) -> Bool in
+                let tmp: NSString = text as NSString
+            print("get the tmp file:::",tmp)
+            self.filtered = getProductIndex.arrayProd.filter { $0 == searchBar.text }
+            let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
+            return range.location != NSNotFound
+        })
+
+        self.tableView.reloadData()
+     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
-       
-        
         if searchBar.text == nil || searchBar.text == "" {
             
-       
             let alert = UIAlertController(title: "Alert!", message: "Enter product to search", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
@@ -230,32 +240,25 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
             tableView.isHidden = true
             
         } else {
-            
-            
-        
-//           searchBar.resignFirstResponder()
-        
-//        if !shouldShowSearchResults {
-//            shouldShowSearchResults = true
-//            tblSearchResults.reloadData()
-//        }
-//
-        
+ 
         searchWord = searchBar.text!
-//        _ = itemSearch(searchKeyword: searchKeyword)
-        
-//        print("itemSearch::::\(itemSearch(searchKeyword: searchKeyword))")
-//        searchController.searchBar.resignFirstResponder()
-        
-        
-        self.results.removeAll()   // removes search bar prev.history from table view 
+//        self.results.removeAll()   // removes search bar prev.history from table view
         getSearchItem(searchKeyword: searchWord!)
-            
-       
         searchBar.text = ""
         tableView.isHidden = false
-        
-        tableView.reloadData()
+        self.tableView.reloadData()
+            
+            //        _ = itemSearch(searchKeyword: searchKeyword)
+            
+            //        print("itemSearch::::\(itemSearch(searchKeyword: searchKeyword))")
+            //        searchController.searchBar.resignFirstResponder()
+            //           searchBar.resignFirstResponder()
+            //        if !shouldShowSearchResults {
+            //            shouldShowSearchResults = true
+            //            tblSearchResults.reloadData()
+            //        }
+            //
+            
         }
     }
 //    override func viewDidAppear(_ animated: Bool) {
@@ -1016,45 +1019,49 @@ extension CameraViewController: XMLParserDelegate {
     
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
+        
+        if inSearchMode {
+            
+        return filtered.count
+            
+        }
+        
         return results.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath) as! amazonProductListTableViewCell
         
-
-        let item = results[indexPath.row]
-        print("productItem:::\(item)")
-
-                cell.amazonProductTitle?.text =  item["Title"]
+        let text: String!
         
+        if inSearchMode {
+            
+            text = filtered[indexPath.row]
+            print("Firebase search product item:::\(text)")
+            cell.amazonProductTitle?.text = text
+            self.tableView.isHidden = false
+            
+        } else {
+            let item = results[indexPath.row]
+            print("productItem:::\(item)")
+            cell.amazonProductTitle?.text =  item["Title"]
 
-
+        }
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        
-//        ref = Database.database().reference()
-//        ref?.child("products").childByAutoId().setValue(searchBar.text)
-        
+        if inSearchMode {
+            print("inSearchMode Enabled")
+            let getString = getProductIndex.arrayProd[indexPath.row]    //passing the string value appended
+        } else {
         if let indexPath = tableView.indexPathForSelectedRow  {
-            let currentCell = tableView.cellForRow(at: indexPath) as! UITableViewCell
-           
+        let currentCell = tableView.cellForRow(at: indexPath) as! UITableViewCell
+        let item = self.results[indexPath.row]
 
-           let item = self.results[indexPath.row]
-            
-          
-            
-            
-            
-            
-//            searchLoaction.text = autocompleteplaceArray[indexPath.row]
-//            PrefsManager.sharedinstance.lastlocation = searchLoaction.text
-         
-            UIView.animate(withDuration: 1, animations: {
+        UIView.animate(withDuration: 1, animations: {
                 self.searchBar.text = (currentCell.textLabel?.text)
                 
                 self.searchBar.text = item["Title"]
@@ -1099,6 +1106,7 @@ extension CameraViewController: XMLParserDelegate {
         
         tableView.isHidden = true
         
+       }//else
     }
   
 }
