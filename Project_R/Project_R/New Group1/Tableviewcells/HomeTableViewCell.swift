@@ -259,9 +259,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
                     
                     Manager.shared.loadImage(with: URL(string : (post?.profileImageURL)!)!, into: self.profileImageView)
                     
-                }
-               
-                
+                }                
             }
         } else {
             

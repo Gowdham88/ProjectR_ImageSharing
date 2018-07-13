@@ -1,4 +1,4 @@
-//
+ //
 //  FollowApi.swift
 //  InstagramClone
 //
@@ -99,11 +99,10 @@ class FollowApi {
     }
     
     func unFollowAction(withUser id: String) {
-        print("FollowAction Follow API")
 
         startAnimating()
         
-        let docRef = db.collection("user-posts").document(id)
+//        let docRef = db.collection("user-posts").document(id)
         
 //        docRef.getDocument { (document, error) in
 //            if let document = document, document.exists {
@@ -144,7 +143,7 @@ class FollowApi {
                 }
 
         }
-//        
+//
 //        db.collection("followers").document(id).delete() { err in
 //            if let err = err {
 //                print("Error removing document: \(err)")
@@ -152,7 +151,7 @@ class FollowApi {
 //                print("Document successfully removed!")
 //            }
 //        }
-//        
+        
 //        db.collection("following").document(API.User.CURRENT_USER!.uid).delete() { err in
 //            if let err = err {
 //                print("Error removing document: \(err)")
@@ -181,55 +180,87 @@ class FollowApi {
         
     }
     
-    func isFollowing(userId: String, completed: @escaping ([String : Any]?) -> Void) {
+
+    
+    
+    func isFollowing(userId: String, completed: @escaping(Bool) -> Void) {
         
-        let docRef = db.collection("following").document(userId)
         
-        docRef.getDocument { (document, error) in
-            if let document = document, document.exists {
-                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-                print("Document data: \(dataDescription)")
-                completed(document.data())
+       
+          
+        
+        
+        let docRef = db.collection("followers").whereField((API.User.CURRENT_USER?.uid)!, isEqualTo: userId ).addSnapshotListener { (querysnapshot, error) in
+            
+            if (querysnapshot?.documents) != nil {
                 
-            } else {
-               
-                completed(nil)
-            }
+                        let dataDescription = querysnapshot?.documents
+                        print("Document data: \(String(describing: dataDescription))")
+                
+                                completed( false)
+                
+                            } else {
+                
+                                completed( true)
+                            }
+            
         }
+            
+            
+            
         
-//        REF_FOLLOWERS.child(userId).child(Api.User.CURRENT_USER!.uid).observeSingleEvent(of: .value, with: {
-//            snapshot in
-//            if let _ = snapshot.value as? NSNull {
-//                completed(false)
+        
+//        docRef.getDocument { (document, error) in
+//            if let document = document, document.exists {
+////                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+////                print("Document data: \(dataDescription)")
+//
+//                completed( true)
+//
 //            } else {
-//                completed(true)
+//
+//                completed( false)
 //            }
-//        })
+//        }
+ 
+        //        REF_FOLLOWERS.child(userId).child(Api.User.CURRENT_USER!.uid).observeSingleEvent(of: .value, with: {
+        //            snapshot in
+        //            if let _ = snapshot.value as? NSNull {
+        //                completed(false)
+        //            } else {
+        //                completed(true)
+        //            }
+        //        })
     }
     
-//    func fetchCountFollowing(userId: String, completion: @escaping (Int) -> Void) {
-//        REF_FOLLOWING.child(userId).observe(.value, with: {
-//            snapshot in
-//            let count = Int(snapshot.childrenCount)
-//            completion(count)
-//        })
-//
-//    }
-//
+    
+    
+    
+    func isFollowingTemp(userId: String, completed: @escaping([String:Any]) -> Void) {
+        
+        
+        
+        
+        
+        let docRef = db.collection("followers").document(userId)
+        
+                docRef.getDocument { (document, error) in
+                    if let document = document, document.exists {
+                        let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+                        print("Document data: \(dataDescription)")
+        
+                        completed(document.data()!)
+        
+                    } else {
+        
+                        completed([:])
+                    }
+                }
+    }
+    
+    
+    
     func fetchCountFollowers(userId: String, completion: @escaping (Int) -> Void) {
-//        REF_FOLLOWERS.child(userId).observe(.value, with: {
-//            snapshot in
-//            let count = Int(snapshot.childrenCount)
-//            completion(count)
-//        })
-        
-        
-//        let docRef = db.collection("followers").whereField(API.User.CURRENT_USER!.uid, isEqualTo: true)
-//
-//        docRef.getDocuments() { (querySnapshot, err) in
-//            let count = querySnapshot?.count
-//            print("followersCount::::\(String(describing: count))")
-//        }
         
         db.collection("followers").document(userId).addSnapshotListener { (documentSnapshot, error) in
             let count = documentSnapshot?.data()?.count
