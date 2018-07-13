@@ -184,29 +184,54 @@ class FollowApi {
     
     
     func isFollowing(userId: String, completed: @escaping(Bool) -> Void) {
-        
-        
        
-          
+        db.collection("following").document((API.User.CURRENT_USER?.uid)!).getDocument(completion: {(snapshot, error) in
+            
+            
+            var mysnapshotdata = snapshot?.data()
+           
+            print("snapshot?.exists: \(mysnapshotdata![userId])")
+        
+           
+            if mysnapshotdata![userId] == nil {
+                
+                print("Completed == False")
+
+                completed(false)
+                
+            } else {
+                
+                print("Completed == True")
+
+                completed(true)
+                
+            }
+            
+            
+        })
+            
+        /*        followersRef.getDocument { (snapshot, error) in
         
         
-        let docRef = db.collection("followers").whereField((API.User.CURRENT_USER?.uid)!, isEqualTo: userId ).addSnapshotListener { (querysnapshot, error) in
+        if !_snapshot.exists {
+            /// First time following someone
+            print("FollowAction followersref API id:true")
+            followersRef.setData([API.User.CURRENT_USER!.uid: true])
+            self.stopAnimating()
             
-            if (querysnapshot?.documents) != nil {
-                
-                        let dataDescription = querysnapshot?.documents
-                        print("Document data: \(String(describing: dataDescription))")
-                
-                                completed( false)
-                
-                            } else {
-                
-                                completed( true)
-                            }
-            
+            return
         }
-            
-            
+        
+        // For next time
+        print("FollowAction followersref API id:true")
+        
+        var data = _snapshot.data()
+        data![API.User.CURRENT_USER!.uid] = true
+        followersRef.setData(data!)
+        self.stopAnimating()
+        
+    }*/
+    
             
         
         
@@ -236,27 +261,27 @@ class FollowApi {
     
     
     
-    func isFollowingTemp(userId: String, completed: @escaping([String:Any]) -> Void) {
-        
-        
-        
-        
-        
-        let docRef = db.collection("followers").document(userId)
-        
-                docRef.getDocument { (document, error) in
-                    if let document = document, document.exists {
-                        let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-                        print("Document data: \(dataDescription)")
-        
-                        completed(document.data()!)
-        
-                    } else {
-        
-                        completed([:])
-                    }
-                }
-    }
+//    func isFollowingTemp(userId: String, completed: @escaping([String:Any]) -> Void) {
+//
+//
+//
+//
+//
+//        let docRef = db.collection("followers").document(userId)
+//
+//                docRef.getDocument { (document, error) in
+//                    if let document = document, document.exists {
+//                        let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+//                        print("Document data: \(dataDescription)")
+//
+//                        completed(document.data()!)
+//
+//                    } else {
+//
+//                        completed([:])
+//                    }
+//                }
+//    }
     
     
     

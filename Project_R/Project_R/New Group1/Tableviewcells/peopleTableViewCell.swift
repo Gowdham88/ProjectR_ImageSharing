@@ -16,9 +16,9 @@ import Nuke
 protocol PeopleTableViewCellDelegate {
     func goToProfileUserVC(userId: String)
 
-    func updateFollowers(position : Int,cell : peopleTableViewCell)
-    
-    func updateUnFollowers(position : Int,cell : peopleTableViewCell)
+//    func updateFollowers(position : Int,cell : peopleTableViewCell)
+//    
+//    func updateUnFollowers(position : Int,cell : peopleTableViewCell)
     
 }
 
@@ -55,6 +55,10 @@ class peopleTableViewCell: UITableViewCell {
         self.profileUserImage.layer.cornerRadius = self.profileUserImage.frame.size.width / 2;
         self.profileUserImage.clipsToBounds = true
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.nameLabel_TouchUpInside))
+        profileUserName.addGestureRecognizer(tapGesture)
+        profileUserName.isUserInteractionEnabled = true
+        
     }
 
     
@@ -64,6 +68,7 @@ class peopleTableViewCell: UITableViewCell {
             delegate?.goToProfileUserVC(userId: id)
         }
     }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
@@ -78,6 +83,8 @@ class peopleTableViewCell: UITableViewCell {
     
     func updateView() {
         
+        print("updateView")
+        
         profileUserName.text = user?.username
         
         if let photoUrlString = user?.profileImageURL {
@@ -85,65 +92,24 @@ class peopleTableViewCell: UITableViewCell {
             let photoUrl = URL(string: photoUrlString)
             profileUserImage.sd_setImage(with: photoUrl, placeholderImage: UIImage(named: "placeholder-photo"))
         }
-//        if let followersList = followers,let uid = user?.id {
-//        if let isFollowing = followersList[uid] as? Bool {
-//        if isFollowing {
-//            configureUnFollowButton()
-//        } else {
-//            configureFollowButton()
-//        }
-//        }
-//        }
+        print("user.isFollowing: \(user.isFollowing)")
+        print("userID: \(user.id)")
         
-      if let followersList = followers,let uid = user?.id {
-
-            print("2.followers, user?.id: \(followers, user?.id)")
+        if user.isFollowing! {
             
+            configureUnFollowButton()
             
-            if let isFollowing = followersList[uid] as? Bool {
-
-                print("3.isFollowing followBtnTapped: \(isFollowing)")
-
-                if isFollowing {
-
-                    print("4.isFollowing: true")
-                    
-//                    configureUnFollowButton()
-                    updateStateFollowButton()
-                    return
-
-                }
-
-            }else {
-                
-                print("5.followersList[uid] Bool does not exist")
-                
-//                configureFollowButton()
-                updateStateFollowButton()
-            }
-
+        } else {
             
+            configureFollowButton()
             
-
         }
-        else {
-
-            print("6.Else Condition NIL = let followersList = followers,let uid = user?.id")
-
-//            configureFollowButton()
-
-       updateStateFollowButton()
-
-        }
-   
-        
         
 //        updateStateFollowButton()
         
     }
     
     func configureFollowButton() {
-        
         
         followBtn.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
         followBtn.setTitleColor(UIColor.white, for: UIControlState.normal)
@@ -152,16 +118,10 @@ class peopleTableViewCell: UITableViewCell {
         
 //        followBtn.addTarget(self, action: #selector(self.unFollowAction), for: UIControlEvents.touchUpInside)
         
-            DispatchQueue.main.async {
-                
+        followBtn.setTitle("Follow", for: UIControlState.normal)
+
                 self.followBtn.addTarget(self, action: #selector(self.followAction(sender:)), for: .touchUpInside)
                 
-            }
-            
-            followBtn.setTitle("Follow", for: UIControlState.normal)
-
-  
-
     }
     
     func configureUnFollowButton() {
@@ -175,25 +135,19 @@ class peopleTableViewCell: UITableViewCell {
         
 //        followBtn.addTarget(self, action: #selector(self.followAction), for: UIControlEvents.touchUpInside)
         
-        DispatchQueue.main.async {
-            
-            self.followBtn.addTarget(self, action: #selector(self.unFollowAction(sender:)), for: .touchUpInside)
-        }
+//        DispatchQueue.main.async {
         
-          followBtn.setTitle("Following", for: UIControlState.normal)
+        followBtn.setTitle("Following", for: UIControlState.normal)
+
+            self.followBtn.addTarget(self, action: #selector(self.unFollowAction(sender:)), for: .touchUpInside)
+//        }
+        
 
        
         
     }
     
     @objc func followAction(sender : UIButton) {
-        
-//            if let delegatexits = delegate {
-//
-//                delegatexits.updateFollowers(position: (sender as AnyObject).tag, cell: self)
-//
-//            }
-    
         
         if user!.isFollowing! == false {
             
@@ -208,11 +162,6 @@ class peopleTableViewCell: UITableViewCell {
     
     @objc func unFollowAction(sender : UIButton) {
         
-//        if let delegatexits = delegate {
-//
-//            delegatexits.updateUnFollowers(position: (sender as AnyObject).tag, cell: self)
-//        }
-       
         if user!.isFollowing! == true {
             
             API.Follow.unFollowAction(withUser: (user?.id!)!)
