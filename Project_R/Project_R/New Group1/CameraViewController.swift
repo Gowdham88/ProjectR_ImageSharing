@@ -10,11 +10,20 @@ import UIKit
 import FirebaseStorage
 import Firebase
 import FirebaseAuth
+import FirebaseDatabase
 import AWSCore
 import Alamofire
 import AWSAPIGateway
 import SHXMLParser
 import Nuke
+ 
+ struct getProductIndex {
+  
+    static var arrayProd           = [String]()
+//    
+//    static var index              : Int = -1
+ }
+
 
 protocol CameraViewControllerDelegate {
     
@@ -36,6 +45,8 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     
 //    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    let db = Firestore.firestore()
+    
     let imagePicker = UIImagePickerController()
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -56,7 +67,8 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     var ratingValue: String?
     var dateTime: Double!
     var currentName: String! = ""
-    
+    var ref:DatabaseReference?
+    var getSearch = [String]()
 //    AWS String
     
     var page: String = ""
@@ -86,7 +98,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     var poductDetailPageUrl: String?
     var AISNid:String?
     var ImageByItemId:String?
-    
+    var prodList    = [productList]()
     var imageUrlVc: String?
     var skipBool : Bool = true
     /****************/
@@ -95,7 +107,38 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        db.collection("products").getDocuments() { (querySnapshot, err) in
+            
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+               for (position, document) in querySnapshot!.documents.enumerated() {
+                print("\(document.documentID) => \(document.data())")
+                
+                
+                if let product = productList(dictionary: document.data()) {
+//                    self.prodList.append(product)
+                    
+                    getProductIndex.arrayProd.append(product.productName!)
+                    print("::Get product name::",getProductIndex.arrayProd)
+                    
+                }
+                
+                if position == querySnapshot!.documents.count-1 {
+                    self.tableView.reloadData()
+                }
+                
+
+                
+                }
+            }
+        }
+
         
+        if let address =  PrefsManager.sharedinstance.lastlocation {
+            searchBar.text = address
+          
+        }
         
         captionTextView.returnKeyType = UIReturnKeyType.done
 
@@ -175,8 +218,11 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
+       
+        
         if searchBar.text == nil || searchBar.text == "" {
             
+       
             let alert = UIAlertController(title: "Alert!", message: "Enter product to search", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
@@ -184,6 +230,8 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
             tableView.isHidden = true
             
         } else {
+            
+            
         
 //           searchBar.resignFirstResponder()
         
@@ -202,6 +250,9 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         
         self.results.removeAll()   // removes search bar prev.history from table view 
         getSearchItem(searchKeyword: searchWord!)
+            
+       
+        searchBar.text = ""
         tableView.isHidden = false
         
         tableView.reloadData()
@@ -651,8 +702,8 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
 
         API.User.observeCurrentUser { user in
             users = user
-            let db = Firestore.firestore()
-            db.collection("posts").document(newPostID).setData([
+            
+            self.db.collection("posts").document(newPostID).setData([
                 "uid": currentUserID,
                 "photoURL": photoURL,
                 "caption": self.captionTextView.text!,
@@ -674,8 +725,29 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
                     ProgressHUD.showError("Photo Save Error: \(err.localizedDescription)")
                 } else {
                     print("Document successfully written!")
-            
                     
+                    
+                     /***********product table***********/
+                    
+                    let db = Firestore.firestore()
+                    
+                    db.collection("products").document().setData([
+                        "photoURL": photoURL ,
+                        "productDetailPageURL": self.poductDetailPageUrl ?? "",
+                        "productName": self.searchText ?? ""
+                        
+
+                    ]){ err in
+                        if let err = err {
+                            print("Error writing document: \(err)")
+                            ProgressHUD.showError("Error : \(err.localizedDescription)")
+                        } else {
+                            
+                            print("Document successfully committed!")
+                        }
+                    }
+            
+                    /***********product table***********/
                     
                     let finalcomment = users.username! + " " + "created on new product post"
                     print("finalcomment:::\(finalcomment)")
@@ -737,7 +809,6 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
       
     }
     
-   
     
 }
 
@@ -882,6 +953,7 @@ extension CameraViewController: XMLParserDelegate {
         } else if dictionaryKeys3.contains(elementName){
 
             currentValue = ""
+            
         }
 
         
@@ -963,11 +1035,22 @@ extension CameraViewController: XMLParserDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        
+//        ref = Database.database().reference()
+//        ref?.child("products").childByAutoId().setValue(searchBar.text)
+        
         if let indexPath = tableView.indexPathForSelectedRow  {
             let currentCell = tableView.cellForRow(at: indexPath) as! UITableViewCell
            
 
            let item = self.results[indexPath.row]
+            
+          
+            
+            
+            
+            
 //            searchLoaction.text = autocompleteplaceArray[indexPath.row]
 //            PrefsManager.sharedinstance.lastlocation = searchLoaction.text
          
@@ -990,6 +1073,8 @@ extension CameraViewController: XMLParserDelegate {
                         Manager.shared.loadImage(with: URL(string : photoURL)!, into: self.photoImageView)
 
                         DispatchQueue.global().async {
+                            
+                            
                             let data = try? Data(contentsOf: URL(string: photoURL)!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
                             DispatchQueue.main.async {
                                 self.selectedImage = UIImage(data: data!)
