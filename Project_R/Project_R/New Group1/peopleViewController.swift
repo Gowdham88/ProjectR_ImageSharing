@@ -29,31 +29,22 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
         
         //Navigation bar title color
+        
+        loadUsers()
+
         let textAttributes = [NSAttributedStringKey.foregroundColor: UIColor(red: 0, green: 0, blue: 0, alpha: 1)]
         let textFont = [NSAttributedStringKey.font: UIFont(name: "Avenir Light", size: 16)!]
         self.navigationController?.navigationBar.titleTextAttributes = textFont
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         
-        
+
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
         tableView.addSubview(refreshControl)
         
     }
  
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        
-         loadUsers()
-        
-       
-            
-        
-        
-        
-        
-    }
-    
+   
     @objc func refresh(sender:AnyObject) {
         
         refreshControl.endRefreshing()
@@ -374,6 +365,7 @@ extension peopleViewController: PeopleTableViewCellDelegate {
 }
 
 extension peopleViewController: HeaderProfileCollectionReusableViewDelegate {
+    
     func updateFollowButton(forUser user: Users) {
 
         for u in users {
