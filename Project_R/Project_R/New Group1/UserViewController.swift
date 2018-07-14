@@ -148,6 +148,7 @@ class UserViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
+        
         print("Step 4 ::::: view will appear called")
         
 //        if userFollowing == false {

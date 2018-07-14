@@ -52,9 +52,15 @@ class UserAPI {
                 
                 print("observeCurrentUser document: \(document)")
                 
-                let user = Users.transformUser(postDictionary: document.data()!, key: document.documentID)
-                completion(user)
-                return
+                print("Get user deatils in from Profile:::",document.data())
+                
+                if document.data() != nil {
+                    
+                    let user = Users.transformUser(postDictionary: document.data()!, key: document.documentID)
+                    completion(user)
+                    return
+                    
+                }
             } else {
                 print("observeCurrentUser Document does not exist")
             }
