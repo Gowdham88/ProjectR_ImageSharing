@@ -134,55 +134,7 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         API.Follow.isFollowing(userId: userId, completed: completed )
     }
-    
-//    func loadFollowers() {
-//
-//
-//        if followers != nil {
-//
-//            followers?.removeAll()
-//        }
-//
-//        let userId = API.User.CURRENT_USER_ID ?? "empty"
-//
-//        self.tableView.reloadData()
-//
-//        API.Follow.isFollowingTemp(userId: userId) { (followerList) in
-//
-//            if let followerslist = followerList as [String:Any]?
-//            {
-//
-//                self.followers = followerslist
-//                print("Get followers list::::", followerslist)
-//
-//            }
-//
-//
-//        }
-//
-////        API.Follow.isFollowing(userId: userId, completed: { (followersList) in
-////
-////            if let followerslist = followersList
-////            {
-////
-////                self.followers = followerslist
-////                print("Get followers list::::", followersList!)
-////
-////            }
-//
-//
-//
-////            DispatchQueue.main.async {
-//
-//
-//                self.activityIndicator.stopAnimating()
-//                self.activityIndicator.isHidden = true
-////            }
-//
-//
-//
-//    }
-   
+ 
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -298,11 +250,6 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     }
     
-//    func displayContentController(content: UIViewController) {
-//        addChildViewController(content)
-//        self.view.addSubview(content.view)
-//        content.didMove(toParentViewController: self)
-//    }
 
 }
 extension peopleViewController: PeopleTableViewCellDelegate {
@@ -312,13 +259,7 @@ extension peopleViewController: PeopleTableViewCellDelegate {
         print("::GET DETAIL OF OF FOLLOWERS-1::",updateFollowers)
         
         API.Follow.followAction(withUser: users[position].id ?? "empty")
-       
-        
-//        cell.configureUnFollowButton()
-
-//        self.tableView.reloadData()
-        
-        
+   
         if API.User.CURRENT_USER_ID == users[position].id {
             
             print("Get my user ID:::", API.User.CURRENT_USER_ID)
@@ -326,9 +267,7 @@ extension peopleViewController: PeopleTableViewCellDelegate {
         } else {
             
             print("::GET DETAIL OF OF FOLLOWERS-2::",updateFollowers)
-            
-//            loadFollowers()
-             cell.configureUnFollowButton()
+            cell.configureUnFollowButton()
             
             self.tableView.reloadData()
             
@@ -339,13 +278,8 @@ extension peopleViewController: PeopleTableViewCellDelegate {
     func updateUnFollowers(position: Int, cell: peopleTableViewCell) {
         
         print("updateUnFollowers:::")
-        
-//        self.tableView.reloadData()
-        
         API.Follow.unFollowAction(withUser: users[position].id ?? "empty")
-//        loadFollowers()
         cell.configureFollowButton()
-
         self.tableView.reloadData()
     }
  
@@ -377,6 +311,58 @@ extension peopleViewController: HeaderProfileCollectionReusableViewDelegate {
 
     }
 }
+
+
+//    func loadFollowers() {
+//
+//
+//        if followers != nil {
+//
+//            followers?.removeAll()
+//        }
+//
+//        let userId = API.User.CURRENT_USER_ID ?? "empty"
+//
+//        self.tableView.reloadData()
+//
+//        API.Follow.isFollowingTemp(userId: userId) { (followerList) in
+//
+//            if let followerslist = followerList as [String:Any]?
+//            {
+//
+//                self.followers = followerslist
+//                print("Get followers list::::", followerslist)
+//
+//            }
+//
+//
+//        }
+//
+////        API.Follow.isFollowing(userId: userId, completed: { (followersList) in
+////
+////            if let followerslist = followersList
+////            {
+////
+////                self.followers = followerslist
+////                print("Get followers list::::", followersList!)
+////
+////            }
+//
+//
+//
+////            DispatchQueue.main.async {
+//
+//
+//                self.activityIndicator.stopAnimating()
+//                self.activityIndicator.isHidden = true
+////            }
+//
+//
+//
+//    }
+
+
+
 
 
 
