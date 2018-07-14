@@ -572,7 +572,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
                 // and put the photoURL into the database
                 self.saveToDatabase(photoURL: photoURL!)
                 //                self.saveActivity()
-                //                self.getname()
+                //                self.getname()...
             })
         } else {
             ProgressHUD.showError("Your photo to Share can not be empty. Tap it to set it and Share.")
