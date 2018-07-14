@@ -23,7 +23,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.341204660036-eec3vsu9r0k01i4vmehascn43s701l4o</string>
+				<string>com.googleusercontent.apps.341204660036-bnh2u1nulqm4uvvpgnh6b27rdcobi2es</string>
 			</array>
 		</dict>
 	</array>
@@ -43,6 +43,8 @@
 			</dict>
 		</array>
 	</dict>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<true/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

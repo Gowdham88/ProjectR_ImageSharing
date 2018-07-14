@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F02F73220F8833100734107 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F02F73120F8833100734107 /* GoogleService-Info.plist */; };
 		0F0A297E20DBB4B000A14F8A /* UserdetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0A297D20DBB4B000A14F8A /* UserdetailPage.swift */; };
 		0F0A298020DBB72300A14F8A /* userDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0A297F20DBB72300A14F8A /* userDetailTableViewCell.swift */; };
 		0F3D15CA20F654C4008AB70E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F3D15C920F654C4008AB70E /* Alamofire.framework */; };
@@ -83,7 +84,6 @@
 		AE64451A20BD79F500216484 /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AE64451720BD79F500216484 /* ProgressHUD.bundle */; };
 		AE64451B20BD79F500216484 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = AE64451920BD79F500216484 /* ProgressHUD.m */; };
 		AE64456B20BD7A6A00216484 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE64456A20BD7A6A00216484 /* AppDelegate.swift */; };
-		AE64456D20BD7B4E00216484 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AE64456C20BD7B4B00216484 /* GoogleService-Info.plist */; };
 		AE7AA98120C684FA00E9F805 /* CheckInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7AA98020C684FA00E9F805 /* CheckInViewController.swift */; };
 		AE7AA98320C6892500E9F805 /* checkInPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7AA98220C6892500E9F805 /* checkInPost.swift */; };
 		AE7AA98B20C695A800E9F805 /* locationNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7AA98A20C695A800E9F805 /* locationNameTableViewCell.swift */; };
@@ -111,6 +111,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F02F73120F8833100734107 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0F0A297D20DBB4B000A14F8A /* UserdetailPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserdetailPage.swift; sourceTree = "<group>"; };
 		0F0A297F20DBB72300A14F8A /* userDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userDetailTableViewCell.swift; sourceTree = "<group>"; };
 		0F3D15C920F654C4008AB70E /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -200,7 +201,6 @@
 		AE64451820BD79F500216484 /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
 		AE64451920BD79F500216484 /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
 		AE64456A20BD7A6A00216484 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		AE64456C20BD7B4B00216484 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AE7AA98020C684FA00E9F805 /* CheckInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInViewController.swift; sourceTree = "<group>"; };
 		AE7AA98220C6892500E9F805 /* checkInPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = checkInPost.swift; sourceTree = "<group>"; };
 		AE7AA98A20C695A800E9F805 /* locationNameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = locationNameTableViewCell.swift; sourceTree = "<group>"; };
@@ -408,7 +408,7 @@
 				AE6444E520BD798500216484 /* Assets.xcassets */,
 				AE6444E720BD798500216484 /* LaunchScreen.storyboard */,
 				AE6444EA20BD798500216484 /* Info.plist */,
-				AE64456C20BD7B4B00216484 /* GoogleService-Info.plist */,
+				0F02F73120F8833100734107 /* GoogleService-Info.plist */,
 				AE2CC0BB20CFB71C0047BCC0 /* CustomSegmentedControl.swift */,
 			);
 			path = Project_R;
@@ -581,11 +581,11 @@
 				AE3CF29620BFAF730074D5F7 /* TabBar.storyboard in Resources */,
 				AE3CF29220BFAF730074D5F7 /* Camera.storyboard in Resources */,
 				AE3CF29720BFAF730074D5F7 /* Home.storyboard in Resources */,
+				0F02F73220F8833100734107 /* GoogleService-Info.plist in Resources */,
 				AE3CF29320BFAF730074D5F7 /* Profile.storyboard in Resources */,
 				AE3CF29120BFAF730074D5F7 /* sample.jpg in Resources */,
 				AE6444E920BD798500216484 /* LaunchScreen.storyboard in Resources */,
 				AE3CF29020BFAF730074D5F7 /* Activity.storyboard in Resources */,
-				AE64456D20BD7B4E00216484 /* GoogleService-Info.plist in Resources */,
 				AE3CF29520BFAF730074D5F7 /* Start.storyboard in Resources */,
 				AE6444E620BD798500216484 /* Assets.xcassets in Resources */,
 			);
@@ -1036,7 +1036,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.czsm.Project-R";
+				PRODUCT_BUNDLE_IDENTIFIER = com.highavenue.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Project_R/ProgressHUD/Project_R-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1064,7 +1064,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.czsm.Project-R";
+				PRODUCT_BUNDLE_IDENTIFIER = com.highavenue.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Project_R/ProgressHUD/Project_R-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;

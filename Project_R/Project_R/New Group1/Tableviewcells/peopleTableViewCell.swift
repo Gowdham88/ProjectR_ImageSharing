@@ -16,9 +16,11 @@ import Nuke
 protocol PeopleTableViewCellDelegate {
     func goToProfileUserVC(userId: String)
 
+
 //    func updateFollowers(position : Int,cell : peopleTableViewCell)
 //    
 //    func updateUnFollowers(position : Int,cell : peopleTableViewCell)
+
     
 }
 
@@ -34,6 +36,7 @@ class peopleTableViewCell: UITableViewCell {
     var userID: String!
     var delegate: PeopleTableViewCellDelegate?
     var followers   : [String : Any]?
+    var homeVC: peopleViewController?
 
     var user: Users! {
         didSet {
@@ -55,6 +58,7 @@ class peopleTableViewCell: UITableViewCell {
         self.profileUserImage.layer.cornerRadius = self.profileUserImage.frame.size.width / 2;
         self.profileUserImage.clipsToBounds = true
         
+
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.nameLabel_TouchUpInside))
         profileUserName.addGestureRecognizer(tapGesture)
         profileUserName.isUserInteractionEnabled = true
@@ -71,6 +75,7 @@ class peopleTableViewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+     
 
         // Configure the view for the selected state
     }
@@ -80,6 +85,8 @@ class peopleTableViewCell: UITableViewCell {
 //        followers()
     
     }
+    
+
     
     func updateView() {
         

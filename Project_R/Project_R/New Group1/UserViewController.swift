@@ -89,7 +89,7 @@ class UserViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
        
-        self.tabBarController?.tabBar.isHidden = true
+//        self.tabBarController?.tabBar.isHidden = true
         
          print("User detail page tab bar")
         
