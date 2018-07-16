@@ -12,7 +12,7 @@ import FirebaseAuth
 import FirebaseDatabase
 
 
-class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
   
@@ -125,13 +125,9 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
-    
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("Number of user",users.count)
-        
         return users.count
-        
     }
  
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -172,13 +168,8 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         print("get user ID::::", id)
         
         if let followbool = users[indexPath.row].isFollowing {
-
-
             userFollowing = followbool
-            
             print("Get boolean for Followers:::::",userFollowing)
-
-
         }
 
         print("moveToUserPage userVCuserId: \(userVCuserId)")
@@ -186,15 +177,10 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
             let storyboard = UIStoryboard(name: "Home", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
-        
             let navigationController = UINavigationController(rootViewController: vc)
-        
             self.navigationController?.pushViewController(vc, animated: true)
         
-
     }
-    
-
 }
 extension peopleViewController: PeopleTableViewCellDelegate {
    
@@ -214,8 +200,6 @@ extension peopleViewController: PeopleTableViewCellDelegate {
             cell.configureUnFollowButton()
             
             self.tableView.reloadData()
-            
-            
         }
     }
     
@@ -231,13 +215,7 @@ extension peopleViewController: PeopleTableViewCellDelegate {
     func goToProfileUserVC(userId: String) {
         
         performSegue(withIdentifier: "ProfileSegue", sender: userId)
-//        if segue.identifier == "ProfileSegue" {
-//            let profileVC = segue.destination as! UserViewController
-//            let userId = sender  as! String
-//            profileVC.userId = userId
-//            profileVC.delegate = self as? UserViewControllerDelegate
-//        }
-        
+
     }
     
 }
@@ -255,72 +233,3 @@ extension peopleViewController: HeaderProfileCollectionReusableViewDelegate {
 
     }
 }
-    
-//    func checkFollowing(forUser user: Users) -> Bool {
-    
-//        for u in users {
-//            if u.id == user.id {
-//                u.isFollowing = user.isFollowing
-//
-//                return  u.isFollowing!
-//            }
-//        }
-//        return false
-//    }
-//}
-
-
-//    func loadFollowers() {
-//
-//
-//        if followers != nil {
-//
-//            followers?.removeAll()
-//        }
-//
-//        let userId = API.User.CURRENT_USER_ID ?? "empty"
-//
-//        self.tableView.reloadData()
-//
-//        API.Follow.isFollowingTemp(userId: userId) { (followerList) in
-//
-//            if let followerslist = followerList as [String:Any]?
-//            {
-//
-//                self.followers = followerslist
-//                print("Get followers list::::", followerslist)
-//
-//            }
-//
-//
-//        }
-//
-////        API.Follow.isFollowing(userId: userId, completed: { (followersList) in
-////
-////            if let followerslist = followersList
-////            {
-////
-////                self.followers = followerslist
-////                print("Get followers list::::", followersList!)
-////
-////            }
-//
-//
-//
-////            DispatchQueue.main.async {
-//
-//
-//                self.activityIndicator.stopAnimating()
-//                self.activityIndicator.isHidden = true
-////            }
-//
-//
-//
-//    }
-
-
-
-
-
-
-
