@@ -192,7 +192,7 @@ extension peopleViewController: PeopleTableViewCellDelegate {
    
         if API.User.CURRENT_USER_ID == users[position].id {
             
-            print("Get my user ID:::", API.User.CURRENT_USER_ID)
+            print("Get my user ID::.:", API.User.CURRENT_USER_ID)
             
         } else {
             
