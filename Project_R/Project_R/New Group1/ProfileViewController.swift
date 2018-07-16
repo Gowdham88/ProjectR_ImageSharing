@@ -100,7 +100,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        self.dismiss(animated: true, completion: nil)
+        super.viewWillDisappear(animated)
+        
+//        self.dismiss(animated: true, completion: nil)
     }
     
    

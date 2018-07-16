@@ -603,8 +603,8 @@
                                 </prototypes>
                             </tableView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="kmN-yV-7Py">
-                                <rect key="frame" x="150" y="490" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="150" y="390" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -712,6 +712,6 @@
         <image name="shareNew" width="19" height="19"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="J0N-PZ-jaM"/>
+        <segue reference="csA-1J-Rvw"/>
     </inferredMetricsTieBreakers>
 </document>
