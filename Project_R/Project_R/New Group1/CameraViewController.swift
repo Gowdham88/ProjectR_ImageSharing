@@ -19,10 +19,10 @@ import Nuke
  
  struct getProductIndex {
   
-    static var arrayProd           = [String]()
-    static var ArryDocID = [String]()
-    static var ArryPhotoUrl = [String]()
-    static var ArryDetailUrl = [String]()
+    static var arrayProd   = [String]()
+    static var ArryDocID    = [String]()
+    static var ArryPhotoUrl     = [String]()
+    static var ArryDetailUrl    = [String]()
     
 //    
 //    static var index              : Int = -1

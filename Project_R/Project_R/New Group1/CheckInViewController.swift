@@ -162,7 +162,7 @@ class CheckInViewController: UIViewController, UITextViewDelegate, UISearchBarDe
     
     @IBAction func share(_ sender: Any) {
         // show the progress to the user
-        ProgressHUD.show("Sharing started...", interaction: false)
+//        ProgressHUD.show("Sharing started...", interaction: false)
 
                 self.saveToDatabase()
 
@@ -229,10 +229,10 @@ class CheckInViewController: UIViewController, UITextViewDelegate, UISearchBarDe
                     
                     ProgressHUD.showSuccess("Photo shared")
                     
-                    let storyboard = UIStoryboard(name: "Home", bundle: nil)
-                    let vc         =  storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-                    self.navigationController?.pushViewController(vc, animated: true)
-                    
+//                    let storyboard = UIStoryboard(name: "Home", bundle: nil)
+//                    let vc         =  storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+//                    self.navigationController?.pushViewController(vc, animated: true)
+//
                     self.clearInputs()
                     // and jump to the Home tab
                     
@@ -247,7 +247,7 @@ class CheckInViewController: UIViewController, UITextViewDelegate, UISearchBarDe
             
         }
         
-    
+    navigationController?.popViewController(animated: true)
     
 }
 
@@ -449,8 +449,8 @@ extension CheckInViewController : UITableViewDataSource,UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if let indexPath = tableView.indexPathForSelectedRow  {
-            let currentCell = tableView.cellForRow(at: indexPath) as! UITableViewCell
-            searchLoaction.text = (currentCell.textLabel?.text)
+            let currentCell = tableView.cellForRow(at: indexPath)
+            searchLoaction.text = (currentCell?.textLabel?.text)
             searchLoaction.text = autocompleteplaceArray[indexPath.row]
             PrefsManager.sharedinstance.lastlocation = searchLoaction.text
             locationText = searchLoaction.text

@@ -350,7 +350,7 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
         else
         {
             let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height:self.tableView.bounds.size.height))
-            label.text = "No post to show"
+//            label.text = "No post to show"
             label.textColor = UIColor.black;
             label.textAlignment = .center
             label.sizeToFit()

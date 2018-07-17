@@ -357,67 +357,67 @@ extension CommentViewController: UITableViewDataSource,UITableViewDelegate,Comme
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        popAlert(position: indexPath.row)
+//
+//        popAlert(position: indexPath.row)
     }
-    
+//
     func popAlert(position: Int) {
-        
-        print(position)
-        
-        let alert:UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
-        let cameraAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.default){ action in
-            
-            let db = Firestore.firestore()
-            db.collection("comments").document(self.comments[position].id!).delete() { err in
-                if let err = err {
-                    print("Error removing document: \(err)")
-                } else {
-                    print("Document successfully removed!")
-                    
-                    DispatchQueue.main.async {
-                    
-                    self.tableView.beginUpdates()
-                    self.comments.remove(at: position)
-                    self.Sortingcomments.remove(at: position)
-                    
-                    
-                    if self.tableView.numberOfRows(inSection: position) == 1 {
-                        
-                        self.tableView.deleteSections(NSIndexSet(index: position) as IndexSet, with: .automatic)
-                    }else{
-                        self.tableView.deleteRows(at: [IndexPath(row: position, section: 0)], with: .automatic)
-                        
-                    }
-                    
-                    self.tableView.endUpdates()
-                    self.tableView.reloadData()
-                        
-                    }
-                    
-                }
-            }
-            
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel)
-        {
-            UIAlertAction in
-        }
-        cancelAction.setValue(UIColor.red, forKey: "titleTextColor")
-        
-        alert.addAction(cameraAction)
-        alert.addAction(cancelAction)
-        
-        alert.popoverPresentationController?.sourceView = self.view
-        alert.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.size.width / 2.0, y: self.view.bounds.size.height / 2.0, width: 1.0, height: 1.0)
-        self.present(alert, animated: true, completion: nil)
-        
+
+//        print(position)
+//
+//        let alert:UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+//        let cameraAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.default){ action in
+//
+//            let db = Firestore.firestore()
+//            db.collection("comments").document(self.comments[position].id!).delete() { err in
+//                if let err = err {
+//                    print("Error removing document: \(err)")
+//                } else {
+//                    print("Document successfully removed!")
+//
+//                    DispatchQueue.main.async {
+//
+//                    self.tableView.beginUpdates()
+//                    self.comments.remove(at: position)
+//                    self.Sortingcomments.remove(at: position)
+//
+//
+//                    if self.tableView.numberOfRows(inSection: position) == 1 {
+//
+//                        self.tableView.deleteSections(NSIndexSet(index: position) as IndexSet, with: .automatic)
+//                    }else{
+//                        self.tableView.deleteRows(at: [IndexPath(row: position, section: 0)], with: .automatic)
+//
+//                    }
+//
+//                    self.tableView.endUpdates()
+//                    self.tableView.reloadData()
+//
+//                    }
+//
+//                }
+//            }
+//
+//        }
+//
+//        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel)
+//        {
+//            UIAlertAction in
+//        }
+//        cancelAction.setValue(UIColor.red, forKey: "titleTextColor")
+//
+//        alert.addAction(cameraAction)
+//        alert.addAction(cancelAction)
+//
+//        alert.popoverPresentationController?.sourceView = self.view
+//        alert.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.size.width / 2.0, y: self.view.bounds.size.height / 2.0, width: 1.0, height: 1.0)
+//        self.present(alert, animated: true, completion: nil)
+
     }
     
     func updateComments(position: Int) {
-        
-        popAlert(position: position)
+
+//        popAlert(position: position)
     }
     
 }
