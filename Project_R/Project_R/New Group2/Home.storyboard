@@ -68,14 +68,6 @@
                                                         <color key="titleColor" red="0.60784313725490191" green="0.67843137254901964" blue="0.82745098039215681" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TSf-br-dPQ">
-                                                    <rect key="frame" x="76" y="337" width="85" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="13"/>
-                                                    <state key="normal" title="0 comments">
-                                                        <color key="titleColor" red="0.60784313729999995" green="0.67843137249999996" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </state>
-                                                </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wdx-DI-g2W">
                                                     <rect key="frame" x="262" y="342" width="45" height="19"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -149,6 +141,13 @@
                                                     <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0 Comments" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8T3-y3-yaR">
+                                                    <rect key="frame" x="76" y="341" width="85" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="13"/>
+                                                    <color key="textColor" red="0.60784313725490191" green="0.67843137254901964" blue="0.82745098039215681" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </tableViewCellContentView>
@@ -156,7 +155,7 @@
                                         <connections>
                                             <outlet property="buyProduct" destination="6Ev-14-0dJ" id="aqE-er-10N"/>
                                             <outlet property="captionLabel" destination="RW1-jo-Vtn" id="ZwM-RK-TU2"/>
-                                            <outlet property="commentCountButton" destination="TSf-br-dPQ" id="7mk-bm-Ve0"/>
+                                            <outlet property="commentCountLabel" destination="8T3-y3-yaR" id="1kq-9y-3Hs"/>
                                             <outlet property="commentImageView" destination="Kyn-Vn-iWb" id="YXO-qv-cO1"/>
                                             <outlet property="likeCountButton" destination="oaj-xI-QJq" id="CbR-a6-UpL"/>
                                             <outlet property="likeImageView" destination="h3n-Fn-OeS" id="HWX-oG-RzC"/>
@@ -488,14 +487,6 @@
                                                     <rect key="frame" x="0.0" y="100" width="320" height="200"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SZP-Qo-bab">
-                                                    <rect key="frame" x="76" y="337" width="85" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="13"/>
-                                                    <state key="normal" title="0 comments">
-                                                        <color key="titleColor" red="0.60784313729999995" green="0.67843137249999996" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </state>
-                                                </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wzd-6f-ePD">
                                                     <rect key="frame" x="262" y="342" width="45" height="19"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -580,12 +571,19 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0 Comments" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vF4-Mb-s80">
+                                                    <rect key="frame" x="75" y="337" width="85" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="13"/>
+                                                    <color key="textColor" red="0.60784313725490191" green="0.67843137254901964" blue="0.82745098039215681" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="buyProduct" destination="Agt-XF-6nn" id="0Wa-Gj-2xp"/>
                                             <outlet property="captionLabel" destination="3oi-my-idT" id="a1a-hh-ocy"/>
-                                            <outlet property="commentCountButton" destination="SZP-Qo-bab" id="GvI-VG-BTU"/>
+                                            <outlet property="commentCountLabel" destination="vF4-Mb-s80" id="uN3-ft-CgI"/>
                                             <outlet property="commentImageView" destination="H4k-L3-XtB" id="tr5-kd-9tN"/>
                                             <outlet property="likeCountButton" destination="lFw-55-G3a" id="z83-TO-6Bx"/>
                                             <outlet property="likeImageView" destination="rqo-mk-2mr" id="kyV-S7-tZ1"/>
@@ -712,6 +710,6 @@
         <image name="shareNew" width="19" height="19"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="J0N-PZ-jaM"/>
+        <segue reference="csA-1J-Rvw"/>
     </inferredMetricsTieBreakers>
 </document>

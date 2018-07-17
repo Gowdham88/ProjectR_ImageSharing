@@ -23,14 +23,19 @@ class CommentTableViewCell: UITableViewCell {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var commentLabel: UILabel!
+    
     var delegate : CommentTableViewCellDelegate?
     var userss = [Users]()
     var currentuser = [UserAPI]()
+    var userData = [Users]()
     var posts: [Post] = []
 
     var currentName: String! = ""
     var postUSerName: String! = ""
     var  postUserUID: String! = ""
+    
+    var nameString: String! = ""
+    var imageString:String! = ""
     
     var comment: Comment? {
         didSet {
@@ -140,9 +145,42 @@ class CommentTableViewCell: UITableViewCell {
         
         if currentUser.uid == comment?.uid {
             
-            nameLabel.text = PrefsManager.sharedinstance.username
-            profileImageView.image = nil
-            Manager.shared.loadImage(with:  URL(string: PrefsManager.sharedinstance.imageURL)!, into: self.profileImageView)
+            API.User.observeCurrentUser { (user) in
+                
+                self.nameString = user.username
+                print("nameee::\(self.nameString)")
+                
+                self.nameLabel.text = self.nameString
+                
+                self.imageString = user.profileImageURL
+                
+                print("nameeeImage::\(self.nameString)")
+                
+                self.profileImageView.image = nil
+                
+                if let photoURL = user.profileImageURL {
+                      
+                    self.profileImageView.sd_setImage(with: URL(string: photoURL), placeholderImage: UIImage(named: "profile"))
+                    
+                }
+            }
+            
+            
+           
+            
+            
+            
+//            if let photoURL = user?.profileImageURL {
+//                profileImageView.sd_setImage(with: URL(string: photoURL), placeholderImage: UIImage(named: "profile"))
+//            }
+
+            
+//            nameLabel.text = PrefsManager.sharedinstance.username
+
+            
+            
+            
+//            Manager.shared.loadImage(with:  URL(string: PrefsManager.sharedinstance.imageURL)!, into: self.profileImageView)
             
             let db = Firestore.firestore()
          
@@ -163,7 +201,7 @@ class CommentTableViewCell: UITableViewCell {
                 "currentUserUID": API.User.CURRENT_USER?.uid ?? "empty",
                 "currentUserName": self.currentName ?? "empty",
                 "activityName": finalcomment + " " + "product." ,
-                "userName"  : self.postUSerName ?? "empty"
+                "userName"  : self.postUSerName
                 
             ]){ err in
                 if let err = err {
@@ -180,9 +218,17 @@ class CommentTableViewCell: UITableViewCell {
             
             nameLabel.text = comment?.userName
             profileImageView.image = nil
+            
+            
             if let photoURL = comment?.profileImageURL {
-               
-                Manager.shared.loadImage(with:  URL(string: photoURL)!, into: self.profileImageView)
+                
+                print("photoURL::::\(photoURL)")
+                
+                if photoURL == "" && photoURL == nil {
+                    
+                profileImageView.sd_setImage(with: URL(string: photoURL), placeholderImage: UIImage(named: "profile"))
+             
+                }
             }
         }
      

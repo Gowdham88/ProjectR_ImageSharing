@@ -532,6 +532,9 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     // based on the image toggle the buttons
     
     func setButtons() {
+      
+        
+        
         if selectedImage != nil {
             // if there is an image the buttons should be enabled
             shareButton.isEnabled = true
@@ -706,6 +709,9 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     // MARK: - Save to Firebase Method
     
      func saveToDatabase(photoURL: String) {
+        
+    
+        
         let ref = Database.database().reference()
         let postsReference = ref.child("posts")
         let newPostID = postsReference.childByAutoId().key

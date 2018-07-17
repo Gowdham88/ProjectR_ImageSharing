@@ -80,6 +80,8 @@ class HomeViewController : UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -783,13 +785,5 @@ extension HomeViewController {
         self.present(alert, animated: true, completion: nil)
         
     }
-  
-}
-extension HomeViewController: commentCountDelegate {
-    func usercommentcount(count: Int!) {
-            print("count:::\(count)")
-        
-    }
-    
   
 }

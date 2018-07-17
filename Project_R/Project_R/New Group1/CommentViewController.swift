@@ -66,29 +66,26 @@ class CommentViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.tabBarController?.tabBar.isHidden = false
+        
+        print("Comments count::::",commentCount)
+     
+//                if let delegatee = delegate {
+        
+        delegate?.usercommentcount(count: commentCount!)
+//                }
+        
     }
 
     @IBAction func backBtn(_ sender: Any) {
         
-        
-        if let delegatee = delegate {
-            
-            delegatee.usercommentcount(count: commentCount)
-        }
-//         _ = self.navigationController?.popToRootViewController(animated: true)
-       
-        
+//        if let delegatee = delegate {
 //
-//        let storyboard = UIStoryboard(name: "Home", bundle: nil)
-//        let vc =  storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-//        print("comment\(commentCount)")
+//            delegatee.usercommentcount(count: commentCount!)
+//        }
         
-     
-        
+//        delegate.usercommentcount(count: commentCount!)
+
         self.navigationController?.popViewController(animated: true)
-        
-       
-        
      }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -151,7 +148,14 @@ class CommentViewController: UIViewController {
         API.User.observeCurrentUser { user in
             users = user
             
+            print("usrname:::\(user.username)")
+            print("usrnameprofileurl:::\(user.profileImageURL)")
+            
+            
            guard let userName = users.username,let userImage = users.profileImageURL else {
+            
+            
+            
             
                 ProgressHUD.showError("Server error.")
                 return
@@ -182,8 +186,10 @@ class CommentViewController: UIViewController {
             }
             
         }
-        
-        
+        //METHOD TO SAVE COMMENT COUNT IN LOCAL:
+       let comentsCount =  UserDefaults.standard.set(commentCount, forKey: "comments")
+        print(":::::::get coment saving count:::::",comentsCount)
+        UserDefaults.standard.synchronize()
     }
     
     
