@@ -20,6 +20,10 @@ import Nuke
  struct getProductIndex {
   
     static var arrayProd           = [String]()
+    static var ArryDocID = [String]()
+    static var ArryPhotoUrl = [String]()
+    static var ArryDetailUrl = [String]()
+    
 //    
 //    static var index              : Int = -1
  }
@@ -71,6 +75,15 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     var getSearch = [String]()
     var filtered:[String] = []
     var inSearchMode = false
+    
+    
+    var FIRProductName: String?
+    var FIRPhotoUrl: String?
+    var FIRProductDetailUrl: String?
+    var FIRProductDocID: String?
+    
+    
+//    var productList:[productList] = []
 //    AWS String
     
     var page: String = ""
@@ -125,6 +138,18 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
                     
                     getProductIndex.arrayProd.append(product.productName!)
                     print("::Get product name::",getProductIndex.arrayProd)
+                    
+                    getProductIndex.ArryDocID.append(product.productId!)
+                    print("::Get product id::",getProductIndex.arrayProd)
+                    
+                    getProductIndex.ArryPhotoUrl.append(product.photoURL!)
+                    print("::Get product ArryPhotoUrl::",getProductIndex.ArryPhotoUrl)
+                    
+                    getProductIndex.ArryDetailUrl.append(product.productDetailPageURL!)
+                    print("::Get product ArryDetailUrl::",getProductIndex.ArryDetailUrl)
+                    
+              
+                    
                     
                 }
                 
@@ -714,7 +739,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
                 "rating": self.ratingValue ?? "",
                 "productName": self.searchText ?? "",
                 "productDetailPageURL": self.poductDetailPageUrl ?? "",
-                "productId": self.productID ?? "",
+                
                 "location": "" ?? "",
                 "token": token ?? ""
             ]) { err in
@@ -729,11 +754,11 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
                     
                     let db = Firestore.firestore()
                     
-                    db.collection("products").document().setData([
+                    db.collection("products").document(newPostID).setData([
                         "photoURL": photoURL ,
                         "productDetailPageURL": self.poductDetailPageUrl ?? "",
                         "productName": self.searchText ?? "",
-                        "productId": self.productID ?? "empty"
+                        "productId": newPostID ?? "empty"
                     ]){ err in
                         if let err = err {
                             print("Error writing document: \(err)")
@@ -1047,49 +1072,49 @@ extension CameraViewController: XMLParserDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        //:::::::FIREBASE PRODUCT SEARCH::::::::://
         if inSearchMode {
             print("inSearchMode Enabled")
-            let getString = getProductIndex.arrayProd[indexPath.row]
+            
+            FIRProductName = getProductIndex.arrayProd[indexPath.row]
+            print("getString:::\(String(describing: FIRProductName))")
+            
+             FIRProductDocID = getProductIndex.ArryDocID[indexPath.row]
+             print("getDocIDString:::\(String(describing: FIRProductDocID))")
+            
+             FIRPhotoUrl = getProductIndex.ArryPhotoUrl[indexPath.row]
+             print("getPhotoString:::\(String(describing: FIRPhotoUrl))")
+            
+             FIRProductDetailUrl = getProductIndex.ArryDetailUrl[indexPath.row]
+             print("getDetailUrlString:::\(String(describing: FIRProductDetailUrl))")
+            
+            self.searchBar.text = FIRProductName
+                            if let photoURL = FIRPhotoUrl {
+                                self.photoImageView.image = nil
+                                if  photoURL != "" {
+                                    if self.photoImageView != nil {
+            
+                                        Manager.shared.loadImage(with: URL(string : photoURL)!, into: self.photoImageView)
+                                        DispatchQueue.global().async {
+                                            let data = try? Data(contentsOf: URL(string: photoURL)!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                                            DispatchQueue.main.async {
+                                                self.selectedImage = UIImage(data: data!)
+                                                print("photoimageview:::\(String(describing: self.selectedImage))")
+                                                self.setButtons()
+                                            }
+                                        }
+                                    }
+                                }
+                               tableView.isHidden = true
+                            }
             //passing the string value appended
             let item = self.filtered[indexPath.row]
+            print("item::::\(item)")
             let currentCell = tableView.cellForRow(at: indexPath) as! UITableViewCell
-//            let item = self.results[indexPath.row]
             UIView.animate(withDuration: 1, animations: {
-                self.searchBar.text = (currentCell.textLabel?.text)
-                self.searchBar.text = item
-                self.poductDetailPageUrl = item
-                print("poductDetailPageUrl::::\(String(describing: self.poductDetailPageUrl))")
-                self.AISNid = item
-                print("ASINid:::\(String(describing: self.AISNid))")
-                self.searchText = self.searchBar.text
-                print("searchText::::\(String(describing: self.searchText))")
-                self.ImageByItemId = item
-                print("ImageByItemId:::\(String(describing: self.ImageByItemId))")
-                
-                if let photoURL = self.ImageByItemId {
-                    self.photoImageView.image = nil
-                    if  photoURL != "" {
-                        if self.photoImageView != nil {
-                            
-                            Manager.shared.loadImage(with: URL(string : photoURL)!, into: self.photoImageView)
-                            DispatchQueue.global().async {
-                                let data = try? Data(contentsOf: URL(string: photoURL)!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-                                DispatchQueue.main.async {
-                                    self.selectedImage = UIImage(data: data!)
-                                    print("photoimageview:::\(String(describing: self.selectedImage))")
-                                    self.setButtons()
-                                }
-                            }
-                            
-                        }
-                        
-                        
-                        //
-                    }
-                }
-                
             }) { (true) in }
 
+            //:::::::AMAZON PRODUCT SEARCH::::::::://
         } else {
         if let indexPath = tableView.indexPathForSelectedRow  {
         let currentCell = tableView.cellForRow(at: indexPath) as! UITableViewCell
@@ -1123,23 +1148,13 @@ extension CameraViewController: XMLParserDelegate {
                                 self.setButtons()
                             }
                         }
-                       
-                        //
                     }
                 }
 
-            }) { (true) in
-                
-//                self.ImageByItemId = item["LargeImage"]
-//                self.getProductImage(itemid: self.AISNid!)
-//                self.ImageByItemId = item["URL"]
-//                print("ImageByItemId:::\(String(describing: self.ImageByItemId))")
-            }
+            }) { (true) in }
             
         }
-        
         tableView.isHidden = true
-        
        }//else
     }
   
