@@ -138,7 +138,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
             print("Step1 :::: home profile user image tapped")
             
 //            delegate?.openUserStoryboard(position: (sender.view?.tag)!) commented by karthik
-           delegate?.openUserStoryboard(position: (sender.view?.tag)!)
+            delegate?.openUserStoryboard(position: (sender.view?.tag)!)
             
         }
 
@@ -277,10 +277,6 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
                 }
             }
         }
-        
-        
-       
-        
         
         
 //        // get the latest post

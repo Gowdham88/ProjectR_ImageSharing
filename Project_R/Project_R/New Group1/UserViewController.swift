@@ -104,7 +104,7 @@ class UserViewController: UIViewController {
         
         self.tabBarController?.tabBar.isHidden = false
         
-        self.dismiss(animated: true, completion: nil)
+//        self.dismiss(animated: true, completion: nil)
 
     self.navigationController?.popToRootViewController(animated: true)
         
@@ -240,6 +240,7 @@ class UserViewController: UIViewController {
 }
 
 extension UserViewController : UITableViewDelegate,UITableViewDataSource,HomeTableViewCellDelegate {
+   
     
     func numberOfSections(in tableView: UITableView) -> Int {
         var numOfSections: Int = 0
@@ -297,9 +298,7 @@ extension UserViewController : UITableViewDelegate,UITableViewDataSource,HomeTab
     }
 
     
-    
     func openUserStoryboard(position: Int) {
-        
         let storyboard = UIStoryboard(name: "Home", bundle: nil)
         let vc =  storyboard.instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
 //        vc.userId = posts[position].uid!

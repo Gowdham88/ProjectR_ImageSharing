@@ -82,6 +82,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     var ProductName = [amazonProductName]()
     var productTitle: String = String()
     var productDetailPageURL:String = String()
+    var productId:String = String()
     var productASIN:String = String()
     var results = [[String: String]]()
     var indices: [String] = []
@@ -98,6 +99,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     var bookAuthor = String()
     var searchText: String?
     var poductDetailPageUrl: String?
+    var productID: String?
     var AISNid:String?
     var ImageByItemId:String?
     var prodList    = [productList]()
@@ -213,10 +215,8 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         
        
     }
-    
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-         inSearchMode = true
 
             filtered = getProductIndex.arrayProd.filter({ (text) -> Bool in
                 let tmp: NSString = text as NSString
@@ -225,6 +225,12 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
             let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
             return range.location != NSNotFound
         })
+        
+        if filtered.count == 0 {
+            inSearchMode = false
+        } else {
+            inSearchMode = true
+        }
 
         self.tableView.reloadData()
      }
@@ -242,30 +248,18 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         } else {
  
         searchWord = searchBar.text!
-//        self.results.removeAll()   // removes search bar prev.history from table view
         getSearchItem(searchKeyword: searchWord!)
         searchBar.text = ""
         tableView.isHidden = false
         self.tableView.reloadData()
-            
-            //        _ = itemSearch(searchKeyword: searchKeyword)
-            
-            //        print("itemSearch::::\(itemSearch(searchKeyword: searchKeyword))")
-            //        searchController.searchBar.resignFirstResponder()
-            //           searchBar.resignFirstResponder()
-            //        if !shouldShowSearchResults {
-            //            shouldShowSearchResults = true
-            //            tblSearchResults.reloadData()
-            //        }
-            //
-            
         }
+        
     }
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(true)
-//        tableView.reloadData()
-//
-//    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        tableView.reloadData()
+
+    }
     
     /*****************amazon product search*****************/
     
@@ -720,6 +714,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
                 "rating": self.ratingValue ?? "",
                 "productName": self.searchText ?? "",
                 "productDetailPageURL": self.poductDetailPageUrl ?? "",
+                "productId": self.productID ?? "",
                 "location": "" ?? "",
                 "token": token ?? ""
             ]) { err in
@@ -737,9 +732,8 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
                     db.collection("products").document().setData([
                         "photoURL": photoURL ,
                         "productDetailPageURL": self.poductDetailPageUrl ?? "",
-                        "productName": self.searchText ?? ""
-                        
-
+                        "productName": self.searchText ?? "",
+                        "productId": self.productID ?? "empty"
                     ]){ err in
                         if let err = err {
                             print("Error writing document: \(err)")
@@ -1030,7 +1024,7 @@ extension CameraViewController: XMLParserDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath) as! amazonProductListTableViewCell
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath) as! amazonProductListTableViewCell
         
         let text: String!
         
@@ -1055,7 +1049,47 @@ extension CameraViewController: XMLParserDelegate {
         
         if inSearchMode {
             print("inSearchMode Enabled")
-            let getString = getProductIndex.arrayProd[indexPath.row]    //passing the string value appended
+            let getString = getProductIndex.arrayProd[indexPath.row]
+            //passing the string value appended
+            let item = self.filtered[indexPath.row]
+            let currentCell = tableView.cellForRow(at: indexPath) as! UITableViewCell
+//            let item = self.results[indexPath.row]
+            UIView.animate(withDuration: 1, animations: {
+                self.searchBar.text = (currentCell.textLabel?.text)
+                self.searchBar.text = item
+                self.poductDetailPageUrl = item
+                print("poductDetailPageUrl::::\(String(describing: self.poductDetailPageUrl))")
+                self.AISNid = item
+                print("ASINid:::\(String(describing: self.AISNid))")
+                self.searchText = self.searchBar.text
+                print("searchText::::\(String(describing: self.searchText))")
+                self.ImageByItemId = item
+                print("ImageByItemId:::\(String(describing: self.ImageByItemId))")
+                
+                if let photoURL = self.ImageByItemId {
+                    self.photoImageView.image = nil
+                    if  photoURL != "" {
+                        if self.photoImageView != nil {
+                            
+                            Manager.shared.loadImage(with: URL(string : photoURL)!, into: self.photoImageView)
+                            DispatchQueue.global().async {
+                                let data = try? Data(contentsOf: URL(string: photoURL)!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                                DispatchQueue.main.async {
+                                    self.selectedImage = UIImage(data: data!)
+                                    print("photoimageview:::\(String(describing: self.selectedImage))")
+                                    self.setButtons()
+                                }
+                            }
+                            
+                        }
+                        
+                        
+                        //
+                    }
+                }
+                
+            }) { (true) in }
+
         } else {
         if let indexPath = tableView.indexPathForSelectedRow  {
         let currentCell = tableView.cellForRow(at: indexPath) as! UITableViewCell
