@@ -17,6 +17,7 @@ import Alamofire
 import SwiftyJSON
 
 
+
 protocol HomeTableViewCellDelegate {
     func openUserStoryboard(position : Int)
     func openImageStoryboard(position : Int)
@@ -38,8 +39,6 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     @IBOutlet weak var likeCountButton: UIButton!
     @IBOutlet weak var captionLabel: UILabel!
     @IBOutlet weak var commentCountLabel: UILabel!
-
-    @IBOutlet weak var commentCountButton: UIButton!
     @IBOutlet weak var shareCountButton: UIButton!
     @IBOutlet weak var verifiedLbl: UILabel!
     
@@ -72,19 +71,13 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         
         contentView.frame = UIEdgeInsetsInsetRect(contentView.frame, UIEdgeInsetsMake(0, 0, 5, 0))
     }
-    
-    
-    
-    override func awakeFromNib() {
+        override func awakeFromNib() {
         super.awakeFromNib()
         
-//        verifiedLbl != nil; {
-//
-//            self.verifiedLbl.layer.masksToBounds = true
-//            self.verifiedLbl.layer.cornerRadius = 10
-//
-//        }
-//
+            
+            var commentValue = UserDefaults.standard.object(forKey: "comments")
+            
+            print(":::comment count value:::",commentValue)
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: {didAllow, error in
             
@@ -99,6 +92,10 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleCommentImageViewTap))
         commentImageView.addGestureRecognizer(tapGesture)
         commentImageView.isUserInteractionEnabled = true
+        
+        let tapGestur = UITapGestureRecognizer(target: self, action: #selector(handleCommentImageViewTap))
+        commentCountLabel.addGestureRecognizer(tapGestur)
+        commentCountLabel.isUserInteractionEnabled = true
         
         // add a tap gesture to the like image for users to like a post
         let likeTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleLikeTap))
@@ -801,7 +798,6 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
                 formatter.allowedUnits = [.year, .month, .weekOfMonth, .day, .hour, .minute]
                 formatter.includesApproximationPhrase = false //to write "About" at the beginning
         
-        
                 let formatString = NSLocalizedString("%@", comment: "Used to say how much time has passed. e.g. '2 hours ago'")
                 let timeString = formatter.string(from: before, to: now)
         
@@ -862,3 +858,14 @@ extension String: ParameterEncoding {
     }
     
 }
+
+extension HomeTableViewCell: commentCountDelegate {
+    func usercommentcount(count: Int!) {
+        print("count:::\(count)")
+    }
+    
+    
+    
+    
+}
+
