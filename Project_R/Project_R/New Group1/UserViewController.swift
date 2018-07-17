@@ -150,22 +150,7 @@ class UserViewController: UIViewController {
         
         
         print("Step 4 ::::: view will appear called")
-        
-//        if userFollowing == false {
-//
-//            userFollowing = false
-//
-//            followButton.setTitle("Follow", for: .normal)
-//            API.Follow.unFollowAction(withUser: userVCuserId)
-//
-//        } else {
-//
-//            userFollowing = true
-//
-//            followButton.setTitle("Unfollow", for: .normal)
-//            API.Follow.followAction(withUser: userVCuserId)
-//
-//        }
+
         
         if userFollowing == false {
             
