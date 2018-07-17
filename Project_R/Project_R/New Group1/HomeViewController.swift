@@ -336,7 +336,7 @@ class HomeViewController : UIViewController {
 // MARK: - TableView Delegate and Data Source Methods
 
 extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTableViewCellDelegate {
-    
+  
     func numberOfSections(in tableView: UITableView) -> Int {
         var numOfSections: Int = 0
         if posts.isEmpty == false
@@ -449,7 +449,7 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
     }
 
     func openUserStoryboard(position: Int) {
-        
+    
         let storyboard = UIStoryboard(name: "Home", bundle: nil)
         let vc =  storyboard.instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
 //        vc.userId = posts[position].uid!

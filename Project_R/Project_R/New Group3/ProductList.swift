@@ -12,6 +12,7 @@ class productList: NSObject {
     var photoURL                    : String?
     var productDetailPageURL        : String?
     var productName                 : String?
+    var productId                   : String?
    
     
     init?(dictionary                : [String : Any]) {
@@ -21,6 +22,7 @@ class productList: NSObject {
         photoURL                    = dictionary["photoURL"] as? String ?? "error"
         productDetailPageURL        = dictionary["productDetailPageURL"] as? String ?? "error"
         productName                 = dictionary["productName"] as? String  ?? "error"
+        productId                   = dictionary["productId"] as? String ?? "error"
        
     }
 }

@@ -118,7 +118,7 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        self.dismiss(animated: true, completion: nil)
+//        self.dismiss(animated: true, completion: nil)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
