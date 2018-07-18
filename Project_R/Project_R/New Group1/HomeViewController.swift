@@ -16,7 +16,6 @@ import FirebaseStorage
 import CoreLocation
 import UserNotifications
 
-///check
 
 class HomeViewController : UIViewController {
 
@@ -69,18 +68,12 @@ class HomeViewController : UIViewController {
         
         loadPosts()
         
-       
-        
-//        tableView.rowHeight = UITableViewAutomaticDimension
-//        tableView.estimatedRowHeight = 44
-        
+
       
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
-        
         
     }
     
@@ -88,81 +81,9 @@ class HomeViewController : UIViewController {
         super.viewDidAppear(true)
         
         print("commentCount:::\(commentCountte)")
-   
-            
             tabBarController?.tabBar.isHidden = false
-        
     }
-    
-    
-//    func apiPost(){
-//
-//        let header     : HTTPHeaders = ["Accept-Language" : "en-US"]
-//        let parameters : Parameters = ["username": currentUser, "count": posts, "likedby", "postId", "tokenId"]
-//
-//        apiClientID.completeSignup(parameters: parameters,headers: header,completion:{status, Values in
-//
-//
-//            print("statusfb: \(status)")
-//            if status == "success" {
-//
-//                self.activityIndicatorView.startAnimating()
-//
-//                if let user = Values {
-//
-//                    self.getUserDetails(user: user)
-//
-//                    self.uploadImage(image: self.profileImage.image!, id: user.id ?? 0, completion: { imageurl in
-//
-//                        PrefsManager.sharedinstance.imageURL = imageurl ?? "empty"
-////                        let storyboard = UIStoryboard(name: Constants.Main, bundle: nil)
-////                        let vc         = storyboard.instantiateViewController(withIdentifier: "Profile_PostViewController") as! Profile_PostViewController
-////                        vc.boolForBack = true
-////                        vc.delegate    = self
-////                        self.navigationController!.pushViewController(vc, animated: true)
-////
-//
-//                    })
-//
-//                } else {
-//
-////                    LoadingHepler.instance.hide()
-////                    AlertProvider.Instance.showAlert(title: "Oops!", subtitle: "Signup failed", vc: self)
-//
-//                }
-//
-//
-//            } else {
-//
-////                LoadingHepler.instance.hide()
-//
-//                if let user = Values {
-//
-//                    if let meassage = user.errormessage {
-//
-//                        if meassage.contains("There is already a user defined with the passed firebaseuid") {
-//
-////                            AlertProvider.Instance.showAlert(title: "Oops!", subtitle: "The email address is already in use by another account.", vc: self)
-//
-//                        } else {
-//
-////                            AlertProvider.Instance.showAlert(title: "Oops!", subtitle: meassage, vc: self)
-//
-//                        }
-//
-//                        return
-//                    }
-//
-//                }
-//
-////                AlertProvider.Instance.showAlert(title: "Oops!", subtitle: "Signup failed", vc: self)
-//
-//            }
-//        })
-//
-//
-//
-//    }
+
     
     @objc func refresh(sender:AnyObject) {
        
@@ -173,48 +94,6 @@ class HomeViewController : UIViewController {
         loadPosts()
         
     }
-    
-    
-    // MARK: - Log Out User Method
-    
-//    @IBAction func logout(_ sender: Any) {
-//        // Log out user from Firebase
-//        AuthService.signOut(onSuccess: {
-//            // Present the Sign In VC
-//            let storyboard = UIStoryboard(name: "Start", bundle: nil)
-//            let signInVC = storyboard.instantiateViewController(withIdentifier: "SignInViewController")
-//            self.present(signInVC, animated: true)
-//        }) { (errorMessage) in
-//            ProgressHUD.showError(errorMessage)
-//        }
-//    }
-    
-    
-    // MARK: - Firebase Data Loading Method
-    
-    
-//    func loadPosts() {
-//
-//        API.Feed.observeFeed(withId: API.User.CURRENT_USER!.uid) { (post) in
-//            guard let postUid = post.uid else {
-//                return
-//            }
-//            self.fetchUser(uid: postUid, completed: {
-//                self.posts.append(post)
-//                self.tableView.reloadData()
-//            })
-//        }
-//
-//
-//        API.Feed.observeFeedRemoved(withId: API.User.CURRENT_USER!.uid) { (post) in
-//            self.posts = self.posts.filter { $0.id != post.id }
-//            self.users = self.users.filter { $0.id != post.uid }
-//
-//            self.tableView.reloadData()
-//        }
-//    }
-//
-    
     
     
     func loadPosts() {
@@ -280,14 +159,6 @@ class HomeViewController : UIViewController {
             commentVC.postID = sender as! String
         }
     }
-    
-//    @IBAction func BtnInfo(_ sender: UIBarButtonItem) {
-//        
-////        let storyboard = UIStoryboard(name: "Profile", bundle: nil)
-////        let vc         =  storyboard.instantiateViewController(withIdentifier: "textscroll") as! TextScroll
-////        self.navigationController?.pushViewController(vc, animated: true)
-//        
-//    }
     
     @IBAction func createNewpost(_ sender: Any) {
     
@@ -529,21 +400,7 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
             }
             
         }
-        
-//        let reportAction = UIAlertAction(title: "Report post", style: UIAlertActionStyle.default)
-//        {
-//            UIAlertAction in
-//
-//            self.reportPostDb(post: self.posts[position])
-//        }
-//
-//        let blockAction = UIAlertAction(title: "Block user", style: UIAlertActionStyle.default)
-//        {
-//            UIAlertAction in
-//
-//            self.blockUserDb(post: self.posts[position])
-//        }
-        
+ 
         let saveAction = UIAlertAction(title: "Save", style: UIAlertActionStyle.default)
         {
             UIAlertAction in
@@ -757,9 +614,157 @@ extension HomeViewController {
                 }
         }
 
+
         
-     
+    }
+    
+    func showErrorAlert(message : String){
         
+        let alert = UIAlertController(title: "Hey!", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+  
+}
+
+
+
+
+// ::::::::::::::::::::::::::::::::::::COMMENTED:::::::::::::::::::::::::::::::::::::::::::::::::::::::://
+
+
+
+//    func apiPost(){
+//
+//        let header     : HTTPHeaders = ["Accept-Language" : "en-US"]
+//        let parameters : Parameters = ["username": currentUser, "count": posts, "likedby", "postId", "tokenId"]
+//
+//        apiClientID.completeSignup(parameters: parameters,headers: header,completion:{status, Values in
+//
+//
+//            print("statusfb: \(status)")
+//            if status == "success" {
+//
+//                self.activityIndicatorView.startAnimating()
+//
+//                if let user = Values {
+//
+//                    self.getUserDetails(user: user)
+//
+//                    self.uploadImage(image: self.profileImage.image!, id: user.id ?? 0, completion: { imageurl in
+//
+//                        PrefsManager.sharedinstance.imageURL = imageurl ?? "empty"
+////                        let storyboard = UIStoryboard(name: Constants.Main, bundle: nil)
+////                        let vc         = storyboard.instantiateViewController(withIdentifier: "Profile_PostViewController") as! Profile_PostViewController
+////                        vc.boolForBack = true
+////                        vc.delegate    = self
+////                        self.navigationController!.pushViewController(vc, animated: true)
+////
+//
+//                    })
+//
+//                } else {
+//
+////                    LoadingHepler.instance.hide()
+////                    AlertProvider.Instance.showAlert(title: "Oops!", subtitle: "Signup failed", vc: self)
+//
+//                }
+//
+//
+//            } else {
+//
+////                LoadingHepler.instance.hide()
+//
+//                if let user = Values {
+//
+//                    if let meassage = user.errormessage {
+//
+//                        if meassage.contains("There is already a user defined with the passed firebaseuid") {
+//
+////                            AlertProvider.Instance.showAlert(title: "Oops!", subtitle: "The email address is already in use by another account.", vc: self)
+//
+//                        } else {
+//
+////                            AlertProvider.Instance.showAlert(title: "Oops!", subtitle: meassage, vc: self)
+//
+//                        }
+//
+//                        return
+//                    }
+//
+//                }
+//
+////                AlertProvider.Instance.showAlert(title: "Oops!", subtitle: "Signup failed", vc: self)
+//
+//            }
+//        })
+//
+//
+//
+//    }
+
+
+// func popalert() -------->>>>>>>>
+//        let reportAction = UIAlertAction(title: "Report post", style: UIAlertActionStyle.default)
+//        {
+//            UIAlertAction in
+//
+//            self.reportPostDb(post: self.posts[position])
+//        }
+//
+//        let blockAction = UIAlertAction(title: "Block user", style: UIAlertActionStyle.default)
+//        {
+//            UIAlertAction in
+//
+//            self.blockUserDb(post: self.posts[position])
+//        }
+
+
+
+// MARK: - Log Out User Method
+
+//    @IBAction func logout(_ sender: Any) {
+//        // Log out user from Firebase
+//        AuthService.signOut(onSuccess: {
+//            // Present the Sign In VC
+//            let storyboard = UIStoryboard(name: "Start", bundle: nil)
+//            let signInVC = storyboard.instantiateViewController(withIdentifier: "SignInViewController")
+//            self.present(signInVC, animated: true)
+//        }) { (errorMessage) in
+//            ProgressHUD.showError(errorMessage)
+//        }
+//    }
+
+
+// MARK: - Firebase Data Loading Method
+//    func loadPosts() {
+//
+//        API.Feed.observeFeed(withId: API.User.CURRENT_USER!.uid) { (post) in
+//            guard let postUid = post.uid else {
+//                return
+//            }
+//            self.fetchUser(uid: postUid, completed: {
+//                self.posts.append(post)
+//                self.tableView.reloadData()
+//            })
+//        }
+//
+//
+//        API.Feed.observeFeedRemoved(withId: API.User.CURRENT_USER!.uid) { (post) in
+//            self.posts = self.posts.filter { $0.id != post.id }
+//            self.users = self.users.filter { $0.id != post.uid }
+//
+//            self.tableView.reloadData()
+//        }
+//    }
+//
+
+
+
+
+
+
 //        let saveRef = Firestore.firestore().collection("save").document(API.User.CURRENT_USER!.uid)
 //        saveRef.getDocument { (snapshot, error) in
 //            guard let _snapshot = snapshot else {return}
@@ -775,15 +780,14 @@ extension HomeViewController {
 //            data![post.documentID!] = true
 //            saveRef.setData(data!)
 //        }
-        
-    }
-    
-    func showErrorAlert(message : String){
-        
-        let alert = UIAlertController(title: "Hey!", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-        
-    }
-  
-}
+
+
+
+
+
+
+
+
+
+
+

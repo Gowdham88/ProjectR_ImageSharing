@@ -186,10 +186,7 @@ class CommentViewController: UIViewController {
             }
             
         }
-        //METHOD TO SAVE COMMENT COUNT IN LOCAL:
-       let comentsCount =  UserDefaults.standard.set(commentCount, forKey: "comments")
-        print(":::::::get coment saving count:::::",comentsCount)
-        UserDefaults.standard.synchronize()
+     
     }
     
     
@@ -209,7 +206,9 @@ class CommentViewController: UIViewController {
         docRef.getDocuments() { (querySnapshot, err) in
             self.commentCount = querySnapshot?.count
             print("countComment1::::\(String(describing: self.commentCount))")
-
+            
+   
+            
             if let err = err {
                 print("Error getting documents: \(err)")
                 self.activityIndicator.stopAnimating()

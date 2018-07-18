@@ -43,17 +43,6 @@ pod 'AWSSQS'
 pod 'SHXMLParser'
 pod 'AWSAPIGateway'
 pod 'MaterialComponents/Tabs'
-
-
-
-  target 'Project_RTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'Project_RUITests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
+pod 'GooglePlacesSearchController'
 
 end
