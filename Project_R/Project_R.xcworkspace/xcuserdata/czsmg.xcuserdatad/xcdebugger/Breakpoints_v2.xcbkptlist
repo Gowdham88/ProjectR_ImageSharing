@@ -26,13 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project_R/New Group1/Tableviewcells/HomeTableViewCell.swift"
-            timestampString = "553525428.248745"
+            timestampString = "553607468.746878"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "864"
-            endingLineNumber = "864"
-            landmarkName = "usercommentcount(count:)"
-            landmarkType = "7">
+            startingLineNumber = "907"
+            endingLineNumber = "907">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -42,13 +40,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project_R/New Group1/Tableviewcells/HomeTableViewCell.swift"
-            timestampString = "553525428.248824"
+            timestampString = "553607468.74716"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "863"
-            endingLineNumber = "863"
-            landmarkName = "usercommentcount(count:)"
-            landmarkType = "7">
+            startingLineNumber = "906"
+            endingLineNumber = "906">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

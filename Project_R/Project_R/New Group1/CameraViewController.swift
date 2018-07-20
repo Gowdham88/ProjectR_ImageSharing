@@ -164,13 +164,12 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         }
 
         
-        if let address =  PrefsManager.sharedinstance.lastlocation {
-            searchBar.text = address
-          
-        }
+//        if let address =  PrefsManager.sharedinstance.lastlocation {
+//            searchBar.text = address
+//
+//        }
         
         captionTextView.returnKeyType = UIReturnKeyType.done
-
         self.extendedLayoutIncludesOpaqueBars = true
         
         //Dismiss keyboard - touch any where
@@ -836,7 +835,6 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         }
       
     }
-    
     
 }
 

@@ -36,7 +36,9 @@ class CommentTableViewCell: UITableViewCell {
     
     var nameString: String! = ""
     var imageString:String! = ""
+    var commentCount: Int!
     
+    var postidValue:String! = ""
     var comment: Comment? {
         didSet {
             updateView()
@@ -101,12 +103,19 @@ class CommentTableViewCell: UITableViewCell {
     
     
     func updateView() {
+        
+       
       
         API.User.observeCurrentUser(completion: { (user) in
             if self.currentName != nil {
                 
                 self.currentName = user.username!
                 
+                self.nameString = user.username!
+                
+                print("nameString::\(String(describing: self.nameString))")
+                self.imageString = user.profileImageURL
+                print("imageString::\(String(describing: self.imageString))")
                 print("currentname::\(String(describing: self.currentName))")
                 
             }
@@ -131,6 +140,9 @@ class CommentTableViewCell: UITableViewCell {
                 for document in querySnapshot!.documents {
                     print("\(document.documentID) => \(document.data())")
                     
+                    self.commentCount = querySnapshot?.count
+                    print("countPost:::::==\(self.commentCount)")
+                    
                     let postget = API.Post.observePost(withID: document.documentID, completion: { (post) in
                         
                         self.postUSerName = post.userName
@@ -138,49 +150,18 @@ class CommentTableViewCell: UITableViewCell {
                         self.postUserUID = post.uid
                     })
                     
+   
                 }
             }
+            
+         
         
         }
         
         if currentUser.uid == comment?.uid {
             
-            API.User.observeCurrentUser { (user) in
-                
-                self.nameString = user.username
-                print("nameee::\(self.nameString)")
-                
-                self.nameLabel.text = self.nameString
-                
-                self.imageString = user.profileImageURL
-                
-                print("nameeeImage::\(self.nameString)")
-                
-                self.profileImageView.image = nil
-                
-                if let photoURL = user.profileImageURL {
-                      
-                    self.profileImageView.sd_setImage(with: URL(string: photoURL), placeholderImage: UIImage(named: "profile"))
-                    
-                }
-            }
-            
-            
-           
-            
-            
-            
-//            if let photoURL = user?.profileImageURL {
-//                profileImageView.sd_setImage(with: URL(string: photoURL), placeholderImage: UIImage(named: "profile"))
-//            }
-
-            
-//            nameLabel.text = PrefsManager.sharedinstance.username
-
-            
-            
-            
-//            Manager.shared.loadImage(with:  URL(string: PrefsManager.sharedinstance.imageURL)!, into: self.profileImageView)
+            nameLabel.text = PrefsManager.sharedinstance.username
+            Manager.shared.loadImage(with:  URL(string: PrefsManager.sharedinstance.imageURL)!, into: self.profileImageView)
             
             let db = Firestore.firestore()
          
@@ -218,7 +199,6 @@ class CommentTableViewCell: UITableViewCell {
             
             nameLabel.text = comment?.userName
             profileImageView.image = nil
-            
             
             if let photoURL = comment?.profileImageURL {
                 

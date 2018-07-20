@@ -46,7 +46,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     var homeVC: HomeViewController?
     var userVC: UserViewController?
     var postReference: DatabaseReference!
-    var commentCount = [Comment]()
+    var comments = [Comment]()
     var userss = [Users]()
     var currentuser = [UserAPI]()
     var currentName: String! = ""
@@ -55,6 +55,9 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     var postToken: String! = ""
 //    var postItem = Post()
     var currentUserUID: String! = ""
+    var commentCountValue: String! = ""
+    var commentCountData: Int!
+    
     var post: Post? {
         didSet {
             updateView()
@@ -75,9 +78,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         super.awakeFromNib()
         
             
-            var commentValue = UserDefaults.standard.object(forKey: "comments")
             
-            print(":::comment count value:::",commentValue)
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: {didAllow, error in
             
@@ -186,7 +187,33 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     
     func updateView() {
         
-
+        //Taking Comment Count to display in home page
+        let db = Firestore.firestore()
+        let docRef = db.collection("comments").whereField("postid", isEqualTo: post?.documentID).limit(to: 500)
+        
+        docRef.getDocuments() { (querySnapshot, err) in
+            self.commentCountData = querySnapshot?.count
+            
+                    if let amount = self.commentCountData as? Int {
+            
+                        let am = String(amount)
+            
+                        self.commentCountLabel.text = "\(am) comments"
+                    }
+            
+            print(":::::::get count of comment===:::::",self.commentCountData)
+            
+            if let err = err {
+                print("Error getting documents: \(err)")
+//                self.activityIndicator.stopAnimating()
+            }
+        }
+        
+//        commentCountValue = String(countComm)
+        
+//        commentCountLabel.text = commentCountValue
+        
+        
         let photoURL = post?.photoURL
 //        if let photoURL = post?.photoURL {
 //            postImageView.image = nil

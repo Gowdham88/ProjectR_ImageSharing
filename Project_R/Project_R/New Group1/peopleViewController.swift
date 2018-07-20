@@ -72,25 +72,34 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         API.User.observeUser { (user) in
 
 //            for item in user {
-
-            self.isfollowing(userId: user.id!, completed: { (value) in
-
+            
+            if API.User.CURRENT_USER_ID == user.id
+            {
+                print("Get my user detail id::::",API.User.CURRENT_USER_ID)
+            }
+            else {
+              
+                self.isfollowing(userId: user.id!, completed: { (value) in
+                    
                     user.isFollowing = value
-
+                    
                     print("printing followers \(user.id), status \(user.isFollowing)")
-
+                    
                     self.users.append(user)
-//                    self.loadFollowers()
-                 self.activityIndicator.stopAnimating()
-                self.activityIndicator.isHidden = true
+                    //                    self.loadFollowers()
+                    self.activityIndicator.stopAnimating()
+                    self.activityIndicator.isHidden = true
                     self.tableView.reloadData()
-
+                    
                 })
+                
+            }
+               
+            }
 
-//            }
-
-        }
     }
+    
+   
     
     func isfollowing(userId : String ,completed : @escaping(Bool) -> Void) {
         
