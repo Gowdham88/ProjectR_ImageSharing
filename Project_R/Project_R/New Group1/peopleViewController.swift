@@ -15,20 +15,15 @@ import FirebaseDatabase
 class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
-  
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var followers   : [String : Any]?
-    
     var refreshControl = UIRefreshControl()
-   
     var users : [Users] = []
     var userDat: Users!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //Navigation bar title color
         
         loadUsers()
 
@@ -41,6 +36,7 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
         tableView.addSubview(refreshControl)
+        tableView.reloadData()
         
     }
  
@@ -58,17 +54,14 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let vc =  storyboard.instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
         //        vc.userId = posts[position].uid!
         userVCuserId = posts[position].uid!
+        
         vc.delegate = self as! UserViewControllerDelegate
         self.navigationController?.pushViewController(vc, animated: true)
         
     }
     
-    
-    
     func loadUsers() {
-        
         self.activityIndicator.startAnimating()
-
         API.User.observeUser { (user) in
 
 //            for item in user {
@@ -80,7 +73,6 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             else {
               
                 self.isfollowing(userId: user.id!, completed: { (value) in
-                    
                     user.isFollowing = value
                     
                     print("printing followers \(user.id), status \(user.isFollowing)")
@@ -132,6 +124,11 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -221,9 +218,17 @@ extension peopleViewController: PeopleTableViewCellDelegate {
     }
  
  
-    func goToProfileUserVC(userId: String) {
+    func goToProfileUserVC(userId: String, followingStatus: Bool) {
+        print("StatusFollwoing:::\(followingStatus)")
+//        performSegue(withIdentifier: "ProfileSegue", sender: userId)
         
-        performSegue(withIdentifier: "ProfileSegue", sender: userId)
+        let vc = UIStoryboard(name: "Home", bundle: nil)
+        let push = vc.instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
+        
+        push.followingStatus = followingStatus
+        push.userIDs = userId
+        
+        self.navigationController?.pushViewController(push, animated: true)
 
     }
     
