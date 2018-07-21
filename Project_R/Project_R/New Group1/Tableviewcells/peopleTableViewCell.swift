@@ -61,21 +61,21 @@ class peopleTableViewCell: UITableViewCell {
         self.profileUserImage.clipsToBounds = true
         
 
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.nameLabel_TouchUpInside))
-        profileUserName.addGestureRecognizer(tapGesture)
-        profileUserName.isUserInteractionEnabled = true
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.nameLabel_TouchUpInside))
+//        profileUserName.addGestureRecognizer(tapGesture)
+//        profileUserName.isUserInteractionEnabled = true
         
     }
 
     
-    @objc func nameLabel_TouchUpInside() {
-
-        if let id = user?.id {
-            let status = user.isFollowing
-            print("Get the following status===\(status)")
-            delegate?.goToProfileUserVC(userId: id, followingStatus: status!)
-        }
-    }
+//    @objc func nameLabel_TouchUpInside() {
+//
+//        if let id = user?.id {
+//            let status = user.isFollowing
+//            print("Get the following status===\(status)")
+//            delegate?.goToProfileUserVC(userId: id, followingStatus: status!)
+//        }
+//    }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

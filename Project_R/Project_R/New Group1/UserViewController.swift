@@ -228,6 +228,7 @@ class UserViewController: UIViewController {
             
             if let photoURL = user.profileImageURL {
                 self.profileImg.sd_setImage(with: URL(string: photoURL))
+                print(":::USer profile pic::::",photoURL)
             }
             
             if let name = user.username {

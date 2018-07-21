@@ -506,18 +506,13 @@ extension HomeViewController : UITabBarControllerDelegate {
 
 extension HomeViewController {
     
-    
     func blockUserDb(post : Post) {
-        
-        
         let db = Firestore.firestore()
-       
         db.collection("BlockUser").document(post.uid ?? "0000").setData([
             "uid" : post.uid ??  "empty" ,
             "userName"  : post.userName ?? "empty",
             "profileImageURL" : post.profileImageURL ?? "empty"
         ]) { err in
-            
             if let err = err {
                 print("Error writing document: \(err)")
                 ProgressHUD.showError("Server error: \(err.localizedDescription)")
@@ -527,8 +522,6 @@ extension HomeViewController {
                 
             }
         }
-   
-        
     }
     
     func reportPostDb(post : Post) {
