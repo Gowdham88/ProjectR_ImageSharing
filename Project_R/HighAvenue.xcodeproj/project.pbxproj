@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		0F0A297E20DBB4B000A14F8A /* UserdetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0A297D20DBB4B000A14F8A /* UserdetailPage.swift */; };
 		0F0A298020DBB72300A14F8A /* userDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0A297F20DBB72300A14F8A /* userDetailTableViewCell.swift */; };
-		0F2254432101E65000C2DCB2 /* GooglePlacesAutocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2254422101E65000C2DCB2 /* GooglePlacesAutocomplete.swift */; };
-		0F225445210219C400C2DCB2 /* GooglePlacesAutocomplete.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F225444210219C400C2DCB2 /* GooglePlacesAutocomplete.xib */; };
 		0F225447210226CB00C2DCB2 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F225446210226CA00C2DCB2 /* MapKit.framework */; };
 		0F3D15CA20F654C4008AB70E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F3D15C920F654C4008AB70E /* Alamofire.framework */; };
 		0F5E121220D7F86600E5C964 /* verification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5E121120D7F86600E5C964 /* verification.swift */; };
@@ -116,8 +114,6 @@
 /* Begin PBXFileReference section */
 		0F0A297D20DBB4B000A14F8A /* UserdetailPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserdetailPage.swift; sourceTree = "<group>"; };
 		0F0A297F20DBB72300A14F8A /* userDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userDetailTableViewCell.swift; sourceTree = "<group>"; };
-		0F2254422101E65000C2DCB2 /* GooglePlacesAutocomplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesAutocomplete.swift; sourceTree = "<group>"; };
-		0F225444210219C400C2DCB2 /* GooglePlacesAutocomplete.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GooglePlacesAutocomplete.xib; sourceTree = "<group>"; };
 		0F225446210226CA00C2DCB2 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		0F3D15C920F654C4008AB70E /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F5E121120D7F86600E5C964 /* verification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = verification.swift; sourceTree = "<group>"; };
@@ -304,7 +300,6 @@
 			children = (
 				B4D3DF0A20E8BC750065BE55 /* Tableviewcells */,
 				AE3CF27320BFAF530074D5F7 /* ImageZoom.swift */,
-				0F2254422101E65000C2DCB2 /* GooglePlacesAutocomplete.swift */,
 				AE3CF27220BFAF530074D5F7 /* ActivityViewController.swift */,
 				AE3CF26620BFAF4D0074D5F7 /* CameraViewController.swift */,
 				AE3CF26A20BFAF4F0074D5F7 /* CommentViewController.swift */,
@@ -419,7 +414,6 @@
 				AE6444EA20BD798500216484 /* Info.plist */,
 				0FD2863A21019F8E00C97547 /* GoogleService-Info.plist */,
 				AE2CC0BB20CFB71C0047BCC0 /* CustomSegmentedControl.swift */,
-				0F225444210219C400C2DCB2 /* GooglePlacesAutocomplete.xib */,
 			);
 			path = Project_R;
 			sourceTree = "<group>";
@@ -593,7 +587,6 @@
 				AE3CF29720BFAF730074D5F7 /* Home.storyboard in Resources */,
 				0FD2863B21019F8E00C97547 /* GoogleService-Info.plist in Resources */,
 				AE3CF29320BFAF730074D5F7 /* Profile.storyboard in Resources */,
-				0F225445210219C400C2DCB2 /* GooglePlacesAutocomplete.xib in Resources */,
 				AE3CF29120BFAF730074D5F7 /* sample.jpg in Resources */,
 				AE6444E920BD798500216484 /* LaunchScreen.storyboard in Resources */,
 				AE3CF29020BFAF730074D5F7 /* Activity.storyboard in Resources */,
@@ -837,7 +830,6 @@
 				AE3CF2B320C03C0B0074D5F7 /* NotificationViewController.swift in Sources */,
 				AE64456B20BD7A6A00216484 /* AppDelegate.swift in Sources */,
 				AE3CF2AC20BFAF890074D5F7 /* SortPost.swift in Sources */,
-				0F2254432101E65000C2DCB2 /* GooglePlacesAutocomplete.swift in Sources */,
 				AE2CC0C020CFDB1F0047BCC0 /* save.swift in Sources */,
 				0F0A298020DBB72300A14F8A /* userDetailTableViewCell.swift in Sources */,
 				AE2CC0BC20CFB71C0047BCC0 /* CustomSegmentedControl.swift in Sources */,

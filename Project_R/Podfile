@@ -43,6 +43,7 @@ target 'Project_R' do
     pod 'SHXMLParser'
     pod 'AWSAPIGateway'
     pod 'MaterialComponents/Tabs'
-    pod 'GooglePlacesAutocomplete'
+    pod 'GooglePlacePicker'
+    pod 'GoogleMaps'
 
 end

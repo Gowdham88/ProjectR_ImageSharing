@@ -180,36 +180,65 @@ class FollowApi {
         
     }
     
-
-    
     
     func isFollowing(userId: String, completed: @escaping(Bool) -> Void) {
-       
-        db.collection("following").document((API.User.CURRENT_USER?.uid)!).getDocument(completion: {(snapshot, error) in
-            
-            
-            var mysnapshotdata = snapshot?.data()
-           
-            print("snapshot?.exists: \(mysnapshotdata![userId])")
         
-           
-            if mysnapshotdata![userId] == nil {
+        db.collection("following").document((API.User.CURRENT_USER?.uid)!)
+            .addSnapshotListener { documentSnapshot, error in
                 
-                print("Completed == False")
+                var mysnapshotdata = documentSnapshot?.data()
+                
+                print("snapshot?.exists: \(String(describing: mysnapshotdata![userId]))")
+                
+                if mysnapshotdata![userId] == nil {
+                    
+                    print("Completed == False")
+                    
+                    completed(false)
+                    
+                } else {
+                    
+                    print("Completed == True")
+                    
+                    completed(true)
+                    
+                }
+                
+                guard let document = documentSnapshot else {
+                    print("Error fetching document: \(error!)")
+                    return
+                }
+                print("Current data: \(document.data())")
+        }
 
-                completed(false)
-                
-            } else {
-                
-                print("Completed == True")
-
-                completed(true)
-                
-            }
-            
-            
-        })
-            
+    
+    
+//    func isFollowing(userId: String, completed: @escaping(Bool) -> Void) {
+//
+//        db.collection("following").document((API.User.CURRENT_USER?.uid)!).getDocument(completion: {(snapshot, error) in
+//
+//            var mysnapshotdata = documentSnapshot?.data()
+//
+//            print("snapshot?.exists: \(mysnapshotdata![userId])")
+//
+//
+//            if mysnapshotdata![userId] == nil {
+//
+//                print("Completed == False")
+//
+//                completed(false)
+//
+//            } else {
+//
+//                print("Completed == True")
+//
+//                completed(true)
+//
+//            }
+//
+//
+//        })
+    
         /*        followersRef.getDocument { (snapshot, error) in
         
         

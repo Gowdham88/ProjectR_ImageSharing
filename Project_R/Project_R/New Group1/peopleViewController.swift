@@ -139,9 +139,15 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "PeopleTableViewCell", for: indexPath) as! peopleTableViewCell
+        
+        //Move to user detail page - profile image tap & username tap
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(moveToUserPage(sender:)))
+        
         cell.profileUserImage.addGestureRecognizer(tapGesture)
         cell.profileUserImage.isUserInteractionEnabled = true
+        
+        cell.profileUserName.addGestureRecognizer(tapGesture)
+        cell.profileUserName.isUserInteractionEnabled = true
         
         cell.followBtn.tag = indexPath.row
         
@@ -161,7 +167,6 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @objc func moveToUserPage(sender: UITapGestureRecognizer) {
         
         print("User detail page tapped \(sender)")
-        
         let tapLocation = sender.location(in: tableView)
         let indexPath : IndexPath = tableView.indexPathForRow(at: tapLocation)!
         print("moveToUserPage indexPath.row: \(indexPath.row)")
@@ -219,16 +224,16 @@ extension peopleViewController: PeopleTableViewCellDelegate {
  
  
     func goToProfileUserVC(userId: String, followingStatus: Bool) {
-        print("StatusFollwoing:::\(followingStatus)")
-//        performSegue(withIdentifier: "ProfileSegue", sender: userId)
-        
-        let vc = UIStoryboard(name: "Home", bundle: nil)
-        let push = vc.instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
-        
-        push.followingStatus = followingStatus
-        push.userIDs = userId
-        
-        self.navigationController?.pushViewController(push, animated: true)
+//        print("StatusFollwoing:::\(followingStatus)")
+////        performSegue(withIdentifier: "ProfileSegue", sender: userId)
+//
+//        let vc = UIStoryboard(name: "Home", bundle: nil)
+//        let push = vc.instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
+//
+//        push.followingStatus = followingStatus
+//        push.userIDs = userId
+//
+//        self.navigationController?.pushViewController(push, animated: true)
 
     }
     

@@ -13,6 +13,9 @@ import FirebaseInstanceID
 import FirebaseMessaging
 import Fabric
 import Crashlytics
+import CoreData
+import GooglePlaces
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
@@ -20,11 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
     var window: UIWindow?
     var Userdefaults = UserDefaults.standard
     
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
         Fabric.with([Crashlytics.self] )
+        //CheckIn view - textfield location search
+        setUpGoogleMaps()
         // Override point for customization after application launch.
         // change the tint color on the Tab Bar to Wet Asphalt
 //
@@ -92,6 +94,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
         
         return true
     }
+    
+    //Delegate Func for Location search in Check In view controller
+    func setUpGoogleMaps() {
+        let googleMapsApiKey = "AIzaSyDmfYE1gIA6UfjrmOUkflK9kw0nLZf0nYw"
+        GMSPlacesClient.provideAPIKey("AIzaSyDmfYE1gIA6UfjrmOUkflK9kw0nLZf0nYw")
+    }
+    
+    
     // Called when APNs has assigned the device a unique token
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data)
     {

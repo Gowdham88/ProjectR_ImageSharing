@@ -317,6 +317,10 @@ extension CheckInViewController : UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         
+        let searchPlaces = GMSAutocompleteViewController()
+        searchPlaces.delegate = self
+        self.present(searchPlaces, animated: true, completion: nil)
+
     }
     
     
@@ -550,9 +554,10 @@ extension CheckInViewController : UITableViewDataSource,UITableViewDelegate {
         
         autocompleteplaceArray.removeAll()
         
-        let parameters: Parameters = ["input": place_Str ,"types" : "(cities)" , "key" : "AIzaSyDmfYE1gIA6UfjrmOUkflK9kw0nLZf0nYw"]
+//        let parameters: Parameters = ["input": place_Str ,"types" : "(cities)" , "key" : "AIzaSyDmfYE1gIA6UfjrmOUkflK9kw0nLZf0nYw"]
+        let parameters: Parameters = ["input": place_Str ,"types" : "(sublocality)" , "key" : "AIzaSyDmfYE1gIA6UfjrmOUkflK9kw0nLZf0nYw"]
         
-
+        print("Get search location value",parameters)
         
         Alamofire.request(Constants.PlaceApiUrl, parameters: parameters).validate().responseJSON { response in
             
