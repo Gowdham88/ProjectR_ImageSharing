@@ -36,12 +36,22 @@ class UserViewController: UIViewController {
     var refreshControl: UIRefreshControl!
     var posts = [Post]()
     var users = [Users]()
+    var user: Users!
     var delegate : UserViewControllerDelegate?
+    var followingStatus: Bool?
+    var userIDs: String?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("Get user name detail::::",user)
+        
+        print("Get USERS DETAIL:::::",users)
+        
+//        followButton.addTarget(self, action: #selector(UserViewController.followAction(sender:)), for: .touchUpInside)
 
-        self.view.addSubview(userdetailview)
+//        self.view.addSubview(userdetailview)
         
 //        var btn: UIButton = UIButton()
 //        btn.frame = CGRect(x: 100, y: 20, width: 120, height: 50)
@@ -55,13 +65,13 @@ class UserViewController: UIViewController {
         
        
         
-        
-         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(normalTap(_:)))
+//        self.followButton.addTarget(self, action: #selector(normalTap(_:)), for: .touchUpInside)
+//         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(normalTap(_:)))
 
-        followButton.addGestureRecognizer(tapGesture)
+//        followButton.addGestureRecognizer(tapGesture)
 //        btn.addGestureRecognizer(tapGesture)
 
-        followButton.isUserInteractionEnabled = true
+          followButton.isUserInteractionEnabled = true
 //        btn.isUserInteractionEnabled = true
         
 //        view.superview?.addSubview(btn)
@@ -104,6 +114,8 @@ class UserViewController: UIViewController {
         
         self.tabBarController?.tabBar.isHidden = false
         
+        navigationController?.viewControllers.forEach { ($0 as? peopleViewController)?.tableView.reloadData() }
+        
 //        self.dismiss(animated: true, completion: nil)
 
     self.navigationController?.popToRootViewController(animated: true)
@@ -113,63 +125,88 @@ class UserViewController: UIViewController {
             delegateexits.refreshData()
             
         }
+        
+        
        
     }
    
-    @IBAction func followButtonTapped(_ sender: Any) {
-        print("Follow button tapped")
+//    @IBAction func followButtonTapped(_ sender: Any) {
+//
+//        if user.isFollowing == false {
+//
+//            followAction(sender: sender as! UIButton)
+//
+//        } else {
+//
+//            unFollowAction(sender: sender as! UIButton)
+//        }
+//
+//    }
+    
+    func configureFollowButton() {
+        followButton.isUserInteractionEnabled = true
+        followButton.setTitle("Follow", for: UIControlState.normal)
+        followButton.addTarget(self, action: #selector(UserViewController.followAction(sender:)), for: .touchUpInside)
     }
     
-    @objc func normalTap(_ sender: UITapGestureRecognizer){
-        
-        
-        print("Follow Button tapped, userFollowing: \(userFollowing, userVCuserId)")
-        
+    func configureUnFollowButton() {
+        followButton.isUserInteractionEnabled = true
+        followButton.setTitle("Unfollow", for: UIControlState.normal)
+        followButton.addTarget(self, action: #selector(UserViewController.unFollowAction(sender:)), for: .touchUpInside)
+    }
+    
+    @objc func followAction(sender : UIButton) {
         
         if userFollowing == false {
             
-//            userFollowing = false
-            
-//            followButton.setTitle("Follow", for: .normal)
-            API.Follow.unFollowAction(withUser: userVCuserId)
-            
-        } else {
-            
-            userFollowing = true
-            
-            followButton.setTitle("Unfollow", for: .normal)
+            print("userid========\(userVCuserId)")
             API.Follow.followAction(withUser: userVCuserId)
-            
+            configureUnFollowButton()
+            userFollowing = true
         }
-        
     }
     
+    @objc func unFollowAction(sender : UIButton) {
+        
+        if userFollowing == true {
+        
+            API.Follow.unFollowAction(withUser: userVCuserId)
+            
+            configureFollowButton()
+        
+            userFollowing = false
+        }
+    }
     
+    func updateStateFollowButton() {
+        if let status = user.isFollowing {
+            print("status \(status)")
+            if user.isFollowing! {
+                configureUnFollowButton()
+            } else {
+                configureFollowButton()
+            }
+        }
+    }
+    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
         
         print("Step 4 ::::: view will appear called")
-
-        
         if userFollowing == false {
-            
             followButton.setTitle("Follow", for: .normal)
             API.Follow.unFollowAction(withUser: userVCuserId)
-            
-            
         } else {
-            
             followButton.setTitle("Unfollow", for: .normal)
             API.Follow.followAction(withUser: userVCuserId)
-       
         }
         
-       
+        
     }
     
     func refresh(sender:AnyObject) {
-        
         posts.removeAll()
         loadPosts()
         refreshControl.endRefreshing()
@@ -197,6 +234,15 @@ class UserViewController: UIViewController {
                 self.userName.text = name
                 self.userDetail.text = "@\(name)"
             }
+                
+                if userFollowing == true{
+                    
+                    self.configureUnFollowButton()
+                    
+                } else {
+                    
+                    self.configureFollowButton()
+                }
                 
             }
             
@@ -233,8 +279,6 @@ class UserViewController: UIViewController {
             let commentVC = segue.destination as! CommentViewController
             commentVC.postID = sender as! String
         }
-        
-//        CommentViewController
     }
     
 }

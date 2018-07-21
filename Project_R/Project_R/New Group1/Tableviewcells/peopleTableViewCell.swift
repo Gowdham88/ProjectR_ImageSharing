@@ -1,4 +1,4 @@
-//
+ //
 //  peopleTableViewCell.swift
 //  Project_R
 //
@@ -14,7 +14,7 @@ import SDWebImage
 import Nuke
 
 protocol PeopleTableViewCellDelegate {
-    func goToProfileUserVC(userId: String)
+    func goToProfileUserVC(userId: String, followingStatus: Bool)
 
 
 //    func updateFollowers(position : Int,cell : peopleTableViewCell)
@@ -50,7 +50,9 @@ class peopleTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-
+        
+        print("Get username <detail>::::",user)
+        
         followBtn.layer.borderWidth = 1
         followBtn.layer.cornerRadius = 5
         followBtn.clipsToBounds = true
@@ -69,7 +71,9 @@ class peopleTableViewCell: UITableViewCell {
     @objc func nameLabel_TouchUpInside() {
 
         if let id = user?.id {
-            delegate?.goToProfileUserVC(userId: id)
+            let status = user.isFollowing
+            print("Get the following status===\(status)")
+            delegate?.goToProfileUserVC(userId: id, followingStatus: status!)
         }
     }
     
