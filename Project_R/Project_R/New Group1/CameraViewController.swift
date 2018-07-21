@@ -10,11 +10,24 @@ import UIKit
 import FirebaseStorage
 import Firebase
 import FirebaseAuth
+import FirebaseDatabase
 import AWSCore
 import Alamofire
 import AWSAPIGateway
 import SHXMLParser
 import Nuke
+ 
+ struct getProductIndex {
+  
+    static var arrayProd   = [String]()
+    static var ArryDocID    = [String]()
+    static var ArryPhotoUrl     = [String]()
+    static var ArryDetailUrl    = [String]()
+    
+//    
+//    static var index              : Int = -1
+ }
+
 
 protocol CameraViewControllerDelegate {
     
@@ -36,6 +49,8 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     
 //    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    let db = Firestore.firestore()
+    
     let imagePicker = UIImagePickerController()
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -56,7 +71,19 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     var ratingValue: String?
     var dateTime: Double!
     var currentName: String! = ""
+    var ref:DatabaseReference?
+    var getSearch = [String]()
+    var filtered:[String] = []
+    var inSearchMode = false
     
+    
+    var FIRProductName: String?
+    var FIRPhotoUrl: String?
+    var FIRProductDetailUrl: String?
+    var FIRProductDocID: String?
+    
+    
+//    var productList:[productList] = []
 //    AWS String
     
     var page: String = ""
@@ -68,6 +95,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     var ProductName = [amazonProductName]()
     var productTitle: String = String()
     var productDetailPageURL:String = String()
+    var productId:String = String()
     var productASIN:String = String()
     var results = [[String: String]]()
     var indices: [String] = []
@@ -84,9 +112,10 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     var bookAuthor = String()
     var searchText: String?
     var poductDetailPageUrl: String?
+    var productID: String?
     var AISNid:String?
     var ImageByItemId:String?
-    
+    var prodList    = [productList]()
     var imageUrlVc: String?
     var skipBool : Bool = true
     /****************/
@@ -95,10 +124,52 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        db.collection("products").getDocuments() { (querySnapshot, err) in
+            
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+               for (position, document) in querySnapshot!.documents.enumerated() {
+                print("\(document.documentID) => \(document.data())")
+                
+                
+                if let product = productList(dictionary: document.data()) {
+//                    self.prodList.append(product)
+                    
+                    getProductIndex.arrayProd.append(product.productName!)
+                    print("::Get product name::",getProductIndex.arrayProd)
+                    
+                    getProductIndex.ArryDocID.append(product.productId!)
+                    print("::Get product id::",getProductIndex.arrayProd)
+                    
+                    getProductIndex.ArryPhotoUrl.append(product.photoURL!)
+                    print("::Get product ArryPhotoUrl::",getProductIndex.ArryPhotoUrl)
+                    
+                    getProductIndex.ArryDetailUrl.append(product.productDetailPageURL!)
+                    print("::Get product ArryDetailUrl::",getProductIndex.ArryDetailUrl)
+                    
+              
+                    
+                    
+                }
+                
+                if position == querySnapshot!.documents.count-1 {
+                    self.tableView.reloadData()
+                }
+                
+
+                
+                }
+            }
+        }
+
         
+//        if let address =  PrefsManager.sharedinstance.lastlocation {
+//            searchBar.text = address
+//
+//        }
         
         captionTextView.returnKeyType = UIReturnKeyType.done
-
         self.extendedLayoutIncludesOpaqueBars = true
         
         //Dismiss keyboard - touch any where
@@ -168,10 +239,25 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         
        
     }
-    
-    
-    
-   
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+
+            filtered = getProductIndex.arrayProd.filter({ (text) -> Bool in
+                let tmp: NSString = text as NSString
+            print("get the tmp file:::",tmp)
+            self.filtered = getProductIndex.arrayProd.filter { $0 == searchBar.text }
+            let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
+            return range.location != NSNotFound
+        })
+        
+        if filtered.count == 0 {
+            inSearchMode = false
+        } else {
+            inSearchMode = true
+        }
+
+        self.tableView.reloadData()
+     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
@@ -184,34 +270,20 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
             tableView.isHidden = true
             
         } else {
-        
-//           searchBar.resignFirstResponder()
-        
-//        if !shouldShowSearchResults {
-//            shouldShowSearchResults = true
-//            tblSearchResults.reloadData()
-//        }
-//
-        
+ 
         searchWord = searchBar.text!
-//        _ = itemSearch(searchKeyword: searchKeyword)
-        
-//        print("itemSearch::::\(itemSearch(searchKeyword: searchKeyword))")
-//        searchController.searchBar.resignFirstResponder()
-        
-        
-        self.results.removeAll()   // removes search bar prev.history from table view 
         getSearchItem(searchKeyword: searchWord!)
+        searchBar.text = ""
         tableView.isHidden = false
-        
-        tableView.reloadData()
+        self.tableView.reloadData()
         }
+        
     }
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(true)
-//        tableView.reloadData()
-//
-//    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        tableView.reloadData()
+
+    }
     
     /*****************amazon product search*****************/
     
@@ -459,6 +531,9 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     // based on the image toggle the buttons
     
     func setButtons() {
+      
+        
+        
         if selectedImage != nil {
             // if there is an image the buttons should be enabled
             shareButton.isEnabled = true
@@ -470,7 +545,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
             shareButton.alpha = 0.2
             clearBarButton.isEnabled = false
            
-        }
+        } 
     }
     
     func CurrentDate(){
@@ -518,7 +593,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
                 // and put the photoURL into the database
                 self.saveToDatabase(photoURL: photoURL!)
                 //                self.saveActivity()
-                //                self.getname()
+                //                self.getname()...
             })
         } else {
             ProgressHUD.showError("Your photo to Share can not be empty. Tap it to set it and Share.")
@@ -633,6 +708,9 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
     // MARK: - Save to Firebase Method
     
      func saveToDatabase(photoURL: String) {
+        
+    
+        
         let ref = Database.database().reference()
         let postsReference = ref.child("posts")
         let newPostID = postsReference.childByAutoId().key
@@ -651,8 +729,8 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
 
         API.User.observeCurrentUser { user in
             users = user
-            let db = Firestore.firestore()
-            db.collection("posts").document(newPostID).setData([
+            
+            self.db.collection("posts").document(newPostID).setData([
                 "uid": currentUserID,
                 "photoURL": photoURL,
                 "caption": self.captionTextView.text!,
@@ -666,6 +744,7 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
                 "rating": self.ratingValue ?? "",
                 "productName": self.searchText ?? "",
                 "productDetailPageURL": self.poductDetailPageUrl ?? "",
+                
                 "location": "" ?? "",
                 "token": token ?? ""
             ]) { err in
@@ -674,8 +753,28 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
                     ProgressHUD.showError("Photo Save Error: \(err.localizedDescription)")
                 } else {
                     print("Document successfully written!")
-            
                     
+                    
+                     /***********product table***********/
+                    
+                    let db = Firestore.firestore()
+                    
+                    db.collection("products").document(newPostID).setData([
+                        "photoURL": photoURL ,
+                        "productDetailPageURL": self.poductDetailPageUrl ?? "",
+                        "productName": self.searchText ?? "",
+                        "productId": newPostID ?? "empty"
+                    ]){ err in
+                        if let err = err {
+                            print("Error writing document: \(err)")
+                            ProgressHUD.showError("Error : \(err.localizedDescription)")
+                        } else {
+                            
+                            print("Document successfully committed!")
+                        }
+                    }
+            
+                    /***********product table***********/
                     
                     let finalcomment = users.username! + " " + "created on new product post"
                     print("finalcomment:::\(finalcomment)")
@@ -736,8 +835,6 @@ class CameraViewController: UIViewController,UITextViewDelegate, UIImagePickerCo
         }
       
     }
-    
-   
     
 }
 
@@ -882,6 +979,7 @@ extension CameraViewController: XMLParserDelegate {
         } else if dictionaryKeys3.contains(elementName){
 
             currentValue = ""
+            
         }
 
         
@@ -944,34 +1042,89 @@ extension CameraViewController: XMLParserDelegate {
     
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
+        
+        if inSearchMode {
+            
+        return filtered.count
+            
+        }
+        
         return results.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath) as! amazonProductListTableViewCell
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath) as! amazonProductListTableViewCell
         
-
-        let item = results[indexPath.row]
-        print("productItem:::\(item)")
-
-                cell.amazonProductTitle?.text =  item["Title"]
+        let text: String!
         
+        if inSearchMode {
+            
+            text = filtered[indexPath.row]
+            print("Firebase search product item:::\(text)")
+            cell.amazonProductTitle?.text = text
+            self.tableView.isHidden = false
+            
+        } else {
+            let item = results[indexPath.row]
+            print("productItem:::\(item)")
+            cell.amazonProductTitle?.text =  item["Title"]
 
-
+        }
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let indexPath = tableView.indexPathForSelectedRow  {
+        
+        //:::::::FIREBASE PRODUCT SEARCH::::::::://
+        if inSearchMode {
+            print("inSearchMode Enabled")
+            
+            FIRProductName = getProductIndex.arrayProd[indexPath.row]
+            print("getString:::\(String(describing: FIRProductName))")
+            
+             FIRProductDocID = getProductIndex.ArryDocID[indexPath.row]
+             print("getDocIDString:::\(String(describing: FIRProductDocID))")
+            
+             FIRPhotoUrl = getProductIndex.ArryPhotoUrl[indexPath.row]
+             print("getPhotoString:::\(String(describing: FIRPhotoUrl))")
+            
+             FIRProductDetailUrl = getProductIndex.ArryDetailUrl[indexPath.row]
+             print("getDetailUrlString:::\(String(describing: FIRProductDetailUrl))")
+            
+            self.searchBar.text = FIRProductName
+                            if let photoURL = FIRPhotoUrl {
+                                self.photoImageView.image = nil
+                                if  photoURL != "" {
+                                    if self.photoImageView != nil {
+            
+                                        Manager.shared.loadImage(with: URL(string : photoURL)!, into: self.photoImageView)
+                                        DispatchQueue.global().async {
+                                            let data = try? Data(contentsOf: URL(string: photoURL)!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                                            DispatchQueue.main.async {
+                                                self.selectedImage = UIImage(data: data!)
+                                                print("photoimageview:::\(String(describing: self.selectedImage))")
+                                                self.setButtons()
+                                            }
+                                        }
+                                    }
+                                }
+                               tableView.isHidden = true
+                            }
+            //passing the string value appended
+            let item = self.filtered[indexPath.row]
+            print("item::::\(item)")
             let currentCell = tableView.cellForRow(at: indexPath) as! UITableViewCell
-           
-
-           let item = self.results[indexPath.row]
-//            searchLoaction.text = autocompleteplaceArray[indexPath.row]
-//            PrefsManager.sharedinstance.lastlocation = searchLoaction.text
-         
             UIView.animate(withDuration: 1, animations: {
+            }) { (true) in }
+
+            //:::::::AMAZON PRODUCT SEARCH::::::::://
+        } else {
+        if let indexPath = tableView.indexPathForSelectedRow  {
+        let currentCell = tableView.cellForRow(at: indexPath) as! UITableViewCell
+        let item = self.results[indexPath.row]
+
+        UIView.animate(withDuration: 1, animations: {
                 self.searchBar.text = (currentCell.textLabel?.text)
                 
                 self.searchBar.text = item["Title"]
@@ -990,6 +1143,8 @@ extension CameraViewController: XMLParserDelegate {
                         Manager.shared.loadImage(with: URL(string : photoURL)!, into: self.photoImageView)
 
                         DispatchQueue.global().async {
+                            
+                            
                             let data = try? Data(contentsOf: URL(string: photoURL)!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
                             DispatchQueue.main.async {
                                 self.selectedImage = UIImage(data: data!)
@@ -997,23 +1152,14 @@ extension CameraViewController: XMLParserDelegate {
                                 self.setButtons()
                             }
                         }
-                       
-                        //
                     }
                 }
 
-            }) { (true) in
-                
-//                self.ImageByItemId = item["LargeImage"]
-//                self.getProductImage(itemid: self.AISNid!)
-//                self.ImageByItemId = item["URL"]
-//                print("ImageByItemId:::\(String(describing: self.ImageByItemId))")
-            }
+            }) { (true) in }
             
         }
-        
         tableView.isHidden = true
-        
+       }//else
     }
   
 }

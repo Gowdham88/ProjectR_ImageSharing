@@ -17,6 +17,7 @@ import Alamofire
 import SwiftyJSON
 
 
+
 protocol HomeTableViewCellDelegate {
     func openUserStoryboard(position : Int)
     func openImageStoryboard(position : Int)
@@ -38,15 +39,14 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     @IBOutlet weak var likeCountButton: UIButton!
     @IBOutlet weak var captionLabel: UILabel!
     @IBOutlet weak var commentCountLabel: UILabel!
-
-    @IBOutlet weak var commentCountButton: UIButton!
     @IBOutlet weak var shareCountButton: UIButton!
+    @IBOutlet weak var verifiedLbl: UILabel!
     
     var delegate : HomeTableViewCellDelegate?
     var homeVC: HomeViewController?
     var userVC: UserViewController?
     var postReference: DatabaseReference!
-    var commentCount = [Comment]()
+    var comments = [Comment]()
     var userss = [Users]()
     var currentuser = [UserAPI]()
     var currentName: String! = ""
@@ -55,6 +55,9 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     var postToken: String! = ""
 //    var postItem = Post()
     var currentUserUID: String! = ""
+    var commentCountValue: String! = ""
+    var commentCountData: Int!
+    
     var post: Post? {
         didSet {
             updateView()
@@ -71,12 +74,12 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         
         contentView.frame = UIEdgeInsetsInsetRect(contentView.frame, UIEdgeInsetsMake(0, 0, 5, 0))
     }
-    
-    
-    
-    override func awakeFromNib() {
+        override func awakeFromNib() {
         super.awakeFromNib()
-      
+        
+            
+            
+        
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: {didAllow, error in
             
         })
@@ -90,6 +93,10 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleCommentImageViewTap))
         commentImageView.addGestureRecognizer(tapGesture)
         commentImageView.isUserInteractionEnabled = true
+        
+        let tapGestur = UITapGestureRecognizer(target: self, action: #selector(handleCommentImageViewTap))
+        commentCountLabel.addGestureRecognizer(tapGestur)
+        commentCountLabel.isUserInteractionEnabled = true
         
         // add a tap gesture to the like image for users to like a post
         let likeTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleLikeTap))
@@ -129,7 +136,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
             print("Step1 :::: home profile user image tapped")
             
 //            delegate?.openUserStoryboard(position: (sender.view?.tag)!) commented by karthik
-           delegate?.openUserStoryboard(position: (sender.view?.tag)!)
+            delegate?.openUserStoryboard(position: (sender.view?.tag)!)
             
         }
 
@@ -180,7 +187,33 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     
     func updateView() {
         
-
+        //Taking Comment Count to display in home page
+        let db = Firestore.firestore()
+        let docRef = db.collection("comments").whereField("postid", isEqualTo: post?.documentID).limit(to: 500)
+        
+        docRef.getDocuments() { (querySnapshot, err) in
+            self.commentCountData = querySnapshot?.count
+            
+                    if let amount = self.commentCountData as? Int {
+            
+                        let am = String(amount)
+            
+                        self.commentCountLabel.text = "\(am) comments"
+                    }
+            
+            print(":::::::get count of comment===:::::",self.commentCountData)
+            
+            if let err = err {
+                print("Error getting documents: \(err)")
+//                self.activityIndicator.stopAnimating()
+            }
+        }
+        
+//        commentCountValue = String(countComm)
+        
+//        commentCountLabel.text = commentCountValue
+        
+        
         let photoURL = post?.photoURL
 //        if let photoURL = post?.photoURL {
 //            postImageView.image = nil
@@ -243,10 +276,14 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         if currentUser.uid == post?.uid {
 
             nameLabel.text = post?.userName
-             print("namelabel::::\(nameLabel.text)")
+         
             if profileImageView.image != nil {
-                Manager.shared.loadImage(with: URL(string : (post?.profileImageURL)!)!, into: self.profileImageView)
-                print("profileimage:::\(post?.profileImageURL)")
+                
+                if  (post?.profileImageURL?.count)! > 2 {
+                    
+                    Manager.shared.loadImage(with: URL(string : (post?.profileImageURL)!)!, into: self.profileImageView)
+                    
+                }                
             }
         } else {
             
@@ -264,10 +301,6 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
                 }
             }
         }
-        
-        
-       
-        
         
         
 //        // get the latest post
@@ -318,6 +351,8 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         super.prepareForReuse()
         profileImageView.image = UIImage(named: "profile")
     }
+    
+    
     
     // fetch the values from the user variable
     func updateUserInfo() {
@@ -639,22 +674,25 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         parameters["postId"] = postItem
         parameters["token"] = post.token!
         
-   
-        
-        
         let headers: HTTPHeaders = ["Content-Type" :"application/x-www-form-urlencoded"]
         
-        
-        
-        
-        let RequestData = NSMutableURLRequest(url: NSURL.init(string: "http://highavenue.co:9000/likesnotification/")! as URL)
+        var RequestData = URLRequest(url: NSURL.init(string: "http://highavenue.co:9000/likesnotification/")! as URL)
         RequestData.httpMethod = "POST"
         RequestData.timeoutInterval = 250 // Time interval here.
-        
+
         Alamofire.request(RequestData as! URLRequestConvertible).responseJSON { (responseData) -> Void in
             if((responseData.result.value) != nil) { // response
                 print(responseData.result.value!)
             }
+        
+            
+        
+//        Alamofire.request(RequestData as! URLRequestConvertible).responseJSON { (responseData) in
+//            if((responseData.result.value) != nil) {
+//                print(responseData.result.value)
+//        }
+//
+        
         }
 
 //        Alamofire.request("http://highavenue.co:9000/likesnotification", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
@@ -675,26 +713,26 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
 //
 //        }
         
-//        let manager = Alamofire.SessionManager.default
-//        manager.session.configuration.timeoutIntervalForRequest = 120
-//
-//        manager.request("http://highavenue.co:9000/likesnotification", method: .post, parameters: parameters)
-//            .responseJSON {
-//                response in
-//                switch (response.result) {
-//                case .success:
-//                    //do json stuff
-//                    break
-//                case .failure(let error):
-//                    if error._code == NSURLErrorTimedOut {
-//                        //HANDLE TIMEOUT HERE
-//
-//                    }
-//                    print("\n\nAuth request failed with error:\n \(error)")
-//                    break
-//                }
-//        }
-        
+        let manager = Alamofire.SessionManager.default
+        manager.session.configuration.timeoutIntervalForRequest = 120
+
+        manager.request("http://highavenue.co:9000/likesnotification", method: .post, parameters: parameters)
+            .responseJSON {
+                response in
+                switch (response.result) {
+                case .success:
+                    //do json stuff
+                    break
+                case .failure(let error):
+                    if error._code == NSURLErrorTimedOut {
+                        //HANDLE TIMEOUT HERE
+
+                    }
+                    print("\n\nAuth request failed with error:\n \(error)")
+                    break
+                }
+        }
+    
 //        Alamofire.request(request, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { response in
 //
 //            // original URL request
@@ -787,7 +825,6 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
                 formatter.allowedUnits = [.year, .month, .weekOfMonth, .day, .hour, .minute]
                 formatter.includesApproximationPhrase = false //to write "About" at the beginning
         
-        
                 let formatString = NSLocalizedString("%@", comment: "Used to say how much time has passed. e.g. '2 hours ago'")
                 let timeString = formatter.string(from: before, to: now)
         
@@ -848,3 +885,14 @@ extension String: ParameterEncoding {
     }
     
 }
+
+extension HomeTableViewCell: commentCountDelegate {
+    func usercommentcount(count: Int!) {
+        print("count:::\(count)")
+    }
+    
+    
+    
+    
+}
+

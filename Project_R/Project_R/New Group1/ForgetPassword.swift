@@ -123,7 +123,7 @@ class ForgetPassword: UIViewController,UITextFieldDelegate {
                     //                 self.showAlertMessagepop(title: "Password reset email sent")
                     let Alert = UIAlertController(title: "Success", message: "A reset link has been sent to your email", preferredStyle: UIAlertControllerStyle.alert)
                     let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) { _ in
-                        self.dismiss(animated: true, completion: nil)
+//                        self.dismiss(animated: true, completion: nil)
                     }
                     Alert.addAction(okAction)
                     self.present(Alert, animated: true, completion:nil )

@@ -49,11 +49,13 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
 
     func updateView() {
        
-        self.nameLabel.text = user?.username
-
         
+        //Saved user name and profile image in pref - retrive to comment view//
+        self.nameLabel.text = user?.username
+        PrefsManager.sharedinstance.username = nameLabel.text!
         if let photoURL = user?.profileImageURL {
             self.profileImageView.sd_setImage(with: URL(string: photoURL))
+        PrefsManager.sharedinstance.imageURL = photoURL
         }
         
         API.Follow.fetchCountFollowing(userId: user!.id!) { (count) in

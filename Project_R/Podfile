@@ -1,59 +1,49 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+#platform :ios, '9.0'
 
 target 'Project_R' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
   # Pods for Project_R
-pod 'FirebaseUI
-pod 'Firebase/Core'
-pod 'Firebase/Auth'
-pod 'Firebase/Database'
-pod 'Firebase/Storage'
-pod 'Firebase/Firestore'
-pod 'Firebase/Messaging'
-pod 'FirebaseUI/Auth'
-pod 'FirebaseUI/Phone'
-pod 'Nuke'
-pod 'Toucan'
-pod 'SDWebImage'
-pod 'SwiftyUserDefaults'
-pod 'GooglePlaces'
-pod 'Alamofire', '~> 4.5'
-pod 'SwiftyJSON'
-pod 'AWSCore'
-pod 'AWSAutoScaling'
-pod 'AWSCloudWatch'
-pod 'AWSCognito'
-pod 'AWSCognitoIdentityProvider'
-pod 'AWSDynamoDB'
-pod 'AWSEC2'
-pod 'AWSElasticLoadBalancing'
-pod 'AWSIoT'
-pod 'AWSKinesis'
-pod 'AWSLambda'
-pod 'AWSMachineLearning'
-pod 'AWSMobileAnalytics'
-pod 'AWSS3'
-pod 'AWSSES'
-pod 'AWSSimpleDB'
-pod 'AWSSNS'
-pod 'AWSSQS'
-pod 'SHXMLParser'
-pod 'AWSAPIGateway'
-pod 'MaterialComponents/Tabs'
-
-
-
-  target 'Project_RTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'Project_RUITests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
+    pod 'FirebaseUI
+    pod 'Firebase/Core'
+    pod 'Firebase/Auth'
+    pod 'Firebase/Database'
+    pod 'Firebase/Storage'
+    pod 'Firebase/Firestore'
+    pod 'Firebase/Messaging'
+    pod 'FirebaseUI/Auth'
+    pod 'FirebaseUI/Phone'
+    pod 'Nuke'
+    pod 'Toucan'
+    pod 'SDWebImage'
+    pod 'SwiftyUserDefaults'
+    pod 'GooglePlaces'
+    pod 'Alamofire', '~> 4.5'
+    pod 'SwiftyJSON'
+    pod 'AWSCore'
+    pod 'AWSAutoScaling'
+    pod 'AWSCloudWatch'
+    pod 'AWSCognito'
+    pod 'AWSCognitoIdentityProvider'
+    pod 'AWSDynamoDB'
+    pod 'AWSEC2'
+    pod 'AWSElasticLoadBalancing'
+    pod 'AWSIoT'
+    pod 'AWSKinesis'
+    pod 'AWSLambda'
+    pod 'AWSMachineLearning'
+    pod 'AWSMobileAnalytics'
+    pod 'AWSS3'
+    pod 'AWSSES'
+    pod 'AWSSimpleDB'
+    pod 'AWSSNS'
+    pod 'AWSSQS'
+    pod 'SHXMLParser'
+    pod 'AWSAPIGateway'
+    pod 'MaterialComponents/Tabs'
+    pod 'GooglePlacePicker'
+    pod 'GoogleMaps'
 
 end

@@ -52,9 +52,15 @@ class UserAPI {
                 
                 print("observeCurrentUser document: \(document)")
                 
-                let user = Users.transformUser(postDictionary: document.data()!, key: document.documentID)
-                completion(user)
-                return
+                print("Get user deatils in from Profile:::",document.data())
+                
+                if document.data() != nil {
+                    
+                    let user = Users.transformUser(postDictionary: document.data()!, key: document.documentID)
+                    completion(user)
+                    return
+                    
+                }
             } else {
                 print("observeCurrentUser Document does not exist")
             }
@@ -85,7 +91,7 @@ class UserAPI {
         }
     }
     
-    func observeUser(completion: @escaping ([Users]) -> Void) {
+    func observeUser(completion: @escaping (Users) -> Void) {
         
         db.collection("users")
             .getDocuments() { (querySnapshot, err) in
@@ -93,17 +99,20 @@ class UserAPI {
                     print("Error getting documents: \(err)")
                 } else {
                     
-                    self.userList.removeAll()
+//                    self.userList.removeAll()
                     
                     var user : Users?
                     for document in querySnapshot!.documents {
                         
                          user = Users.transformUser(postDictionary: document.data(), key: document.documentID)
-                         self.userList.append(user!)
+//                         self.userList.append(user!)
+                         completion(user!)
                         
                     }
                     
-                    completion(self.userList)
+//                    completion(self.userList)
+                    
+                   
                     
                 }
         }

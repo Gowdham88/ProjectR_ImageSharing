@@ -69,7 +69,7 @@ class AuthService {
     
     // MARK: - Firebase Saving Methods
     
-//    static func setUserInformation(profileImageURL: String, username: String, email: String, uid: String, onSuccess: @escaping () -> Void) {
+//    static func setUserInformation(profileImageURL: String, username: String, email: String, uid: String) {
 //        // create the new user in the user node and store username, email, and profile image URL
 //        let db = Firestore.firestore()
 //        db.collection("users").document(uid).setData([
@@ -85,11 +85,12 @@ class AuthService {
 //                PrefsManager.sharedinstance.username  = username
 //                PrefsManager.sharedinstance.userEmail = email
 //                PrefsManager.sharedinstance.imageURL  = profileImageURL
+//                ProgressHUD.dismiss()
 //            }
 //        }
-//        
 //
-//        onSuccess()
+//
+////        onSuccess()
 //    }
     
 }

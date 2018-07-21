@@ -1,4 +1,4 @@
-//
+ //
 //  FollowApi.swift
 //  InstagramClone
 //
@@ -99,26 +99,25 @@ class FollowApi {
     }
     
     func unFollowAction(withUser id: String) {
-        print("FollowAction Follow API")
 
         startAnimating()
         
-        let docRef = db.collection("user-posts").document(id)
+//        let docRef = db.collection("user-posts").document(id)
         
-        docRef.getDocument { (document, error) in
-            if let document = document, document.exists {
-                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-                print("Document data: \(dataDescription)")
-                self.db.collection("feed").document(API.User.CURRENT_USER!.uid).setData([document.documentID: NSNull()])
-                self.db.collection("feed").document(API.User.CURRENT_USER!.uid).delete()
-
-            } else {
-                
-                print("feed Document does not exist")
-                
-            }
-            
-        }
+//        docRef.getDocument { (document, error) in
+//            if let document = document, document.exists {
+//                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+//                print("Document data: \(dataDescription)")
+//                self.db.collection("feed").document(API.User.CURRENT_USER!.uid).setData([document.documentID: NSNull()])
+//                self.db.collection("feed").document(API.User.CURRENT_USER!.uid).delete()
+//
+//            } else {
+//
+//                print("feed Document does not exist")
+//
+//            }
+//
+//        }
 
         db.collection("followers").document(id).updateData([
             API.User.CURRENT_USER!.uid: FieldValue.delete(),
@@ -131,33 +130,41 @@ class FollowApi {
         }
         db.collection("following").document(API.User.CURRENT_USER!.uid).updateData([
             id: FieldValue.delete(),
-            ]) { err in
+            ])
+        { err in
                 if let err = err {
-                    
+
                     print("Error updating document: \(err)")
-                    
+
                 } else {
-                    
+
                     print("Unfollow following Document field successfully deleted")
-                    
+
                 }
-                
+
         }
+//
+//        db.collection("followers").document(id).delete() { err in
+//            if let err = err {
+//                print("Error removing document: \(err)")
+//            } else {
+//                print("Document successfully removed!")
+//            }
+//        }
+        
+//        db.collection("following").document(API.User.CURRENT_USER!.uid).delete() { err in
+//            if let err = err {
+//                print("Error removing document: \(err)")
+//            } else {
+//                print("Document successfully removed!")
+//            }
+//        }
+
         
         
         stopAnimating()
         
-//        Api.MyPosts.REF_MYPOSTS.child(id).observeSingleEvent(of: .value, with: {
-//            snapshot in
-//            if let dict = snapshot.value as? [String: Any] {
-//                for key in dict.keys {
-//                    FIRDatabase.database().reference().child("feed").child(Api.User.CURRENT_USER!.uid).child(key).removeValue()
-//                }
-//            }
-//        })
-//
-//        REF_FOLLOWERS.child(id).child(Api.User.CURRENT_USER!.uid).setValue(NSNull())
-//        REF_FOLLOWING.child(Api.User.CURRENT_USER!.uid).child(id).setValue(NSNull())
+
     }
     
     func startAnimating() {
@@ -173,54 +180,141 @@ class FollowApi {
         
     }
     
-    func isFollowing(userId: String, completed: @escaping ([String : Any]?) -> Void) {
+    
+    func isFollowing(userId: String, completed: @escaping(Bool) -> Void) {
         
-        let docRef = db.collection("following").document(userId)
+        db.collection("following").document((API.User.CURRENT_USER?.uid)!)
+            .addSnapshotListener { documentSnapshot, error in
+                
+                var mysnapshotdata = documentSnapshot?.data()
+                
+                print("snapshot?.exists: \(String(describing: mysnapshotdata![userId]))")
+                
+                if mysnapshotdata![userId] == nil {
+                    
+                    print("Completed == False")
+                    
+                    completed(false)
+                    
+                } else {
+                    
+                    print("Completed == True")
+                    
+                    completed(true)
+                    
+                }
+                
+                guard let document = documentSnapshot else {
+                    print("Error fetching document: \(error!)")
+                    return
+                }
+                print("Current data: \(document.data())")
+        }
+
+    
+    
+//    func isFollowing(userId: String, completed: @escaping(Bool) -> Void) {
+//
+//        db.collection("following").document((API.User.CURRENT_USER?.uid)!).getDocument(completion: {(snapshot, error) in
+//
+//            var mysnapshotdata = documentSnapshot?.data()
+//
+//            print("snapshot?.exists: \(mysnapshotdata![userId])")
+//
+//
+//            if mysnapshotdata![userId] == nil {
+//
+//                print("Completed == False")
+//
+//                completed(false)
+//
+//            } else {
+//
+//                print("Completed == True")
+//
+//                completed(true)
+//
+//            }
+//
+//
+//        })
+    
+        /*        followersRef.getDocument { (snapshot, error) in
         
-        docRef.getDocument { (document, error) in
-            if let document = document, document.exists {
-                
-                completed(document.data())
-                
-            } else {
-               
-                completed(nil)
-            }
+        
+        if !_snapshot.exists {
+            /// First time following someone
+            print("FollowAction followersref API id:true")
+            followersRef.setData([API.User.CURRENT_USER!.uid: true])
+            self.stopAnimating()
+            
+            return
         }
         
-//        REF_FOLLOWERS.child(userId).child(Api.User.CURRENT_USER!.uid).observeSingleEvent(of: .value, with: {
-//            snapshot in
-//            if let _ = snapshot.value as? NSNull {
-//                completed(false)
+        // For next time
+        print("FollowAction followersref API id:true")
+        
+        var data = _snapshot.data()
+        data![API.User.CURRENT_USER!.uid] = true
+        followersRef.setData(data!)
+        self.stopAnimating()
+        
+    }*/
+    
+            
+        
+        
+//        docRef.getDocument { (document, error) in
+//            if let document = document, document.exists {
+////                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+////                print("Document data: \(dataDescription)")
+//
+//                completed( true)
+//
 //            } else {
-//                completed(true)
+//
+//                completed( false)
 //            }
-//        })
+//        }
+ 
+        //        REF_FOLLOWERS.child(userId).child(Api.User.CURRENT_USER!.uid).observeSingleEvent(of: .value, with: {
+        //            snapshot in
+        //            if let _ = snapshot.value as? NSNull {
+        //                completed(false)
+        //            } else {
+        //                completed(true)
+        //            }
+        //        })
     }
     
-//    func fetchCountFollowing(userId: String, completion: @escaping (Int) -> Void) {
-//        REF_FOLLOWING.child(userId).observe(.value, with: {
-//            snapshot in
-//            let count = Int(snapshot.childrenCount)
-//            completion(count)
-//        })
+    
+    
+    
+//    func isFollowingTemp(userId: String, completed: @escaping([String:Any]) -> Void) {
 //
+//
+//
+//
+//
+//        let docRef = db.collection("followers").document(userId)
+//
+//                docRef.getDocument { (document, error) in
+//                    if let document = document, document.exists {
+//                        let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+//                        print("Document data: \(dataDescription)")
+//
+//                        completed(document.data()!)
+//
+//                    } else {
+//
+//                        completed([:])
+//                    }
+//                }
 //    }
-//
+    
+    
+    
     func fetchCountFollowers(userId: String, completion: @escaping (Int) -> Void) {
-//        REF_FOLLOWERS.child(userId).observe(.value, with: {
-//            snapshot in
-//            let count = Int(snapshot.childrenCount)
-//            completion(count)
-//        })
-        
-        
-//        let docRef = db.collection("followers").whereField(API.User.CURRENT_USER!.uid, isEqualTo: true)
-//
-//        docRef.getDocuments() { (querySnapshot, err) in
-//            let count = querySnapshot?.count
-//            print("followersCount::::\(String(describing: count))")
-//        }
         
         db.collection("followers").document(userId).addSnapshotListener { (documentSnapshot, error) in
             let count = documentSnapshot?.data()?.count

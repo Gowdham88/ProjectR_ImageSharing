@@ -23,6 +23,9 @@ extension Users {
         user.id = key
         user.token = postDictionary["token"] as? String
         user.uid = postDictionary["uid"] as? String
+//        user.isFollowing = postDictionary["isFollowing"] as? Bool
+//        print("Followers bool::::",user.isFollowing as? Any)
+    
 
         return user
     }

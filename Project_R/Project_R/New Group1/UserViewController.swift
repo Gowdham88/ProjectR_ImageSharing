@@ -1,4 +1,3 @@
-
 //
 //  UserViewController.swift
 //  SarvodayaHB
@@ -11,6 +10,10 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 import FirebaseAuth
+import FirebaseFirestore
+import SDWebImage
+import Nuke
+
 
 protocol  UserViewControllerDelegate {
     
@@ -18,14 +21,14 @@ protocol  UserViewControllerDelegate {
 }
 
 var userVCuserId : String = String()
-var userFollowing: Bool = Bool()
+var userFollowing: Bool = true
 
 class UserViewController: UIViewController {
 
     @IBOutlet var profileImg: UIImageView!
     @IBOutlet var userName: UILabel!
     @IBOutlet var userDetail: UILabel!
-    @IBOutlet weak var                                                                                                      activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet var tabView: UITableView!
     @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var userdetailview: UIView!
@@ -33,12 +36,22 @@ class UserViewController: UIViewController {
     var refreshControl: UIRefreshControl!
     var posts = [Post]()
     var users = [Users]()
+    var user: Users!
     var delegate : UserViewControllerDelegate?
+    var followingStatus: Bool?
+    var userIDs: String?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("Get user name detail::::",user)
+        
+        print("Get USERS DETAIL:::::",users)
+        
+//        followButton.addTarget(self, action: #selector(UserViewController.followAction(sender:)), for: .touchUpInside)
 
-        self.view.addSubview(userdetailview)
+//        self.view.addSubview(userdetailview)
         
 //        var btn: UIButton = UIButton()
 //        btn.frame = CGRect(x: 100, y: 20, width: 120, height: 50)
@@ -52,13 +65,13 @@ class UserViewController: UIViewController {
         
        
         
-        
-         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(normalTap(_:)))
+//        self.followButton.addTarget(self, action: #selector(normalTap(_:)), for: .touchUpInside)
+//         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(normalTap(_:)))
 
-        followButton.addGestureRecognizer(tapGesture)
+//        followButton.addGestureRecognizer(tapGesture)
 //        btn.addGestureRecognizer(tapGesture)
 
-        followButton.isUserInteractionEnabled = true
+          followButton.isUserInteractionEnabled = true
 //        btn.isUserInteractionEnabled = true
         
 //        view.superview?.addSubview(btn)
@@ -86,7 +99,7 @@ class UserViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
        
-        self.tabBarController?.tabBar.isHidden = true
+//        self.tabBarController?.tabBar.isHidden = true
         
          print("User detail page tab bar")
         
@@ -101,7 +114,9 @@ class UserViewController: UIViewController {
         
         self.tabBarController?.tabBar.isHidden = false
         
-        self.dismiss(animated: true, completion: nil)
+        navigationController?.viewControllers.forEach { ($0 as? peopleViewController)?.tableView.reloadData() }
+        
+//        self.dismiss(animated: true, completion: nil)
 
     self.navigationController?.popToRootViewController(animated: true)
         
@@ -110,57 +125,88 @@ class UserViewController: UIViewController {
             delegateexits.refreshData()
             
         }
+        
+        
        
     }
    
-    @IBAction func followButtonTapped(_ sender: Any) {
-        print("Follow button tapped")
+//    @IBAction func followButtonTapped(_ sender: Any) {
+//
+//        if user.isFollowing == false {
+//
+//            followAction(sender: sender as! UIButton)
+//
+//        } else {
+//
+//            unFollowAction(sender: sender as! UIButton)
+//        }
+//
+//    }
+    
+    func configureFollowButton() {
+        followButton.isUserInteractionEnabled = true
+        followButton.setTitle("Follow", for: UIControlState.normal)
+        followButton.addTarget(self, action: #selector(UserViewController.followAction(sender:)), for: .touchUpInside)
     }
     
-    @objc func normalTap(_ sender: UITapGestureRecognizer){
+    func configureUnFollowButton() {
+        followButton.isUserInteractionEnabled = true
+        followButton.setTitle("Unfollow", for: UIControlState.normal)
+        followButton.addTarget(self, action: #selector(UserViewController.unFollowAction(sender:)), for: .touchUpInside)
+    }
+    
+    @objc func followAction(sender : UIButton) {
         
-        
-        print("Follow Button tapped, userFollowing: \(userFollowing, userVCuserId)")
-        
+        if userFollowing == false {
+            
+            print("userid========\(userVCuserId)")
+            API.Follow.followAction(withUser: userVCuserId)
+            configureUnFollowButton()
+            userFollowing = true
+        }
+    }
+    
+    @objc func unFollowAction(sender : UIButton) {
         
         if userFollowing == true {
-            
-            userFollowing = false
-            
-            followButton.setTitle("Follow", for: .normal)
+        
             API.Follow.unFollowAction(withUser: userVCuserId)
             
-        } else {
-            
-            userFollowing = true
-            
-            followButton.setTitle("Unfollow", for: .normal)
-            API.Follow.followAction(withUser: userVCuserId)
-            
-        }
+            configureFollowButton()
         
+            userFollowing = false
+        }
     }
     
+    func updateStateFollowButton() {
+        if let status = user.isFollowing {
+            print("status \(status)")
+            if user.isFollowing! {
+                configureUnFollowButton()
+            } else {
+                configureFollowButton()
+            }
+        }
+    }
     
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        print("Step 4 ::::: view will appear called")
         
-        if userFollowing == true {
-            
-            
-            followButton.setTitle("Unfollow", for: .normal)
-            
-        } else {
-            
+        print("Step 4 ::::: view will appear called")
+        if userFollowing == false {
             followButton.setTitle("Follow", for: .normal)
+            API.Follow.unFollowAction(withUser: userVCuserId)
+        } else {
+            followButton.setTitle("Unfollow", for: .normal)
+            API.Follow.followAction(withUser: userVCuserId)
         }
         
-       
-    }
-    func refresh(sender:AnyObject) {
         
+    }
+    
+    func refresh(sender:AnyObject) {
         posts.removeAll()
         loadPosts()
         refreshControl.endRefreshing()
@@ -182,12 +228,22 @@ class UserViewController: UIViewController {
             
             if let photoURL = user.profileImageURL {
                 self.profileImg.sd_setImage(with: URL(string: photoURL))
+                print(":::USer profile pic::::",photoURL)
             }
             
             if let name = user.username {
                 self.userName.text = name
                 self.userDetail.text = "@\(name)"
             }
+                
+                if userFollowing == true{
+                    
+                    self.configureUnFollowButton()
+                    
+                } else {
+                    
+                    self.configureFollowButton()
+                }
                 
             }
             
@@ -224,13 +280,12 @@ class UserViewController: UIViewController {
             let commentVC = segue.destination as! CommentViewController
             commentVC.postID = sender as! String
         }
-        
-//        CommentViewController
     }
     
 }
 
 extension UserViewController : UITableViewDelegate,UITableViewDataSource,HomeTableViewCellDelegate {
+   
     
     func numberOfSections(in tableView: UITableView) -> Int {
         var numOfSections: Int = 0
@@ -288,9 +343,7 @@ extension UserViewController : UITableViewDelegate,UITableViewDataSource,HomeTab
     }
 
     
-    
     func openUserStoryboard(position: Int) {
-        
         let storyboard = UIStoryboard(name: "Home", bundle: nil)
         let vc =  storyboard.instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
 //        vc.userId = posts[position].uid!

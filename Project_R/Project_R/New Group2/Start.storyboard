@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="LMg-wW-noF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="LMg-wW-noF">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -341,7 +341,7 @@ Hanball</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zwd-qF-SYB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3103" y="81"/>
+            <point key="canvasLocation" x="1796" y="139"/>
         </scene>
         <!--TabBarID-->
         <scene sceneID="PPG-mW-Tmk">
@@ -449,7 +449,7 @@ Hanball</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kNH-VM-695" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="673" y="969"/>
+            <point key="canvasLocation" x="675" y="969"/>
         </scene>
         <!--Terms Service Controller-->
         <scene sceneID="R5Z-k8-QtP">
@@ -534,7 +534,7 @@ Sarvodaya Handball App shall not be obligated to indemnify or defend you with re
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Obb-Vj-19M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3939.375" y="2087.323943661972"/>
+            <point key="canvasLocation" x="1575" y="969"/>
         </scene>
     </scenes>
     <resources>

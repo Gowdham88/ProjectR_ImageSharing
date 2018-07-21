@@ -23,15 +23,22 @@ class CommentTableViewCell: UITableViewCell {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var commentLabel: UILabel!
+    
     var delegate : CommentTableViewCellDelegate?
     var userss = [Users]()
     var currentuser = [UserAPI]()
+    var userData = [Users]()
     var posts: [Post] = []
 
     var currentName: String! = ""
     var postUSerName: String! = ""
     var  postUserUID: String! = ""
     
+    var nameString: String! = ""
+    var imageString:String! = ""
+    var commentCount: Int!
+    
+    var postidValue:String! = ""
     var comment: Comment? {
         didSet {
             updateView()
@@ -96,12 +103,19 @@ class CommentTableViewCell: UITableViewCell {
     
     
     func updateView() {
+        
+       
       
         API.User.observeCurrentUser(completion: { (user) in
             if self.currentName != nil {
                 
                 self.currentName = user.username!
                 
+                self.nameString = user.username!
+                
+                print("nameString::\(String(describing: self.nameString))")
+                self.imageString = user.profileImageURL
+                print("imageString::\(String(describing: self.imageString))")
                 print("currentname::\(String(describing: self.currentName))")
                 
             }
@@ -126,6 +140,9 @@ class CommentTableViewCell: UITableViewCell {
                 for document in querySnapshot!.documents {
                     print("\(document.documentID) => \(document.data())")
                     
+                    self.commentCount = querySnapshot?.count
+                    print("countPost:::::==\(self.commentCount)")
+                    
                     let postget = API.Post.observePost(withID: document.documentID, completion: { (post) in
                         
                         self.postUSerName = post.userName
@@ -133,15 +150,17 @@ class CommentTableViewCell: UITableViewCell {
                         self.postUserUID = post.uid
                     })
                     
+   
                 }
             }
+            
+         
         
         }
         
         if currentUser.uid == comment?.uid {
             
             nameLabel.text = PrefsManager.sharedinstance.username
-            profileImageView.image = nil
             Manager.shared.loadImage(with:  URL(string: PrefsManager.sharedinstance.imageURL)!, into: self.profileImageView)
             
             let db = Firestore.firestore()
@@ -163,7 +182,7 @@ class CommentTableViewCell: UITableViewCell {
                 "currentUserUID": API.User.CURRENT_USER?.uid ?? "empty",
                 "currentUserName": self.currentName ?? "empty",
                 "activityName": finalcomment + " " + "product." ,
-                "userName"  : self.postUSerName ?? "empty"
+                "userName"  : self.postUSerName
                 
             ]){ err in
                 if let err = err {
@@ -180,9 +199,16 @@ class CommentTableViewCell: UITableViewCell {
             
             nameLabel.text = comment?.userName
             profileImageView.image = nil
+            
             if let photoURL = comment?.profileImageURL {
-               
-                Manager.shared.loadImage(with:  URL(string: photoURL)!, into: self.profileImageView)
+                
+                print("photoURL::::\(photoURL)")
+                
+                if photoURL == "" && photoURL == nil {
+                    
+                profileImageView.sd_setImage(with: URL(string: photoURL), placeholderImage: UIImage(named: "profile"))
+             
+                }
             }
         }
      

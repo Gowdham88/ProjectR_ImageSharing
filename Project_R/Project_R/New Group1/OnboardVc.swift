@@ -190,6 +190,11 @@ class OnboardVc: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
             
             
             self.saveData(profileImageURL: self.imageURL, username: self.usernameTextField.text!, email: self.emailTextField.text!, uid: currentUser!);
+            
+            
+//            AuthService.setUserInformation(profileImageURL: self.imageURL, username: self.usernameTextField.text!, email: self.emailTextField.text!, uid: currentUser!)
+        
+            
 //            ProgressHUD.show("Please wait...", interaction: false)
 
         }) { (success) in
@@ -260,6 +265,8 @@ extension OnboardVc: UINavigationControllerDelegate {
             
             
                             // set the user information with the profile image URL
+            
+//            AuthService.setUserInformation(profileImageURL: self.imageURL, username: self.usernameTextField.text!, email: self.emailTextField.text!, uid: uid!)
             self.saveData(profileImageURL: self.imageURL, username: self.usernameTextField.text!, email: self.emailTextField.text!, uid: uid!)
             
                         })

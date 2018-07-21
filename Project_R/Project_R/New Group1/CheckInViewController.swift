@@ -16,9 +16,7 @@ import Alamofire
 import SwiftyJSON
 import AWSCore
 
-
-
-class CheckInViewController: UIViewController, UITextViewDelegate, UISearchBarDelegate {
+class CheckInViewController: UIViewController, UITextViewDelegate, UISearchBarDelegate, UIImagePickerControllerDelegate {
     
     @IBOutlet weak var tableViews: UIView!
     @IBOutlet weak var searchLoaction: UITextField!
@@ -32,14 +30,33 @@ class CheckInViewController: UIViewController, UITextViewDelegate, UISearchBarDe
     @IBOutlet weak var clearBarButton: UIBarButtonItem!
     @IBOutlet weak var cancelBarBtn: UIBarButtonItem!
     @IBOutlet weak var locationSearchTable: UITableView!
+    @IBOutlet weak var photoImageView: UIImageView!
     
+    
+    let imagePicker = UIImagePickerController()
     var delegate  : CameraViewControllerDelegate?
     var ratingValue: String?
     var autocompleteplaceArray = [String]()
     var locationText: String?
+    var selectedImage: UIImage?
+    var imageUrlVc: String?
+    var likeHoodList: GMSPlaceLikelihoodList?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        photoImageView.layer.cornerRadius = 20
+        photoImageView.layer.shadowColor = UIColor.black.cgColor
+        photoImageView.layer.shadowOpacity = 0.2
+        photoImageView.layer.shadowOffset = CGSize(width: -1, height: 1)
+        photoImageView.layer.shadowRadius = 4
+        photoImageView.layer.masksToBounds = false
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showPop))
+        photoImageView.addGestureRecognizer(tapGesture)
+        photoImageView.isUserInteractionEnabled = true
+        photoImageView.layer.cornerRadius = 2
+        API.Post.Recuringpoststop()
         
         captionTextView.returnKeyType = UIReturnKeyType.done
         
@@ -88,21 +105,13 @@ class CheckInViewController: UIViewController, UITextViewDelegate, UISearchBarDe
         clearBarButton.setTitleTextAttributes([
             NSAttributedStringKey.font : UIFont(name: "Avenir Light", size: 16)!,], for: .normal)
         
-        if let address =  PrefsManager.sharedinstance.lastlocation {
-            
-            searchLoaction.text = address
-            
-        }
+//        if let address =  PrefsManager.sharedinstance.lastlocation {
+//
+//            searchLoaction.text = address
+//
+//        }
         shareButton.layer.cornerRadius = 15
-        
-        
-
     }
-  
-    
-
-    
-    
     
     @IBAction func CancelPost(_ sender: UIBarButtonItem) {
         
@@ -162,11 +171,52 @@ class CheckInViewController: UIViewController, UITextViewDelegate, UISearchBarDe
     
     @IBAction func share(_ sender: Any) {
         // show the progress to the user
-        ProgressHUD.show("Sharing started...", interaction: false)
+//        ProgressHUD.show("Sharing started...", interaction: false)
 
-                self.saveToDatabase()
+         sharePost()
 
     }
+    
+    @objc func showPop(){
+        
+        
+        let Alert: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        
+        let CamAction: UIAlertAction = UIAlertAction(title: "Camera", style: .default) { ACTION in
+            self.openCamera()
+        }
+        
+        let GallAction: UIAlertAction = UIAlertAction(title: "Gallery", style: .default){ ACTION in
+            self.handlePhotoSelection()
+        }
+        let CancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel)
+        CancelAction.setValue(UIColor.red, forKey: "titleTextColor")
+        
+        Alert.addAction(CamAction)
+        Alert.addAction(GallAction)
+        Alert.addAction(CancelAction)
+        
+        Alert.popoverPresentationController?.sourceView = self.view
+        Alert.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.size.width / 2.0, y: self.view.bounds.size.height / 2.0, width: 1.0, height: 1.0)
+        present(Alert, animated: true, completion: nil)
+    }
+    func openCamera() {
+        if(UIImagePickerController .isSourceTypeAvailable(.camera))
+        {
+            self.imagePicker.sourceType = .camera
+            self.imagePicker.delegate = self
+            
+        }
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func handlePhotoSelection() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        present(imagePickerController, animated: true)
+    }
+    
+    
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if (text == "\n") {
@@ -179,7 +229,7 @@ class CheckInViewController: UIViewController, UITextViewDelegate, UISearchBarDe
     
     
     
-    func saveToDatabase() {
+    func saveToDatabase(photoURL: String) {
         let ref = Database.database().reference()
         let postsReference = ref.child("post")
         let newPostID = postsReference.childByAutoId().key
@@ -190,16 +240,13 @@ class CheckInViewController: UIViewController, UITextViewDelegate, UISearchBarDe
         
         var users : Users!
         
-        
-        
-        
         API.User.observeCurrentUser { user in
             users = user
             let db = Firestore.firestore()
             db.collection("posts").document(newPostID).setData([
                 "uid": currentUserID,
 //                "photoURL": "https://firebasestorage.googleapis.com/v0/b/project-r-7ed28.appspot.com/o/placeholder.png?alt=media&token=02c65040-9371-44e3-ac80-f272032ea6bc",
-                "photoURL": "",
+                "photoURL": photoURL,
                 "caption": self.captionTextView.text!,
                 "likeCount" : 0,
                 "userName"  : users.username ?? "empty",
@@ -229,10 +276,10 @@ class CheckInViewController: UIViewController, UITextViewDelegate, UISearchBarDe
                     
                     ProgressHUD.showSuccess("Photo shared")
                     
-                    let storyboard = UIStoryboard(name: "Home", bundle: nil)
-                    let vc         =  storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-                    self.navigationController?.pushViewController(vc, animated: true)
-                    
+//                    let storyboard = UIStoryboard(name: "Home", bundle: nil)
+//                    let vc         =  storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+//                    self.navigationController?.pushViewController(vc, animated: true)
+//
                     self.clearInputs()
                     // and jump to the Home tab
                     
@@ -247,7 +294,7 @@ class CheckInViewController: UIViewController, UITextViewDelegate, UISearchBarDe
             
         }
         
-    
+    navigationController?.popViewController(animated: true)
     
 }
 
@@ -270,6 +317,10 @@ extension CheckInViewController : UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         
+        let searchPlaces = GMSAutocompleteViewController()
+        searchPlaces.delegate = self
+        self.present(searchPlaces, animated: true, completion: nil)
+
     }
     
     
@@ -331,11 +382,8 @@ extension CheckInViewController : UITextFieldDelegate {
 //                LoadingHepler.instance.hide()
             }
             
-//            reloadPagerTabStripView()
         }
-        
-//        dismissKeyboard()
-        
+
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -427,6 +475,7 @@ extension CheckInViewController : UITableViewDataSource,UITableViewDelegate {
             return cell
         }
         
+       
         cell.locationNames.text = autocompleteplaceArray[indexPath.row]
         
         return cell
@@ -449,8 +498,8 @@ extension CheckInViewController : UITableViewDataSource,UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if let indexPath = tableView.indexPathForSelectedRow  {
-            let currentCell = tableView.cellForRow(at: indexPath) as! UITableViewCell
-            searchLoaction.text = (currentCell.textLabel?.text)
+            let currentCell = tableView.cellForRow(at: indexPath)
+            searchLoaction.text = (currentCell?.textLabel?.text)
             searchLoaction.text = autocompleteplaceArray[indexPath.row]
             PrefsManager.sharedinstance.lastlocation = searchLoaction.text
             locationText = searchLoaction.text
@@ -469,13 +518,46 @@ extension CheckInViewController : UITableViewDataSource,UITableViewDelegate {
         
     }
     
+    func sharePost(){
+       
+        // convert selected image to JPEG Data format to push to file store
+        if let photo = selectedImage, let imageData = UIImageJPEGRepresentation(photo, 0.1) {
+            
+            // get a unique ID
+            let photoIDString = NSUUID().uuidString
+            
+            // get a reference to our file store
+            let storeRef = Storage.storage().reference(forURL: Constants.fileStoreURL).child("posts").child(photoIDString)
+            
+            // push to file store
+            storeRef.putData(imageData, metadata: nil, completion: { (metaData, error) in
+                if error != nil {
+                    ProgressHUD.showError("Photo Save Error: \(error?.localizedDescription)")
+                    return
+                }
+                
+                // if there's no error
+                // get the URL of the photo in the file store
+                let photoURL = metaData?.downloadURL()?.absoluteString
+                self.imageUrlVc = photoURL
+                
+                // and put the photoURL into the database
+                self.saveToDatabase(photoURL: photoURL!)
+               
+            })
+        } else {
+            ProgressHUD.showError("Your photo to Share can not be empty. Tap it to set it and Share.")
+        }
+    }
+    
     func getPlaceApi(place_Str:String) {
         
         autocompleteplaceArray.removeAll()
         
-        let parameters: Parameters = ["input": place_Str ,"types" : "(cities)" , "key" : "AIzaSyDmfYE1gIA6UfjrmOUkflK9kw0nLZf0nYw"]
+//        let parameters: Parameters = ["input": place_Str ,"types" : "(cities)" , "key" : "AIzaSyDmfYE1gIA6UfjrmOUkflK9kw0nLZf0nYw"]
+        let parameters: Parameters = ["input": place_Str ,"types" : "(sublocality)" , "key" : "AIzaSyDmfYE1gIA6UfjrmOUkflK9kw0nLZf0nYw"]
         
-
+        print("Get search location value",parameters)
         
         Alamofire.request(Constants.PlaceApiUrl, parameters: parameters).validate().responseJSON { response in
             
@@ -537,6 +619,71 @@ extension CheckInViewController {
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+}
+
+extension CheckInViewController {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            photoImageView.image = self.imageOrientation(image)
+            selectedImage = self.imageOrientation(image)
+        }
+        
+        dismiss(animated: true)
+    }
+    
+    func imageOrientation(_ src:UIImage)->UIImage {
+        if src.imageOrientation == UIImageOrientation.up {
+            return src
+        }
+        var transform: CGAffineTransform = CGAffineTransform.identity
+        switch src.imageOrientation {
+        case UIImageOrientation.down, UIImageOrientation.downMirrored:
+            transform = transform.translatedBy(x: src.size.width, y: src.size.height)
+            transform = transform.rotated(by: CGFloat(Double.pi))
+            break
+        case UIImageOrientation.left, UIImageOrientation.leftMirrored:
+            transform = transform.translatedBy(x: src.size.width, y: 0)
+            transform = transform.rotated(by: CGFloat(Double.pi/2))
+            break
+        case UIImageOrientation.right, UIImageOrientation.rightMirrored:
+            transform = transform.translatedBy(x: 0, y: src.size.height)
+            transform = transform.rotated(by: CGFloat(-Double.pi/2))
+            break
+        case UIImageOrientation.up, UIImageOrientation.upMirrored:
+            break
+        }
+        
+        switch src.imageOrientation {
+        case UIImageOrientation.upMirrored, UIImageOrientation.downMirrored:
+            transform.translatedBy(x: src.size.width, y: 0)
+            transform.scaledBy(x: -1, y: 1)
+            break
+        case UIImageOrientation.leftMirrored, UIImageOrientation.rightMirrored:
+            transform.translatedBy(x: src.size.height, y: 0)
+            transform.scaledBy(x: -1, y: 1)
+        case UIImageOrientation.up, UIImageOrientation.down, UIImageOrientation.left, UIImageOrientation.right:
+            break
+        }
+        
+        let ctx:CGContext = CGContext(data: nil, width: Int(src.size.width), height: Int(src.size.height), bitsPerComponent: (src.cgImage)!.bitsPerComponent, bytesPerRow: 0, space: (src.cgImage)!.colorSpace!, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
+        
+        ctx.concatenate(transform)
+        
+        switch src.imageOrientation {
+        case UIImageOrientation.left, UIImageOrientation.leftMirrored, UIImageOrientation.right, UIImageOrientation.rightMirrored:
+            ctx.draw(src.cgImage!, in: CGRect(x: 0, y: 0, width: src.size.height, height: src.size.width))
+            break
+        default:
+            ctx.draw(src.cgImage!, in: CGRect(x: 0, y: 0, width: src.size.width, height: src.size.height))
+            break
+        }
+        
+        let cgimg:CGImage = ctx.makeImage()!
+        let img:UIImage = UIImage(cgImage: cgimg)
+        
+        return img
     }
 }
 
