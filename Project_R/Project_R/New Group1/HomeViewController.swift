@@ -105,9 +105,10 @@ class HomeViewController : UIViewController {
 
             self.posts    = newPost
             self.snapshot = lastsnap
-            self.activityIndicatorView.stopAnimating()
+        self.activityIndicatorView.stopAnimating()
             self.tableView.reloadData()
-            self.refreshControl.endRefreshing()
+        
+                self.refreshControl.endRefreshing()
 
             }
 
@@ -327,6 +328,7 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
         let vc =  storyboard.instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
 //        vc.userId = posts[position].uid!
         userVCuserId = posts[position].uid!
+        
         vc.delegate = self
         self.navigationController?.pushViewController(vc, animated: true)
      

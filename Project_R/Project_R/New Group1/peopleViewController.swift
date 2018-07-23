@@ -61,7 +61,10 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func loadUsers() {
+        
         self.activityIndicator.startAnimating()
+        users.removeAll()
+        
         API.User.observeUser { (user) in
 
 //            for item in user {
