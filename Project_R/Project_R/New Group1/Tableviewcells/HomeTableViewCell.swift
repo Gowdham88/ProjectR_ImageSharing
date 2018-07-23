@@ -32,7 +32,10 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     @IBOutlet weak var productRatingLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var postImageView: UIImageView! 
+    @IBOutlet weak var postImageView: UIImageView!
+    
+    
+    
     @IBOutlet weak var likeImageView: UIImageView!
     @IBOutlet weak var commentImageView: UIImageView!
     @IBOutlet weak var shareImageView: UIImageView!
@@ -76,11 +79,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
     }
         override func awakeFromNib() {
         super.awakeFromNib()
-        
-            
-            
-        
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: {didAllow, error in
+             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: {didAllow, error in
             
         })
         
@@ -217,6 +216,7 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         let photoURL = post?.photoURL
 //        if let photoURL = post?.photoURL {
 //            postImageView.image = nil
+        
         if photoURL != "" {
             if photoURL != nil {
                 Manager.shared.loadImage(with: URL(string : photoURL!)!, into: self.postImageView)

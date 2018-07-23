@@ -297,11 +297,6 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
     }
     
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-      
-        
-    }
-    
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 
@@ -324,10 +319,27 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
 
     func openUserStoryboard(position: Int) {
     
+        users.removeAll()
+        
         let storyboard = UIStoryboard(name: "Home", bundle: nil)
         let vc =  storyboard.instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
 //        vc.userId = posts[position].uid!
         userVCuserId = posts[position].uid!
+      
+        self.fetchUser(uid: userVCuserId, completed: {
+            
+            print("user.count: \(self.users.count)")
+            if let somevalue = self.users[0].isFollowing {
+                
+                userFollowing = somevalue
+                
+            } else {
+                
+                userFollowing = false
+            }
+ 
+            print("userFollowing: \(userFollowing)")
+        })
         
         vc.delegate = self
         self.navigationController?.pushViewController(vc, animated: true)

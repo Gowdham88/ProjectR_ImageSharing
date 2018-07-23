@@ -25,7 +25,8 @@ var userFollowing: Bool = true
 
 class UserViewController: UIViewController {
 
-    @IBOutlet var profileImg: UIImageView!
+    @IBOutlet weak var profileImageView: UIImageView!
+//    @IBOutlet var profileImg: UIImageView!
     @IBOutlet var userName: UILabel!
     @IBOutlet var userDetail: UILabel!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
@@ -72,8 +73,8 @@ class UserViewController: UIViewController {
 //        btn.addGestureRecognizer(tapGesture)
 
           followButton.isUserInteractionEnabled = true
-//        btn.isUserInteractionEnabled = true
         
+//        btn.isUserInteractionEnabled = true
 //        view.superview?.addSubview(btn)
 //        view.superview?.addSubview(followButton)
         
@@ -83,11 +84,11 @@ class UserViewController: UIViewController {
 //        self.navigationController?.navigationBar.addGestureRecognizer(tap)
 //        self.navigationController?.navigationBar.isUserInteractionEnabled = true
 
-        profileImg.layer.borderWidth = 1
-        profileImg.layer.masksToBounds = false
-        profileImg.layer.borderColor = UIColor.white.cgColor
-        profileImg.layer.cornerRadius = profileImg.frame.height/2
-        profileImg.clipsToBounds = true
+//        profileImg.layer.borderWidth = 1
+//        profileImg.layer.masksToBounds = false
+//        profileImg.layer.borderColor = UIColor.white.cgColor
+//        profileImg.layer.cornerRadius = profileImg.frame.height/2
+//        profileImg.clipsToBounds = true
         fetchUser()
         print("Step3 ::::: load post function called")
         loadPosts()
@@ -126,81 +127,75 @@ class UserViewController: UIViewController {
             
         }
         
-        
-       
     }
    
-//    @IBAction func followButtonTapped(_ sender: Any) {
-//
-//        if user.isFollowing == false {
-//
-//            followAction(sender: sender as! UIButton)
-//
-//        } else {
-//
-//            unFollowAction(sender: sender as! UIButton)
-//        }
-//
-//    }
+    @IBAction func followButtonTapped(_ sender: Any) {
+
+        if userFollowing == true {
+
+            configureUnFollowButton()
+
+        } else {
+
+            configureFollowButton()
+        }
+
+    }
+    
     
     func configureFollowButton() {
         followButton.isUserInteractionEnabled = true
-        followButton.setTitle("Follow", for: UIControlState.normal)
+        followButton.setTitle("Unfollow", for: UIControlState.normal)
         followButton.addTarget(self, action: #selector(UserViewController.followAction(sender:)), for: .touchUpInside)
     }
     
     func configureUnFollowButton() {
         followButton.isUserInteractionEnabled = true
-        followButton.setTitle("Unfollow", for: UIControlState.normal)
+        followButton.setTitle("Follow", for: UIControlState.normal)
         followButton.addTarget(self, action: #selector(UserViewController.unFollowAction(sender:)), for: .touchUpInside)
     }
     
     @objc func followAction(sender : UIButton) {
         
-        if userFollowing == false {
-            
+        
             print("userid========\(userVCuserId)")
             API.Follow.followAction(withUser: userVCuserId)
-            configureUnFollowButton()
+
             userFollowing = true
-        }
     }
     
     @objc func unFollowAction(sender : UIButton) {
         
-        if userFollowing == true {
         
             API.Follow.unFollowAction(withUser: userVCuserId)
             
-            configureFollowButton()
         
             userFollowing = false
-        }
     }
     
-    func updateStateFollowButton() {
-        if let status = user.isFollowing {
-            print("status \(status)")
-            if user.isFollowing! {
-                configureUnFollowButton()
-            } else {
-                configureFollowButton()
-            }
-        }
-    }
+//    func updateStateFollowButton() {
+//
+//        if let status = user.isFollowing {
+//            print("status \(status)")
+//            if user.isFollowing! {
+//                configureUnFollowButton()
+//            } else {
+//                configureFollowButton()
+//            }
+//        }
+//    }
     
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        
         print("Step 4 ::::: view will appear called")
         if userFollowing == false {
             followButton.setTitle("Follow", for: .normal)
-            API.Follow.unFollowAction(withUser: userVCuserId)
+
         } else {
             followButton.setTitle("Unfollow", for: .normal)
-            API.Follow.followAction(withUser: userVCuserId)
+
         }
         
         
@@ -227,7 +222,8 @@ class UserViewController: UIViewController {
                 self.activityIndicatorView.stopAnimating()
             
             if let photoURL = user.profileImageURL {
-                self.profileImg.sd_setImage(with: URL(string: photoURL))
+                
+                self.profileImageView.sd_setImage(with: URL(string: photoURL))
                 print(":::USer profile pic::::",photoURL)
             }
             
@@ -236,13 +232,13 @@ class UserViewController: UIViewController {
                 self.userDetail.text = "@\(name)"
             }
                 
-                if userFollowing == true{
-                    
-                    self.configureUnFollowButton()
-                    
+                if userFollowing == true {
+
+                    self.followButton.setTitle("Unfollow", for: UIControlState.normal)
+
                 } else {
-                    
-                    self.configureFollowButton()
+
+                    self.followButton.setTitle("Follow", for: UIControlState.normal)
                 }
                 
             }
@@ -322,7 +318,11 @@ extension UserViewController : UITableViewDelegate,UITableViewDataSource,HomeTab
             
             return cell
         }
-
+        cell.layer.masksToBounds = false
+        cell.layer.shadowColor = UIColor.black.cgColor
+        cell.layer.shadowOffset = CGSize(width: CGFloat(0.5), height: CGFloat(0.5))
+        cell.layer.shadowOpacity = 0.25
+        
         cell.post = posts[indexPath.row]
         cell.userVC = self
         cell.delegate = self
@@ -355,7 +355,7 @@ extension UserViewController : UITableViewDelegate,UITableViewDataSource,HomeTab
     
     func openImageStoryboard(position: Int) {
         
-        let storyboard = UIStoryboard(name: "people", bundle: nil)
+        let storyboard = UIStoryboard(name: "Home", bundle: nil)
         let vc  =  storyboard.instantiateViewController(withIdentifier: "imagezoom") as! ImageZoom
         vc.imageUrl    =   posts[position].photoURL!
         present(vc, animated: true, completion: nil)
