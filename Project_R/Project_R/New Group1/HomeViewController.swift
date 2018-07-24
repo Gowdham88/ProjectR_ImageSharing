@@ -105,9 +105,10 @@ class HomeViewController : UIViewController {
 
             self.posts    = newPost
             self.snapshot = lastsnap
-            self.activityIndicatorView.stopAnimating()
+        self.activityIndicatorView.stopAnimating()
             self.tableView.reloadData()
-            self.refreshControl.endRefreshing()
+        
+                self.refreshControl.endRefreshing()
 
             }
 
@@ -296,11 +297,6 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
     }
     
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-      
-        
-    }
-    
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 
@@ -323,10 +319,32 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
 
     func openUserStoryboard(position: Int) {
     
+//        users.removeAll()
+        
         let storyboard = UIStoryboard(name: "Home", bundle: nil)
         let vc =  storyboard.instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
 //        vc.userId = posts[position].uid!
         userVCuserId = posts[position].uid!
+      
+        print("userVCuserId: \(userVCuserId)")
+        
+//        self.fetchUser(uid: userVCuserId, completed: {
+//            
+//            print("user.count: \(self.users.count)")
+//            print("self.users[0].isFollowing: \(self.users[0].isFollowing)")
+//            
+//            if let somevalue = self.users[0].isFollowing {
+//                
+//                userFollowing = somevalue
+//                
+//            } else {
+//                
+//                userFollowing = false
+//            }
+// 
+//            print("userFollowing: \(userFollowing)")
+//        })
+        
         vc.delegate = self
         self.navigationController?.pushViewController(vc, animated: true)
      

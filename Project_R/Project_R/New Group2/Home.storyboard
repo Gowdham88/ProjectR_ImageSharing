@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -48,7 +48,7 @@
                                                     <color key="textColor" red="0.1647058824" green="0.1647058824" blue="0.1647058824" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QDK-Ad-ZKL">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QDK-Ad-ZKL">
                                                     <rect key="frame" x="0.0" y="100" width="320" height="200"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -429,11 +429,6 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rg4-9T-fGL">
-                                <rect key="frame" x="110" y="350" width="100" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y7W-hA-0mo">
                                 <rect key="frame" x="130" y="120" width="186" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
@@ -513,6 +508,10 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rg4-9T-fGL">
+                                                    <rect key="frame" x="-1" y="100" width="322" height="200"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="fireuncolors" translatesAutoresizingMaskIntoConstraints="NO" id="rqo-mk-2mr">
                                                     <rect key="frame" x="25" y="315" width="21" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -578,7 +577,7 @@
                                             <outlet property="likeImageView" destination="rqo-mk-2mr" id="kyV-S7-tZ1"/>
                                             <outlet property="locationName" destination="Mf9-ZS-kM3" id="pmR-eg-dyx"/>
                                             <outlet property="nameLabel" destination="mW8-hf-khU" id="3oo-pr-FUB"/>
-                                            <outlet property="postImageView" destination="hI4-D2-dmZ" id="gMG-MO-fI1"/>
+                                            <outlet property="postImageView" destination="rg4-9T-fGL" id="HRe-eg-UTl"/>
                                             <outlet property="postTime" destination="ofR-5c-71S" id="syZ-dj-8NP"/>
                                             <outlet property="productNameLabel" destination="zpo-lo-GYN" id="jok-Oj-tO1"/>
                                             <outlet property="productRatingLabel" destination="sCc-fR-IgV" id="DZe-Uz-HaN"/>
@@ -594,7 +593,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hI4-D2-dmZ">
-                                <rect key="frame" x="16" y="106" width="108" height="99"/>
+                                <rect key="frame" x="16" y="106" width="108" height="97"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -615,7 +614,7 @@
                     <connections>
                         <outlet property="activityIndicatorView" destination="kmN-yV-7Py" id="52l-zJ-d5M"/>
                         <outlet property="followButton" destination="PJL-T3-gD2" id="RWO-vA-lMN"/>
-                        <outlet property="profileImg" destination="rg4-9T-fGL" id="IED-be-DWq"/>
+                        <outlet property="profileImageView" destination="hI4-D2-dmZ" id="Wi4-GY-tls"/>
                         <outlet property="tabView" destination="sc7-Ja-Qbx" id="uyj-oi-eBT"/>
                         <outlet property="userDetail" destination="y7W-hA-0mo" id="kON-Va-iih"/>
                         <outlet property="userName" destination="xRJ-Wa-i7a" id="pHw-Qd-teO"/>
@@ -624,7 +623,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ewD-G4-X6w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2001" y="-1124"/>
+            <point key="canvasLocation" x="2000.625" y="-1125"/>
         </scene>
         <!--Image Zoom-->
         <scene sceneID="tuU-1t-hV2">
