@@ -25,7 +25,6 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadUsers()
 
         let textAttributes = [NSAttributedStringKey.foregroundColor: UIColor(red: 0, green: 0, blue: 0, alpha: 1)]
         let textFont = [NSAttributedStringKey.font: UIFont(name: "Avenir Light", size: 16)!]
@@ -131,6 +130,9 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+        
+        loadUsers()
+
         tableView.reloadData()
     }
     
