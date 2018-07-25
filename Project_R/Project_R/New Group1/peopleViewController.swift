@@ -21,6 +21,8 @@ class peopleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var refreshControl = UIRefreshControl()
     var users : [Users] = []
     var userDat: Users!
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
