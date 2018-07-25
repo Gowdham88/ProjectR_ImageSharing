@@ -125,7 +125,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
     
     // The callback to handle data message received via FCM for devices running iOS 10 or above.
     func application(received remoteMessage: MessagingRemoteMessage) {
-        print(remoteMessage.appData)
+        
+        print("remoteMessage.appData: \(remoteMessage.appData)")
+        
+        //let msg = remoteMessage.appData
+        
+        //notificationMessages.append(msg)
+        
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
@@ -152,7 +158,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
     }
     
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+
         print("Firebase registration token: \(fcmToken)")
+        
         self.Userdefaults.set(fcmToken, forKey: "token")
         
         // TODO: If necessary send token to application server.

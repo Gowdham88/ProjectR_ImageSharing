@@ -8,20 +8,18 @@
 
 import UIKit
 
-//protocol  NotificationViewControllerDelegate {
-//
-//    func refreshPostData()
-//}
+var notificationMessages = [String]()
 
-class NotificationViewController: UIViewController {
+class NotificationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    @IBOutlet var myTableview: UITableView!
     
 //    var delegate : NotificationViewControllerDelegate?
 //
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         activityIndicator.startAnimating()
         
         //Navigation title heading - colour setting:-
@@ -29,8 +27,6 @@ class NotificationViewController: UIViewController {
         let textFont = [NSAttributedStringKey.font: UIFont(name: "Avenir Light", size: 16)!]
         self.navigationController?.navigationBar.titleTextAttributes = textFont
         navigationController?.navigationBar.titleTextAttributes = textAttributes
-        
-       
 
         // Do any additional setup after loading the view.
     }
@@ -40,6 +36,21 @@ class NotificationViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = myTableview.reus
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "notifycell", for: indexPath) as! NotificationTableViewCell
+        
+        cell.notifyLabel.text = "Test"
+        
+        return cell
+        
+    }
 
     /*
     // MARK: - Navigation
