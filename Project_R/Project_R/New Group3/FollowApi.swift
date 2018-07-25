@@ -182,27 +182,35 @@ class FollowApi {
     
     
     func isFollowing(userId: String, completed: @escaping(Bool) -> Void) {
-        
         db.collection("following").document((API.User.CURRENT_USER?.uid)!)
             .addSnapshotListener { documentSnapshot, error in
+
+                if let mysnapshotdata = documentSnapshot?.data()
                 
-                var mysnapshotdata = documentSnapshot?.data()
-                
-                print("snapshot?.exists: \(String(describing: mysnapshotdata![userId]))")
-                
-                if mysnapshotdata![userId] == nil {
-                    
-                    print("Completed == False")
-                    
-                    completed(false)
-                    
-                } else {
-                    
-                    print("Completed == True")
+                {
                     
                     completed(true)
                     
+                } else {
+                    
+                    
+                    completed(false)
+                    
                 }
+                
+//                if mysnapshotdata![userId] == nil {
+//
+//                    print("Completed == False")
+//
+//
+//
+//                } else {
+//
+//                    print("Completed == True")
+//
+//
+//
+//                }
                 
                 guard let document = documentSnapshot else {
                     print("Error fetching document: \(error!)")
@@ -286,8 +294,6 @@ class FollowApi {
         //            }
         //        })
     }
-    
-    
     
     
 //    func isFollowingTemp(userId: String, completed: @escaping([String:Any]) -> Void) {

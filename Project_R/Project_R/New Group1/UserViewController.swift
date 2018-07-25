@@ -50,13 +50,22 @@ class UserViewController: UIViewController {
         profileImageView.layer.masksToBounds = false
         profileImageView.layer.cornerRadius = profileImageView.frame.height/2
         profileImageView.clipsToBounds = true
-        
         followButton.isUserInteractionEnabled = true
         
         tabView.scrollsToTop = true
         
         self.tabView.delegate = self
         self.tabView.dataSource = self
+        
+        if userVCuserId == API.User.CURRENT_USER?.uid {
+            
+            self.followButton.isHidden = true
+            
+        } else {
+            
+            self.followButton.isHidden = true
+            
+        }
        
     }
     
@@ -185,9 +194,17 @@ class UserViewController: UIViewController {
                 self.userName.text = name
                 self.userDetail.text = "@\(name)"
             }
-                
+ 
                 print("Fetch User = \(userFollowing)")
                 
+                if userVCuserId == API.User.CURRENT_USER?.uid {
+                    
+                    self.followButton.isHidden = true
+                    
+                } else {
+                    
+                self.followButton.isHidden = false
+                    
                 self.isfollowing(userId: userVCuserId, completed: { (value) in
                     user.isFollowing = value
                     
@@ -206,6 +223,8 @@ class UserViewController: UIViewController {
                     }
                     
                 })
+                    
+                }
                 
             }
             
