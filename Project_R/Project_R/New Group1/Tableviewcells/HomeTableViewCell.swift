@@ -559,15 +559,10 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
                 if self.currentUserUID != postItem.uid {
 
                     self.postNotification(postItem: postItem.documentID!, post: self.post!)
-
-                    print("Different user uid")
+                    
 
 
                 } else {
-
-
-                    print("current user uid")
-                    print("currentUserUID")
 
 
                 }
@@ -664,16 +659,25 @@ class HomeTableViewCell: UITableViewCell,SDWebImageManagerDelegate {
         print("Get token from post:::",post.token)
         print(postItem)
         let token = UserDefaults.standard.string(forKey: "token")
+        
+        print("saved token \(String(describing: token))")
                 //create the url with URL
         
         
         var parameters       = [String:Any]()
-        
+        parameters["username"] = post.userName
         parameters["count"]  = post.likeCount!
         parameters["likedby"]  = currentName
         parameters["postId"] = postItem
         parameters["token"] = post.token!
         
+        print("username is \(String(describing: post.userName))")
+        print("count is \(post.likeCount!)")
+        print("currentName is \(currentName)")
+        print("postItem is \(postItem)")
+        print("token is \(String(describing: post.token))") // getting empty token here
+
+
         let headers: HTTPHeaders = ["Content-Type" :"application/x-www-form-urlencoded"]
         
         var RequestData = URLRequest(url: NSURL.init(string: "http://highavenue.co:9000/likesnotification/")! as URL)

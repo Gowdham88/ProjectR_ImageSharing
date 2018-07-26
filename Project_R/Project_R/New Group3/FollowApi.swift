@@ -161,9 +161,7 @@ class FollowApi {
 //        }
 
         
-        
         stopAnimating()
-        
 
     }
     
@@ -180,7 +178,6 @@ class FollowApi {
         
     }
     
-    
     func isFollowing(userId: String, completed: @escaping(Bool) -> Void) {
         db.collection("following").document((API.User.CURRENT_USER?.uid)!)
             .addSnapshotListener { documentSnapshot, error in
@@ -192,7 +189,6 @@ class FollowApi {
                     completed(true)
                     
                 } else {
-                    
                     
                     completed(false)
                     
