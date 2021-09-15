@@ -24,9 +24,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
     var Userdefaults = UserDefaults.standard
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    
         Fabric.with([Crashlytics.self] )
+     
         //CheckIn view - textfield location search
+     
         setUpGoogleMaps()
+     
         // Override point for customization after application launch.
         // change the tint color on the Tab Bar to Wet Asphalt
 //
@@ -91,6 +95,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
 //
 //        Thread.sleep(forTimeInterval: 3.0)
 //    }
+        
+    
+        
+        let remoteNotif = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? NSDictionary
+        
+        if remoteNotif != nil {
+            
+            let aps = remoteNotif!["aps" as NSString] as? [String:String]
+            let apsString =  String(describing: aps)
+            debugPrint("\n last incoming aps: \(apsString)")
+        
+        }
+        else {
+            
+            NSLog("//////////////////////////Normal launch")
+        }
+        
+        
         
         return true
     }
@@ -227,6 +249,38 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         // Print full message.
         print(userInfo)
         
+        guard
+            let aps = userInfo[AnyHashable("aps")] as? NSDictionary,
+            let alert = aps["alert"] as? NSDictionary,
+            let body = alert["body"] as? String,
+            let title = alert["title"] as? String,
+            let postId = userInfo[AnyHashable("Redirect")] as? String
+            else {
+                // handle any error here
+                return
+        }
+        
+        print("body text value \(body)")
+        print("title value \(title)")
+        print("alert value  \(alert)")
+        print("aps value \(aps)")
+        print("post id \(postId)")
+        
+//        var notDict = [String : String]()
+        
+//        notDict = ["notification" : body,
+//                   "title" : title
+//                ]
+        
+    
+        let db = Firestore.firestore()
+        db.collection("Notifications").document((API.User.CURRENT_USER?.uid)!).setData([
+            "notification" : body,
+             "title" : title
+//             "postId" : postId
+            ]
+           )
+        
         // Change this to your preferred presentation option
         completionHandler([.alert,.badge, .sound])
     }
@@ -243,7 +297,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         
         // Print full message.
         print(userInfo)
-        
+    
         completionHandler()
     }
 }

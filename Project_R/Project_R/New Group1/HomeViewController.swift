@@ -264,8 +264,16 @@ extension HomeViewController: UITableViewDataSource,UITableViewDelegate,HomeTabl
         cell.shareImageView.tag   = indexPath.row
         cell.nameLabel.tag        = indexPath.row
         cell.productRatingLabel.tag = indexPath.row
-//        cell.postTime.tag =
-//        cell.postTime.tag =
+        
+        let rectShape = CAShapeLayer()
+        rectShape.bounds = cell.verifiedLbl.frame
+        rectShape.position = cell.verifiedLbl.center
+        rectShape.path = UIBezierPath(roundedRect: cell.verifiedLbl.bounds, byRoundingCorners: [.bottomLeft  , .topLeft], cornerRadii: CGSize(width: 10, height: 10)).cgPath
+        cell.verifiedLbl.layer.backgroundColor = UIColor.black.cgColor
+        //Here I'm masking the textView's layer with rectShape layer
+        cell.verifiedLbl.layer.mask = rectShape
+      
+
         cell.postTime.tag = indexPath.row
         cell.locationName.tag = indexPath.row
         cell.productNameLabel.tag = indexPath.row
